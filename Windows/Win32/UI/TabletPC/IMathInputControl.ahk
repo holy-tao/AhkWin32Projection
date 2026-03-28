@@ -198,12 +198,12 @@ class IMathInputControl extends IDispatch{
      * @remarks
      * This method will only work when the control is visible.
      * When that ink exceeds the control's current size, and automatic growth is enabled, the control tries to accommodate the input. If the control cannot supply enough space, ink is proportionally shrunk to fit the maximum available size.
-     * @param {IInkDisp} Ink The ink object.
+     * @param {IInkDisp} _Ink 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-loadink
      */
-    LoadInk(Ink) {
-        result := ComCall(15, this, "ptr", Ink, "HRESULT")
+    LoadInk(_Ink) {
+        result := ComCall(15, this, "ptr", _Ink, "HRESULT")
         return result
     }
 

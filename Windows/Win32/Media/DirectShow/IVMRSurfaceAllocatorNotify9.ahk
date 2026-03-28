@@ -76,7 +76,7 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {IDirect3DDevice9} lpD3DDevice Pointer to the <b>IDirect3DDevice9</b> interface of the device.
-     * @param {HMONITOR} hMonitor Handle to a monitor.
+     * @param {HMONITOR} _hMonitor 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -98,10 +98,10 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-setd3ddevice
      */
-    SetD3DDevice(lpD3DDevice, hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    SetD3DDevice(lpD3DDevice, _hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := ComCall(4, this, "ptr", lpD3DDevice, "ptr", hMonitor, "HRESULT")
+        result := ComCall(4, this, "ptr", lpD3DDevice, "ptr", _hMonitor, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {IDirect3DDevice9} lpD3DDevice Pointer to the <b>IDirect3DDevice9</b> interface of the new device.
-     * @param {HMONITOR} hMonitor Handle to the monitor associated with the new device.
+     * @param {HMONITOR} _hMonitor 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -132,10 +132,10 @@ class IVMRSurfaceAllocatorNotify9 extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-changed3ddevice
      */
-    ChangeD3DDevice(lpD3DDevice, hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    ChangeD3DDevice(lpD3DDevice, _hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := ComCall(5, this, "ptr", lpD3DDevice, "ptr", hMonitor, "HRESULT")
+        result := ComCall(5, this, "ptr", lpD3DDevice, "ptr", _hMonitor, "HRESULT")
         return result
     }
 

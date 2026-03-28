@@ -89,17 +89,17 @@ class IWMPEffects2 extends IWMPEffects{
      * The OnWindowMessage method is called by Windows Media Player to pass window messages to a visualization.
      * @remarks
      * Your implementation must only return S_OK if it has handled the window message. If it has not handled the window message, it should return S_FALSE. If this method is not implemented, return E_NOTIMPL.
-     * @param {Integer} msg <b>UINT</b> that identifies the window message.
-     * @param {WPARAM} WParam <b>WPARAM</b> specifying a window message parameter.
-     * @param {LPARAM} LParam <b>LPARAM</b> specifying a window message parameter.
+     * @param {Integer} _msg 
+     * @param {WPARAM} _WParam 
+     * @param {LPARAM} _LParam 
      * @param {Pointer<LRESULT>} plResultParam Pointer to an <b>LRESULT</b> specifying the result code for the window message.
      * @returns {HRESULT} This method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-onwindowmessage
      */
-    OnWindowMessage(msg, WParam, LParam, plResultParam) {
+    OnWindowMessage(_msg, _WParam, _LParam, plResultParam) {
         plResultParamMarshal := plResultParam is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "uint", msg, "ptr", WParam, "ptr", LParam, plResultParamMarshal, plResultParam, "HRESULT")
+        result := ComCall(18, this, "uint", _msg, "ptr", _WParam, "ptr", _LParam, plResultParamMarshal, plResultParam, "HRESULT")
         return result
     }
 

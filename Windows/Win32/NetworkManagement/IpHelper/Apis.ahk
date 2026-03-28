@@ -4116,7 +4116,7 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_TCPROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcprow_owner_module">MIB_TCPROW_OWNER_MODULE</a> structure that contains the IPv4 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} _Class 
      * @param {Pointer} pBuffer A pointer a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter. 
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -4204,10 +4204,10 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromTcpEntry(pTcpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromTcpEntry(pTcpEntry, _Class, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -4468,7 +4468,7 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_UDPROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow_owner_module">MIB_UDPROW_OWNER_MODULE</a> structure that contains the IPv4 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} _Class 
      * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -4508,10 +4508,10 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromudpentry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromUdpEntry(pUdpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromUdpEntry(pUdpEntry, _Class, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -5844,7 +5844,7 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_TCP6ROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_module">MIB_TCP6ROW_OWNER_MODULE</a> structure that contains the IPv6 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} _Class 
      * @param {Pointer} pBuffer A pointer to a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -5932,10 +5932,10 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromTcp6Entry(pTcpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromTcp6Entry(pTcpEntry, _Class, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -6034,7 +6034,7 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_UDP6ROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6row_owner_module">MIB_UDP6ROW_OWNER_MODULE</a> structure that contains the IPv6 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} _Class 
      * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -6074,10 +6074,10 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromudp6entry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromUdp6Entry(pUdpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromUdp6Entry(pUdpEntry, _Class, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -6085,16 +6085,16 @@ class IpHelper {
      * 
      * @param {Integer} ulPid 
      * @param {Pointer<Integer>} pInfo 
-     * @param {Integer} Class_R 
+     * @param {Integer} _Class 
      * @param {Pointer} pBuffer 
      * @param {Pointer<Integer>} pdwSize 
      * @returns {Integer} 
      */
-    static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, _Class, pBuffer, pdwSize) {
         pInfoMarshal := pInfo is VarRef ? "uint*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, "int", _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -8194,12 +8194,8 @@ class IpHelper {
      * 
      * On Windows Vista and later, the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyipinterfacechange">NotifyIpInterfaceChange</a> function  can be used to  register to be notified for changes to IPv4 and IPv6 interfaces on  the local computer.
-     * @param {Pointer<HANDLE>} Handle A pointer to a <b>HANDLE</b> variable that receives a file handle for use in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. 
-     * 
-     * <div class="alert"><b>Warning</b>  Do not close this handle, and do not associate it with a completion port.</div>
-     * <div> </div>
-     * @param {Pointer<OVERLAPPED>} overlapped A pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  notifies the caller of any changes in the table that maps IP addresses to interfaces.
+     * @param {Pointer<HANDLE>} _Handle 
+     * @param {Pointer<OVERLAPPED>} _overlapped 
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING.
      * 
      * If the function fails, use 
@@ -8259,8 +8255,8 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-notifyaddrchange
      * @since windows5.0
      */
-    static NotifyAddrChange(Handle, overlapped) {
-        result := DllCall("IPHLPAPI.dll\NotifyAddrChange", "ptr", Handle, "ptr", overlapped, "uint")
+    static NotifyAddrChange(_Handle, _overlapped) {
+        result := DllCall("IPHLPAPI.dll\NotifyAddrChange", "ptr", _Handle, "ptr", _overlapped, "uint")
         return result
     }
 
@@ -8306,9 +8302,8 @@ class IpHelper {
      * 
      * On Windows Vista and later, the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyroutechange2">NotifyRouteChange2</a> function  can be used to  register to be notified for changes to the IPv6 routing table  on the local computer.
-     * @param {Pointer<HANDLE>} Handle A pointer to a <b>HANDLE</b> variable that receives a handle to use in asynchronous notification.
-     * @param {Pointer<OVERLAPPED>} overlapped A pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  notifies the caller of any changes in the routing table.
+     * @param {Pointer<HANDLE>} _Handle 
+     * @param {Pointer<OVERLAPPED>} _overlapped 
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING. If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
      * 
@@ -8366,8 +8361,8 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-notifyroutechange
      * @since windows5.0
      */
-    static NotifyRouteChange(Handle, overlapped) {
-        result := DllCall("IPHLPAPI.dll\NotifyRouteChange", "ptr", Handle, "ptr", overlapped, "uint")
+    static NotifyRouteChange(_Handle, _overlapped) {
+        result := DllCall("IPHLPAPI.dll\NotifyRouteChange", "ptr", _Handle, "ptr", _overlapped, "uint")
         return result
     }
 
@@ -8438,7 +8433,7 @@ class IpHelper {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-inet_ntoa">inet_ntoa</a> functions.
      * 
      * On Windows Vista and later, the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createunicastipaddressentry">CreateUnicastIpAddressEntry</a> function can be used to add a new unicast IPv4 or IPv6 address entry on a local computer.
-     * @param {Integer} Address The IPv4 address to add to the adapter, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
+     * @param {Integer} _Address 
      * @param {Integer} IpMask The subnet mask for the IPv4 address specified in the <i>Address</i> parameter.   The <b>IPMask</b> parameter uses the same format as an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} IfIndex The index of the adapter on which to add the IPv4 address.
      * @param {Pointer<Integer>} NTEContext A pointer to a <b>ULONG</b> variable. On successful return, this parameter points to the Net Table Entry (NTE) context for the IPv4 address that was added. The caller can later use this context in a call to 
@@ -8535,11 +8530,11 @@ class IpHelper {
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-addipaddress
      * @since windows5.0
      */
-    static AddIPAddress(Address, IpMask, IfIndex, NTEContext, NTEInstance) {
+    static AddIPAddress(_Address, IpMask, IfIndex, NTEContext, NTEInstance) {
         NTEContextMarshal := NTEContext is VarRef ? "uint*" : "ptr"
         NTEInstanceMarshal := NTEInstance is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\AddIPAddress", "uint", Address, "uint", IpMask, "uint", IfIndex, NTEContextMarshal, NTEContext, NTEInstanceMarshal, NTEInstance, "uint")
+        result := DllCall("IPHLPAPI.dll\AddIPAddress", "uint", _Address, "uint", IpMask, "uint", IfIndex, NTEContextMarshal, NTEContext, NTEInstanceMarshal, NTEInstance, "uint")
         return result
     }
 
@@ -9841,20 +9836,20 @@ class IpHelper {
      * 
      * The syntax for the <b>GetIpErrorString</b> function was slightly changed on the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later. The data type for the <i>Buffer</i> parameter was changed from <b>PWCHAR</b> to <b>PWSTR</b>.
      * @param {Integer} ErrorCode The error code to be retrieved. The possible values for this parameter are defined in the <i>Ipexport.h</i> header file.
-     * @param {PWSTR} Buffer_R 
-     * @param {Pointer<Integer>} Size A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
+     * @param {PWSTR} _Buffer 
+     * @param {Pointer<Integer>} _Size 
      * @returns {Integer} Returns NO_ERROR upon success.
      * 
      * If the function fails, use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
      * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getiperrorstring
      * @since windows5.1.2600
      */
-    static GetIpErrorString(ErrorCode, Buffer_R, Size) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static GetIpErrorString(ErrorCode, _Buffer, _Size) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+        _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer_R, SizeMarshal, Size, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", _Buffer, _SizeMarshal, _Size, "uint")
         return result
     }
 
@@ -16519,9 +16514,7 @@ class IpHelper {
 
     /**
      * Retrieves the DNS settings from the interface specified in the *Interface* parameter.
-     * @param {Guid} Interface Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
-     * 
-     * The **GUID** of the COM interface that the settings refer to.
+     * @param {Guid} _Interface 
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings Type: \_Inout\_ const **[DNS_INTERFACE_SETTINGS](ns-netioapi-dns_interface_settings.md)\***
      * 
      * **GetInterfaceDnsSettings** populates all the settings in this structure.
@@ -16534,8 +16527,8 @@ class IpHelper {
      * @returns {Integer} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getinterfacednssettings
      */
-    static GetInterfaceDnsSettings(Interface, Settings) {
-        result := DllCall("IPHLPAPI.dll\GetInterfaceDnsSettings", "ptr", Interface, "ptr", Settings, "uint")
+    static GetInterfaceDnsSettings(_Interface, Settings) {
+        result := DllCall("IPHLPAPI.dll\GetInterfaceDnsSettings", "ptr", _Interface, "ptr", Settings, "uint")
         return result
     }
 
@@ -16551,9 +16544,7 @@ class IpHelper {
 
     /**
      * Sets the per-interface DNS settings specified in the *Settings* parameter.
-     * @param {Guid} Interface Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
-     * 
-     * The **GUID** of the COM interface that the settings refer to.
+     * @param {Guid} _Interface 
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings Type: \_In\_ const **[DNS_INTERFACE_SETTINGS](ns-netioapi-dns_interface_settings.md)\***
      * 
      * A pointer to a **DNS_INTERFACE_SETTINGS**-type structure that contains the DNS interface settings.
@@ -16566,8 +16557,8 @@ class IpHelper {
      * @returns {Integer} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
      * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings
      */
-    static SetInterfaceDnsSettings(Interface, Settings) {
-        result := DllCall("IPHLPAPI.dll\SetInterfaceDnsSettings", "ptr", Interface, "ptr", Settings, "uint")
+    static SetInterfaceDnsSettings(_Interface, Settings) {
+        result := DllCall("IPHLPAPI.dll\SetInterfaceDnsSettings", "ptr", _Interface, "ptr", Settings, "uint")
         return result
     }
 

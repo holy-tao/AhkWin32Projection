@@ -112,9 +112,7 @@ class ID2D1Bitmap extends ID2D1Image{
      * @param {Pointer<D2D_POINT_2U>} destPoint Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2u">D2D1_POINT_2U</a>*</b>
      * 
      * In the current bitmap, the upper-left corner of the area to which the region specified by <i>srcRect</i> is copied.
-     * @param {ID2D1Bitmap} bitmap Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
-     * 
-     * The bitmap to copy from.
+     * @param {ID2D1Bitmap} _bitmap 
      * @param {Pointer<D2D_RECT_U>} srcRect Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-rect-u">D2D1_RECT_U</a>*</b>
      * 
      * The area of <i>bitmap</i> to copy.
@@ -123,8 +121,8 @@ class ID2D1Bitmap extends ID2D1Image{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-copyfrombitmap
      */
-    CopyFromBitmap(destPoint, bitmap, srcRect) {
-        result := ComCall(8, this, "ptr", destPoint, "ptr", bitmap, "ptr", srcRect, "HRESULT")
+    CopyFromBitmap(destPoint, _bitmap, srcRect) {
+        result := ComCall(8, this, "ptr", destPoint, "ptr", _bitmap, "ptr", srcRect, "HRESULT")
         return result
     }
 

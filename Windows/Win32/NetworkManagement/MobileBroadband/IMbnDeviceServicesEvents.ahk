@@ -49,7 +49,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * The Mobile Broadband service will free the memory for <i>commandIDList</i> after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the query was requested.
      * @param {Pointer<SAFEARRAY>} commandIDList An array that contains the list of command IDs supported by the device service.  This field is valid only if the status is <b>S_OK</b>.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the query operation request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -72,15 +72,15 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerysupportedcommandscomplete
      */
-    OnQuerySupportedCommandsComplete(deviceService, commandIDList, status, requestID) {
-        result := ComCall(3, this, "ptr", deviceService, "ptr", commandIDList, "int", status, "uint", requestID, "HRESULT")
+    OnQuerySupportedCommandsComplete(deviceService, commandIDList, _status, requestID) {
+        result := ComCall(3, this, "ptr", deviceService, "ptr", commandIDList, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
     /**
      * Notification method indicating that a device service CommandSessionOpen request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the <b>CommandSessionOpen</b> was requested.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>CommandSessionOpen</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -103,15 +103,15 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onopencommandsessioncomplete
      */
-    OnOpenCommandSessionComplete(deviceService, status, requestID) {
-        result := ComCall(4, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
+    OnOpenCommandSessionComplete(deviceService, _status, requestID) {
+        result := ComCall(4, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
     /**
      * Notification method indicating that a device service CloseCommandSession request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the <b>CloseCommandSession</b> was requested.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the close request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -134,8 +134,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosecommandsessioncomplete
      */
-    OnCloseCommandSessionComplete(deviceService, status, requestID) {
-        result := ComCall(5, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
+    OnCloseCommandSessionComplete(deviceService, _status, requestID) {
+        result := ComCall(5, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the operation was requested.
      * @param {Integer} responseID An identifier for the response.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data returned by the device. If the response is fragmented across multiple indications, this only contains the information for one fragment. This field is valid only if the status is <b>S_OK</b>.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the set operation request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -169,8 +169,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onsetcommandcomplete
      */
-    OnSetCommandComplete(deviceService, responseID, deviceServiceData, status, requestID) {
-        result := ComCall(6, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", status, "uint", requestID, "HRESULT")
+    OnSetCommandComplete(deviceService, responseID, deviceServiceData, _status, requestID) {
+        result := ComCall(6, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the operation was requested.
      * @param {Integer} responseID A identifier for the response.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data returned by the device. If the response is fragmented across multiple indications, this only contains the information for one fragment. This field is valid only if the status is <b>S_OK</b>.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the query operation request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -204,8 +204,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerycommandcomplete
      */
-    OnQueryCommandComplete(deviceService, responseID, deviceServiceData, status, requestID) {
-        result := ComCall(7, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", status, "uint", requestID, "HRESULT")
+    OnQueryCommandComplete(deviceService, responseID, deviceServiceData, _status, requestID) {
+        result := ComCall(7, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
@@ -245,7 +245,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
     /**
      * Notification method indicating that a device service OpenDataSession request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the <b>OpenDataSession</b>  was requested.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>OpenDataSession</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -268,15 +268,15 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onopendatasessioncomplete
      */
-    OnOpenDataSessionComplete(deviceService, status, requestID) {
-        result := ComCall(9, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
+    OnOpenDataSessionComplete(deviceService, _status, requestID) {
+        result := ComCall(9, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
     /**
      * Notification method indicating that a device service session CloseDataSession request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> session object on which the <b>CloseDataSession</b> was requested.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>CloseDataSession</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -299,15 +299,15 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosedatasessioncomplete
      */
-    OnCloseDataSessionComplete(deviceService, status, requestID) {
-        result := ComCall(10, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
+    OnCloseDataSessionComplete(deviceService, _status, requestID) {
+        result := ComCall(10, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 
     /**
      * Notification method indicating that a device service session Write request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> session object on which the <b>Write</b> was requested.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>Write</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -330,8 +330,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onwritedatacomplete
      */
-    OnWriteDataComplete(deviceService, status, requestID) {
-        result := ComCall(11, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
+    OnWriteDataComplete(deviceService, _status, requestID) {
+        result := ComCall(11, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
         return result
     }
 

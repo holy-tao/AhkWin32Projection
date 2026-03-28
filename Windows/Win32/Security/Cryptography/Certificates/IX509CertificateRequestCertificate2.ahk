@@ -70,7 +70,7 @@ class IX509CertificateRequestCertificate2 extends IX509CertificateRequestCertifi
      * 
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is <b>NULL</b>, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -107,8 +107,8 @@ class IX509CertificateRequestCertificate2 extends IX509CertificateRequestCertifi
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate2-initializefromtemplate
      */
-    InitializeFromTemplate(context, pPolicyServer, pTemplate) {
-        result := ComCall(71, this, "int", context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+    InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
+        result := ComCall(71, this, "int", _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
         return result
     }
 
@@ -130,7 +130,7 @@ class IX509CertificateRequestCertificate2 extends IX509CertificateRequestCertifi
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is not specified, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
      * 
      * No private key is created at this point. If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object passed to the method does not represent an existing key, a key is created when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method is called. The key will be created by using the default provider if no template was specified and the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> property on the <b>IX509PrivateKey</b> is not set. When a private key exists, it is set on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_privatekey">PrivateKey</a> property.
-     * @param {Integer} Context 
+     * @param {Integer} _Context 
      * @param {IX509PrivateKey} pPrivateKey Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> interface that represents the private key.
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
@@ -168,8 +168,8 @@ class IX509CertificateRequestCertificate2 extends IX509CertificateRequestCertifi
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate2-initializefromprivatekeytemplate
      */
-    InitializeFromPrivateKeyTemplate(Context, pPrivateKey, pPolicyServer, pTemplate) {
-        result := ComCall(72, this, "int", Context, "ptr", pPrivateKey, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+    InitializeFromPrivateKeyTemplate(_Context, pPrivateKey, pPolicyServer, pTemplate) {
+        result := ComCall(72, this, "int", _Context, "ptr", pPrivateKey, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
         return result
     }
 

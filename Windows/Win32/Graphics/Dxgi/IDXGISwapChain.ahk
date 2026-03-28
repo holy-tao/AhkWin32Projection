@@ -110,7 +110,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
 
     /**
      * Accesses one of the swap-chain's back buffers.
-     * @param {Integer} Buffer_R 
+     * @param {Integer} _Buffer 
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The type of interface used to manipulate the buffer.
@@ -119,8 +119,8 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
      * A pointer to a back-buffer interface.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer
      */
-    GetBuffer(Buffer_R, riid) {
-        result := ComCall(9, this, "uint", Buffer_R, "ptr", riid, "ptr*", &ppSurface := 0, "HRESULT")
+    GetBuffer(_Buffer, riid) {
+        result := ComCall(9, this, "uint", _Buffer, "ptr", riid, "ptr*", &ppSurface := 0, "HRESULT")
         return ppSurface
     }
 

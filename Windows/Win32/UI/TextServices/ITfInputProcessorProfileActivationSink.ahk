@@ -66,7 +66,7 @@ class ITfInputProcessorProfileActivationSink extends IUnknown{
      * @param {Pointer<Guid>} clsid [in] Specifies the CLSID of the text service. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is CLSID_NULL.
      * @param {Pointer<Guid>} catid [in] Specifies the category of this text service. This category is GUID_TFCAT_TIP_KEYBOARD, GUID_TFCAT_TIP_SPEECH, GUID_TFCAT_TIP_HANDWRITING or something in GUID_TFCAT_CATEGORY_OF_TIP. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is GUID_NULL.
      * @param {Pointer<Guid>} guidProfile [in] Specifies the GUID to identify the profile. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is GUID_NULL.
-     * @param {HKL} hkl [in] Specifies the keyboard layout handle of this profile. If <i>dwProfileType</i> is TF_PROFILETYPE_ INPUTPROCESSOR, this is <b>NULL</b>.
+     * @param {HKL} _hkl 
      * @param {Integer} dwFlags [in]
      * 
      * <table>
@@ -88,10 +88,10 @@ class ITfInputProcessorProfileActivationSink extends IUnknown{
      * @returns {HRESULT} The TSF manager ignores the return value of this method.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofileactivationsink-onactivated
      */
-    OnActivated(dwProfileType, langid, clsid, catid, guidProfile, hkl, dwFlags) {
-        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+    OnActivated(dwProfileType, langid, clsid, catid, guidProfile, _hkl, dwFlags) {
+        _hkl := _hkl is Win32Handle ? NumGet(_hkl, "ptr") : _hkl
 
-        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", catid, "ptr", guidProfile, "ptr", hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", catid, "ptr", guidProfile, "ptr", _hkl, "uint", dwFlags, "HRESULT")
         return result
     }
 }

@@ -43,15 +43,15 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
      * @param {Integer} measuringMode 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Integer} glyphImageFormat 
      * @param {COLORREF} textColor 
      * @param {Integer} colorPaletteIndex 
      * @returns {RECT} 
      */
-    DrawPaintGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun, glyphImageFormat, textColor, colorPaletteIndex) {
+    DrawPaintGlyphRun(baselineOriginX, baselineOriginY, measuringMode, _glyphRun, glyphImageFormat, textColor, colorPaletteIndex) {
         blackBoxRect := RECT()
-        result := ComCall(15, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "int", glyphImageFormat, "uint", textColor, "uint", colorPaletteIndex, "ptr", blackBoxRect, "HRESULT")
+        result := ComCall(15, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", _glyphRun, "int", glyphImageFormat, "uint", textColor, "uint", colorPaletteIndex, "ptr", blackBoxRect, "HRESULT")
         return blackBoxRect
     }
 
@@ -60,15 +60,15 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
      * @param {Integer} measuringMode 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {IDWriteRenderingParams} renderingParams 
      * @param {COLORREF} textColor 
      * @param {Integer} colorPaletteIndex 
      * @returns {RECT} 
      */
-    DrawGlyphRunWithColorSupport(baselineOriginX, baselineOriginY, measuringMode, glyphRun, renderingParams, textColor, colorPaletteIndex) {
+    DrawGlyphRunWithColorSupport(baselineOriginX, baselineOriginY, measuringMode, _glyphRun, renderingParams, textColor, colorPaletteIndex) {
         blackBoxRect := RECT()
-        result := ComCall(16, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "ptr", renderingParams, "uint", textColor, "uint", colorPaletteIndex, "ptr", blackBoxRect, "HRESULT")
+        result := ComCall(16, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", _glyphRun, "ptr", renderingParams, "uint", textColor, "uint", colorPaletteIndex, "ptr", blackBoxRect, "HRESULT")
         return blackBoxRect
     }
 }

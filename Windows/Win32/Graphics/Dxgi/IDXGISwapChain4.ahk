@@ -41,9 +41,7 @@ class IDXGISwapChain4 extends IDXGISwapChain3{
      * @param {Integer} Type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_hdr_metadata_type">DXGI_HDR_METADATA_TYPE</a></b>
      * 
      * Specifies one member of the  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_hdr_metadata_type">DXGI_HDR_METADATA_TYPE</a> enum.
-     * @param {Integer} Size Type: <b>UINT</b>
-     * 
-     * Specifies the size of <i>pMetaData</i>, in bytes.
+     * @param {Integer} _Size 
      * @param {Pointer<Void>} pMetaData Type: <b>void*</b>
      * 
      * Specifies a void pointer that references the metadata, if it exists. Refer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ns-dxgi1_5-dxgi_hdr_metadata_hdr10">DXGI_HDR_METADATA_HDR10</a> structure.
@@ -52,10 +50,10 @@ class IDXGISwapChain4 extends IDXGISwapChain3{
      * This method returns an HRESULT success or error code.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgiswapchain4-sethdrmetadata
      */
-    SetHDRMetaData(Type, Size, pMetaData) {
+    SetHDRMetaData(Type, _Size, pMetaData) {
         pMetaDataMarshal := pMetaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(40, this, "int", Type, "uint", Size, pMetaDataMarshal, pMetaData, "HRESULT")
+        result := ComCall(40, this, "int", Type, "uint", _Size, pMetaDataMarshal, pMetaData, "HRESULT")
         return result
     }
 }

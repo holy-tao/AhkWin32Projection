@@ -93,13 +93,13 @@ class IComponentsOld extends IDispatch{
      * 
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
-     * @param {IComponent} Component 
+     * @param {IComponent} _Component 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
-    Add(Component) {
+    Add(_Component) {
         NewIndex := VARIANT()
-        result := ComCall(11, this, "ptr", Component, "ptr", NewIndex, "HRESULT")
+        result := ComCall(11, this, "ptr", _Component, "ptr", NewIndex, "HRESULT")
         return NewIndex
     }
 

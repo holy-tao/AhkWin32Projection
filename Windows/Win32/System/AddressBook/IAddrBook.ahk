@@ -361,7 +361,7 @@ class IAddrBook extends IMAPIProp{
      *   
      *  **Details** supports Unicode character strings; Unicode strings are converted to the multibyte character string (MBCS) format before they are displayed in the details dialog box.
      * @param {Pointer<Pointer>} lpulUIParam > [in] A pointer to a handle of the parent window for the dialog box.
-     * @param {Pointer<LPFNDISMISS>} lpfnDismiss > [in] A pointer to a function based on the [DISMISSMODELESS](dismissmodeless.md) prototype, or NULL. This member applies only to the modeless version of the dialog box, as indicated by the DIALOG_SDI flag being set. MAPI calls the **DISMISSMODELESS** function when the user dismisses the modeless address dialog box, informing a client that is calling **Details** that the dialog box is no longer active.
+     * @param {Pointer<LPFNDISMISS>} _lpfnDismiss 
      * @param {Pointer<Void>} lpvDismissContext > [in] A pointer to context information to pass to the **DISMISSMODELESS** function pointed to by the  _lpfnDismiss_ parameter. This parameter applies only to the modeless version of the dialog box, by including the DIALOG_SDI flag in the _ulFlags_ parameter.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
      * @param {Pointer<ENTRYID>} lpEntryID > [in] A pointer to the entry identifier for the entry for which details are displayed.
@@ -390,13 +390,13 @@ class IAddrBook extends IMAPIProp{
      * > The details dialog box was successfully displayed for the address book entry.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-details
      */
-    Details(lpulUIParam, lpfnDismiss, lpvDismissContext, cbEntryID, lpEntryID, lpfButtonCallback, lpvButtonContext, lpszButtonText, ulFlags) {
+    Details(lpulUIParam, _lpfnDismiss, lpvDismissContext, cbEntryID, lpEntryID, lpfButtonCallback, lpvButtonContext, lpszButtonText, ulFlags) {
         lpulUIParamMarshal := lpulUIParam is VarRef ? "ptr*" : "ptr"
         lpvDismissContextMarshal := lpvDismissContext is VarRef ? "ptr" : "ptr"
         lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : "ptr"
         lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, "uint", ulFlags, "HRESULT")
+        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, "uint", ulFlags, "HRESULT")
         return result
     }
 

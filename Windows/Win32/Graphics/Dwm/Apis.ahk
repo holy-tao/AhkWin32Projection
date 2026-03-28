@@ -115,21 +115,21 @@ class Dwm {
      * Default window procedure for Desktop Window Manager (DWM) hit testing within the non-client area.
      * @remarks
      * When creating custom frames that include the standard caption buttons, <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-nchittest">WM_NCHITTEST</a> and other non-client hit test messages should first be passed to the <b>DwmDefWindowProc</b> function. This enables the DWM to provide hit testing for the captions buttons. If <b>DwmDefWindowProc</b> does not handle the non-client hit test messages, further processing of these messages might be necessary.
-     * @param {HWND} hWnd A handle to the window procedure that received the message.
-     * @param {Integer} msg The message.
-     * @param {WPARAM} wParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
-     * @param {LPARAM} lParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
+     * @param {HWND} _hWnd 
+     * @param {Integer} _msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<LRESULT>} plResult A pointer to an <b>LRESULT</b> value that, when this method returns successfully,receives the result of the hit test.
      * @returns {BOOL} <b>TRUE</b> if <b>DwmDefWindowProc</b> handled the message; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmdefwindowproc
      * @since windows6.0.6000
      */
-    static DwmDefWindowProc(hWnd, msg, wParam, lParam, plResult) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DwmDefWindowProc(_hWnd, _msg, _wParam, _lParam, plResult) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", hWnd, "uint", msg, "ptr", wParam, "ptr", lParam, plResultMarshal, plResult, "int")
+        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", _hWnd, "uint", _msg, "ptr", _wParam, "ptr", _lParam, plResultMarshal, plResult, "int")
         return result
     }
 
@@ -148,7 +148,7 @@ class Dwm {
      * This function can be called only on top-level windows. An error occurs when this function is called on other window types.
      * 
      * This function must be called whenever Desktop Window Manager (DWM) composition is toggled. Handle the <a href="https://docs.microsoft.com/windows/win32/dwm/wm-dwmcompositionchanged">WM_DWMCOMPOSITIONCHANGED</a> message for composition change notification.
-     * @param {HWND} hWnd The handle to the window on which the blur-behind data is applied.
+     * @param {HWND} _hWnd 
      * @param {Pointer<DWM_BLURBEHIND>} pBlurBehind `[in]`
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_blurbehind">DWM_BLURBEHIND</a> structure that provides blur-behind data.
@@ -156,10 +156,10 @@ class Dwm {
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmenableblurbehindwindow
      * @since windows6.0.6000
      */
-    static DwmEnableBlurBehindWindow(hWnd, pBlurBehind) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DwmEnableBlurBehindWindow(_hWnd, pBlurBehind) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("dwmapi.dll\DwmEnableBlurBehindWindow", "ptr", hWnd, "ptr", pBlurBehind, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmEnableBlurBehindWindow", "ptr", _hWnd, "ptr", pBlurBehind, "HRESULT")
         return result
     }
 
@@ -201,16 +201,16 @@ class Dwm {
      * This function must be called whenever Desktop Window Manager (DWM) composition is toggled. Handle the <a href="https://docs.microsoft.com/windows/desktop/dwm/wm-dwmcompositionchanged">WM_DWMCOMPOSITIONCHANGED</a> message for composition change notification. 
      * 
      * Use negative margin values to create the "sheet of glass" effect where the client area is rendered as a solid surface with no window border.
-     * @param {HWND} hWnd The handle to the window in which the frame will be extended into the client area.
+     * @param {HWND} _hWnd 
      * @param {Pointer<MARGINS>} pMarInset A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a> structure that describes the margins to use when extending the frame into the client area.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmextendframeintoclientarea
      * @since windows6.0.6000
      */
-    static DwmExtendFrameIntoClientArea(hWnd, pMarInset) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DwmExtendFrameIntoClientArea(_hWnd, pMarInset) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("dwmapi.dll\DwmExtendFrameIntoClientArea", "ptr", hWnd, "ptr", pMarInset, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmExtendFrameIntoClientArea", "ptr", _hWnd, "ptr", pMarInset, "HRESULT")
         return result
     }
 
@@ -234,26 +234,22 @@ class Dwm {
 
     /**
      * Retrieves the current composition timing information for a specified window.
-     * @param {HWND} hwnd The handle to the window for which the composition timing information should be retrieved.
-     *         
-     *                         
-     * 
-     * Starting with Windows 8.1, this parameter must be set to <b>NULL</b>. If this parameter is not set to <b>NULL</b>, <b>DwmGetCompositionTimingInfo</b> returns E_INVALIDARG.
+     * @param {HWND} _hwnd 
      * @param {Pointer<DWM_TIMING_INFO>} pTimingInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_timing_info">DWM_TIMING_INFO</a> structure that, when this function returns successfully, receives the current composition timing information for the window. The <b>cbSize</b> member of this structure must be set before this function is called.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetcompositiontiminginfo
      * @since windows6.0.6000
      */
-    static DwmGetCompositionTimingInfo(hwnd, pTimingInfo) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmGetCompositionTimingInfo(_hwnd, pTimingInfo) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmGetCompositionTimingInfo", "ptr", hwnd, "ptr", pTimingInfo, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmGetCompositionTimingInfo", "ptr", _hwnd, "ptr", pTimingInfo, "HRESULT")
         return result
     }
 
     /**
      * Retrieves the current value of a specified Desktop Window Manager (DWM) attribute applied to a window.
-     * @param {HWND} hwnd The handle to the window from which the attribute value is to be retrieved.
+     * @param {HWND} _hwnd 
      * @param {Integer} dwAttribute A flag describing which value to retrieve, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to retrieve, and the *pvAttribute* parameter points to an object into which the attribute value is retrieved.
      * @param {Pointer} pvAttribute A pointer to a value which, when this function returns successfully, receives the current value of the attribute. The type of the retrieved value depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being received via the *pvAttribute* parameter. The type of the retrieved value, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
@@ -263,10 +259,10 @@ class Dwm {
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetwindowattribute
      * @since windows6.0.6000
      */
-    static DwmGetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmGetWindowAttribute(_hwnd, dwAttribute, pvAttribute, cbAttribute) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmGetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmGetWindowAttribute", "ptr", _hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
         return result
     }
 
@@ -289,17 +285,17 @@ class Dwm {
 
     /**
      * Changes the number of monitor refreshes through which the previous frame will be displayed. DwmModifyPreviousDxFrameDuration is no longer supported. Starting with Windows 8.1, calls to DwmModifyPreviousDxFrameDuration always return E_NOTIMPL.
-     * @param {HWND} hwnd The handle to the window for which the new duration is applied to the previous frame.
+     * @param {HWND} _hwnd 
      * @param {Integer} cRefreshes The number of refreshes to apply to the previous frame.
      * @param {BOOL} fRelative <b>TRUE</b> if the value given in <i>cRefreshes</i> is relative to the current value (added to or subtracted from it); <b>FALSE</b> if the value replaces the current value.
      * @returns {HRESULT} This function always returns S_OK, even when DWM is not running.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmmodifypreviousdxframeduration
      * @since windows6.0.6000
      */
-    static DwmModifyPreviousDxFrameDuration(hwnd, cRefreshes, fRelative) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmModifyPreviousDxFrameDuration(_hwnd, cRefreshes, fRelative) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int", fRelative, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", _hwnd, "int", cRefreshes, "int", fRelative, "HRESULT")
         return result
     }
 
@@ -342,31 +338,31 @@ class Dwm {
      * Sets the number of monitor refreshes through which to display the presented frame. DwmSetDxFrameDuration is no longer supported. Starting with Windows 8.1, calls to DwmSetDxFrameDuration always return E_NOTIMPL.
      * @remarks
      * The DWM will attempt to display the presented frame for at least the number of monitor refreshes specified. It might be impossible to display the frame for the precise number of refreshes due to the current composition rate. If the frame is presented late to the DWM or the DWM is late in composing, a frame could be displayed for fewer than the number of refreshes requested or even skipped completely.
-     * @param {HWND} hwnd The handle to the window that displays the presented frame.
+     * @param {HWND} _hwnd 
      * @param {Integer} cRefreshes The number of refreshes through which to display the presented frame.
      * @returns {HRESULT} This function always returns S_OK, even when the frame duration is not changed or DWM is not running.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmsetdxframeduration
      * @since windows6.0.6000
      */
-    static DwmSetDxFrameDuration(hwnd, cRefreshes) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmSetDxFrameDuration(_hwnd, cRefreshes) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", "ptr", _hwnd, "int", cRefreshes, "HRESULT")
         return result
     }
 
     /**
      * Sets the present parameters for frame composition. DwmSetPresentParameters is no longer supported. Starting with Windows 8.1, calls to DwmSetPresentParameters always return E_NOTIMPL.
-     * @param {HWND} hwnd The handle to the window where the present parameters are applied.
+     * @param {HWND} _hwnd 
      * @param {Pointer<DWM_PRESENT_PARAMETERS>} pPresentParams A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_present_parameters">DWM_PRESENT_PARAMETERS</a> structure that contains DWM video frame parameters for frame composition.
      * @returns {HRESULT} This function always returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmsetpresentparameters
      * @since windows6.0.6000
      */
-    static DwmSetPresentParameters(hwnd, pPresentParams) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmSetPresentParameters(_hwnd, pPresentParams) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmSetPresentParameters", "ptr", hwnd, "ptr", pPresentParams, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmSetPresentParameters", "ptr", _hwnd, "ptr", pPresentParams, "HRESULT")
         return result
     }
 
@@ -374,7 +370,7 @@ class Dwm {
      * Sets the value of Desktop Window Manager (DWM) non-client rendering attributes for a window.
      * @remarks
      * It's not valid to call this function with the *dwAttribute* parameter set to **DWMWA_NCRENDERING_ENABLED**. To enable or disable non-client rendering, you should use the **DWMWA_NCRENDERING_POLICY** attribute, and set the desired value. For more info, and a code example, see [Controlling non-client region rendering](/windows/desktop/dwm/composition-ovw#controlling-non-client-region-rendering).
-     * @param {HWND} hwnd The handle to the window for which the attribute value is to be set.
+     * @param {HWND} _hwnd 
      * @param {Integer} dwAttribute A flag describing which value to set, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to set, and the *pvAttribute* parameter points to an object containing the attribute value.
      * @param {Pointer} pvAttribute A pointer to an object containing the attribute value to set. The type of the value set depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being set via the *pvAttribute* parameter. The type of the value set, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
@@ -386,10 +382,10 @@ class Dwm {
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute
      * @since windows6.0.6000
      */
-    static DwmSetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmSetWindowAttribute(_hwnd, dwAttribute, pvAttribute, cbAttribute) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmSetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmSetWindowAttribute", "ptr", _hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
         return result
     }
 
@@ -430,18 +426,18 @@ class Dwm {
      * The application calls <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwminvalidateiconicbitmaps">DwmInvalidateIconicBitmaps</a> to indicate to the Desktop Window Manager (DWM) that the iconic thumbnail and live preview bitmaps are out-of-date and should be refreshed. The DWM then requests new versions from the window when they are needed. However, if the DWM bitmap cache is full, DWM will not request updated versions.
      * 
      * The DWM uses a copy of the bitmap, but the application can release this copy at any time because of memory constraints. If the copy is released, the window is not notified, but it might receive a subsequent <a href="https://docs.microsoft.com/windows/desktop/dwm/wm-dwmsendiconicthumbnail">WM_DWMSENDICONICTHUMBNAIL</a> request when its thumbnail is needed again. The caller retains ownership of the original bitmap and is responsible for freeing the resources that it uses when it is no longer needed.
-     * @param {HWND} hwnd A handle to the window or tab. This window must belong to the calling process.
+     * @param {HWND} _hwnd 
      * @param {HBITMAP} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Integer} dwSITFlags 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmseticonicthumbnail
      * @since windows6.1
      */
-    static DwmSetIconicThumbnail(hwnd, hbmp, dwSITFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmSetIconicThumbnail(_hwnd, hbmp, dwSITFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
 
-        result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", "ptr", hwnd, "ptr", hbmp, "uint", dwSITFlags, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", "ptr", _hwnd, "ptr", hbmp, "uint", dwSITFlags, "HRESULT")
         return result
     }
 
@@ -453,7 +449,7 @@ class Dwm {
      * A window typically calls the <b>DwmSetIconicLivePreviewBitmap</b> function in response to a <a href="https://docs.microsoft.com/windows/desktop/dwm/wm-dwmsendiconiclivepreviewbitmap">WM_DWMSENDICONICLIVEPREVIEWBITMAP</a> message. The returned bitmap must not be larger than the client area of the window or frame and must have 32-bit color depth.
      * 
      * The Desktop Window Manager (DWM) uses a copy of the bitmap, but the caller retains ownership of the original bitmap and is responsible for freeing the resources that it uses when it is no longer needed. The DWM does not keep its copy of the bitmap when the DWM stops displaying the live preview representation.
-     * @param {HWND} hwnd A handle to the window. This window must belong to the calling process.
+     * @param {HWND} _hwnd 
      * @param {HBITMAP} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Pointer<POINT>} pptClient The offset of a tab window's <i>client region</i> (the content area inside the client window frame) from the host window's frame. This offset enables the tab window's contents to be drawn correctly in a live preview  when it is drawn without its frame.
      * @param {Integer} dwSITFlags The display options for the live preview. This parameter can be 0 or the following value.
@@ -461,11 +457,11 @@ class Dwm {
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmseticoniclivepreviewbitmap
      * @since windows6.1
      */
-    static DwmSetIconicLivePreviewBitmap(hwnd, hbmp, pptClient, dwSITFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmSetIconicLivePreviewBitmap(_hwnd, hbmp, pptClient, dwSITFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
 
-        result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", "ptr", hwnd, "ptr", hbmp, "ptr", pptClient, "uint", dwSITFlags, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", "ptr", _hwnd, "ptr", hbmp, "ptr", pptClient, "uint", dwSITFlags, "HRESULT")
         return result
     }
 
@@ -473,43 +469,43 @@ class Dwm {
      * Called by an application to indicate that all previously provided iconic bitmaps from a window, both thumbnails and peek representations, should be refreshed.
      * @remarks
      * Calling this function causes the Desktop Window Manager (DWM) to invalidate its current bitmaps for the window and request new bitmaps from the window when they are next needed. <b>DwmInvalidateIconicBitmaps</b> should not be called frequently. Doing so can lead to poor performance as new bitmaps are created and retrieved.
-     * @param {HWND} hwnd A handle to the window or tab whose bitmaps are being invalidated through this call. This window must belong to the calling process.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwminvalidateiconicbitmaps
      * @since windows6.1
      */
-    static DwmInvalidateIconicBitmaps(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmInvalidateIconicBitmaps(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmInvalidateIconicBitmaps", "ptr", hwnd, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmInvalidateIconicBitmaps", "ptr", _hwnd, "HRESULT")
         return result
     }
 
     /**
      * This function is not implemented. (DwmAttachMilContent)
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmattachmilcontent
      * @since windows6.0.6000
      */
-    static DwmAttachMilContent(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmAttachMilContent(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmAttachMilContent", "ptr", hwnd, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmAttachMilContent", "ptr", _hwnd, "HRESULT")
         return result
     }
 
     /**
      * This function is not implemented. (DwmDetachMilContent)
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmdetachmilcontent
      * @since windows6.0.6000
      */
-    static DwmDetachMilContent(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmDetachMilContent(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmDetachMilContent", "ptr", hwnd, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmDetachMilContent", "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -572,16 +568,16 @@ class Dwm {
 
     /**
      * Coordinates the animations of tool windows with the Desktop Window Manager (DWM).
-     * @param {HWND} hwnd Handle to the window.
+     * @param {HWND} _hwnd 
      * @param {Integer} target 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmtransitionownedwindow
      * @since windows8.0
      */
-    static DwmTransitionOwnedWindow(hwnd, target) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DwmTransitionOwnedWindow(_hwnd, target) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dwmapi.dll\DwmTransitionOwnedWindow", "ptr", hwnd, "int", target, "HRESULT")
+        result := DllCall("dwmapi.dll\DwmTransitionOwnedWindow", "ptr", _hwnd, "int", target, "HRESULT")
         return result
     }
 

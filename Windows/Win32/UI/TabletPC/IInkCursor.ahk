@@ -127,8 +127,8 @@ class IInkCursor extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_inverted
      */
     get_Inverted() {
-        result := ComCall(9, this, "short*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(9, this, "short*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**

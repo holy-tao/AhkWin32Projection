@@ -93,15 +93,15 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @param {Integer} ullHandlerCookie 
      * @param {BSTR} functionName 
      * @param {Integer} line 
-     * @param {Integer} column 
+     * @param {Integer} _column 
      * @param {Integer} cchLength 
      * @param {IUnknown} pDebugDocumentContext 
      * @returns {HRESULT} 
      */
-    BeforeInvokeCallback(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, column, cchLength, pDebugDocumentContext) {
+    BeforeInvokeCallback(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, _column, cchLength, pDebugDocumentContext) {
         functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
 
-        result := ComCall(8, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        result := ComCall(8, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", _column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
         return result
     }
 
@@ -113,15 +113,15 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @param {Integer} ullHandlerCookie 
      * @param {BSTR} functionName 
      * @param {Integer} line 
-     * @param {Integer} column 
+     * @param {Integer} _column 
      * @param {Integer} cchLength 
      * @param {IUnknown} pDebugDocumentContext 
      * @returns {HRESULT} 
      */
-    InvokeCallbackComplete(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, column, cchLength, pDebugDocumentContext) {
+    InvokeCallbackComplete(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, _column, cchLength, pDebugDocumentContext) {
         functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
 
-        result := ComCall(9, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        result := ComCall(9, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", _column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
         return result
     }
 }

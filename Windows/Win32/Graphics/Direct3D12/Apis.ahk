@@ -2443,9 +2443,7 @@ class Direct3D12 {
      * @param {Pointer<D3D12_ROOT_SIGNATURE_DESC>} pRootSignature Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a>*</b>
      * 
      * The description of the root signature, as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
-     * @param {Integer} Version Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a></b>
-     * 
-     * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a>-typed value that specifies the version of root signature.
+     * @param {Integer} _Version 
      * @param {Pointer<ID3DBlob>} ppBlob Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access the serialized root signature.
@@ -2457,8 +2455,8 @@ class Direct3D12 {
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature
      */
-    static D3D12SerializeRootSignature(pRootSignature, Version, ppBlob, ppErrorBlob) {
-        result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", Version, "ptr*", ppBlob, "ptr*", ppErrorBlob, "HRESULT")
+    static D3D12SerializeRootSignature(pRootSignature, _Version, ppBlob, ppErrorBlob) {
+        result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", _Version, "ptr*", ppBlob, "ptr*", ppErrorBlob, "HRESULT")
         return result
     }
 

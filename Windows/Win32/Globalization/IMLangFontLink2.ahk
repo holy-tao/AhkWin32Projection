@@ -33,27 +33,27 @@ class IMLangFontLink2 extends IMLangCodePages{
 
     /**
      * 
-     * @param {HDC} hDC 
-     * @param {HFONT} hFont 
+     * @param {HDC} _hDC 
+     * @param {HFONT} _hFont 
      * @returns {Integer} 
      */
-    GetFontCodePages(hDC, hFont) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    GetFontCodePages(_hDC, _hFont) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
+        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
 
-        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, "uint*", &pdwCodePages := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _hDC, "ptr", _hFont, "uint*", &pdwCodePages := 0, "HRESULT")
         return pdwCodePages
     }
 
     /**
      * 
-     * @param {HFONT} hFont 
+     * @param {HFONT} _hFont 
      * @returns {HRESULT} 
      */
-    ReleaseFont(hFont) {
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    ReleaseFont(_hFont) {
+        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
 
-        result := ComCall(8, this, "ptr", hFont, "HRESULT")
+        result := ComCall(8, this, "ptr", _hFont, "HRESULT")
         return result
     }
 
@@ -68,48 +68,48 @@ class IMLangFontLink2 extends IMLangCodePages{
 
     /**
      * 
-     * @param {HDC} hDC 
+     * @param {HDC} _hDC 
      * @param {Integer} dwCodePages 
      * @param {Integer} chSrc 
      * @returns {HFONT} 
      */
-    MapFont(hDC, dwCodePages, chSrc) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    MapFont(_hDC, dwCodePages, chSrc) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
         pFont := HFONT()
-        result := ComCall(10, this, "ptr", hDC, "uint", dwCodePages, "char", chSrc, "ptr", pFont, "HRESULT")
+        result := ComCall(10, this, "ptr", _hDC, "uint", dwCodePages, "char", chSrc, "ptr", pFont, "HRESULT")
         return pFont
     }
 
     /**
      * The GetFontUnicodeRanges function returns information about which Unicode characters are supported by a font. The information is returned as a GLYPHSET structure.
-     * @param {HDC} hDC 
+     * @param {HDC} _hDC 
      * @param {Pointer<Integer>} puiRanges 
      * @returns {UNICODERANGE} 
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontunicoderanges
      */
-    GetFontUnicodeRanges(hDC, puiRanges) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    GetFontUnicodeRanges(_hDC, puiRanges) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
         puiRangesMarshal := puiRanges is VarRef ? "uint*" : "ptr"
 
         pUranges := UNICODERANGE()
-        result := ComCall(11, this, "ptr", hDC, puiRangesMarshal, puiRanges, "ptr", pUranges, "HRESULT")
+        result := ComCall(11, this, "ptr", _hDC, puiRangesMarshal, puiRanges, "ptr", pUranges, "HRESULT")
         return pUranges
     }
 
     /**
      * 
-     * @param {Integer} sid 
+     * @param {Integer} _sid 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} puiFonts 
      * @returns {SCRIPTFONTINFO} 
      */
-    GetScriptFontInfo(sid, dwFlags, puiFonts) {
+    GetScriptFontInfo(_sid, dwFlags, puiFonts) {
         puiFontsMarshal := puiFonts is VarRef ? "uint*" : "ptr"
 
         pScriptFont := SCRIPTFONTINFO()
-        result := ComCall(12, this, "char", sid, "uint", dwFlags, puiFontsMarshal, puiFonts, "ptr", pScriptFont, "HRESULT")
+        result := ComCall(12, this, "char", _sid, "uint", dwFlags, puiFontsMarshal, puiFonts, "ptr", pScriptFont, "HRESULT")
         return pScriptFont
     }
 
@@ -119,7 +119,7 @@ class IMLangFontLink2 extends IMLangCodePages{
      * @returns {Integer} 
      */
     CodePageToScriptID(uiCodePage) {
-        result := ComCall(13, this, "uint", uiCodePage, "char*", &pSid := 0, "HRESULT")
-        return pSid
+        result := ComCall(13, this, "uint", uiCodePage, "char*", &_pSid := 0, "HRESULT")
+        return _pSid
     }
 }

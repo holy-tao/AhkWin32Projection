@@ -50,7 +50,7 @@ class IAppxManifestOSPackageDependency extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion() {
-        result := ComCall(4, this, "uint*", &version := 0, "HRESULT")
-        return version
+        result := ComCall(4, this, "uint*", &_version := 0, "HRESULT")
+        return _version
     }
 }

@@ -39,14 +39,14 @@ class IRawElementProviderWindowlessSite extends IUnknown{
      * 
      * 
      * A provider typically calls this method as part of handling the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-navigate">IRawElementProviderFragment::Navigate</a>  method.
-     * @param {Integer} direction 
+     * @param {Integer} _direction 
      * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
      * 
      * Receives the adjacent fragment.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getadjacentfragment
      */
-    GetAdjacentFragment(direction) {
-        result := ComCall(3, this, "int", direction, "ptr*", &ppParent := 0, "HRESULT")
+    GetAdjacentFragment(_direction) {
+        result := ComCall(3, this, "int", _direction, "ptr*", &ppParent := 0, "HRESULT")
         return IRawElementProviderFragment(ppParent)
     }
 

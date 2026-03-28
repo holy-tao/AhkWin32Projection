@@ -34,8 +34,8 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberRegisters() {
-        result := ComCall(3, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(3, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**
@@ -195,8 +195,8 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberPseudoRegisters() {
-        result := ComCall(16, this, "uint*", &Number_R := 0, "HRESULT")
-        return Number_R
+        result := ComCall(16, this, "uint*", &_Number := 0, "HRESULT")
+        return _Number
     }
 
     /**

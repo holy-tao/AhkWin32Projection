@@ -959,9 +959,9 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {BSTR} 
      */
     toString() {
-        String_R := BSTR()
-        result := ComCall(69, this, "ptr", String_R, "HRESULT")
-        return String_R
+        _String := BSTR()
+        result := ComCall(69, this, "ptr", _String, "HRESULT")
+        return _String
     }
 
     /**

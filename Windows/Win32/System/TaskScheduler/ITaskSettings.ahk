@@ -770,12 +770,12 @@ class ITaskSettings extends IDispatch{
      * Task priority 4 corresponds to memory priority `MEMORY_PRIORITY_NORMAL(5)`, 5 to `MEMORY_PRIORITY_BELOW_NORMAL(4)` and 6 to `MEMORY_PRIORITY_MEDIUM(3)`.
      * 
      * When reading or writing XML for a task, this setting is specified in the <a href="https://docs.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-priority-settingstype-element">Priority (settingsType)</a> element of the Task Scheduler schema.
-     * @param {Integer} priority 
+     * @param {Integer} _priority 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_priority
      */
-    put_Priority(priority) {
-        result := ComCall(34, this, "int", priority, "HRESULT")
+    put_Priority(_priority) {
+        result := ComCall(34, this, "int", _priority, "HRESULT")
         return result
     }
 

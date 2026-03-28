@@ -122,13 +122,13 @@ class IImePadApplet extends IUnknown{
      * </table>
      * @param {IUnknown} lpImePad Pointer of IUnknown interface. To get the <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepad">IImePad</a> interface pointer, use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>.
      * @param {Integer} notify The <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepadapplet">IImePadApplet</a> notify code. See Remarks for the possible codes.
-     * @param {WPARAM} wParam Additional information specific to <i>notify</i>.
-     * @param {LPARAM} lParam Additional information specific to <i>notify</i>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-notify
      */
-    Notify(lpImePad, notify, wParam, lParam) {
-        result := ComCall(7, this, "ptr", lpImePad, "int", notify, "ptr", wParam, "ptr", lParam, "HRESULT")
+    Notify(lpImePad, notify, _wParam, _lParam) {
+        result := ComCall(7, this, "ptr", lpImePad, "int", notify, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 }

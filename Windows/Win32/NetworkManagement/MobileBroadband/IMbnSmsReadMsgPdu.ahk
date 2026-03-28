@@ -80,8 +80,8 @@ class IMbnSmsReadMsgPdu extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_status
      */
     get_Status() {
-        result := ComCall(4, this, "int*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(4, this, "int*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**

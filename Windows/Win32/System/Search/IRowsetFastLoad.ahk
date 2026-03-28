@@ -30,16 +30,16 @@ class IRowsetFastLoad extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pData 
      * @returns {HRESULT} 
      */
-    InsertRow(hAccessor, pData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    InsertRow(_hAccessor, pData) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
+        result := ComCall(3, this, "ptr", _hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 

@@ -49,7 +49,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * @param {BSTR} bstrPolicyServerId A <b>BSTR</b> variable that contains a unique ID for the certificate enrollment policy server. If this value is not <b>NULL</b>, it must match the ID string returned by the CEP response.
      * @param {Integer} authFlags 
      * @param {VARIANT_BOOL} fIsUnTrusted A Boolean value that specifies whether to allow an untrusted certification authority certificates.
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -106,11 +106,11 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initialize
      */
-    Initialize(bstrPolicyServerUrl, bstrPolicyServerId, authFlags, fIsUnTrusted, context) {
+    Initialize(bstrPolicyServerUrl, bstrPolicyServerId, authFlags, fIsUnTrusted, _context) {
         bstrPolicyServerUrl := bstrPolicyServerUrl is String ? BSTR.Alloc(bstrPolicyServerUrl).Value : bstrPolicyServerUrl
         bstrPolicyServerId := bstrPolicyServerId is String ? BSTR.Alloc(bstrPolicyServerId).Value : bstrPolicyServerId
 
-        result := ComCall(7, this, "ptr", bstrPolicyServerUrl, "ptr", bstrPolicyServerId, "int", authFlags, "short", fIsUnTrusted, "int", context, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrPolicyServerUrl, "ptr", bstrPolicyServerId, "int", authFlags, "short", fIsUnTrusted, "int", _context, "HRESULT")
         return result
     }
 
@@ -451,7 +451,7 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * Initializes the certificate enrollment policy (CEP) server from a collection of templates and object identifiers.
      * @remarks
      * Call this method to import templates and OIDs previously written to a buffer by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-export">Export</a> method.
-     * @param {VARIANT} val A <b>VARIANT</b> of type <b>VT_ARRAY|VT_UI1</b> that contains the templates and object identifiers.
+     * @param {VARIANT} _val 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -486,8 +486,8 @@ class IX509EnrollmentPolicyServer extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-initializeimport
      */
-    InitializeImport(val) {
-        result := ComCall(27, this, "ptr", val, "HRESULT")
+    InitializeImport(_val) {
+        result := ComCall(27, this, "ptr", _val, "HRESULT")
         return result
     }
 

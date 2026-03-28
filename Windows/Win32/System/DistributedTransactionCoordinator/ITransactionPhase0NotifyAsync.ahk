@@ -40,11 +40,11 @@ class ITransactionPhase0NotifyAsync extends IUnknown{
 
     /**
      * 
-     * @param {HRESULT} status 
+     * @param {HRESULT} _status 
      * @returns {HRESULT} 
      */
-    EnlistCompleted(status) {
-        result := ComCall(4, this, "int", status, "HRESULT")
+    EnlistCompleted(_status) {
+        result := ComCall(4, this, "int", _status, "HRESULT")
         return result
     }
 }

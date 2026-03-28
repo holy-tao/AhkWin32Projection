@@ -223,14 +223,14 @@ class IXpsSignatureManager extends IUnknown{
      * 
      * </div>
      * <div> </div>
-     * @param {Pointer<CERT_CONTEXT>} x509Certificate A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the X.509 certificate to be used for signing.
+     * @param {Pointer<CERT_CONTEXT>} _x509Certificate 
      * @returns {IXpsSignature} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface that contains the new digital signature.
      * 
      * If successful, this method creates the signature part, adds it to the package, and in <i>signature</i> returns a pointer to the interface of that signature part.
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-sign
      */
-    Sign(signOptions, x509Certificate) {
-        result := ComCall(5, this, "ptr", signOptions, "ptr", x509Certificate, "ptr*", &signature := 0, "HRESULT")
+    Sign(signOptions, _x509Certificate) {
+        result := ComCall(5, this, "ptr", signOptions, "ptr", _x509Certificate, "ptr*", &signature := 0, "HRESULT")
         return IXpsSignature(signature)
     }
 

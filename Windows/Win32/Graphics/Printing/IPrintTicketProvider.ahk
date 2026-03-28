@@ -49,14 +49,14 @@ class IPrintTicketProvider extends IUnknown{
     /**
      * 
      * @param {PRINTER_HANDLE} hPrinter 
-     * @param {Integer} version 
+     * @param {Integer} _version 
      * @param {Pointer<Integer>} pOptions 
      * @param {Pointer<Integer>} pDevModeFlags 
      * @param {Pointer<Integer>} cNamespaces 
      * @param {Pointer<Pointer<BSTR>>} ppNamespaces 
      * @returns {HRESULT} 
      */
-    BindPrinter(hPrinter, version, pOptions, pDevModeFlags, cNamespaces, ppNamespaces) {
+    BindPrinter(hPrinter, _version, pOptions, pDevModeFlags, cNamespaces, ppNamespaces) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
@@ -64,7 +64,7 @@ class IPrintTicketProvider extends IUnknown{
         cNamespacesMarshal := cNamespaces is VarRef ? "int*" : "ptr"
         ppNamespacesMarshal := ppNamespaces is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hPrinter, "int", version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
+        result := ComCall(4, this, "ptr", hPrinter, "int", _version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
         return result
     }
 

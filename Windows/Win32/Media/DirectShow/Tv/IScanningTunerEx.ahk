@@ -246,13 +246,13 @@ class IScanningTunerEx extends IScanningTuner{
 
     /**
      * This topic applies to Windows Vista and later.
-     * @param {Integer} ScanModulationTypes Specifies the modulation types, as a bitwise OR of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/scanmodulationtypes">ScanModulationTypes</a> enumeration. If the value is 0xFFFFFFFF, the tuner does not filter out any specific modulation types.
-     * @param {Integer} AnalogVideoStandard Specifies the analog standards, as a bitwise OR of flags from the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> enumeration. If the value is 0xFFFFFFFF, the tuner does not filter out any specific analog video standards.
+     * @param {Integer} _ScanModulationTypes 
+     * @param {Integer} _AnalogVideoStandard 
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-setscansignaltypefilter
      */
-    SetScanSignalTypeFilter(ScanModulationTypes, AnalogVideoStandard) {
-        result := ComCall(25, this, "int", ScanModulationTypes, "int", AnalogVideoStandard, "HRESULT")
+    SetScanSignalTypeFilter(_ScanModulationTypes, _AnalogVideoStandard) {
+        result := ComCall(25, this, "int", _ScanModulationTypes, "int", _AnalogVideoStandard, "HRESULT")
         return result
     }
 }

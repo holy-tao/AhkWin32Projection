@@ -36,14 +36,12 @@ class ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink{
 
     /**
      * Creates a line segment between the current point and the specified end point and adds it to the geometry sink.
-     * @param {D2D_POINT_2F} point Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
-     * 
-     * The end point of the line to draw.
+     * @param {D2D_POINT_2F} _point 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrysink-addline
      */
-    AddLine(point) {
-        ComCall(10, this, "ptr", point)
+    AddLine(_point) {
+        ComCall(10, this, "ptr", _point)
     }
 
     /**

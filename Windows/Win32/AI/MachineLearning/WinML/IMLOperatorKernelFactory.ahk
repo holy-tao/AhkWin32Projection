@@ -31,11 +31,11 @@ class IMLOperatorKernelFactory extends IUnknown{
 
     /**
      * 
-     * @param {IMLOperatorKernelCreationContext} context 
+     * @param {IMLOperatorKernelCreationContext} _context 
      * @returns {IMLOperatorKernel} 
      */
-    CreateKernel(context) {
-        result := ComCall(3, this, "ptr", context, "ptr*", &kernel := 0, "HRESULT")
+    CreateKernel(_context) {
+        result := ComCall(3, this, "ptr", _context, "ptr*", &kernel := 0, "HRESULT")
         return IMLOperatorKernel(kernel)
     }
 }

@@ -127,7 +127,7 @@ class IProvisioningDomain extends IUnknown{
         pszwLanguage := pszwLanguage is String ? StrPtr(pszwLanguage) : pszwLanguage
         pszwXPathQuery := pszwXPathQuery is String ? StrPtr(pszwXPathQuery) : pszwXPathQuery
 
-        result := ComCall(4, this, "ptr", pszwDomain, "ptr", pszwLanguage, "ptr", pszwXPathQuery, "ptr*", &Nodes := 0, "HRESULT")
-        return IXMLDOMNodeList(Nodes)
+        result := ComCall(4, this, "ptr", pszwDomain, "ptr", pszwLanguage, "ptr", pszwXPathQuery, "ptr*", &_Nodes := 0, "HRESULT")
+        return IXMLDOMNodeList(_Nodes)
     }
 }

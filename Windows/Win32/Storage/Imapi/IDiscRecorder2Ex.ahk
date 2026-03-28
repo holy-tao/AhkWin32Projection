@@ -170,16 +170,16 @@ class IDiscRecorder2Ex extends IUnknown{
      * @param {Pointer<Integer>} Cdb Command packet to send to the device.
      * @param {Integer} CdbSize Size, in bytes, of the command packet to send. Must be between 6 and 16 bytes.
      * @param {Integer} Timeout Time limit, in seconds, allowed for the send command to receive a result.
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} BufferSize Size, in bytes, of the data buffer to send. Must not be zero.
      * @returns {Integer} Sense data returned by the recording device.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice
      */
-    SendCommandSendDataToDevice(Cdb, CdbSize, Timeout, Buffer_R, BufferSize) {
+    SendCommandSendDataToDevice(Cdb, CdbSize, Timeout, _Buffer, BufferSize) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, Buffer_RMarshal, Buffer_R, "uint", BufferSize, "HRESULT")
+        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, _BufferMarshal, _Buffer, "uint", BufferSize, "HRESULT")
         return SenseBuffer
     }
 
@@ -248,7 +248,7 @@ class IDiscRecorder2Ex extends IUnknown{
      * @param {Integer} CdbSize Size, in bytes, of the command packet to send. Must be between 6 and 16 bytes.
      * @param {Pointer<Integer>} SenseBuffer Sense data returned by the recording device.
      * @param {Integer} Timeout Time limit, in seconds, allowed for the send command to receive a result.
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} BufferSize Size, in bytes, of the <i>Buffer</i> data buffer. Must not be zero.
      * @param {Pointer<Integer>} BufferFetched Size, in bytes, of the data returned in the <i>Buffer</i> data buffer.
      * @returns {HRESULT} S_OK or one of the following values can be returned on success, but other success codes may be returned as a result of implementation:
@@ -581,13 +581,13 @@ class IDiscRecorder2Ex extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandgetdatafromdevice
      */
-    SendCommandGetDataFromDevice(Cdb, CdbSize, SenseBuffer, Timeout, Buffer_R, BufferSize, BufferFetched) {
+    SendCommandGetDataFromDevice(Cdb, CdbSize, SenseBuffer, Timeout, _Buffer, BufferSize, BufferFetched) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
         SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
         BufferFetchedMarshal := BufferFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, Buffer_RMarshal, Buffer_R, "uint", BufferSize, BufferFetchedMarshal, BufferFetched, "HRESULT")
+        result := ComCall(5, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, _BufferMarshal, _Buffer, "uint", BufferSize, BufferFetchedMarshal, BufferFetched, "HRESULT")
         return result
     }
 
@@ -599,7 +599,7 @@ class IDiscRecorder2Ex extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  This value is truncated to <b>UCHAR</b>.</div>
      * <div> </div>
-     * @param {Integer} address Address field of the command packet.
+     * @param {Integer} _address 
      * @param {Integer} layer Layer field of the command packet.
      * @param {Integer} agid Authentication grant ID (AGID) field of the command packet.
      * @param {Pointer<Pointer<Integer>>} data Data buffer that contains the DVD structure. For details of the contents of the data buffer, see the READ DISC STRUCTURE command in the latest revision of the MMC specification at <a href="https://www.microsoft.com/?ref=go">ftp://ftp.t10.org/t10/drafts/mmc5</a>.
@@ -930,11 +930,11 @@ class IDiscRecorder2Ex extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-readdvdstructure
      */
-    ReadDvdStructure(format, address, layer, agid, data, count) {
+    ReadDvdStructure(format, _address, layer, agid, data, count) {
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", format, "uint", address, "uint", layer, "uint", agid, dataMarshal, data, countMarshal, count, "HRESULT")
+        result := ComCall(6, this, "uint", format, "uint", _address, "uint", layer, "uint", agid, dataMarshal, data, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -1662,7 +1662,7 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * Retrieves the track information from the media.
-     * @param {Integer} address Address field. The <i>addressType</i> parameter provides additional context for this parameter.
+     * @param {Integer} _address 
      * @param {Integer} addressType Type of address specified in the <i>address</i> parameter, for example, if this is an LBA address or a track number. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_read_track_address_type">IMAPI_READ_TRACK_ADDRESS_TYPE</a> enumeration type.
      * @param {Pointer<Pointer<Integer>>} trackInformation Data buffer that contains the track information. For details of the contents of the data buffer, see the READ TRACK INFORMATION command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * 
@@ -1977,11 +1977,11 @@ class IDiscRecorder2Ex extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-gettrackinformation
      */
-    GetTrackInformation(address, addressType, trackInformation, byteSize) {
+    GetTrackInformation(_address, addressType, trackInformation, byteSize) {
         trackInformationMarshal := trackInformation is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", address, "int", addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(11, this, "uint", _address, "int", addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 

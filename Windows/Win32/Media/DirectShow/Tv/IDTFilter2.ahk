@@ -53,14 +53,14 @@ class IDTFilter2 extends IDTFilter{
 
     /**
      * Not implemented in this release.
-     * @param {Pointer<Integer>} protType Reserved.
+     * @param {Pointer<Integer>} _protType 
      * @returns {Integer} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
      */
-    GetCurrLicenseExpDate(protType) {
-        protTypeMarshal := protType is VarRef ? "int*" : "ptr"
+    GetCurrLicenseExpDate(_protType) {
+        _protTypeMarshal := _protType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, protTypeMarshal, protType, "int*", &lpDateTime := 0, "HRESULT")
+        result := ComCall(12, this, _protTypeMarshal, _protType, "int*", &lpDateTime := 0, "HRESULT")
         return lpDateTime
     }
 

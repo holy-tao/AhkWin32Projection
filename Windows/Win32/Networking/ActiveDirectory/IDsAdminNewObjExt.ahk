@@ -66,13 +66,13 @@ class IDsAdminNewObjExt extends IUnknown{
      * <i>hPage</i> contains the handle of the wizard page created by calling <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a>.
      * 
      * <i>lParam</i> is the <i>lParam</i> value passed to <b>AddPages</b>.
-     * @param {LPARAM} lParam Contains data that is private to the administrative snap-in. This value is passed as the second parameter to <i>lpfnAddPage</i>.
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} If the method is successful,
      *       <b>S_OK</b> is returned. If the method fails, an OLE-defined error code is returned.
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-addpages
      */
-    AddPages(lpfnAddPage, lParam) {
-        result := ComCall(4, this, "ptr", lpfnAddPage, "ptr", lParam, "HRESULT")
+    AddPages(lpfnAddPage, _lParam) {
+        result := ComCall(4, this, "ptr", lpfnAddPage, "ptr", _lParam, "HRESULT")
         return result
     }
 
@@ -93,21 +93,21 @@ class IDsAdminNewObjExt extends IUnknown{
      * A pointer to the temporary directory object is supplied to the extension when the <a href="https://docs.microsoft.com/windows/desktop/api/dsadmin/nf-dsadmin-idsadminnewobjext-setobject">IDsAdminNewObjExt::SetObject</a> method is called.
      * 
      * A secondary object creation extension should not commit the data set during the <b>WriteData</b> method by calling <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iads-setinfo">IADs::SetInfo</a>. The primary object creation extension will commit all of the data for the object when all of the extensions have added their data.
-     * @param {HWND} hWnd The window handle used as the parent window for possible error messages.
+     * @param {HWND} _hWnd 
      * @param {Integer} uContext 
      * @returns {HRESULT} Returns <b>S_OK</b> if successful or an OLE-defined error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-writedata
      */
-    WriteData(hWnd, uContext) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    WriteData(_hWnd, uContext) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(6, this, "ptr", hWnd, "uint", uContext, "HRESULT")
+        result := ComCall(6, this, "ptr", _hWnd, "uint", uContext, "HRESULT")
         return result
     }
 
     /**
      * Called when an error has occurred in the wizard pages.
-     * @param {HWND} hWnd The window handle used as the parent window for possible error messages.
+     * @param {HWND} _hWnd 
      * @param {HRESULT} hr <b>HRESULT</b> of the error that occurred.
      * @param {Integer} uContext 
      * @returns {HRESULT} A primary creation extension returns <b>S_OK</b> to indicate that the error was handled by the extension or an OLE-defined error code to cause the system to display an error message.
@@ -115,10 +115,10 @@ class IDsAdminNewObjExt extends IUnknown{
      * The return value is ignored for a secondary creation extension.
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-onerror
      */
-    OnError(hWnd, hr, uContext) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    OnError(_hWnd, hr, uContext) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(7, this, "ptr", hWnd, "int", hr, "uint", uContext, "HRESULT")
+        result := ComCall(7, this, "ptr", _hWnd, "int", hr, "uint", uContext, "HRESULT")
         return result
     }
 

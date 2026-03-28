@@ -30,36 +30,36 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
 
     /**
      * 
-     * @param {Pointer} object_R 
+     * @param {Pointer} _object 
      * @param {Integer} type 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    CreateHandle(object_R, type) {
-        result := ComCall(108, this, "ptr", object_R, "int", type, "ptr*", &pHandle := 0, "HRESULT")
+    CreateHandle(_object, type) {
+        result := ComCall(108, this, "ptr", _object, "int", type, "ptr*", &pHandle := 0, "HRESULT")
         return pHandle
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} handle 
+     * @param {Pointer<Pointer<Void>>} _handle 
      * @returns {HRESULT} 
      */
-    DestroyHandle(handle) {
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+    DestroyHandle(_handle) {
+        _handleMarshal := _handle is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(109, this, handleMarshal, handle, "HRESULT")
+        result := ComCall(109, this, _handleMarshal, _handle, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} handle 
+     * @param {Pointer<Pointer<Void>>} _handle 
      * @returns {Pointer} 
      */
-    GetObjectIDFromHandle(handle) {
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
+    GetObjectIDFromHandle(_handle) {
+        _handleMarshal := _handle is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(110, this, handleMarshal, handle, "ptr*", &pObject := 0, "HRESULT")
+        result := ComCall(110, this, _handleMarshal, _handle, "ptr*", &pObject := 0, "HRESULT")
         return pObject
     }
 }

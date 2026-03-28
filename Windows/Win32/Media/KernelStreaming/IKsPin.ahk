@@ -64,26 +64,26 @@ class IKsPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSIDENTIFIER>} Interface 
+     * @param {Pointer<KSIDENTIFIER>} _Interface 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
      */
-    KsCreateSinkPinHandle(Interface, Medium) {
-        result := ComCall(5, this, "ptr", Interface, "ptr", Medium, "HRESULT")
+    KsCreateSinkPinHandle(_Interface, Medium) {
+        result := ComCall(5, this, "ptr", _Interface, "ptr", Medium, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} Communication 
-     * @param {Pointer<KSIDENTIFIER>} Interface 
+     * @param {Pointer<KSIDENTIFIER>} _Interface 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
      */
-    KsGetCurrentCommunication(Communication, Interface, Medium) {
+    KsGetCurrentCommunication(Communication, _Interface, Medium) {
         CommunicationMarshal := Communication is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, CommunicationMarshal, Communication, "ptr", Interface, "ptr", Medium, "HRESULT")
+        result := ComCall(6, this, CommunicationMarshal, Communication, "ptr", _Interface, "ptr", Medium, "HRESULT")
         return result
     }
 

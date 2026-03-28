@@ -32,13 +32,13 @@ class IMachineGlobalObjectTable extends IUnknown{
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {PWSTR} identifier 
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @returns {MachineGlobalObjectTableRegistrationToken} 
      */
-    RegisterObject(clsid, identifier, object_R) {
+    RegisterObject(clsid, identifier, _object) {
         identifier := identifier is String ? StrPtr(identifier) : identifier
 
-        result := ComCall(3, this, "ptr", clsid, "ptr", identifier, "ptr", object_R, "ptr*", &token := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", clsid, "ptr", identifier, "ptr", _object, "ptr*", &token := 0, "HRESULT")
         return token
     }
 

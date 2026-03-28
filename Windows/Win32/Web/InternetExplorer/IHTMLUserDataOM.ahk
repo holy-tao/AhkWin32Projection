@@ -184,13 +184,13 @@ class IHTMLUserDataOM extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} bstr 
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
-    put_expires(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    put_expires(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(13, this, "ptr", bstr, "HRESULT")
+        result := ComCall(13, this, "ptr", _bstr, "HRESULT")
         return result
     }
 

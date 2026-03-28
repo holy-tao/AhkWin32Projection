@@ -73,14 +73,14 @@ class IDOMUIEvent extends IDispatch{
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
-     * @param {IHTMLWindow2} view 
+     * @param {IHTMLWindow2} _view 
      * @param {Integer} detail 
      * @returns {HRESULT} 
      */
-    initUIEvent(eventType, canBubble, cancelable, view, detail) {
+    initUIEvent(eventType, canBubble, cancelable, _view, detail) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", view, "int", detail, "HRESULT")
+        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", _view, "int", detail, "HRESULT")
         return result
     }
 }

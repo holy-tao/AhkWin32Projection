@@ -37,12 +37,12 @@ class IComInstanceEvents extends IUnknown{
      * @param {Pointer<Guid>} clsid The CLSID of the object being created.
      * @param {Pointer<Guid>} tsid The transaction stream identifier, which is unique for correlation to objects.
      * @param {Integer} CtxtID The context identifier for this object.
-     * @param {Integer} ObjectID The initial just-in-time (JIT) activated object.
+     * @param {Integer} _ObjectID 
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstanceevents-onobjectcreate
      */
-    OnObjectCreate(pInfo, guidActivity, clsid, tsid, CtxtID, ObjectID) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "ptr", clsid, "ptr", tsid, "uint", CtxtID, "uint", ObjectID, "HRESULT")
+    OnObjectCreate(pInfo, guidActivity, clsid, tsid, CtxtID, _ObjectID) {
+        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "ptr", clsid, "ptr", tsid, "uint", CtxtID, "uint", _ObjectID, "HRESULT")
         return result
     }
 

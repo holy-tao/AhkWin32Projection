@@ -57,15 +57,15 @@ class IDOMFocusEvent extends IDispatch{
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
-     * @param {IHTMLWindow2} view 
+     * @param {IHTMLWindow2} _view 
      * @param {Integer} detail 
      * @param {IEventTarget} relatedTargetArg 
      * @returns {HRESULT} 
      */
-    initFocusEvent(eventType, canBubble, cancelable, view, detail, relatedTargetArg) {
+    initFocusEvent(eventType, canBubble, cancelable, _view, detail, relatedTargetArg) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", view, "int", detail, "ptr", relatedTargetArg, "HRESULT")
+        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", _view, "int", detail, "ptr", relatedTargetArg, "HRESULT")
         return result
     }
 }

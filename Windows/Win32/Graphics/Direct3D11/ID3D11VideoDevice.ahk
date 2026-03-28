@@ -80,12 +80,12 @@ class ID3D11VideoDevice extends IUnknown{
      * If the <i>ChannelType</i> parameter is <b>D3D11_AUTHENTICATED_CHANNEL_D3D11</b>, the method creates a channel with the Direct3D device. This type of channel does not support authentication.
      * 
      * If <i>ChannelType</i> is <b>D3D11_AUTHENTICATED_CHANNEL_DRIVER_SOFTWARE</b> or <b>D3D11_AUTHENTICATED_CHANNEL_DRIVER_HARDWARE</b>, the method creates an authenticated channel with the graphics driver.
-     * @param {Integer} ChannelType Specifies the type of channel, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_authenticated_channel_type">D3D11_AUTHENTICATED_CHANNEL_TYPE</a> enumeration.
+     * @param {Integer} _ChannelType 
      * @returns {ID3D11AuthenticatedChannel} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11authenticatedchannel">ID3D11AuthenticatedChannel</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createauthenticatedchannel
      */
-    CreateAuthenticatedChannel(ChannelType) {
-        result := ComCall(5, this, "int", ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "HRESULT")
+    CreateAuthenticatedChannel(_ChannelType) {
+        result := ComCall(5, this, "int", _ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "HRESULT")
         return ID3D11AuthenticatedChannel(ppAuthenticatedChannel)
     }
 

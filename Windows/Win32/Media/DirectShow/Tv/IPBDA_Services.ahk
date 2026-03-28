@@ -32,15 +32,15 @@ class IPBDA_Services extends IUnknown{
 
     /**
      * Initializes an object that retrieves service records from a Program and System Information Protocol (PSIP) table in a Protected Broadcast Device Architecture (PBDA) transport stream.
-     * @param {Integer} size Specifies the size of the buffer used to initialize the object.
+     * @param {Integer} _size 
      * @param {Pointer<Integer>} pBuffer Pointer to the buffer containing the service data used for initialization.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_services-initialize
      */
-    Initialize(size, pBuffer) {
+    Initialize(_size, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", size, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(3, this, "uint", _size, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 

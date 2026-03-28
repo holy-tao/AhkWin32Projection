@@ -36,17 +36,17 @@ class IHomePageSetting extends IUnknown{
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} homePageUri 
      * @param {PWSTR} brandingMessage 
      * @returns {HRESULT} 
      */
-    SetHomePage(hwnd, homePageUri, brandingMessage) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetHomePage(_hwnd, homePageUri, brandingMessage) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         homePageUri := homePageUri is String ? StrPtr(homePageUri) : homePageUri
         brandingMessage := brandingMessage is String ? StrPtr(brandingMessage) : brandingMessage
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", homePageUri, "ptr", brandingMessage, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", homePageUri, "ptr", brandingMessage, "HRESULT")
         return result
     }
 

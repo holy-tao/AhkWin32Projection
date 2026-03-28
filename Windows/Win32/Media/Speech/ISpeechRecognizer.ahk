@@ -202,17 +202,17 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechRecognizerStatus} 
      */
     get_Status() {
-        result := ComCall(18, this, "ptr*", &Status := 0, "HRESULT")
-        return ISpeechRecognizerStatus(Status)
+        result := ComCall(18, this, "ptr*", &_Status := 0, "HRESULT")
+        return ISpeechRecognizerStatus(_Status)
     }
 
     /**
      * 
-     * @param {ISpeechObjectToken} Profile 
+     * @param {ISpeechObjectToken} _Profile 
      * @returns {HRESULT} 
      */
-    putref_Profile(Profile) {
-        result := ComCall(19, this, "ptr", Profile, "HRESULT")
+    putref_Profile(_Profile) {
+        result := ComCall(19, this, "ptr", _Profile, "HRESULT")
         return result
     }
 
@@ -221,8 +221,8 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechObjectToken} 
      */
     get_Profile() {
-        result := ComCall(20, this, "ptr*", &Profile := 0, "HRESULT")
-        return ISpeechObjectToken(Profile)
+        result := ComCall(20, this, "ptr*", &_Profile := 0, "HRESULT")
+        return ISpeechObjectToken(_Profile)
     }
 
     /**

@@ -60,9 +60,7 @@ class IFrameworkInputPane extends IUnknown{
 
     /**
      * Registers the app's input pane handler object to receive notifications on behalf of a window when an event triggers the input pane. This method differs from Advise in that it references its window through an HWND.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window for which the handler should listen for input pane events.
+     * @param {HWND} _hwnd 
      * @param {IFrameworkInputPaneHandler} pHandler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iframeworkinputpanehandler">IFrameworkInputPaneHandler</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iframeworkinputpanehandler">IFrameworkInputPaneHandler</a> interface pointer to the handler instance for this app.
@@ -71,10 +69,10 @@ class IFrameworkInputPane extends IUnknown{
      * A pointer to a value that, when this method returns successfully, receives a cookie for that can be used later to unregister the handler through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-unadvise">Unadvise</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advisewithhwnd
      */
-    AdviseWithHWND(hwnd, pHandler) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    AdviseWithHWND(_hwnd, pHandler) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", pHandler, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", _hwnd, "ptr", pHandler, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 

@@ -31,67 +31,67 @@ class IDebugHostMemory extends IUnknown{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
-     * @param {Pointer} buffer_R 
+     * @param {IDebugHostContext} _context 
+     * @param {Location} _location 
+     * @param {Pointer} _buffer 
      * @param {Integer} bufferSize 
      * @returns {Integer} 
      */
-    ReadBytes(context, location, buffer_R, bufferSize) {
-        result := ComCall(3, this, "ptr", context, "ptr", location, "ptr", buffer_R, "uint", bufferSize, "uint*", &bytesRead := 0, "HRESULT")
+    ReadBytes(_context, _location, _buffer, bufferSize) {
+        result := ComCall(3, this, "ptr", _context, "ptr", _location, "ptr", _buffer, "uint", bufferSize, "uint*", &bytesRead := 0, "HRESULT")
         return bytesRead
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
-     * @param {Pointer} buffer_R 
+     * @param {IDebugHostContext} _context 
+     * @param {Location} _location 
+     * @param {Pointer} _buffer 
      * @param {Integer} bufferSize 
      * @returns {Integer} 
      */
-    WriteBytes(context, location, buffer_R, bufferSize) {
-        result := ComCall(4, this, "ptr", context, "ptr", location, "ptr", buffer_R, "uint", bufferSize, "uint*", &bytesWritten := 0, "HRESULT")
+    WriteBytes(_context, _location, _buffer, bufferSize) {
+        result := ComCall(4, this, "ptr", _context, "ptr", _location, "ptr", _buffer, "uint", bufferSize, "uint*", &bytesWritten := 0, "HRESULT")
         return bytesWritten
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
+     * @param {IDebugHostContext} _context 
+     * @param {Location} _location 
      * @param {Integer} count 
      * @returns {Integer} 
      */
-    ReadPointers(context, location, count) {
-        result := ComCall(5, this, "ptr", context, "ptr", location, "uint", count, "uint*", &pointers := 0, "HRESULT")
+    ReadPointers(_context, _location, count) {
+        result := ComCall(5, this, "ptr", _context, "ptr", _location, "uint", count, "uint*", &pointers := 0, "HRESULT")
         return pointers
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
+     * @param {IDebugHostContext} _context 
+     * @param {Location} _location 
      * @param {Integer} count 
      * @param {Pointer<Integer>} pointers 
      * @returns {HRESULT} 
      */
-    WritePointers(context, location, count, pointers) {
+    WritePointers(_context, _location, count, pointers) {
         pointersMarshal := pointers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", context, "ptr", location, "uint", count, pointersMarshal, pointers, "HRESULT")
+        result := ComCall(6, this, "ptr", _context, "ptr", _location, "uint", count, pointersMarshal, pointers, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
+     * @param {IDebugHostContext} _context 
+     * @param {Location} _location 
      * @param {Integer} verbose 
      * @returns {BSTR} 
      */
-    GetDisplayStringForLocation(context, location, verbose) {
+    GetDisplayStringForLocation(_context, _location, verbose) {
         locationName := BSTR()
-        result := ComCall(7, this, "ptr", context, "ptr", location, "char", verbose, "ptr", locationName, "HRESULT")
+        result := ComCall(7, this, "ptr", _context, "ptr", _location, "char", verbose, "ptr", locationName, "HRESULT")
         return locationName
     }
 }

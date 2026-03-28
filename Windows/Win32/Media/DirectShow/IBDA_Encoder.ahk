@@ -51,50 +51,21 @@ class IBDA_Encoder extends IUnknown{
      * Gets one of the audio formats supported by the device.
      * @param {Integer} FmtIndex The zero-based index of the audio format to retrieve. To get the number of audio formats, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_encoder-querycapabilities">IBDA_Encoder::QueryCapabilities</a>.
      * @param {Pointer<Integer>} MethodID Receives a value that uniquely identifies this audio method.
-     * @param {Pointer<Integer>} AlgorithmType Receives the type of encoding algorithm. The following values are defined.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="PBDA_Encoder_Audio_AlgorithmType_MPEG1LayerII"></a><a id="pbda_encoder_audio_algorithmtype_mpeg1layerii"></a><a id="PBDA_ENCODER_AUDIO_ALGORITHMTYPE_MPEG1LAYERII"></a><dl>
-     * <dt><b>PBDA_Encoder_Audio_AlgorithmType_MPEG1LayerII</b></dt>
-     * <dt>0x00000000</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * MPEG-1 Layer II.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="PBDA_Encoder_Audio_AlgorithmType_AC3"></a><a id="pbda_encoder_audio_algorithmtype_ac3"></a><a id="PBDA_ENCODER_AUDIO_ALGORITHMTYPE_AC3"></a><dl>
-     * <dt><b>PBDA_Encoder_Audio_AlgorithmType_AC3</b></dt>
-     * <dt>0x00000001</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Dolby AC3.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {Pointer<Integer>} _AlgorithmType 
      * @param {Pointer<Integer>} SamplingRate Receives the audio sampling rate, in Hz.
      * @param {Pointer<Integer>} BitDepth Receives the number of bits per audio sample.
      * @param {Pointer<Integer>} NumChannels Receives the number of audio channels.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumaudiocapability
      */
-    EnumAudioCapability(FmtIndex, MethodID, AlgorithmType, SamplingRate, BitDepth, NumChannels) {
+    EnumAudioCapability(FmtIndex, MethodID, _AlgorithmType, SamplingRate, BitDepth, NumChannels) {
         MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
-        AlgorithmTypeMarshal := AlgorithmType is VarRef ? "uint*" : "ptr"
+        _AlgorithmTypeMarshal := _AlgorithmType is VarRef ? "uint*" : "ptr"
         SamplingRateMarshal := SamplingRate is VarRef ? "uint*" : "ptr"
         BitDepthMarshal := BitDepth is VarRef ? "uint*" : "ptr"
         NumChannelsMarshal := NumChannels is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", FmtIndex, MethodIDMarshal, MethodID, AlgorithmTypeMarshal, AlgorithmType, SamplingRateMarshal, SamplingRate, BitDepthMarshal, BitDepth, NumChannelsMarshal, NumChannels, "HRESULT")
+        result := ComCall(4, this, "uint", FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, SamplingRateMarshal, SamplingRate, BitDepthMarshal, BitDepth, NumChannelsMarshal, NumChannels, "HRESULT")
         return result
     }
 
@@ -104,58 +75,7 @@ class IBDA_Encoder extends IUnknown{
      * The <i>VerticalSize</i>, <i>HorizontalSize</i>, <i>AspectRatio</i>, <i>FrameRateCode</i>, and <i>ProgressiveSequence</i> parameters are interpreted according to the ANSI/SCTE 43 2005 standard.
      * @param {Integer} FmtIndex The zero-based index of the video format to retrieve. To get the number of video formats, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_encoder-querycapabilities">IBDA_Encoder::QueryCapabilities</a>.
      * @param {Pointer<Integer>} MethodID Receives a value that uniquely identifies this video method.
-     * @param {Pointer<Integer>} AlgorithmType Receives the type of encoding algorithm. The following values are defined.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="PBDA_Encoder_Video_MPEG2PartII"></a><a id="pbda_encoder_video_mpeg2partii"></a><a id="PBDA_ENCODER_VIDEO_MPEG2PARTII"></a><dl>
-     * <dt><b>PBDA_Encoder_Video_MPEG2PartII</b></dt>
-     * <dt>0x00000000</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * MPEG-2, Part 2.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="PBDA_Encoder_Video_MPEG4Part10"></a><a id="pbda_encoder_video_mpeg4part10"></a><a id="PBDA_ENCODER_VIDEO_MPEG4PART10"></a><dl>
-     * <dt><b>PBDA_Encoder_Video_MPEG4Part10</b></dt>
-     * <dt>0x00000001</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * MPEG-4, Part 10.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="PBDA_Encoder_Video_AVC"></a><a id="pbda_encoder_video_avc"></a><a id="PBDA_ENCODER_VIDEO_AVC"></a><dl>
-     * <dt><b>PBDA_Encoder_Video_AVC</b></dt>
-     * <dt>0x00000001</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * AVC video.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="PBDA_Encoder_Video_H264"></a><a id="pbda_encoder_video_h264"></a><a id="PBDA_ENCODER_VIDEO_H264"></a><dl>
-     * <dt><b>PBDA_Encoder_Video_H264</b></dt>
-     * <dt>0x00000001</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * H.264 video.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {Pointer<Integer>} _AlgorithmType 
      * @param {Pointer<Integer>} VerticalSize Receives the vertical_size_value field.
      * @param {Pointer<Integer>} HorizontalSize Receives the horizontal_size_value field.
      * @param {Pointer<Integer>} AspectRatio Receives the aspect_ratio_information field.
@@ -164,16 +84,16 @@ class IBDA_Encoder extends IUnknown{
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumvideocapability
      */
-    EnumVideoCapability(FmtIndex, MethodID, AlgorithmType, VerticalSize, HorizontalSize, AspectRatio, FrameRateCode, ProgressiveSequence) {
+    EnumVideoCapability(FmtIndex, MethodID, _AlgorithmType, VerticalSize, HorizontalSize, AspectRatio, FrameRateCode, ProgressiveSequence) {
         MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
-        AlgorithmTypeMarshal := AlgorithmType is VarRef ? "uint*" : "ptr"
+        _AlgorithmTypeMarshal := _AlgorithmType is VarRef ? "uint*" : "ptr"
         VerticalSizeMarshal := VerticalSize is VarRef ? "uint*" : "ptr"
         HorizontalSizeMarshal := HorizontalSize is VarRef ? "uint*" : "ptr"
         AspectRatioMarshal := AspectRatio is VarRef ? "uint*" : "ptr"
         FrameRateCodeMarshal := FrameRateCode is VarRef ? "uint*" : "ptr"
         ProgressiveSequenceMarshal := ProgressiveSequence is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", FmtIndex, MethodIDMarshal, MethodID, AlgorithmTypeMarshal, AlgorithmType, VerticalSizeMarshal, VerticalSize, HorizontalSizeMarshal, HorizontalSize, AspectRatioMarshal, AspectRatio, FrameRateCodeMarshal, FrameRateCode, ProgressiveSequenceMarshal, ProgressiveSequence, "HRESULT")
+        result := ComCall(5, this, "uint", FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, VerticalSizeMarshal, VerticalSize, HorizontalSizeMarshal, HorizontalSize, AspectRatioMarshal, AspectRatio, FrameRateCodeMarshal, FrameRateCode, ProgressiveSequenceMarshal, ProgressiveSequence, "HRESULT")
         return result
     }
 

@@ -88,14 +88,12 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
 
     /**
      * Retrieves the size of the package, in bytes.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
-     * 
-     * The size of the package, in bytes.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getsize
      */
     GetSize() {
-        result := ComCall(7, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(7, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**

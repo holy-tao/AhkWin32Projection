@@ -109,7 +109,7 @@ class ICertPolicy extends IDispatch{
      * When you write custom policy modules, you must implement <b>VerifyRequest</b> functionality in your modules.
      * @param {BSTR} strConfig Represents the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
-     * @param {Integer} Context Identifies the request and associated certificate under construction. The certificate server passes the context to this method.
+     * @param {Integer} _Context 
      * @param {Integer} bNewRequest If set to <b>TRUE</b>, specifies that the request is new. If set to <b>FALSE</b>, the request is being resubmitted to the policy module as a result of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-resubmitrequest">ICertAdmin::ResubmitRequest</a> call. A value of <b>FALSE</b> can be used to indicate that the administrator wants the request to be issued or that request properties set by the administrator should be examined.
      * 
@@ -158,10 +158,10 @@ class ICertPolicy extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy-verifyrequest
      */
-    VerifyRequest(strConfig, Context, bNewRequest, Flags) {
+    VerifyRequest(strConfig, _Context, bNewRequest, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(8, this, "ptr", strConfig, "int", Context, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", strConfig, "int", _Context, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 

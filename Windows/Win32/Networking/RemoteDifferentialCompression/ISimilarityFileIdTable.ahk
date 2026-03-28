@@ -41,19 +41,19 @@ class ISimilarityFileIdTable extends IUnknown{
      * Creates or opens a similarity file ID table.
      * @remarks
      * If an existing table is being opened, the table must be valid, and the value of the <i>recordSize</i> parameter must match  the record size of the existing table.  Otherwise, the existing table is overwritten, even if <b>FALSE</b> is specified for the <i>truncate</i> parameter.
-     * @param {PWSTR} path A pointer to a null-terminated string that specifies the name of the file that will contain the similarity file ID table. The alternate stream name ":FileId" will be appended to the end of this file name. For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
+     * @param {PWSTR} _path 
      * @param {BOOL} truncate <b>TRUE</b> if a new similarity file ID table should always be created or truncated. If <b>FALSE</b> is specified and the table exists and is valid, it may be used; otherwise, if the table is not valid or does not exist, the existing table is overwritten.
-     * @param {Pointer<Integer>} securityDescriptor A pointer to a  security descriptor to use when opening the file. If this parameter is <b>NULL</b>, the file is assigned a default security descriptor. The access control lists (ACL) in the file's default security descriptor are inherited from the file's parent directory. For more information, see the <i>lpSecurityAttributes</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
+     * @param {Pointer<Integer>} _securityDescriptor 
      * @param {Integer} recordSize The size, in bytes, of the file IDs that will be stored in the similarity file ID table. All file IDs must be the same size. The valid range is from <b>SimilarityFileIdMinSize</b> to <b>SimilarityFileIdMaxSize</b>. If an existing similarity file ID table is being opened, the value of this parameter must match the file ID size of the existing table. Otherwise, the existing table is assumed to be not valid and will be overwritten.
      * @returns {Integer} A pointer to a variable that receives an  <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables">RdcCreatedTables</a> enumeration value that describes the state of the similarity file ID table. If a new table is created, this variable receives <b>RDCTABLE_New</b>. If an existing table is used, this variable receives <b>RDCTABLE_Existing</b>. If this method fails, this variable receives <b>RDCTABLE_InvalidOrUnknown</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-createtable
      */
-    CreateTable(path, truncate, securityDescriptor, recordSize) {
-        path := path is String ? StrPtr(path) : path
+    CreateTable(_path, truncate, _securityDescriptor, recordSize) {
+        _path := _path is String ? StrPtr(_path) : _path
 
-        securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
+        _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, "int", truncate, _securityDescriptorMarshal, _securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -92,25 +92,25 @@ class ISimilarityFileIdTable extends IUnknown{
      * Adds the file ID to the similarity file ID table.
      * @remarks
      * If the <b>Append</b> method fails, the similarity file ID table is marked as corrupted and must be rebuilt.
-     * @param {Pointer<SimilarityFileId>} similarityFileId The file ID to be added to the similarity file ID table.
+     * @param {Pointer<SimilarityFileId>} _similarityFileId 
      * @returns {Integer} A pointer to a variable that receives the file index for the file ID's entry in the similarity file ID table.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-append
      */
-    Append(similarityFileId) {
-        result := ComCall(6, this, "ptr", similarityFileId, "uint*", &similarityFileIndex := 0, "HRESULT")
+    Append(_similarityFileId) {
+        result := ComCall(6, this, "ptr", _similarityFileId, "uint*", &similarityFileIndex := 0, "HRESULT")
         return similarityFileIndex
     }
 
     /**
      * Retrieves the file ID that corresponds to a given file index in the similarity file ID table.
      * @param {Integer} similarityFileIndex The file index that was previously returned for the file ID by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-isimilarityfileidtable-append">ISimilarityFileIdTable::Append</a> method.
-     * @returns {SimilarityFileId} A pointer to a variable that receives the file ID. If the file has been marked as not valid, the file ID receives zero.
+     * @returns {SimilarityFileId} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-lookup
      */
     Lookup(similarityFileIndex) {
-        similarityFileId := SimilarityFileId()
-        result := ComCall(7, this, "uint", similarityFileIndex, "ptr", similarityFileId, "HRESULT")
-        return similarityFileId
+        _similarityFileId := SimilarityFileId()
+        result := ComCall(7, this, "uint", similarityFileIndex, "ptr", _similarityFileId, "HRESULT")
+        return _similarityFileId
     }
 
     /**

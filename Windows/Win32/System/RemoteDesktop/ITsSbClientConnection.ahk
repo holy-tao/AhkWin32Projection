@@ -174,30 +174,30 @@ class ITsSbClientConnection extends IUnknown{
      * @remarks
      * Plug-ins can use the client connection object to store context information that is specific to a connection request. This allows plug-ins to remain stateless and rely exclusively on state information stored by connection requests. Plug-ins that use this method can also register for connection request notifications. Contexts can be deleted upon receipt of CONNECTION_REQUEST_FAILED, CONNECTION_REQUEST_TIMEDOUT, or CONNECTION_REQUEST_SUCCEEDED notifications. These notifications indicate that the connection request is about to be deleted.
      * @param {BSTR} contextId A <b>BSTR</b> variable that contains the context ID. We recommend using unique identifiers as context IDs to avoid collisions between plug-ins. A client connection object can be used by more than one plug-in.
-     * @param {VARIANT} context The context information to store.
+     * @param {VARIANT} _context 
      * @returns {VARIANT} Existing context information for the supplied context ID, if any, is returned in this parameter. The existing information is overwritten.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-putcontext
      */
-    PutContext(contextId, context) {
+    PutContext(contextId, _context) {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
 
         existingContext := VARIANT()
-        result := ComCall(8, this, "ptr", contextId, "ptr", context, "ptr", existingContext, "HRESULT")
+        result := ComCall(8, this, "ptr", contextId, "ptr", _context, "ptr", existingContext, "HRESULT")
         return existingContext
     }
 
     /**
      * Retrieves context information that was stored by a plug-in by using the PutContext method.
      * @param {BSTR} contextId A <b>BSTR</b> variable that contains the context ID.
-     * @returns {VARIANT} A pointer to the context information.
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-getcontext
      */
     GetContext(contextId) {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
 
-        context := VARIANT()
-        result := ComCall(9, this, "ptr", contextId, "ptr", context, "HRESULT")
-        return context
+        _context := VARIANT()
+        result := ComCall(9, this, "ptr", contextId, "ptr", _context, "HRESULT")
+        return _context
     }
 
     /**

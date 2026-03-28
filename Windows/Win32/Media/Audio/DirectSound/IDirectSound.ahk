@@ -63,14 +63,14 @@ class IDirectSound extends IUnknown{
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {Integer} dwLevel 
      * @returns {HRESULT} 
      */
-    SetCooperativeLevel(hwnd, dwLevel) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetCooperativeLevel(_hwnd, dwLevel) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "uint", dwLevel, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "uint", dwLevel, "HRESULT")
         return result
     }
 

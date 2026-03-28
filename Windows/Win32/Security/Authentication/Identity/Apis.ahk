@@ -7933,7 +7933,7 @@ class Identity {
      * Some of the LSA authentication functions allocate memory buffers to hold returned information, for example, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalogonuser">LsaLogonUser</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a>. Your application should call <b>LsaFreeReturnBuffer</b> to free these buffers when they are no longer needed.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -7944,10 +7944,10 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer
      * @since windows5.1.2600
      */
-    static LsaFreeReturnBuffer(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static LsaFreeReturnBuffer(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8112,7 +8112,7 @@ class Identity {
 
     /**
      * The LsaFreeMemory function frees memory allocated for an output buffer by an LSA function call.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the 
@@ -8142,10 +8142,10 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsafreememory
      * @since windows5.1.2600
      */
-    static LsaFreeMemory(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static LsaFreeMemory(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaFreeMemory", Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaFreeMemory", _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8320,7 +8320,7 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} InformationClass 
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {NTSTATUS} If the <b>LsaQueryInformationPolicy</b> function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -8331,12 +8331,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaqueryinformationpolicy
      * @since windows5.1.2600
      */
-    static LsaQueryInformationPolicy(PolicyHandle, InformationClass, Buffer_R) {
+    static LsaQueryInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaQueryInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaQueryInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8346,7 +8346,7 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} InformationClass 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -8357,12 +8357,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsasetinformationpolicy
      * @since windows5.1.2600
      */
-    static LsaSetInformationPolicy(PolicyHandle, InformationClass, Buffer_R) {
+    static LsaSetInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8400,7 +8400,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8428,12 +8428,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaquerydomaininformationpolicy
      * @since windows5.1.2600
      */
-    static LsaQueryDomainInformationPolicy(PolicyHandle, InformationClass, Buffer_R) {
+    static LsaQueryDomainInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaQueryDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaQueryDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8471,7 +8471,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8499,12 +8499,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsasetdomaininformationpolicy
      * @since windows5.1.2600
      */
-    static LsaSetDomainInformationPolicy(PolicyHandle, InformationClass, Buffer_R) {
+    static LsaSetDomainInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8575,7 +8575,7 @@ class Identity {
      * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<Integer>} EnumerationContext Pointer to an enumeration handle that enables you to make multiple calls to enumerate all the trusted domains. On the first call to <b>LsaEnumerateTrustedDomains</b>, <i>EnumerationContext</i> must point to a variable that has been initialized to zero. On subsequent calls to <b>LsaEnumerateTrustedDomains</b>, <i>EnumerationContext</i> must point to the enumeration handle returned by the previous call.
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @param {Integer} PreferedMaximumLength Specifies the preferred maximum size, in bytes, of the returned buffer. This information is approximate; the actual number of bytes returned may be greater than this value.
      * @param {Pointer<Integer>} CountReturned Pointer to a variable that receives the number of elements returned in the <i>Buffer</i> parameter.
      * @returns {NTSTATUS} If the function is successful, the return value is one of the following NTSTATUS values.
@@ -8629,14 +8629,14 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomains
      * @since windows5.1.2600
      */
-    static LsaEnumerateTrustedDomains(PolicyHandle, EnumerationContext, Buffer_R, PreferedMaximumLength, CountReturned) {
+    static LsaEnumerateTrustedDomains(PolicyHandle, EnumerationContext, _Buffer, PreferedMaximumLength, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         EnumerationContextMarshal := EnumerationContext is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
         CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, Buffer_RMarshal, Buffer_R, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
+        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9200,7 +9200,7 @@ class Identity {
      * 
      * 
      * If this parameter is <b>NULL</b>, the function enumerates all accounts in the LSA database of the system associated with the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object.
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @param {Pointer<Integer>} CountReturned Pointer to a variable that receives the number of entries returned in the <i>EnumerationBuffer</i> parameter.
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
@@ -9242,13 +9242,13 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaenumerateaccountswithuserright
      * @since windows5.1.2600
      */
-    static LsaEnumerateAccountsWithUserRight(PolicyHandle, UserRight, Buffer_R, CountReturned) {
+    static LsaEnumerateAccountsWithUserRight(PolicyHandle, UserRight, _Buffer, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
         CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, Buffer_RMarshal, Buffer_R, CountReturnedMarshal, CountReturned, "int")
+        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, _BufferMarshal, _Buffer, CountReturnedMarshal, CountReturned, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9461,7 +9461,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {PSID} TrustedDomainSid Pointer to the SID of the trusted domain to query.
      * @param {Integer} InformationClass 
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value that indicates the error. For more information, see 
@@ -9472,12 +9472,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaquerytrusteddomaininfo
      * @since windows5.1.2600
      */
-    static LsaQueryTrustedDomainInfo(PolicyHandle, TrustedDomainSid, InformationClass, Buffer_R) {
+    static LsaQueryTrustedDomainInfo(PolicyHandle, TrustedDomainSid, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfo", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfo", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9488,7 +9488,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {PSID} TrustedDomainSid Pointer to the SID of the trusted domain whose information is modified. If the <i>InformationClass</i> parameter is set to TrustedDomainNameInformation, this parameter must point to the SID of the domain to add to the list of trusted domains.
      * @param {Integer} InformationClass 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -9499,12 +9499,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsasettrusteddomaininformation
      * @since windows5.1.2600
      */
-    static LsaSetTrustedDomainInformation(PolicyHandle, TrustedDomainSid, InformationClass, Buffer_R) {
+    static LsaSetTrustedDomainInformation(PolicyHandle, TrustedDomainSid, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9538,7 +9538,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName String that contains the name of the trusted domain. This can either be the domain name or the flat name.
      * @param {Integer} InformationClass 
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value, which can be one of the following values or one of the 
@@ -9580,12 +9580,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaquerytrusteddomaininfobyname
      * @since windows5.1.2600
      */
-    static LsaQueryTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, Buffer_R) {
+    static LsaQueryTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9596,7 +9596,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName Name of the trusted domain to set values for. This can either be the domain name or the flat name.
      * @param {Integer} InformationClass 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -9607,12 +9607,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsasettrusteddomaininfobyname
      * @since windows5.1.2600
      */
-    static LsaSetTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, Buffer_R) {
+    static LsaSetTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, _Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, _BufferMarshal, _Buffer, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9633,7 +9633,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<Integer>} EnumerationContext A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/lsa-enumeration-handle">LSA_ENUMERATION_HANDLE</a> that you can use to make multiple calls to <b>LsaEnumerateTrustedDomainsEx</b>  to retrieve all of the trusted domain information. For more information, see Remarks.
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @param {Integer} PreferedMaximumLength Preferred maximum length, in bytes, of returned data. This is not a hard upper limit, but serves as a guide. Due to data conversion between systems with different natural data sizes, the actual amount of data returned may be greater than this value.
      * @param {Pointer<Integer>} CountReturned Pointer to a <b>LONG</b> that receives the number of trusted domain objects returned.
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
@@ -9676,14 +9676,14 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomainsex
      * @since windows5.1.2600
      */
-    static LsaEnumerateTrustedDomainsEx(PolicyHandle, EnumerationContext, Buffer_R, PreferedMaximumLength, CountReturned) {
+    static LsaEnumerateTrustedDomainsEx(PolicyHandle, EnumerationContext, _Buffer, PreferedMaximumLength, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
         EnumerationContextMarshal := EnumerationContext is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
         CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, Buffer_RMarshal, Buffer_R, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
+        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9922,9 +9922,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} KeyName Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure containing the name of the key under which the private data is stored.
-     * @param {Pointer<LSA_UNICODE_STRING>} PrivateData Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure containing the private data to store. The function encrypts this data before storing it.
-     * 
-     * If this parameter is <b>NULL</b>, the function deletes any private data stored under the key and deletes the key. Subsequent attempts to retrieve data from the key will return the STATUS_OBJECT_NAME_NOT_FOUND error code.
+     * @param {Pointer<LSA_UNICODE_STRING>} _PrivateData 
      * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
@@ -9935,10 +9933,10 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsastoreprivatedata
      * @since windows5.1.2600
      */
-    static LsaStorePrivateData(PolicyHandle, KeyName, PrivateData) {
+    static LsaStorePrivateData(PolicyHandle, KeyName, _PrivateData) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaStorePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", PrivateData, "int")
+        result := DllCall("ADVAPI32.dll\LsaStorePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", _PrivateData, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9997,10 +9995,7 @@ class Identity {
      * 
      * If you are not creating one of these specialized types, you do not need to specify a key name prefix. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/private-data-object">Private Data Object</a>.
-     * @param {Pointer<Pointer<LSA_UNICODE_STRING>>} PrivateData Pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the private data.
-     * 
-     * When you no longer need the information, pass the returned pointer to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
+     * @param {Pointer<Pointer<LSA_UNICODE_STRING>>} _PrivateData 
      * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value, which can be the following value or one of the 
@@ -10031,26 +10026,25 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsaretrieveprivatedata
      * @since windows5.1.2600
      */
-    static LsaRetrievePrivateData(PolicyHandle, KeyName, PrivateData) {
+    static LsaRetrievePrivateData(PolicyHandle, KeyName, _PrivateData) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        PrivateDataMarshal := PrivateData is VarRef ? "ptr*" : "ptr"
+        _PrivateDataMarshal := _PrivateData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaRetrievePrivateData", "ptr", PolicyHandle, "ptr", KeyName, PrivateDataMarshal, PrivateData, "int")
+        result := DllCall("ADVAPI32.dll\LsaRetrievePrivateData", "ptr", PolicyHandle, "ptr", KeyName, _PrivateDataMarshal, _PrivateData, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * The LsaNtStatusToWinError function converts an NTSTATUS code returned by an LSA function to a Windows error code.
-     * @param {NTSTATUS} Status An NTSTATUS code returned by an LSA function call. This value will be converted to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a>.
+     * @param {NTSTATUS} _Status 
      * @returns {Integer} The return value is the Windows error code that corresponds to the <i>Status</i> parameter. If there is no corresponding Windows error code, the return value is ERROR_MR_MID_NOT_FOUND.
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-lsantstatustowinerror
      * @since windows5.1.2600
      */
-    static LsaNtStatusToWinError(Status) {
-        result := DllCall("ADVAPI32.dll\LsaNtStatusToWinError", "int", Status, "uint")
+    static LsaNtStatusToWinError(_Status) {
+        result := DllCall("ADVAPI32.dll\LsaNtStatusToWinError", "int", _Status, "uint")
         return result
     }
 
@@ -10153,7 +10147,7 @@ class Identity {
      * Sets per-user audit policy in one or more audit subcategories for the specified principal.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b> or have <b>AUDIT_SET_USER_POLICY</b> access on the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
-     * @param {PSID} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to set  audit policy. Per-user policy for group SIDs is not currently supported.
+     * @param {PSID} _pSid 
      * @param {Pointer<AUDIT_POLICY_INFORMATION>} pAuditPolicy A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures. Each structure specifies per-user audit policy for one audit subcategory.
      * 
      * The <b>AuditCategoryGuid</b> member of these structures is ignored.
@@ -10208,10 +10202,10 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditsetperuserpolicy
      * @since windows6.0.6000
      */
-    static AuditSetPerUserPolicy(pSid, pAuditPolicy, dwPolicyCount) {
+    static AuditSetPerUserPolicy(_pSid, pAuditPolicy, dwPolicyCount) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetPerUserPolicy", "ptr", pSid, "ptr", pAuditPolicy, "uint", dwPolicyCount, "char")
+        result := DllCall("ADVAPI32.dll\AuditSetPerUserPolicy", "ptr", _pSid, "ptr", pAuditPolicy, "uint", dwPolicyCount, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10295,7 +10289,7 @@ class Identity {
      * Retrieves per-user audit policy in one or more audit-policy subcategories for the specified principal.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b> or have <b>AUDIT_QUERY_USER_POLICY</b> access on the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
-     * @param {PSID} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to query  audit policy. Per-user policy for group SIDs is not currently supported.
+     * @param {PSID} _pSid 
      * @param {Pointer<Guid>} pSubCategoryGuids A pointer to an array of <b>GUID</b> values that specify the subcategories for which to query audit policy. For a list of defined audit-policy subcategories, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-constants">Auditing Constants</a>.
      * @param {Integer} dwPolicyCount The number of elements in each of the <i>pSubCategoryGuids</i> and <i>ppAuditPolicy</i> arrays.
      * @param {Pointer<Pointer<AUDIT_POLICY_INFORMATION>>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the per-user audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
@@ -10351,12 +10345,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditqueryperuserpolicy
      * @since windows6.0.6000
      */
-    static AuditQueryPerUserPolicy(pSid, pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
+    static AuditQueryPerUserPolicy(_pSid, pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
         ppAuditPolicyMarshal := ppAuditPolicy is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQueryPerUserPolicy", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
+        result := DllCall("ADVAPI32.dll\AuditQueryPerUserPolicy", "ptr", _pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10426,7 +10420,7 @@ class Identity {
      * Computes the effective audit policy for one or more subcategories for the specified security principal. The function computes effective audit policy by combining system audit policy with per-user policy.
      * @remarks
      * To successfully call this function, the caller must have <b>SeSecurityPrivilege</b> or have <b>AUDIT_QUERY_SYSTEM_POLICY</b> and <b>AUDIT_QUERY_USER_POLICY</b> access on the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
-     * @param {PSID} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to compute effective audit policy. Per-user policy for group SIDs is not currently supported.
+     * @param {PSID} _pSid 
      * @param {Pointer<Guid>} pSubCategoryGuids A pointer to an array of <b>GUID</b> values that specify the subcategories for which to compute effective audit policy. For a list of defined subcategories, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-constants">Auditing Constants</a>.
      * @param {Integer} dwPolicyCount The number of elements in each of the <i>pSubCategoryGuids</i> and <i>ppAuditPolicy</i> arrays.
      * @param {Pointer<Pointer<AUDIT_POLICY_INFORMATION>>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the effective audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
@@ -10482,12 +10476,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditcomputeeffectivepolicybysid
      * @since windows6.0.6000
      */
-    static AuditComputeEffectivePolicyBySid(pSid, pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
+    static AuditComputeEffectivePolicyBySid(_pSid, pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
         ppAuditPolicyMarshal := ppAuditPolicy is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyBySid", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
+        result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyBySid", "ptr", _pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10911,7 +10905,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditSetGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
-     * @param {Pointer<ACL>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure.
+     * @param {Pointer<ACL>} _Acl 
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -10950,12 +10944,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditsetglobalsaclw
      * @since windows6.1
      */
-    static AuditSetGlobalSaclW(ObjectTypeName, Acl) {
+    static AuditSetGlobalSaclW(ObjectTypeName, _Acl) {
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "char")
+        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclW", "ptr", ObjectTypeName, "ptr", _Acl, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10974,7 +10968,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditSetGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
-     * @param {Pointer<ACL>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure.
+     * @param {Pointer<ACL>} _Acl 
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -11013,12 +11007,12 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditsetglobalsacla
      * @since windows6.1
      */
-    static AuditSetGlobalSaclA(ObjectTypeName, Acl) {
+    static AuditSetGlobalSaclA(ObjectTypeName, _Acl) {
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "char")
+        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclA", "ptr", ObjectTypeName, "ptr", _Acl, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11037,7 +11031,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditQueryGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
-     * @param {Pointer<Pointer<ACL>>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure that contains the SACL information.  This should be freed later by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
+     * @param {Pointer<Pointer<ACL>>} _Acl 
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -11076,14 +11070,14 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditqueryglobalsaclw
      * @since windows6.1
      */
-    static AuditQueryGlobalSaclW(ObjectTypeName, Acl) {
+    static AuditQueryGlobalSaclW(ObjectTypeName, _Acl) {
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
-        AclMarshal := Acl is VarRef ? "ptr*" : "ptr"
+        _AclMarshal := _Acl is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclW", "ptr", ObjectTypeName, AclMarshal, Acl, "char")
+        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclW", "ptr", ObjectTypeName, _AclMarshal, _Acl, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11102,7 +11096,7 @@ class Identity {
      * > [!NOTE]
      * > The ntsecapi.h header defines AuditQueryGlobalSacl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
-     * @param {Pointer<Pointer<ACL>>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure that contains the SACL information.  This should be freed later by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
+     * @param {Pointer<Pointer<ACL>>} _Acl 
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -11141,14 +11135,14 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditqueryglobalsacla
      * @since windows6.1
      */
-    static AuditQueryGlobalSaclA(ObjectTypeName, Acl) {
+    static AuditQueryGlobalSaclA(ObjectTypeName, _Acl) {
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
-        AclMarshal := Acl is VarRef ? "ptr*" : "ptr"
+        _AclMarshal := _Acl is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclA", "ptr", ObjectTypeName, AclMarshal, Acl, "char")
+        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclA", "ptr", ObjectTypeName, _AclMarshal, _Acl, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11158,15 +11152,15 @@ class Identity {
 
     /**
      * Frees the memory allocated by audit functions for the specified buffer.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-auditfree
      * @since windows6.0.6000
      */
-    static AuditFree(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static AuditFree(_Buffer) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        DllCall("ADVAPI32.dll\AuditFree", Buffer_RMarshal, Buffer_R)
+        DllCall("ADVAPI32.dll\AuditFree", _BufferMarshal, _Buffer)
     }
 
     /**
@@ -15297,7 +15291,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Value A pointer to a buffer that contains the value to set to  the requested property. For the data type of the buffer for each value of the <i>Option</i> parameter, see the <i>Option</i> parameter.
-     * @param {Integer} Size The size, in bytes, of the buffer specified by the <i>Value</i> parameter.
+     * @param {Integer} _Size 
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible error return values.
      * 
      * <table>
@@ -15342,10 +15336,10 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-saslsetcontextoption
      * @since windowsserver2003
      */
-    static SaslSetContextOption(ContextHandle, Option, Value, Size) {
+    static SaslSetContextOption(ContextHandle, Option, Value, _Size) {
         ValueMarshal := Value is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslSetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, "HRESULT")
+        result := DllCall("SECUR32.dll\SaslSetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", _Size, "HRESULT")
         return result
     }
 
@@ -15409,7 +15403,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Value A pointer to a buffer that receives the requested property. For the data type of the buffer for each value of the <i>Option</i> parameter, see the <i>Option</i> parameter.
-     * @param {Integer} Size The size, in bytes, of the buffer specified by the <i>Value</i> parameter.
+     * @param {Integer} _Size 
      * @param {Pointer<Integer>} Needed A pointer to an unsigned <b>LONG</b> value that returns the value if the buffer specified by the <i>Value</i> parameter is not large enough to contain the data value of the property specified by the <i>Option</i> parameter.
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible error return values.
      * 
@@ -15455,11 +15449,11 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-saslgetcontextoption
      * @since windowsserver2003
      */
-    static SaslGetContextOption(ContextHandle, Option, Value, Size, Needed) {
+    static SaslGetContextOption(ContextHandle, Option, Value, _Size, Needed) {
         ValueMarshal := Value is VarRef ? "ptr" : "ptr"
         NeededMarshal := Needed is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslGetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, NeededMarshal, Needed, "HRESULT")
+        result := DllCall("SECUR32.dll\SaslGetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", _Size, NeededMarshal, Needed, "HRESULT")
         return result
     }
 
@@ -16076,7 +16070,7 @@ class Identity {
     /**
      * Serializes the specified target into an array of byte values.
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} InTargetInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credential_target_informationa">CREDENTIAL_TARGET_INFORMATION</a> structure that specifies the target to serialize.
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} _Buffer 
      * @param {Pointer<Integer>} BufferSize The size, in bytes, of the <i>Buffer</i> array.
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
@@ -16084,28 +16078,28 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/nf-ntsecpkg-credmarshaltargetinfo
      * @since windows6.0.6000
      */
-    static CredMarshalTargetInfo(InTargetInfo, Buffer_R, BufferSize) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+    static CredMarshalTargetInfo(InTargetInfo, _Buffer, BufferSize) {
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, Buffer_RMarshal, Buffer_R, BufferSizeMarshal, BufferSize, "int")
+        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Pointer<CREDENTIAL_TARGET_INFORMATIONW>>} RetTargetInfo 
      * @param {Pointer<Integer>} RetActualSize 
      * @returns {NTSTATUS} 
      */
-    static CredUnmarshalTargetInfo(Buffer_R, BufferSize, RetTargetInfo, RetActualSize) {
+    static CredUnmarshalTargetInfo(_Buffer, BufferSize, RetTargetInfo, RetActualSize) {
         RetTargetInfoMarshal := RetTargetInfo is VarRef ? "ptr*" : "ptr"
         RetActualSizeMarshal := RetActualSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", Buffer_R, "uint", BufferSize, RetTargetInfoMarshal, RetTargetInfo, RetActualSizeMarshal, RetActualSize, "int")
+        result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", _Buffer, "uint", BufferSize, RetTargetInfoMarshal, RetTargetInfo, RetActualSizeMarshal, RetActualSize, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -20075,7 +20069,7 @@ class Identity {
      * Gets the value for the specified component policy.
      * @remarks
      * Your app must have the restricted slapiQueryLicenseValue capability to call the <b>SLQueryLicenseValueFromApp</b> function.
-     * @param {PWSTR} valueName The name of the policy for which you want to get information.
+     * @param {PWSTR} _valueName 
      * @param {Pointer<Integer>} valueType The data type of the policy value. The following table describes the values that this parameter can 
      *        receive.
      * 
@@ -20137,13 +20131,13 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/slpublic/nf-slpublic-slquerylicensevaluefromapp
      * @since windows10.0.10240
      */
-    static SLQueryLicenseValueFromApp(valueName, valueType, dataBuffer, dataSize, resultDataSize) {
-        valueName := valueName is String ? StrPtr(valueName) : valueName
+    static SLQueryLicenseValueFromApp(_valueName, valueType, dataBuffer, dataSize, resultDataSize) {
+        _valueName := _valueName is String ? StrPtr(_valueName) : _valueName
 
         valueTypeMarshal := valueType is VarRef ? "uint*" : "ptr"
         resultDataSizeMarshal := resultDataSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", valueName, valueTypeMarshal, valueType, "ptr", dataBuffer, "uint", dataSize, resultDataSizeMarshal, resultDataSize, "HRESULT")
+        result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", _valueName, valueTypeMarshal, valueType, "ptr", dataBuffer, "uint", dataSize, resultDataSizeMarshal, resultDataSize, "HRESULT")
         return result
     }
 

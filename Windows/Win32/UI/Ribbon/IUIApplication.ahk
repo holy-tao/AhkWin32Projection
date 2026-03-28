@@ -47,9 +47,7 @@ class IUIApplication extends IUnknown{
      * @param {Integer} typeID Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewtype">UI_VIEWTYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewtype">UI_VIEWTYPE</a> hosted by the application.
-     * @param {IUnknown} view Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
-     * 
-     * A pointer to the View interface.
+     * @param {IUnknown} _view 
      * @param {Integer} verb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewverb">UI_VIEWVERB</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_viewverb">UI_VIEWVERB</a> (or action) performed by the View.
@@ -61,8 +59,8 @@ class IUIApplication extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-onviewchanged
      */
-    OnViewChanged(viewId, typeID, view, verb, uReasonCode) {
-        result := ComCall(3, this, "uint", viewId, "int", typeID, "ptr", view, "int", verb, "int", uReasonCode, "HRESULT")
+    OnViewChanged(viewId, typeID, _view, verb, uReasonCode) {
+        result := ComCall(3, this, "uint", viewId, "int", typeID, "ptr", _view, "int", verb, "int", uReasonCode, "HRESULT")
         return result
     }
 

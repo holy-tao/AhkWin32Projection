@@ -178,9 +178,7 @@ class ITravelLog extends IUnknown{
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> representing the nearest browser or frame within which the travel generating the log is taking place.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * The handle of the menu.
+     * @param {HMENU} _hmenu 
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The position in the menu to insert the entries.
@@ -198,10 +196,10 @@ class ITravelLog extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-insertmenuentries
      */
-    InsertMenuEntries(punk, hmenu, nPos, idFirst, idLast, dwFlags) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    InsertMenuEntries(punk, _hmenu, nPos, idFirst, idLast, dwFlags) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
-        result := ComCall(10, this, "ptr", punk, "ptr", hmenu, "int", nPos, "int", idFirst, "int", idLast, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", punk, "ptr", _hmenu, "int", nPos, "int", idFirst, "int", idLast, "uint", dwFlags, "HRESULT")
         return result
     }
 

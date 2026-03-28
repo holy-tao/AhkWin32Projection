@@ -109,11 +109,11 @@ class _ICounterItemUnion extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
-    put_Color(Color) {
-        result := ComCall(4, this, "uint", Color, "HRESULT")
+    put_Color(_Color) {
+        result := ComCall(4, this, "uint", _Color, "HRESULT")
         return result
     }
 
@@ -196,15 +196,15 @@ class _ICounterItemUnion extends IUnknown{
     /**
      * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {Pointer<Float>} Value 
-     * @param {Pointer<Integer>} Status 
+     * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
-    GetValue(Value, Status) {
+    GetValue(Value, _Status) {
         ValueMarshal := Value is VarRef ? "double*" : "ptr"
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, ValueMarshal, Value, StatusMarshal, Status, "HRESULT")
+        result := ComCall(13, this, ValueMarshal, Value, _StatusMarshal, _Status, "HRESULT")
         return result
     }
 
@@ -213,16 +213,16 @@ class _ICounterItemUnion extends IUnknown{
      * @param {Pointer<Float>} Max 
      * @param {Pointer<Float>} Min 
      * @param {Pointer<Float>} Avg 
-     * @param {Pointer<Integer>} Status 
+     * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
      */
-    GetStatistics(Max, Min, Avg, Status) {
+    GetStatistics(Max, Min, Avg, _Status) {
         MaxMarshal := Max is VarRef ? "double*" : "ptr"
         MinMarshal := Min is VarRef ? "double*" : "ptr"
         AvgMarshal := Avg is VarRef ? "double*" : "ptr"
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, MaxMarshal, Max, MinMarshal, Min, AvgMarshal, Avg, StatusMarshal, Status, "HRESULT")
+        result := ComCall(14, this, MaxMarshal, Max, MinMarshal, Min, AvgMarshal, Avg, _StatusMarshal, _Status, "HRESULT")
         return result
     }
 

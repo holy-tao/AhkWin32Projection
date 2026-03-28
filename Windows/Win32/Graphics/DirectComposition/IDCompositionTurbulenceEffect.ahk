@@ -70,16 +70,14 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the size of the turbulence output.
-     * @param {Pointer<D2D_VECTOR_2F>} size Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_vector_2f">D2D1_VECTOR_2F</a></b>
-     * 
-     * The size of the turbulence output
+     * @param {Pointer<D2D_VECTOR_2F>} _size 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setsize
      */
-    SetSize(size) {
-        result := ComCall(6, this, "ptr", size, "HRESULT")
+    SetSize(_size) {
+        result := ComCall(6, this, "ptr", _size, "HRESULT")
         return result
     }
 

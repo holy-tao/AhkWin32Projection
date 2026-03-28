@@ -63,13 +63,11 @@ class ID2D1ColorContext extends ID2D1Resource{
      * @param {Integer} profileSize Type: <b>UINT32</b>
      * 
      * The size of the <i>profile</i> buffer.
-     * @returns {Integer} Type: <b>BYTE*</b>
-     * 
-     * When this method returns, contains the color profile.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofile
      */
     GetProfile(profileSize) {
-        result := ComCall(6, this, "char*", &profile := 0, "uint", profileSize, "HRESULT")
-        return profile
+        result := ComCall(6, this, "char*", &_profile := 0, "uint", profileSize, "HRESULT")
+        return _profile
     }
 }

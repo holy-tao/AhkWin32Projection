@@ -90,8 +90,8 @@ class IInkDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-get_extendedproperties
      */
     get_ExtendedProperties() {
-        result := ComCall(8, this, "ptr*", &Properties := 0, "HRESULT")
-        return IInkExtendedProperties(Properties)
+        result := ComCall(8, this, "ptr*", &_Properties := 0, "HRESULT")
+        return IInkExtendedProperties(_Properties)
     }
 
     /**
@@ -523,9 +523,7 @@ class IInkDisp extends IDispatch{
 
     /**
      * Retrieves the strokes within a polyline selection area.
-     * @param {VARIANT} Points The points that are used in the selection tool to select the strokes. The selection area is the area inside the selection boundary in which the boundary first intersects itself. If the boundary does not intersect itself, the method adds a point to the end of the array to create a straight line from the first point to the last point. If the boundary is a straight line (no area within the selection boundary), no strokes are selected.
-     * 
-     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @param {VARIANT} _Points 
      * @param {Float} IntersectPercent The percentage of stroke points that must be contained within the selection tool to include the stroke in the resulting collection of strokes. If zero (<c>0</c>), all strokes that are contained within or intersected by the selection tool are included in the resulting collection of strokes. If 100, only strokes fully contained in the selection tool are included in the collection. Strokes that intersect the selection tool are included in the collection if the percentage of points in those strokes contained within the selection tool is greater than or equal to the <i>percentIntersect</i> percentage. Fractional percentages are rounded up.
      * @param {Pointer<VARIANT>} LassoPoints Optional. Retrieves the specific portion of the selection tool that is used for the selection. Because a user can draw many different types of selection tools, some of which overlap multiple times, this can be useful for illustrating which portion of the selection tool was used for selection. The default value is a <b>NULL</b> pointer, which means no information is returned.
      * 
@@ -533,8 +531,8 @@ class IInkDisp extends IDispatch{
      * @returns {IInkStrokes} When this method returns, contains a pointer to the collection of strokes that makes up the ink.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestwithlasso
      */
-    HitTestWithLasso(Points, IntersectPercent, LassoPoints) {
-        result := ComCall(21, this, "ptr", Points, "float", IntersectPercent, "ptr", LassoPoints, "ptr*", &Strokes := 0, "HRESULT")
+    HitTestWithLasso(_Points, IntersectPercent, LassoPoints) {
+        result := ComCall(21, this, "ptr", _Points, "float", IntersectPercent, "ptr", LassoPoints, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
     }
 

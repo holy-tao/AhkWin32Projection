@@ -161,11 +161,11 @@ class ISVGTextContentElement extends IDispatch{
 
     /**
      * 
-     * @param {ISVGPoint} point 
+     * @param {ISVGPoint} _point 
      * @returns {Integer} 
      */
-    getCharNumAtPosition(point) {
-        result := ComCall(18, this, "ptr", point, "int*", &pResult := 0, "HRESULT")
+    getCharNumAtPosition(_point) {
+        result := ComCall(18, this, "ptr", _point, "int*", &pResult := 0, "HRESULT")
         return pResult
     }
 

@@ -50,9 +50,9 @@ class ISchemaStringCollection extends IDispatch{
      * @returns {BSTR} 
      */
     get_item(index) {
-        bstr := BSTR()
-        result := ComCall(7, this, "int", index, "ptr", bstr, "HRESULT")
-        return bstr
+        _bstr := BSTR()
+        result := ComCall(7, this, "int", index, "ptr", _bstr, "HRESULT")
+        return _bstr
     }
 
     /**

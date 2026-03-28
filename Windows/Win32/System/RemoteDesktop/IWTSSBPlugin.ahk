@@ -101,21 +101,21 @@ class IWTSSBPlugin extends IUnknown{
      * Your implementation of <b>WTSSBX_GetMostSuitableServer</b> must return <b>S_OK</b> immediately if successful.
      * @param {PWSTR} UserName A pointer to a Unicode string that contains the user name of the incoming connection.
      * @param {PWSTR} DomainName A pointer to a Unicode string that contains the domain name that is associated with the  incoming connection.
-     * @param {PWSTR} ApplicationType A pointer to a Unicode string that contains the name of the program that Remote Desktop Services runs after it creates the session.
+     * @param {PWSTR} _ApplicationType 
      * @param {PWSTR} FarmName A pointer to a Unicode string that contains the name of the farm in TS Session Broker that the user is connecting to.
      * @param {Pointer<Integer>} pMachineId A pointer to the ID of the server to which TS Session Broker will redirect the incoming connection.  This value is initially set to the  ID of the server provided by the load balancing logic of TS Session Broker.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful.
      * @see https://learn.microsoft.com/windows/win32/api/tssbx/nf-tssbx-iwtssbplugin-wtssbx_getmostsuitableserver
      */
-    WTSSBX_GetMostSuitableServer(UserName, DomainName, ApplicationType, FarmName, pMachineId) {
+    WTSSBX_GetMostSuitableServer(UserName, DomainName, _ApplicationType, FarmName, pMachineId) {
         UserName := UserName is String ? StrPtr(UserName) : UserName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
-        ApplicationType := ApplicationType is String ? StrPtr(ApplicationType) : ApplicationType
+        _ApplicationType := _ApplicationType is String ? StrPtr(_ApplicationType) : _ApplicationType
         FarmName := FarmName is String ? StrPtr(FarmName) : FarmName
 
         pMachineIdMarshal := pMachineId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", UserName, "ptr", DomainName, "ptr", ApplicationType, "ptr", FarmName, pMachineIdMarshal, pMachineId, "HRESULT")
+        result := ComCall(6, this, "ptr", UserName, "ptr", DomainName, "ptr", _ApplicationType, "ptr", FarmName, pMachineIdMarshal, pMachineId, "HRESULT")
         return result
     }
 
@@ -141,21 +141,21 @@ class IWTSSBPlugin extends IUnknown{
      * Your implementation of <b>WTSSBX_GetUserExternalSession</b> should return <b>E_NOTIMPL</b> if it does not support redirection to computers that are not joined to farms in TS Session Broker.
      * @param {PWSTR} UserName A pointer to a Unicode string  that contains the user name of the incoming connection.
      * @param {PWSTR} DomainName A pointer to a Unicode string  that contains the domain name of the incoming connection.
-     * @param {PWSTR} ApplicationType A pointer to a Unicode string  that contains the program that Remote Desktop Services runs after the user session is created.
+     * @param {PWSTR} _ApplicationType 
      * @param {Pointer<WTSSBX_IP_ADDRESS>} RedirectorInternalIP A pointer to the internal IP address of the RD Session Host server that first accepted the connection.
      * @param {Pointer<Integer>} pSessionId A pointer to the session ID of the session to which the plug-in is redirecting the incoming connection.
      * @param {Pointer<WTSSBX_MACHINE_CONNECT_INFO>} pMachineConnectInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_machine_connect_info">WTSSBX_MACHINE_CONNECT_INFO</a> structure that contains information about the computer to which the plug-in  is directing the incoming connection.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful.
      * @see https://learn.microsoft.com/windows/win32/api/tssbx/nf-tssbx-iwtssbplugin-wtssbx_getuserexternalsession
      */
-    WTSSBX_GetUserExternalSession(UserName, DomainName, ApplicationType, RedirectorInternalIP, pSessionId, pMachineConnectInfo) {
+    WTSSBX_GetUserExternalSession(UserName, DomainName, _ApplicationType, RedirectorInternalIP, pSessionId, pMachineConnectInfo) {
         UserName := UserName is String ? StrPtr(UserName) : UserName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
-        ApplicationType := ApplicationType is String ? StrPtr(ApplicationType) : ApplicationType
+        _ApplicationType := _ApplicationType is String ? StrPtr(_ApplicationType) : _ApplicationType
 
         pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", UserName, "ptr", DomainName, "ptr", ApplicationType, "ptr", RedirectorInternalIP, pSessionIdMarshal, pSessionId, "ptr", pMachineConnectInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", UserName, "ptr", DomainName, "ptr", _ApplicationType, "ptr", RedirectorInternalIP, pSessionIdMarshal, pSessionId, "ptr", pMachineConnectInfo, "HRESULT")
         return result
     }
 }

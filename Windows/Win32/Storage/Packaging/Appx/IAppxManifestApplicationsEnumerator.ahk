@@ -39,14 +39,12 @@ class IAppxManifestApplicationsEnumerator extends IUnknown{
      * Gets the application at the current position of the enumerator.
      * @remarks
      * The enumerator returned can be empty. In this case, a call to  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-gethascurrent">GetHasCurrent</a> returns <b>false</b>. If the enumerator is not empty, it points to the first element, and this method returns the first item. Subsequently, the user should use <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-movenext">MoveNext</a> to move through the items, and call <b>GetHasCurrent</b> before using <b>GetCurrent</b> to access the item.
-     * @returns {IAppxManifestApplication} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestapplication">IAppxManifestApplication</a>**</b>
-     * 
-     * The current application.
+     * @returns {IAppxManifestApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &application := 0, "HRESULT")
-        return IAppxManifestApplication(application)
+        result := ComCall(3, this, "ptr*", &_application := 0, "HRESULT")
+        return IAppxManifestApplication(_application)
     }
 
     /**

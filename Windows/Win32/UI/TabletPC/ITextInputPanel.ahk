@@ -273,8 +273,8 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_currentcorrectionmode
      */
     get_CurrentCorrectionMode() {
-        result := ComCall(12, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(12, this, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**
@@ -285,20 +285,20 @@ class ITextInputPanel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_preferredinplacedirection
      */
     get_PreferredInPlaceDirection() {
-        result := ComCall(13, this, "int*", &Direction := 0, "HRESULT")
-        return Direction
+        result := ComCall(13, this, "int*", &_Direction := 0, "HRESULT")
+        return _Direction
     }
 
     /**
      * Gets or sets the preferred direction of the in-place Input Panel relative to the text entry field. (Put)
      * @remarks
      * An application can specify whether the in-place Input Panel defaults to appearing above or below a text entry field. To do this the application can set the <b>ITextInputPanel::PreferredInPlaceDirection Property</b> to <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacedirection">InPlaceDirection_Bottom</a> or <b>InPlaceDirection_Top</b>. <b>ITextInputPanel::PreferredInPlaceDirection Property</b> is a preference because the in-place Input Panel overrides the preference set by the application when necessary to keep Input Panel on the screen. The system default is to position the in-place Input Panel below a text field when possible and otherwise to position it above. Setting the <b>PreferredInPlaceDirection</b> to <b>InPlaceDirection_Auto</b> restores the system default.
-     * @param {Integer} Direction 
+     * @param {Integer} _Direction 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_preferredinplacedirection
      */
-    put_PreferredInPlaceDirection(Direction) {
-        result := ComCall(14, this, "int", Direction, "HRESULT")
+    put_PreferredInPlaceDirection(_Direction) {
+        result := ComCall(14, this, "int", _Direction, "HRESULT")
         return result
     }
 
@@ -611,7 +611,7 @@ class ITextInputPanel extends IUnknown{
     /**
      * Establishes an advisory connection between the Tablet PC Input Panel and the specified sink object.
      * @param {ITextInputPanelEventSink} EventSink Reference to the sink object to receive event notifications from the Input Panel.
-     * @param {Integer} EventMask A bitwise value of the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-eventmask">EventMask Enumeration</a>, indicating the events of interest.
+     * @param {Integer} _EventMask 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -644,8 +644,8 @@ class ITextInputPanel extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-advise
      */
-    Advise(EventSink, EventMask) {
-        result := ComCall(26, this, "ptr", EventSink, "uint", EventMask, "HRESULT")
+    Advise(EventSink, _EventMask) {
+        result := ComCall(26, this, "ptr", EventSink, "uint", _EventMask, "HRESULT")
         return result
     }
 

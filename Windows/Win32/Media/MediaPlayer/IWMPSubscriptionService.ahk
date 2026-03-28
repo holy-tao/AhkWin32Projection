@@ -42,18 +42,18 @@ class IWMPSubscriptionService extends IUnknown{
      * The <b>allowPlay</b> method does not circumvent DRM. If the method returns <b>TRUE</b> and the license to play has not been renewed, Windows Media Player will not play the content.
      * 
      * The <b>allowPlay</b> method is not called when streaming protected content for which the user does not have a license.
-     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @param {HWND} _hwnd 
      * @param {IWMPMedia} pMedia Pointer to the media object Windows Media Player is attempting to play.
      * @param {Pointer<BOOL>} pfAllowPlay Pointer to a <b>BOOL</b>. If <b>true</b>, playback is allowed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowplay
      */
-    allowPlay(hwnd, pMedia, pfAllowPlay) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    allowPlay(_hwnd, pMedia, pfAllowPlay) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pfAllowPlayMarshal := pfAllowPlay is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pMedia, pfAllowPlayMarshal, pfAllowPlay, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", pMedia, pfAllowPlayMarshal, pfAllowPlay, "HRESULT")
         return result
     }
 
@@ -69,18 +69,18 @@ class IWMPSubscriptionService extends IUnknown{
      * Note that Windows Media Player 11 ignores the playlist and the Boolean value that <b>allowCDBurn</b> returns in the <i>pPlaylist</i> and <i>pfAllowBurn</i> parameters. Also note that because of the way Windows Media Player 11 handles burn rights, you must not rely on <b>allowCDBurn</b> being called each time a track is burned to a CD.
      * 
      * Regardless of the Player version, there is no callback mechanism that the background thread can use to notify Windows Media Player that a license renewal is complete. However, if the license renewal for a media item succeeds, then the next time the user attempts to copy the item to a CD, the copy will succeed.
-     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @param {HWND} _hwnd 
      * @param {IWMPPlaylist} pPlaylist Pointer to a playlist object. The plug-in must remove from the playlist any media item that does not have a current license that includes burn rights.
      * @param {Pointer<BOOL>} pfAllowBurn Pointer to a <b>BOOL</b>. If true, copying to CD is allowed for the media items that remain in the playlist.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowcdburn
      */
-    allowCDBurn(hwnd, pPlaylist, pfAllowBurn) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    allowCDBurn(_hwnd, pPlaylist, pfAllowBurn) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pfAllowBurnMarshal := pfAllowBurn is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", pPlaylist, pfAllowBurnMarshal, pfAllowBurn, "HRESULT")
+        result := ComCall(4, this, "ptr", _hwnd, "ptr", pPlaylist, pfAllowBurnMarshal, pfAllowBurn, "HRESULT")
         return result
     }
 
@@ -98,18 +98,18 @@ class IWMPSubscriptionService extends IUnknown{
      * Windows Media Player 11 never calls <b>allowPDATransfer</b> automatically. That is, Windows Media Player 11 calls <b>allowPDATransfer</b> only when the user explicitly requests synchronization rights. For example, the user might request a synchronization rights by choosing a command from the context menu of an information icon.
      * 
      * Do not rely on <b>allowPDATransfer</b> being called each time a track is synchronized with a device. Instead, implement <a href="https://docs.microsoft.com/windows/desktop/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-prepareforsync">IWMPSubscriptionService2::prepareForSync</a>.
-     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @param {HWND} _hwnd 
      * @param {IWMPPlaylist} pPlaylist Pointer to a playlist object.
      * @param {Pointer<BOOL>} pfAllowTransfer Pointer to a <b>BOOL</b>. If true, copying to a device is allowed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowpdatransfer
      */
-    allowPDATransfer(hwnd, pPlaylist, pfAllowTransfer) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    allowPDATransfer(_hwnd, pPlaylist, pfAllowTransfer) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pfAllowTransferMarshal := pfAllowTransfer is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hwnd, "ptr", pPlaylist, pfAllowTransferMarshal, pfAllowTransfer, "HRESULT")
+        result := ComCall(5, this, "ptr", _hwnd, "ptr", pPlaylist, pfAllowTransferMarshal, pfAllowTransfer, "HRESULT")
         return result
     }
 
@@ -119,14 +119,14 @@ class IWMPSubscriptionService extends IUnknown{
      * Your code should not perform lengthy operations synchronously when Windows Media Player calls this method. Instead, you must perform time-consuming tasks on a separate worker thread.
      * 
      * Windows Media Player calls <b>startBackgroundProcessing</b> during idle time after the user selects the online store. This is useful for the online store to acquire play count data or renew expired licenses.
-     * @param {HWND} hwnd A handle to a window in which the plug-in can display a user interface.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-startbackgroundprocessing
      */
-    startBackgroundProcessing(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    startBackgroundProcessing(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 }

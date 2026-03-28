@@ -37,42 +37,42 @@ class ISpNotifyTranslator extends ISpNotifySink{
 
     /**
      * 
-     * @param {HWND} hWnd 
-     * @param {Integer} Msg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    InitWindowMessage(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    InitWindowMessage(_hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(4, this, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(4, this, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SPNOTIFYCALLBACK>>} pfnCallback 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {Pointer<Pointer<SPNOTIFYCALLBACK>>} _pfnCallback 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    InitCallback(pfnCallback, wParam, lParam) {
-        pfnCallbackMarshal := pfnCallback is VarRef ? "ptr*" : "ptr"
+    InitCallback(_pfnCallback, _wParam, _lParam) {
+        _pfnCallbackMarshal := _pfnCallback is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pfnCallbackMarshal, pfnCallback, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(5, this, _pfnCallbackMarshal, _pfnCallback, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {ISpNotifyCallback} pSpCallback 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
-    InitSpNotifyCallback(pSpCallback, wParam, lParam) {
-        result := ComCall(6, this, "ptr", pSpCallback, "ptr", wParam, "ptr", lParam, "HRESULT")
+    InitSpNotifyCallback(pSpCallback, _wParam, _lParam) {
+        result := ComCall(6, this, "ptr", pSpCallback, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 

@@ -70,17 +70,17 @@ class DFileSystemImageEvents extends IDispatch{
      * <li>For every megabyte that is written</li>
      * <li>Once after the final write if the file did not end on a megabyte boundary</li>
      * </ul>
-     * @param {IDispatch} object_R 
+     * @param {IDispatch} _object 
      * @param {BSTR} currentFile String that contains the full path of the file being written.
      * @param {Integer} copiedSectors Number of sectors copied.
      * @param {Integer} totalSectors Total number of sectors in the file.
      * @returns {HRESULT} Return values are ignored.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-dfilesystemimageevents-update
      */
-    Update(object_R, currentFile, copiedSectors, totalSectors) {
+    Update(_object, currentFile, copiedSectors, totalSectors) {
         currentFile := currentFile is String ? BSTR.Alloc(currentFile).Value : currentFile
 
-        result := ComCall(7, this, "ptr", object_R, "ptr", currentFile, "int", copiedSectors, "int", totalSectors, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, "ptr", currentFile, "int", copiedSectors, "int", totalSectors, "HRESULT")
         return result
     }
 }

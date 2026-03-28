@@ -50,7 +50,7 @@ class IDWriteFontCollection1 extends IDWriteFontCollection{
      * @returns {IDWriteFontFamily1} 
      */
     GetFontFamily(index) {
-        result := ComCall(8, this, "uint", index, "ptr*", &fontFamily := 0, "HRESULT")
-        return IDWriteFontFamily1(fontFamily)
+        result := ComCall(8, this, "uint", index, "ptr*", &_fontFamily := 0, "HRESULT")
+        return IDWriteFontFamily1(_fontFamily)
     }
 }

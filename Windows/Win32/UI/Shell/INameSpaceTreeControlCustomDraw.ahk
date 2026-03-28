@@ -32,9 +32,7 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
 
     /**
      * Called before the namespace tree control is drawn.
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * A handle to the control's device context. Use this HDC to perform any GDI functions.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
@@ -43,18 +41,16 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * When this method returns, contains a pointer to an <b>LRESULT</b>, which contains one or more of the values from the <a href="https://docs.microsoft.com/windows/desktop/Controls/cdrf-constants">CDRF Constants</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-prepaint
      */
-    PrePaint(hdc, prc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    PrePaint(_hdc, prc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(3, this, "ptr", hdc, "ptr", prc, "ptr*", &plres := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hdc, "ptr", prc, "ptr*", &plres := 0, "HRESULT")
         return plres
     }
 
     /**
      * Called after the namespace tree control is drawn.
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * A handle to the control's device context. Use this HDC to perform any GDI functions.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
@@ -63,18 +59,16 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-postpaint
      */
-    PostPaint(hdc, prc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    PostPaint(_hdc, prc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(4, this, "ptr", hdc, "ptr", prc, "HRESULT")
+        result := ComCall(4, this, "ptr", _hdc, "ptr", prc, "HRESULT")
         return result
     }
 
     /**
      * Called before an item in the namespace tree control is drawn.
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * A handle to the control's device context. Use this HDC to perform any GDI functions.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
@@ -92,21 +86,19 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * When this method returns, contains a pointer to an <b>LRESULT</b>, which points to one or more of the values from the <a href="https://docs.microsoft.com/windows/desktop/Controls/cdrf-constants">CDRF Constants</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itemprepaint
      */
-    ItemPrePaint(hdc, prc, pnstccdItem, pclrText, pclrTextBk) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    ItemPrePaint(_hdc, prc, pnstccdItem, pclrText, pclrTextBk) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         pclrTextMarshal := pclrText is VarRef ? "uint*" : "ptr"
         pclrTextBkMarshal := pclrTextBk is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hdc, "ptr", prc, "ptr", pnstccdItem, pclrTextMarshal, pclrText, pclrTextBkMarshal, pclrTextBk, "ptr*", &plres := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", _hdc, "ptr", prc, "ptr", pnstccdItem, pclrTextMarshal, pclrText, pclrTextBkMarshal, pclrTextBk, "ptr*", &plres := 0, "HRESULT")
         return plres
     }
 
     /**
      * Called after an item in the namespace tree control is drawn.
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * A handle to the control's device context. Use this HDC to perform any GDI functions.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
@@ -118,10 +110,10 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itempostpaint
      */
-    ItemPostPaint(hdc, prc, pnstccdItem) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    ItemPostPaint(_hdc, prc, pnstccdItem) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(6, this, "ptr", hdc, "ptr", prc, "ptr", pnstccdItem, "HRESULT")
+        result := ComCall(6, this, "ptr", _hdc, "ptr", prc, "ptr", pnstccdItem, "HRESULT")
         return result
     }
 }

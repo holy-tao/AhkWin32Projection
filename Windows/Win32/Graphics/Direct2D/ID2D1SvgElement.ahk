@@ -33,14 +33,12 @@ class ID2D1SvgElement extends ID2D1Resource{
 
     /**
      * Gets the document that contains this element.
-     * @param {Pointer<ID2D1SvgDocument>} document Type: <b>ID2D1SvgDocument**</b>
-     * 
-     * Outputs the document that contains this element. This argument will be null if the element has been removed from the tree.
+     * @param {Pointer<ID2D1SvgDocument>} _document 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getdocument
      */
-    GetDocument(document) {
-        ComCall(4, this, "ptr*", document)
+    GetDocument(_document) {
+        ComCall(4, this, "ptr*", _document)
     }
 
     /**

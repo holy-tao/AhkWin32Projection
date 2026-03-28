@@ -36,78 +36,78 @@ class OLEDBSimpleProviderListener extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
      */
-    aboutToChangeCell(iRow, iColumn) {
-        result := ComCall(3, this, "ptr", iRow, "ptr", iColumn, "HRESULT")
+    aboutToChangeCell(_iRow, iColumn) {
+        result := ComCall(3, this, "ptr", _iRow, "ptr", iColumn, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
      */
-    cellChanged(iRow, iColumn) {
-        result := ComCall(4, this, "ptr", iRow, "ptr", iColumn, "HRESULT")
+    cellChanged(_iRow, iColumn) {
+        result := ComCall(4, this, "ptr", _iRow, "ptr", iColumn, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    aboutToDeleteRows(iRow, cRows) {
-        result := ComCall(5, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    aboutToDeleteRows(_iRow, cRows) {
+        result := ComCall(5, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    deletedRows(iRow, cRows) {
-        result := ComCall(6, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    deletedRows(_iRow, cRows) {
+        result := ComCall(6, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    aboutToInsertRows(iRow, cRows) {
-        result := ComCall(7, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    aboutToInsertRows(_iRow, cRows) {
+        result := ComCall(7, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    insertedRows(iRow, cRows) {
-        result := ComCall(8, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    insertedRows(_iRow, cRows) {
+        result := ComCall(8, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    rowsAvailable(iRow, cRows) {
-        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    rowsAvailable(_iRow, cRows) {
+        result := ComCall(9, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
         return result
     }
 

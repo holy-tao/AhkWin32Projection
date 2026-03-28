@@ -3532,7 +3532,7 @@ class OpenGL {
      * The ChoosePixelFormat function attempts to match an appropriate pixel format supported by a device context to a given pixel format specification.
      * @remarks
      * You must ensure that the pixel format matched by the <b>ChoosePixelFormat</b> function satisfies your requirements. For example, if you request a pixel format with a 24-bit RGB color buffer but the device context offers only 8-bit RGB color buffers, the function returns a pixel format with an 8-bit RGB color buffer.
-     * @param {HDC} hdc Specifies the device context that the function examines to determine the best match for the pixel format descriptor pointed to by <i>ppfd</i>.
+     * @param {HDC} _hdc 
      * @param {Pointer<PIXELFORMATDESCRIPTOR>} ppfd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure that specifies the requested pixel format. In this context, the members of the <b>PIXELFORMATDESCRIPTOR</b> structure that <i>ppfd</i> points to are used as follows:
      * 
      * <table>
@@ -3650,12 +3650,12 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-choosepixelformat
      * @since windows5.0
      */
-    static ChoosePixelFormat(hdc, ppfd) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ChoosePixelFormat(_hdc, ppfd) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\ChoosePixelFormat", "ptr", hdc, "ptr", ppfd, "int")
+        result := DllCall("GDI32.dll\ChoosePixelFormat", "ptr", _hdc, "ptr", ppfd, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3665,7 +3665,7 @@ class OpenGL {
 
     /**
      * The DescribePixelFormat function obtains information about the pixel format identified by iPixelFormat of the device associated with hdc. The function sets the members of the PIXELFORMATDESCRIPTOR structure pointed to by ppfd with that pixel format data.
-     * @param {HDC} hdc Specifies the device context.
+     * @param {HDC} _hdc 
      * @param {Integer} iPixelFormat Index that specifies the pixel format. The pixel formats that a device context supports are identified by positive one-based integer indexes.
      * @param {Integer} nBytes The size, in bytes, of the structure pointed to by <i>ppfd</i>. The <b>DescribePixelFormat</b> function stores no more than <i>nBytes</i> bytes of data to that structure. Set this value to <b>sizeof</b>(<b>PIXELFORMATDESCRIPTOR</b>).
      * @param {Pointer} ppfd Pointer to a <b>PIXELFORMATDESCRIPTOR</b> structure whose members the function sets with pixel format data. The function stores the number of bytes copied to the structure in the structure's <b>nSize</b> member. If, upon entry, <i>ppfd</i> is <b>NULL</b>, the function writes no data to the structure. This is useful when you only want to obtain the maximum pixel format index of a device context.
@@ -3675,12 +3675,12 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-describepixelformat
      * @since windows5.0
      */
-    static DescribePixelFormat(hdc, iPixelFormat, nBytes, ppfd) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DescribePixelFormat(_hdc, iPixelFormat, nBytes, ppfd) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\DescribePixelFormat", "ptr", hdc, "int", iPixelFormat, "uint", nBytes, "ptr", ppfd, "int")
+        result := DllCall("GDI32.dll\DescribePixelFormat", "ptr", _hdc, "int", iPixelFormat, "uint", nBytes, "ptr", ppfd, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3690,19 +3690,19 @@ class OpenGL {
 
     /**
      * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
-     * @param {HDC} hdc Specifies the device context of the currently selected pixel format index returned by the function.
+     * @param {HDC} _hdc 
      * @returns {Integer} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpixelformat
      * @since windows5.0
      */
-    static GetPixelFormat(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetPixelFormat(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\GetPixelFormat", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetPixelFormat", "ptr", _hdc, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3718,7 +3718,7 @@ class OpenGL {
      * You should select a pixel format in the device context before calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wglcreatecontext">wglCreateContext</a> function. The <b>wglCreateContext</b> function creates a rendering context for drawing on the device in the selected pixel format of the device context.
      * 
      * An OpenGL window has its own pixel format. Because of this, only device contexts retrieved for the client area of an OpenGL window are allowed to draw into the window. As a result, an OpenGL window should be created with the WS_CLIPCHILDREN and WS_CLIPSIBLINGS styles. Additionally, the window class attribute should not include the CS_PARENTDC style.
-     * @param {HDC} hdc Specifies the device context whose pixel format the function attempts to set.
+     * @param {HDC} _hdc 
      * @param {Integer} format Index that identifies the pixel format to set. The various pixel formats supported by a device context are identified by one-based indexes.
      * @param {Pointer<PIXELFORMATDESCRIPTOR>} ppfd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure that contains the logical pixel format specification. The system's metafile component uses this structure to record the logical pixel format specification. The structure has no other effect upon the behavior of the <b>SetPixelFormat</b> function.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -3727,12 +3727,12 @@ class OpenGL {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpixelformat
      * @since windows5.0
      */
-    static SetPixelFormat(hdc, format, ppfd) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetPixelFormat(_hdc, format, ppfd) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\SetPixelFormat", "ptr", hdc, "int", format, "ptr", ppfd, "int")
+        result := DllCall("GDI32.dll\SetPixelFormat", "ptr", _hdc, "int", format, "ptr", ppfd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4628,27 +4628,12 @@ class OpenGL {
      *      
      * 
      * -   Modes that require a certain multiple of vertices are GL\_LINES (2), GL\_TRIANGLES (3), GL\_QUADS (4), and GL\_QUAD\_STRIP (2).
-     * @param {Integer} mode The primitive or primitives that will be created from vertices presented between **glBegin** and the subsequent [**glend**](glend.md). The following are accepted symbolic constants and their meanings:
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                                      | Meaning                                                                                                                                                                                                                                                                                                                                                                                                   |
-     * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <span id="GL_POINTS"></span><span id="gl_points"></span><dl> <dt>**GL\_POINTS**</dt> </dl>                          | Treats each vertex as a single point. Vertex *n* defines point *n*. *N* points are drawn.<br/>                                                                                                                                                                                                                                                                                                      |
-     * | <span id="GL_LINES"></span><span id="gl_lines"></span><dl> <dt>**GL\_LINES**</dt> </dl>                             | Treats each pair of vertices as an independent line segment. Vertices *2n - 1* and *2n* define line *n*. *N/2* lines are drawn.<br/>                                                                                                                                                                                                                                                                |
-     * | <span id="GL_LINE_STRIP"></span><span id="gl_line_strip"></span><dl> <dt>**GL\_LINE\_STRIP**</dt> </dl>             | Draws a connected group of line segments from the first vertex to the last. Vertices *n* and *n+1* define line *n*. *N - 1* lines are drawn.<br/>                                                                                                                                                                                                                                                   |
-     * | <span id="GL_LINE_LOOP"></span><span id="gl_line_loop"></span><dl> <dt>**GL\_LINE\_LOOP**</dt> </dl>                | Draws a connected group of line segments from the first vertex to the last, then back to the first. Vertices *n* and *n + 1* define line *n*. The last line, however, is defined by vertices *N* and *1*. *N* lines are drawn.<br/>                                                                                                                                                                 |
-     * | <span id="GL_TRIANGLES"></span><span id="gl_triangles"></span><dl> <dt>**GL\_TRIANGLES**</dt> </dl>                 | Treats each triplet of vertices as an independent triangle. Vertices *3n - 2*, *3n - 1*, and *3n* define triangle *n*. *N/3* triangles are drawn.<br/>                                                                                                                                                                                                                                              |
-     * | <span id="GL_TRIANGLE_STRIP"></span><span id="gl_triangle_strip"></span><dl> <dt>**GL\_TRIANGLE\_STRIP**</dt> </dl> | Draws a connected group of triangles. One triangle is defined for each vertex presented after the first two vertices. For odd *n*, vertices *n*, *n + 1*, and *n + 2* define triangle *n*. For even *n*, vertices *n + 1*, *n*, and *n + 2* define triangle *n*. *N - 2* triangles are drawn.<br/>                                                                                                  |
-     * | <span id="GL_TRIANGLE_FAN"></span><span id="gl_triangle_fan"></span><dl> <dt>**GL\_TRIANGLE\_FAN**</dt> </dl>       | Draws a connected group of triangles. one triangle is defined for each vertex presented after the first two vertices. Vertices *1*, *n + 1*, *n + 2* define triangle *n*. *N - 2* triangles are drawn.<br/>                                                                                                                                                                                         |
-     * | <span id="GL_QUADS"></span><span id="gl_quads"></span><dl> <dt>**GL\_QUADS**</dt> </dl>                             | Treats each group of four vertices as an independent quadrilateral. Vertices *4n - 3*, *4n - 2*, *4n - 1*, and *4n* define quadrilateral *n*. *N/4* quadrilaterals are drawn.<br/>                                                                                                                                                                                                                  |
-     * | <span id="GL_QUAD_STRIP"></span><span id="gl_quad_strip"></span><dl> <dt>**GL\_QUAD\_STRIP**</dt> </dl>             | Draws a connected group of quadrilaterals. One quadrilateral is defined for each pair of vertices presented after the first pair. Vertices *2n - 1*, *2n*, *2n + 2*, and *2n + 1* define quadrilateral *n*. *N/2 - 1* quadrilaterals are drawn. Note that the order in which vertices are used to construct a quadrilateral from strip data is different from that used with independent data.<br/> |
-     * | <span id="GL_POLYGON"></span><span id="gl_polygon"></span><dl> <dt>**GL\_POLYGON**</dt> </dl>                       | Draws a single, convex polygon. Vertices *1* through *N* define this polygon.<br/>                                                                                                                                                                                                                                                                                                                  |
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glbegin
      */
-    static glBegin(mode) {
-        DllCall("OPENGL32.dll\glBegin", "uint", mode)
+    static glBegin(_mode) {
+        DllCall("OPENGL32.dll\glBegin", "uint", _mode)
     }
 
     /**
@@ -4727,14 +4712,14 @@ class OpenGL {
      * @param {Float} yorig The *y* location of the origin in the bitmap image. The origin is measured from the lower-left corner of the bitmap, with right and up directions being the positive axes.
      * @param {Float} xmove The *x* offset to be added to the current raster position after the bitmap is drawn.
      * @param {Float} ymove The *y* offset to be added to the current raster position after the bitmap is drawn.
-     * @param {Pointer<Integer>} bitmap The address of the bitmap image.
+     * @param {Pointer<Integer>} _bitmap 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glbitmap
      */
-    static glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap) {
-        bitmapMarshal := bitmap is VarRef ? "char*" : "ptr"
+    static glBitmap(width, height, xorig, yorig, xmove, ymove, _bitmap) {
+        _bitmapMarshal := _bitmap is VarRef ? "char*" : "ptr"
 
-        DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, bitmapMarshal, bitmap)
+        DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, _bitmapMarshal, _bitmap)
     }
 
     /**
@@ -5735,12 +5720,12 @@ class OpenGL {
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_COLOR\_MATERIAL
      * @param {Integer} face Specifies whether front, back, or both front and back material parameters should track the current color. Accepted values are GL\_FRONT, GL\_BACK, and GL\_FRONT\_AND\_BACK. The default value is GL\_FRONT\_AND\_BACK.
-     * @param {Integer} mode Specifies which of several material parameters track the current color. Accepted values are GL\_EMISSION, GL\_AMBIENT, GL\_DIFFUSE, GL\_SPECULAR, and GL\_AMBIENT\_AND\_DIFFUSE. The default value is GL\_AMBIENT\_AND\_DIFFUSE.
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolormaterial
      */
-    static glColorMaterial(face, mode) {
-        DllCall("OPENGL32.dll\glColorMaterial", "uint", face, "uint", mode)
+    static glColorMaterial(face, _mode) {
+        DllCall("OPENGL32.dll\glColorMaterial", "uint", face, "uint", _mode)
     }
 
     /**
@@ -5767,17 +5752,17 @@ class OpenGL {
      * **glGet** with argument GL\_COLOR\_ARRAY\_COUNT
      * 
      * [**glGetPointerv**](glgetpointerv.md) with argument GL\_COLOR\_ARRAY\_POINTER
-     * @param {Integer} size The number of components per color. The value must be either 3 or 4.
+     * @param {Integer} _size 
      * @param {Integer} type The data type of each color component in a color array. Acceptable data types are specified with the following constants: GL\_BYTE, GL\_UNSIGNED\_BYTE, GL\_SHORT, GL\_UNSIGNED\_SHORT, GL\_INT, GL\_UNSIGNED\_INT, GL\_FLOAT, or GL\_DOUBLE.
      * @param {Integer} stride The byte offset between consecutive colors. When *stride* is zero, the colors are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first component of the first color element in a color array.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolorpointer
      */
-    static glColorPointer(size, type, stride, pointer) {
+    static glColorPointer(_size, type, stride, pointer) {
         pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-        DllCall("OPENGL32.dll\glColorPointer", "int", size, "uint", type, "int", stride, pointerMarshal, pointer)
+        DllCall("OPENGL32.dll\glColorPointer", "int", _size, "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -6084,12 +6069,12 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CULL\_FACE\_MODE
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_CULL\_FACE
-     * @param {Integer} mode Specifies whether front-facing or back-facing facets are candidates for culling. The symbolic constants GL\_FRONT, GL\_BACK, and GL\_FRONT\_AND\_BACK are accepted. The default value is GL\_BACK.
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glcullface
      */
-    static glCullFace(mode) {
-        DllCall("OPENGL32.dll\glCullFace", "uint", mode)
+    static glCullFace(_mode) {
+        DllCall("OPENGL32.dll\glCullFace", "uint", _mode)
     }
 
     /**
@@ -6315,14 +6300,14 @@ class OpenGL {
      * You can read static array data at any time. If any static array elements are modified and the array is not specified again, the results of any subsequent calls to **glDrawArrays** are undefined.
      * 
      * Although no error is generated when you specify an array more than once within [**glBegin**](glbegin.md) and [**glend**](glend.md) pairs, the results are undefined.
-     * @param {Integer} mode The kind of primitives to render. The following constants specify acceptable types of primitives: GL\_POINTS, GL\_LINE\_STRIP, GL\_LINE\_LOOP, GL\_LINES, GL\_TRIANGLE\_STRIP, GL\_TRIANGLE\_FAN, GL\_TRIANGLES, GL\_QUAD\_STRIP, GL\_QUADS, and GL\_POLYGON.
+     * @param {Integer} _mode 
      * @param {Integer} first The starting index in the enabled arrays.
      * @param {Integer} count The number of indexes to render.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawarrays
      */
-    static glDrawArrays(mode, first, count) {
-        DllCall("OPENGL32.dll\glDrawArrays", "uint", mode, "int", first, "int", count)
+    static glDrawArrays(_mode, first, count) {
+        DllCall("OPENGL32.dll\glDrawArrays", "uint", _mode, "int", first, "int", count)
     }
 
     /**
@@ -6341,34 +6326,12 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_DRAW\_BUFFER
      * 
      * **glGet** with argument GL\_AUX\_BUFFERS
-     * @param {Integer} mode Specifies up to four color buffers to be drawn into with the following acceptable symbolic constants.
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                                       | Meaning                                                                                                                                                                                                                                                                                                                                                                                                      |
-     * |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <span id="GL_NONE"></span><span id="gl_none"></span><dl> <dt>**GL\_NONE**</dt> </dl>                                 | No color buffers are written.<br/>                                                                                                                                                                                                                                                                                                                                                                     |
-     * | <span id="GL_FRONT_LEFT"></span><span id="gl_front_left"></span><dl> <dt>**GL\_FRONT\_LEFT**</dt> </dl>              | Only the front-left color buffer is written.<br/>                                                                                                                                                                                                                                                                                                                                                      |
-     * | <span id="GL_FRONT_RIGHT"></span><span id="gl_front_right"></span><dl> <dt>**GL\_FRONT\_RIGHT**</dt> </dl>           | Only the front-right color buffer is written.<br/>                                                                                                                                                                                                                                                                                                                                                     |
-     * | <span id="GL_BACK_LEFT"></span><span id="gl_back_left"></span><dl> <dt>**GL\_BACK\_LEFT**</dt> </dl>                 | Only the back-left color buffer is written.<br/>                                                                                                                                                                                                                                                                                                                                                       |
-     * | <span id="GL_BACK_RIGHT"></span><span id="gl_back_right"></span><dl> <dt>**GL\_BACK\_RIGHT**</dt> </dl>              | Only the back-right color buffer is written.<br/>                                                                                                                                                                                                                                                                                                                                                      |
-     * | <span id="GL_FRONT"></span><span id="gl_front"></span><dl> <dt>**GL\_FRONT**</dt> </dl>                              | Only the front-left and front-right color buffers are written. If there is no front-right color buffer, only the front left-color buffer is written.<br/>                                                                                                                                                                                                                                              |
-     * | <span id="GL_BACK"></span><span id="gl_back"></span><dl> <dt>**GL\_BACK**</dt> </dl>                                 | Only the back-left and back-right color buffers are written. If there is no back-right color buffer, only the back-left color buffer is written.<br/>                                                                                                                                                                                                                                                  |
-     * | <span id="GL_LEFT"></span><span id="gl_left"></span><dl> <dt>**GL\_LEFT**</dt> </dl>                                 | Only the front-left and back-left color buffers are written. If there is no back-left color buffer, only the front-left color buffer is written.<br/>                                                                                                                                                                                                                                                  |
-     * | <span id="GL_RIGHT"></span><span id="gl_right"></span><dl> <dt>**GL\_RIGHT**</dt> </dl>                              | Only the front-right and back-right color buffers are written. If there is no back-right color buffer, only the front-right color buffer is written.<br/>                                                                                                                                                                                                                                              |
-     * | <span id="GL_FRONT_AND_BACK"></span><span id="gl_front_and_back"></span><dl> <dt>**GL\_FRONT\_AND\_BACK**</dt> </dl> | All the front and back color buffers (front-left, front-right, back-left, back-right) are written. If there are no back color buffers, only the front-left and front-right color buffers are written. If there are no right color buffers, only the front-left and back-left color buffers are written. If there are no right or back color buffers, only the front-left color buffer is written.<br/> |
-     * | <span id="GL_AUXi"></span><span id="gl_auxi"></span><span id="GL_AUXI"></span><dl> <dt>**GL\_AUXi**</dt> </dl>       | Only the auxiliary color buffer *i* is written; *i* is between 0 and GL\_AUX\_BUFFERS - 1. (GL\_AUX\_BUFFERS is not the upper limit; use [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) to query the number of available auxiliary buffers.)<br/>                                                                                                                            |
-     * 
-     * 
-     * 
-     *  
-     * 
-     * The default value is GL\_FRONT for single-buffered contexts, and GL\_BACK for double-buffered contexts.
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawbuffer
      */
-    static glDrawBuffer(mode) {
-        DllCall("OPENGL32.dll\glDrawBuffer", "uint", mode)
+    static glDrawBuffer(_mode) {
+        DllCall("OPENGL32.dll\glDrawBuffer", "uint", _mode)
     }
 
     /**
@@ -6384,17 +6347,17 @@ class OpenGL {
      * 
      * > [!Note]  
      * > The **glDrawElements** function is only available in OpenGL version 1.1 or later.
-     * @param {Integer} mode The kind of primitives to render. It can assume one of the following symbolic values: GL\_POINTS, GL\_LINE\_STRIP, GL\_LINE\_LOOP, GL\_LINES, GL\_TRIANGLE\_STRIP, GL\_TRIANGLE\_FAN, GL\_TRIANGLES, GL\_QUAD\_STRIP, GL\_QUADS, and GL\_POLYGON.
+     * @param {Integer} _mode 
      * @param {Integer} count The number of elements to be rendered.
      * @param {Integer} type The type of the values in indices. Must be one of GL\_UNSIGNED\_BYTE, GL\_UNSIGNED\_SHORT, or GL\_UNSIGNED\_INT.
      * @param {Pointer<Void>} indices A pointer to the location where the indices are stored.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawelements
      */
-    static glDrawElements(mode, count, type, indices) {
+    static glDrawElements(_mode, count, type, indices) {
         indicesMarshal := indices is VarRef ? "ptr" : "ptr"
 
-        DllCall("OPENGL32.dll\glDrawElements", "uint", mode, "int", count, "uint", type, indicesMarshal, indices)
+        DllCall("OPENGL32.dll\glDrawElements", "uint", _mode, "int", count, "uint", type, indicesMarshal, indices)
     }
 
     /**
@@ -7231,14 +7194,14 @@ class OpenGL {
      * ?u = (u2 u1) / n
      * 
      * and n, u1, and u2 are the arguments to the most recent [**glMapGrid1**](glmapgrid1d.md) function. The *type* parameter is GL\_POINTS if mode is GL\_POINT, or GL\_LINES if mode is GL\_LINE. The one absolute numeric requirement is that if i = n, then the value computed from i?u + u1 is exactly u2.
-     * @param {Integer} mode A value that specifies whether to compute a one-dimensional mesh of points or lines. The following symbolic constants are accepted: GL\_POINT and GL\_LINE.
+     * @param {Integer} _mode 
      * @param {Integer} i1 The first integer value for grid domain variable i.
      * @param {Integer} i2 The last integer value for grid domain variable i.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh1
      */
-    static glEvalMesh1(mode, i1, i2) {
-        DllCall("OPENGL32.dll\glEvalMesh1", "uint", mode, "int", i1, "int", i2)
+    static glEvalMesh1(_mode, i1, i2) {
+        DllCall("OPENGL32.dll\glEvalMesh1", "uint", _mode, "int", i1, "int", i2)
     }
 
     /**
@@ -7339,7 +7302,7 @@ class OpenGL {
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MAP1\_GRID\_SEGMENTS
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MAP2\_GRID\_SEGMENTS
-     * @param {Integer} mode A value that specifies whether to compute a two-dimensional mesh of points, lines, or polygons. The following symbolic constants are accepted: GL\_POINT, GL\_LINE, and GL\_FILL.
+     * @param {Integer} _mode 
      * @param {Integer} i1 The first integer value for grid domain variable i.
      * @param {Integer} i2 The last integer value for grid domain variable i.
      * @param {Integer} j1 The first integer value for grid domain variable j.
@@ -7347,8 +7310,8 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh2
      */
-    static glEvalMesh2(mode, i1, i2, j1, j2) {
-        DllCall("OPENGL32.dll\glEvalMesh2", "uint", mode, "int", i1, "int", i2, "int", j1, "int", j2)
+    static glEvalMesh2(_mode, i1, i2, j1, j2) {
+        DllCall("OPENGL32.dll\glEvalMesh2", "uint", _mode, "int", i1, "int", i2, "int", j1, "int", j2)
     }
 
     /**
@@ -7520,16 +7483,16 @@ class OpenGL {
      * The following function retrieves information related to **glFeedbackBuffer**:
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_RENDER\_MODE
-     * @param {Integer} size The maximum number of values that can be written into *buffer*.
+     * @param {Integer} _size 
      * @param {Integer} type A symbolic constant that describes the information that will be returned for each vertex. The following symbolic constants are accepted: GL\_2D, GL\_3D, GL\_3D\_COLOR, GL\_3D\_COLOR\_TEXTURE, and GL\_4D\_COLOR\_TEXTURE.
-     * @param {Pointer<Float>} buffer_R 
+     * @param {Pointer<Float>} _buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfeedbackbuffer
      */
-    static glFeedbackBuffer(size, type, buffer_R) {
-        buffer_RMarshal := buffer_R is VarRef ? "float*" : "ptr"
+    static glFeedbackBuffer(_size, type, _buffer) {
+        _bufferMarshal := _buffer is VarRef ? "float*" : "ptr"
 
-        DllCall("OPENGL32.dll\glFeedbackBuffer", "int", size, "uint", type, buffer_RMarshal, buffer_R)
+        DllCall("OPENGL32.dll\glFeedbackBuffer", "int", _size, "uint", type, _bufferMarshal, _buffer)
     }
 
     /**
@@ -7828,12 +7791,12 @@ class OpenGL {
      * The following function retrieves information about **glFrontface**:
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_FRONT\_FACE
-     * @param {Integer} mode The orientation of front-facing polygons. GL\_CW and GL\_CCW are accepted. The default value is GL\_CCW.
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glfrontface
      */
-    static glFrontFace(mode) {
-        DllCall("OPENGL32.dll\glFrontFace", "uint", mode)
+    static glFrontFace(_mode) {
+        DllCall("OPENGL32.dll\glFrontFace", "uint", _mode)
     }
 
     /**
@@ -9460,7 +9423,7 @@ class OpenGL {
      * The **glGetTexGen** function returns in *params* selected parameters of a texture-coordinate generation function that you specified with **glTexGen**. The *coord* parameter names one of the (*s*, *t*, *r*, *q*) texture coordinates, using the symbolic constant GL\_S, GL\_T, GL\_R, or GL\_Q.
      * 
      * If an error is generated, no change is made to the contents of *params*.
-     * @param {Integer} coord A texture coordinate. Must be GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the value(s) to be returned. Must be either GL\_TEXTURE\_GEN\_MODE or the name of one of the texture generation plane equations: GL\_OBJECT\_PLANE or GL\_EYE\_PLANE. These values are as follows.
      * 
      * 
@@ -9474,10 +9437,10 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgendv
      */
-    static glGetTexGendv(coord, pname, params) {
+    static glGetTexGendv(_coord, pname, params) {
         paramsMarshal := params is VarRef ? "double*" : "ptr"
 
-        DllCall("OPENGL32.dll\glGetTexGendv", "uint", coord, "uint", pname, paramsMarshal, params)
+        DllCall("OPENGL32.dll\glGetTexGendv", "uint", _coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -9486,7 +9449,7 @@ class OpenGL {
      * The **glGetTexGen** function returns in *params* selected parameters of a texture-coordinate generation function that you specified with **glTexGen**. The *coord* parameter names one of the (*s*, *t*, *r*, *q*) texture coordinates, using the symbolic constant GL\_S, GL\_T, GL\_R, or GL\_Q.
      * 
      * If an error is generated, no change is made to the contents of *params*.
-     * @param {Integer} coord A texture coordinate. Must be GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the value(s) to be returned. Must be either GL\_TEXTURE\_GEN\_MODE or the name of one of the texture generation plane equations: GL\_OBJECT\_PLANE or GL\_EYE\_PLANE. These values are as follows.
      * 
      * 
@@ -9500,10 +9463,10 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgenfv
      */
-    static glGetTexGenfv(coord, pname, params) {
+    static glGetTexGenfv(_coord, pname, params) {
         paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-        DllCall("OPENGL32.dll\glGetTexGenfv", "uint", coord, "uint", pname, paramsMarshal, params)
+        DllCall("OPENGL32.dll\glGetTexGenfv", "uint", _coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -9512,7 +9475,7 @@ class OpenGL {
      * The **glGetTexGen** function returns in *params* selected parameters of a texture-coordinate generation function that you specified with **glTexGen**. The *coord* parameter names one of the (*s*, *t*, *r*, *q*) texture coordinates, using the symbolic constant GL\_S, GL\_T, GL\_R, or GL\_Q.
      * 
      * If an error is generated, no change is made to the contents of *params*.
-     * @param {Integer} coord A texture coordinate. Must be GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the value(s) to be returned. Must be either GL\_TEXTURE\_GEN\_MODE or the name of one of the texture generation plane equations: GL\_OBJECT\_PLANE or GL\_EYE\_PLANE. These values are as follows.
      * 
      * 
@@ -9526,10 +9489,10 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glgettexgeniv
      */
-    static glGetTexGeniv(coord, pname, params) {
+    static glGetTexGeniv(_coord, pname, params) {
         paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-        DllCall("OPENGL32.dll\glGetTexGeniv", "uint", coord, "uint", pname, paramsMarshal, params)
+        DllCall("OPENGL32.dll\glGetTexGeniv", "uint", _coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -9723,20 +9686,12 @@ class OpenGL {
      * | <span id="GL_PERSPECTIVE_CORRECTION_HINT"></span><span id="gl_perspective_correction_hint"></span><dl> <dt>**GL\_PERSPECTIVE\_CORRECTION\_HINT**</dt> </dl> | Indicates the quality of color and texture coordinate interpolation. If perspective-corrected parameter interpolation is not efficiently supported by the OpenGL implementation, hinting GL\_DONT\_CARE or GL\_FASTEST can result in simple linear interpolation of colors and/or texture coordinates.<br/> |
      * | <span id="GL_POINT_SMOOTH_HINT"></span><span id="gl_point_smooth_hint"></span><dl> <dt>**GL\_POINT\_SMOOTH\_HINT**</dt> </dl>                               | Indicates the sampling quality of antialiased points. Hinting GL\_NICEST can result in more pixel fragments being generated during rasterization, if a larger filter function is applied.<br/>                                                                                                              |
      * | <span id="GL_POLYGON_SMOOTH_HINT"></span><span id="gl_polygon_smooth_hint"></span><dl> <dt>**GL\_POLYGON\_SMOOTH\_HINT**</dt> </dl>                         | Indicates the sampling quality of antialiased polygons. Hinting GL\_NICEST can result in more pixel fragments being generated during rasterization, if a larger filter function is applied.<br/>                                                                                                            |
-     * @param {Integer} mode A symbolic constant indicating the desired behavior. The following symbolic constants are accepted.
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                       | Meaning                                                                   |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-     * | <span id="GL_FASTEST"></span><span id="gl_fastest"></span><dl> <dt>**GL\_FASTEST**</dt> </dl>        | The most efficient option should be chosen.<br/>                    |
-     * | <span id="GL_NICEST"></span><span id="gl_nicest"></span><dl> <dt>**GL\_NICEST**</dt> </dl>           | The most correct, or highest quality, option should be chosen.<br/> |
-     * | <span id="GL_DONT_CARE"></span><span id="gl_dont_care"></span><dl> <dt>**GL\_DONT\_CARE**</dt> </dl> | The client doesn't have a preference.<br/>                          |
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glhint
      */
-    static glHint(target, mode) {
-        DllCall("OPENGL32.dll\glHint", "uint", target, "uint", mode)
+    static glHint(target, _mode) {
+        DllCall("OPENGL32.dll\glHint", "uint", target, "uint", _mode)
     }
 
     /**
@@ -10767,14 +10722,14 @@ class OpenGL {
      * @param {Float} u2 A linear mapping of *u*, as presented to [**glEvalCoord1**](glevalcoord-functions.md), to *u*^, the variable that is evaluated by the equations specified by this command.
      * @param {Integer} stride The number of floats or doubles between the beginning of one control point and the beginning of the next one in the data structure referenced in *points*. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} order The number of control points. Must be positive.
-     * @param {Pointer<Float>} points A pointer to the array of control points.
+     * @param {Pointer<Float>} _points 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1d
      */
-    static glMap1d(target, u1, u2, stride, order, points) {
-        pointsMarshal := points is VarRef ? "double*" : "ptr"
+    static glMap1d(target, u1, u2, stride, order, _points) {
+        _pointsMarshal := _points is VarRef ? "double*" : "ptr"
 
-        DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, pointsMarshal, points)
+        DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, _pointsMarshal, _points)
     }
 
     /**
@@ -10846,14 +10801,14 @@ class OpenGL {
      * @param {Float} u2 A linear mapping of *u*, as presented to [**glEvalCoord1**](glevalcoord-functions.md), to *u*^, the variable that is evaluated by the equations specified by this command.
      * @param {Integer} stride The number of floats or doubles between the beginning of one control point and the beginning of the next one in the data structure referenced in *points*. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} order The number of control points. Must be positive.
-     * @param {Pointer<Float>} points A pointer to the array of control points.
+     * @param {Pointer<Float>} _points 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap1f
      */
-    static glMap1f(target, u1, u2, stride, order, points) {
-        pointsMarshal := points is VarRef ? "float*" : "ptr"
+    static glMap1f(target, u1, u2, stride, order, _points) {
+        _pointsMarshal := _points is VarRef ? "float*" : "ptr"
 
-        DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, pointsMarshal, points)
+        DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, _pointsMarshal, _points)
     }
 
     /**
@@ -10941,14 +10896,14 @@ class OpenGL {
      * @param {Float} v2 A linear mapping of *v*, as presented to [**glEvalCoord2**](glevalcoord-functions.md), to *v*^, one of the two variables that is evaluated by the equations specified by this command.
      * @param {Integer} vstride The number of floats or doubles between the beginning of control point **R** *ij* and the beginning of control point **R** <sub>i(j\ +1\ )</sub>, where *i* and *j* are the *u* and *v* control point indexes, respectively. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} vorder The dimension of the control point array in the *v*-axis. Must be positive.
-     * @param {Pointer<Float>} points A pointer to the array of control points.
+     * @param {Pointer<Float>} _points 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2d
      */
-    static glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
-        pointsMarshal := points is VarRef ? "double*" : "ptr"
+    static glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, _points) {
+        _pointsMarshal := _points is VarRef ? "double*" : "ptr"
 
-        DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, pointsMarshal, points)
+        DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, _pointsMarshal, _points)
     }
 
     /**
@@ -11036,14 +10991,14 @@ class OpenGL {
      * @param {Float} v2 A linear mapping of *v*, as presented to [**glEvalCoord2**](glevalcoord-functions.md), to *v*^, one of the two variables that is evaluated by the equations specified by this command.
      * @param {Integer} vstride The number of floats or doubles between the beginning of control point **R** *ij* and the beginning of control point **R** <sub>i(j\ +1\ )</sub>, where *i* and *j* are the *u* and *v* control point indexes, respectively. This allows control points to be embedded in arbitrary data structures. The only constraint is that the values for a particular control point must occupy contiguous memory locations.
      * @param {Integer} vorder The dimension of the control point array in the *v*-axis. Must be positive.
-     * @param {Pointer<Float>} points A pointer to the array of control points.
+     * @param {Pointer<Float>} _points 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmap2f
      */
-    static glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points) {
-        pointsMarshal := points is VarRef ? "float*" : "ptr"
+    static glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, _points) {
+        _pointsMarshal := _points is VarRef ? "float*" : "ptr"
 
-        DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, pointsMarshal, points)
+        DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, _pointsMarshal, _points)
     }
 
     /**
@@ -11348,20 +11303,12 @@ class OpenGL {
      * The following function retrieves information related to **glMatrixMode**:
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MATRIX\_MODE
-     * @param {Integer} mode The matrix stack that is the target for subsequent matrix operations. The *mode* parameter can assume one of three values.
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                         | Meaning                                                                         |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-     * | <span id="GL_MODELVIEW"></span><span id="gl_modelview"></span><dl> <dt>**GL\_MODELVIEW**</dt> </dl>    | Applies subsequent matrix operations to the modelview matrix stack.<br/>  |
-     * | <span id="GL_PROJECTION"></span><span id="gl_projection"></span><dl> <dt>**GL\_PROJECTION**</dt> </dl> | Applies subsequent matrix operations to the projection matrix stack.<br/> |
-     * | <span id="GL_TEXTURE"></span><span id="gl_texture"></span><dl> <dt>**GL\_TEXTURE**</dt> </dl>          | Applies subsequent matrix operations to the texture matrix stack.<br/>    |
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glmatrixmode
      */
-    static glMatrixMode(mode) {
-        DllCall("OPENGL32.dll\glMatrixMode", "uint", mode)
+    static glMatrixMode(_mode) {
+        DllCall("OPENGL32.dll\glMatrixMode", "uint", _mode)
     }
 
     /**
@@ -11443,19 +11390,12 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_MATRIX\_MODE
      * @param {Integer} list The display list name.
-     * @param {Integer} mode The compilation mode. The following values are accepted.
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                                                      | Meaning                                                                      |
-     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
-     * | <span id="GL_COMPILE"></span><span id="gl_compile"></span><dl> <dt>**GL\_COMPILE**</dt> </dl>                                       | Commands are merely compiled.<br/>                                     |
-     * | <span id="GL_COMPILE_AND_EXECUTE"></span><span id="gl_compile_and_execute"></span><dl> <dt>**GL\_COMPILE\_AND\_EXECUTE**</dt> </dl> | Commands are executed as they are compiled into the display list.<br/> |
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glnewlist
      */
-    static glNewList(list, mode) {
-        DllCall("OPENGL32.dll\glNewList", "uint", list, "uint", mode)
+    static glNewList(list, _mode) {
+        DllCall("OPENGL32.dll\glNewList", "uint", list, "uint", _mode)
     }
 
     /**
@@ -12438,12 +12378,12 @@ class OpenGL {
      * **glGet** with argument GL\_POINT\_SIZE\_GRANULARITY
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_POINT\_SMOOTH
-     * @param {Float} size The diameter of rasterized points. The default is 1.0.
+     * @param {Float} _size 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpointsize
      */
-    static glPointSize(size) {
-        DllCall("OPENGL32.dll\glPointSize", "float", size)
+    static glPointSize(_size) {
+        DllCall("OPENGL32.dll\glPointSize", "float", _size)
     }
 
     /**
@@ -12461,20 +12401,12 @@ class OpenGL {
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_POLYGON\_MODE
      * @param {Integer} face The polygons that *mode* applies to. Must be GL\_FRONT for front-facing polygons, GL\_BACK for back-facing polygons, or GL\_FRONT\_AND\_BACK for front- and back-facing polygons.
-     * @param {Integer} mode The way polygons will be rasterized. The following modes are defined and can be specified in *mode*. The default is GL\_FILL for both front- and back-facing polygons.
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                          | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <span id="GL_POINT"></span><span id="gl_point"></span><dl> <dt>**GL\_POINT**</dt> </dl> | Polygon vertices that are marked as the start of a boundary edge are drawn as points. Point attributes such as GL\_POINT\_SIZE and GL\_POINT\_SMOOTH control the rasterization of the points. Polygon rasterization attributes other than GL\_POLYGON\_MODE have no effect.<br/>                                                                                                                                                    |
-     * | <span id="GL_LINE"></span><span id="gl_line"></span><dl> <dt>**GL\_LINE**</dt> </dl>    | Boundary edges of the polygon are drawn as line segments. They are treated as connected line segments for line stippling; the line stipple counter and pattern are not reset between segments (see [**glLineStipple**](gllinestipple.md)). Line attributes such as GL\_LINE\_WIDTH and GL\_LINE\_SMOOTH control the rasterization of the lines. Polygon rasterization attributes other than GL\_POLYGON\_MODE have no effect.<br/> |
-     * | <span id="GL_FILL"></span><span id="gl_fill"></span><dl> <dt>**GL\_FILL**</dt> </dl>    | The interior of the polygon is filled. Polygon attributes such as GL\_POLYGON\_STIPPLE and GL\_POLYGON\_SMOOTH control the rasterization of the polygon.<br/>                                                                                                                                                                                                                                                                       |
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonmode
      */
-    static glPolygonMode(face, mode) {
-        DllCall("OPENGL32.dll\glPolygonMode", "uint", face, "uint", mode)
+    static glPolygonMode(face, _mode) {
+        DllCall("OPENGL32.dll\glPolygonMode", "uint", face, "uint", _mode)
     }
 
     /**
@@ -14242,12 +14174,12 @@ class OpenGL {
      * The following function retrieves information related to **glReadBuffer**:
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_READ\_BUFFER
-     * @param {Integer} mode A color buffer. Accepted values are GL\_FRONT\_LEFT, GL\_FRONT\_RIGHT, GL\_BACK\_LEFT, GL\_BACK\_RIGHT, GL\_FRONT, GL\_BACK, GL\_LEFT, GL\_RIGHT, and GL\_AUX *i*, where *i* is between 0 and GL\_AUX\_BUFFERS 1.
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glreadbuffer
      */
-    static glReadBuffer(mode) {
-        DllCall("OPENGL32.dll\glReadBuffer", "uint", mode)
+    static glReadBuffer(_mode) {
+        DllCall("OPENGL32.dll\glReadBuffer", "uint", _mode)
     }
 
     /**
@@ -14588,20 +14520,12 @@ class OpenGL {
      * The following function retrieves information related to **glRenderMode**:
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_RENDER\_MODE
-     * @param {Integer} mode The rasterization mode. The following three values are accepted. The default value is GL\_RENDER.
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                   | Meaning                                                                                                                                                                                                                                                                                                                                                                       |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <span id="GL_RENDER"></span><span id="gl_render"></span><dl> <dt>**GL\_RENDER**</dt> </dl>       | Render mode. Primitives are rasterized, producing pixel fragments, which are written into the framebuffer. This is the normal mode and also the default mode.<br/>                                                                                                                                                                                                      |
-     * | <span id="GL_SELECT"></span><span id="gl_select"></span><dl> <dt>**GL\_SELECT**</dt> </dl>       | Selection mode. No pixel fragments are produced, and no change to the framebuffer contents is made. Instead, a record of the names of primitives that would have been drawn if the render mode was GL\_RENDER is returned in a select buffer, which must be created (see [**glSelectBuffer**](glselectbuffer.md)) before selection mode is entered.<br/>               |
-     * | <span id="GL_FEEDBACK"></span><span id="gl_feedback"></span><dl> <dt>**GL\_FEEDBACK**</dt> </dl> | Feedback mode. No pixel fragments are produced, and no change to the framebuffer contents is made. Instead, the coordinates and attributes of vertices that would have been drawn had the render mode been GL\_RENDER are returned in a feedback buffer, which must be created (see [**glFeedbackBuffer**](glfeedbackbuffer.md)) before feedback mode is entered.<br/> |
+     * @param {Integer} _mode 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glrendermode
      */
-    static glRenderMode(mode) {
-        result := DllCall("OPENGL32.dll\glRenderMode", "uint", mode, "int")
+    static glRenderMode(_mode) {
+        result := DllCall("OPENGL32.dll\glRenderMode", "uint", _mode, "int")
         return result
     }
 
@@ -14778,15 +14702,15 @@ class OpenGL {
      * The following function retrieves information related to **glSelectBuffer**:
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_NAME\_STACK\_DEPTH
-     * @param {Integer} size The size of *buffer*.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Integer} _size 
+     * @param {Pointer<Integer>} _buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glselectbuffer
      */
-    static glSelectBuffer(size, buffer_R) {
-        buffer_RMarshal := buffer_R is VarRef ? "uint*" : "ptr"
+    static glSelectBuffer(_size, _buffer) {
+        _bufferMarshal := _buffer is VarRef ? "uint*" : "ptr"
 
-        DllCall("OPENGL32.dll\glSelectBuffer", "int", size, buffer_RMarshal, buffer_R)
+        DllCall("OPENGL32.dll\glSelectBuffer", "int", _size, _bufferMarshal, _buffer)
     }
 
     /**
@@ -14816,12 +14740,12 @@ class OpenGL {
      * The following function retrieves information related to **glShadeModel**:
      * 
      * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_SHADE\_MODEL
-     * @param {Integer} mode A symbolic value representing a shading technique. Accepted values are GL\_FLAT and GL\_SMOOTH. The default is GL\_SMOOTH.
+     * @param {Integer} _mode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glshademodel
      */
-    static glShadeModel(mode) {
-        DllCall("OPENGL32.dll\glShadeModel", "uint", mode)
+    static glShadeModel(_mode) {
+        DllCall("OPENGL32.dll\glShadeModel", "uint", _mode)
     }
 
     /**
@@ -15466,17 +15390,17 @@ class OpenGL {
      * **glGet** with argument **GL\_TEXTURE\_COORD\_ARRAY\_TYPE**
      * 
      * [**glGetPointerv**](glgetpointerv.md) with argument **GL\_TEXTURE\_COORD\_ARRAY\_POINTER**
-     * @param {Integer} size The number of coordinates per array element. The value of *size* must be 1, 2, 3, or 4.
+     * @param {Integer} _size 
      * @param {Integer} type The data type of each texture coordinate in the array using the following symbolic constants: **GL\_SHORT**, **GL\_INT**, **GL\_FLOAT**, and **GL\_DOUBLE**.
      * @param {Integer} stride The byte offset between consecutive array elements. When *stride* is zero, the array elements are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first coordinate of the first element in the array.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoordpointer
      */
-    static glTexCoordPointer(size, type, stride, pointer) {
+    static glTexCoordPointer(_size, type, stride, pointer) {
         pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-        DllCall("OPENGL32.dll\glTexCoordPointer", "int", size, "uint", type, "int", stride, pointerMarshal, pointer)
+        DllCall("OPENGL32.dll\glTexCoordPointer", "int", _size, "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -15934,14 +15858,14 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_R  
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_Q  
      * </dl>
-     * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgend
      */
-    static glTexGend(coord, pname, param2) {
-        DllCall("OPENGL32.dll\glTexGend", "uint", coord, "uint", pname, "double", param2)
+    static glTexGend(_coord, pname, param2) {
+        DllCall("OPENGL32.dll\glTexGend", "uint", _coord, "uint", pname, "double", param2)
     }
 
     /**
@@ -15991,16 +15915,16 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_R  
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_Q  
      * </dl>
-     * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Pointer<Float>} params An array that contains the coefficients for the corresponding texture generation function.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgendv
      */
-    static glTexGendv(coord, pname, params) {
+    static glTexGendv(_coord, pname, params) {
         paramsMarshal := params is VarRef ? "double*" : "ptr"
 
-        DllCall("OPENGL32.dll\glTexGendv", "uint", coord, "uint", pname, paramsMarshal, params)
+        DllCall("OPENGL32.dll\glTexGendv", "uint", _coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -16050,14 +15974,14 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_R  
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_Q  
      * </dl>
-     * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Float} param2 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenf
      */
-    static glTexGenf(coord, pname, param2) {
-        DllCall("OPENGL32.dll\glTexGenf", "uint", coord, "uint", pname, "float", param2)
+    static glTexGenf(_coord, pname, param2) {
+        DllCall("OPENGL32.dll\glTexGenf", "uint", _coord, "uint", pname, "float", param2)
     }
 
     /**
@@ -16107,7 +16031,7 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_R  
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_Q  
      * </dl>
-     * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Pointer<Float>} params An array of floats that contains the coefficients for the corresponding texture generation function.
      * 
@@ -16117,10 +16041,10 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenfv
      */
-    static glTexGenfv(coord, pname, params) {
+    static glTexGenfv(_coord, pname, params) {
         paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-        DllCall("OPENGL32.dll\glTexGenfv", "uint", coord, "uint", pname, paramsMarshal, params)
+        DllCall("OPENGL32.dll\glTexGenfv", "uint", _coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -16170,14 +16094,14 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_R  
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_Q  
      * </dl>
-     * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Integer} param2 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeni
      */
-    static glTexGeni(coord, pname, param2) {
-        DllCall("OPENGL32.dll\glTexGeni", "uint", coord, "uint", pname, "int", param2)
+    static glTexGeni(_coord, pname, param2) {
+        DllCall("OPENGL32.dll\glTexGeni", "uint", _coord, "uint", pname, "int", param2)
     }
 
     /**
@@ -16227,16 +16151,16 @@ class OpenGL {
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_R  
      * [**glIsEnabled**](glisenabled.md) with argument GL\_TEXTURE\_GEN\_Q  
      * </dl>
-     * @param {Integer} coord A texture coordinate. Must be one of the following: GL\_S, GL\_T, GL\_R, or GL\_Q.
+     * @param {Integer} _coord 
      * @param {Integer} pname The symbolic name of the texture coordinate generation function.
      * @param {Pointer<Integer>} params An array that contains the coefficients for the corresponding texture generation function.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeniv
      */
-    static glTexGeniv(coord, pname, params) {
+    static glTexGeniv(_coord, pname, params) {
         paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-        DllCall("OPENGL32.dll\glTexGeniv", "uint", coord, "uint", pname, paramsMarshal, params)
+        DllCall("OPENGL32.dll\glTexGeniv", "uint", _coord, "uint", pname, paramsMarshal, params)
     }
 
     /**
@@ -17024,17 +16948,17 @@ class OpenGL {
      * [**glGetPointerv**](glgetpointerv.md) with argument GL\_VERTEX\_ARRAY\_POINTER
      * 
      * [**glIsEnabled**](glisenabled.md) with argument GL\_VERTEX\_ARRAY
-     * @param {Integer} size The number of coordinates per vertex. The value of *size* must be 2, 3, or 4.
+     * @param {Integer} _size 
      * @param {Integer} type The data type of each coordinate in the array using the following symbolic constants: GL\_SHORT, GL\_INT, GL\_FLOAT, and GL\_DOUBLE.
      * @param {Integer} stride The byte offset between consecutive vertices. When *stride* is zero, the vertices are tightly packed in the array.
      * @param {Pointer<Void>} pointer A pointer to the first coordinate of the first vertex in the array.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertexpointer
      */
-    static glVertexPointer(size, type, stride, pointer) {
+    static glVertexPointer(_size, type, stride, pointer) {
         pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-        DllCall("OPENGL32.dll\glVertexPointer", "int", size, "uint", type, "int", stride, pointerMarshal, pointer)
+        DllCall("OPENGL32.dll\glVertexPointer", "int", _size, "uint", type, "int", stride, pointerMarshal, pointer)
     }
 
     /**
@@ -17304,7 +17228,7 @@ class OpenGL {
      * 
      * For a description of the acceptable values for the *format* parameter, see **glTexImage1D**. For a description of the acceptable values for the *type* parameter, see [**glDrawPixels**](gldrawpixels.md).
      * @param {Integer} target The target texture. Must be GL\_TEXTURE\_1D.
-     * @param {Integer} components The number of color components in the texture. Must be 1, 2, 3, or 4.
+     * @param {Integer} _components 
      * @param {Integer} width The width of the texture image.
      * @param {Integer} format The format of the pixel data. The following values are valid: GL\_COLOR\_INDEX, GL\_RED, GL\_GREEN, GL\_BLUE, GL\_ALPHA, GL\_RGB, GL\_RGBA, GL\_BGR\_EXT, GL\_BGRA\_EXT, GL\_LUMINANCE, or GL\_LUMINANCE\_ALPHA.
      * @param {Integer} type The data type for *data*. The following values are valid: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_BITMAP, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, or GL\_FLOAT.
@@ -17312,10 +17236,10 @@ class OpenGL {
      * @returns {Integer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild1dmipmaps
      */
-    static gluBuild1DMipmaps(target, components, width, format, type, data) {
+    static gluBuild1DMipmaps(target, _components, width, format, type, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", components, "int", width, "uint", format, "uint", type, dataMarshal, data, "int")
+        result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", _components, "int", width, "uint", format, "uint", type, dataMarshal, data, "int")
         return result
     }
 
@@ -17328,7 +17252,7 @@ class OpenGL {
      * 
      * For a description of the acceptable values for the *format* parameter, see **glTexImage2D**. For a description of the acceptable values for *type*, see [**glDrawPixels**](gldrawpixels.md).
      * @param {Integer} target The target texture. Must be GL\_TEXTURE\_2D.
-     * @param {Integer} components The number of color components in the texture. Must be 1, 2, 3, or 4.
+     * @param {Integer} _components 
      * @param {Integer} width The width of the texture image.
      * @param {Integer} height The height of the texture image.
      * @param {Integer} format The format of the pixel data. Must be one of the following: GL\_COLOR\_INDEX, GL\_RED, GL\_GREEN, GL\_BLUE, GL\_ALPHA, GL\_RGB, GL\_RGBA, GL\_BGR\_EXT, GL\_BGRA\_EXT, GL\_LUMINANCE, or GL\_LUMINANCE\_ALPHA.
@@ -17337,10 +17261,10 @@ class OpenGL {
      * @returns {Integer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glubuild2dmipmaps
      */
-    static gluBuild2DMipmaps(target, components, width, height, format, type, data) {
+    static gluBuild2DMipmaps(target, _components, width, height, format, type, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", components, "int", width, "int", height, "uint", format, "uint", type, dataMarshal, data, "int")
+        result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", _components, "int", width, "int", height, "uint", format, "uint", type, dataMarshal, data, "int")
         return result
     }
 
@@ -18097,20 +18021,7 @@ class OpenGL {
      * @remarks
      * Use **gluNurbsProperty** to control properties stored in a NURBS object. These properties affect the way a NURBS curve is rendered.
      * @param {Pointer<GLUnurbs>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @param {Integer} property The property to be set. The following values are valid:
-     * 
-     * 
-     * 
-     * | Value                                                                                                                                                                                           | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <span id="GLU_SAMPLING_TOLERANCE"></span><span id="glu_sampling_tolerance"></span><dl> <dt>**GLU\_SAMPLING\_TOLERANCE**</dt> </dl>       | Specifies the maximum length, in pixels, to use when the sampling method is set to GLU\_PATH\_LENGTH. The default value is 50.0 pixels.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-     * | <span id="GLU_DISPLAY_MODE"></span><span id="glu_display_mode"></span><dl> <dt>**GLU\_DISPLAY\_MODE**</dt> </dl>                         | The *value* parameter defines how a NURBS surface is to be rendered. You can set *value* to GLU\_FILL, GLU\_OUTLINE\_POLYGON, or GLU\_OUTLINE\_PATCH. <br/> GLU\_FILL. The surface is rendered as a set of polygons. This is the default value. <br/> GLU\_OUTLINE\_POLYGON. The NURBS library draws only the outlines of the polygons created by tessellation. <br/> GLU\_OUTLINE\_PATCH. Only the outlines of patches and trim curves defined by the user are drawn.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-     * | <span id="GLU_CULLING"></span><span id="glu_culling"></span><dl> <dt>**GLU\_CULLING**</dt> </dl>                                         | The *value* parameter is a Boolean value. When value is set to GL\_TRUE, NURBS curves whose control points lie outside the current viewport are discarded prior to tessellation. The default is GL\_FALSE (because a NURBS curve cannot fall entirely within the convex hull of its control points).<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-     * | <span id="GLU_AUTO_LOAD_MATRIX"></span><span id="glu_auto_load_matrix"></span><dl> <dt>**GLU\_AUTO\_LOAD\_MATRIX**</dt> </dl>            | The *value* parameter is a Boolean value. When set to GL\_TRUE, the NURBS code downloads the projection matrix, modelview matrix, and viewport from the OpenGL server to compute sampling and culling matrices for each NURBS curve that is rendered. Sampling and culling matrices are required to determine the tessellation of a NURBS surface into line segments or polygons and to cull a NURBS surface if it lies outside of the viewport. <br/> If this mode is set to GL\_FALSE, you must provide a projection matrix, modelview matrix, and viewport for the NURBS renderer to use to construct sampling and culling matrices. You can do this with the [**gluLoadSamplingMatrices**](gluloadsamplingmatrices.md) function.<br/> The default for this mode is GL\_TRUE. Changing this mode from GL\_TRUE to GL\_FALSE does not affect the sampling and culling matrices until you call [**gluLoadSamplingMatrices**](gluloadsamplingmatrices.md). <br/> The following property parameters are supported in GLU version 1.1 or later and are not valid for GLU version 1.0: GLU\_PARAMETRIC\_TOLERANCE, GLU\_SAMPLING\_METHOD, GLU\_U\_STEP, and GLU\_V\_STEP.<br/> The following value parameters are supported in GLU version 1.1 or later and are not valid for GLU version 1.0: GLU\_PATH\_LENGTH, GLU\_PARAMETRIC\_ERROR, and GLU\_DOMAIN\_DISTANCE.<br/> |
-     * | <span id="GLU_PARAMETRIC_TOLERANCE"></span><span id="glu_parametric_tolerance"></span><dl> <dt>**GLU\_PARAMETRIC\_TOLERANCE**</dt> </dl> | Specifies the maximum distance, in pixels, to use when the sampling method is set to GLU\_PARAMETRIC\_ERROR. The default value is 0.5.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-     * | <span id="GLU_SAMPLING_METHOD"></span><span id="glu_sampling_method"></span><dl> <dt>**GLU\_SAMPLING\_METHOD**</dt> </dl>                | Specifies how to tessallate a NURBS surface. GLU\_SAMPLING\_METHOD can have one of the following three values. <br/> GLU\_PATH\_LENGTH. The default value. Specifies that surfaces rendered with the maximum length, in pixels, of the edges of the tessellation polygons are no greater than the value specified by GLU\_SAMPLING\_TOLERANCE. <br/> GLU\_PARAMETRIC\_ERROR. Specifies that in rendering the surface, the value of GLU\_PARAMETRIC\_TOLERANCE specifies the maximum distance, in pixels, between the tessellation polygons and the surfaces they approximate. <br/> GLU\_DOMAIN\_DISTANCE. Specifies, in parametric coordinates, how many sample points per unit length to take in the *u* and *v* dimensions.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-     * | <span id="GLU_U_STEP"></span><span id="glu_u_step"></span><dl> <dt>**GLU\_U\_STEP**</dt> </dl>                                           | Specifies the number of sample points per unit length taken along the *u* dimension in parametric coordinates. The value of GLU\_U\_STEP is used when GLU\_SAMPLING\_METHOD is set to GLU\_DOMAIN\_DISTANCE. The default value is 100.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-     * | <span id="GLU_V_STEP"></span><span id="glu_v_step"></span><dl> <dt>**GLU\_V\_STEP**</dt> </dl>                                           | Specifies the number of sample points per unit length taken along the *v* dimension in parametric coordinates. The value of GLU\_V\_STEP is used when GLU\_SAMPLING\_METHOD is set to GLU\_DOMAIN\_DISTANCE. The default value is 100.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+     * @param {Integer} _property 
      * @param {Float} value The value to which to set the indicated property. The *value* parameter can be a numeric value or one of the following three values: GLU\_PATH\_LENGTH, GLU\_PARAMETRIC\_ERROR, or GLU\_DOMAIN\_DISTANCE.
      * 
      * 
@@ -18123,10 +18034,10 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glunurbsproperty
      */
-    static gluNurbsProperty(nobj, property, value) {
+    static gluNurbsProperty(nobj, _property, value) {
         nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
 
-        DllCall("GLU32.dll\gluNurbsProperty", nobjMarshal, nobj, "uint", property, "float", value)
+        DllCall("GLU32.dll\gluNurbsProperty", nobjMarshal, nobj, "uint", _property, "float", value)
     }
 
     /**
@@ -18134,16 +18045,16 @@ class OpenGL {
      * @remarks
      * Use **gluGetNurbsProperty** to retrieve properties stored in a NURBS object. These properties affect the way NURBS curves and surfaces are rendered. For information about NURBS properties, see [**gluNurbsProperty**](glunurbsproperty.md).
      * @param {Pointer<GLUnurbs>} nobj The NURBS object (created with [**gluNewNurbsRenderer**](glunewnurbsrenderer.md)).
-     * @param {Integer} property The property whose value is to be retrieved. The following values are valid: GLU\_SAMPLING\_TOLERANCE, GLU\_DISPLAY\_MODE, GLU\_CULLING, GLU\_AUTO\_LOAD\_MATRIX, GLU\_PARAMETRIC\_TOLERANCE, GLU\_SAMPLING\_METHOD, GLU\_U\_STEP, and GLU\_V\_STEP.
+     * @param {Integer} _property 
      * @param {Pointer<Float>} value A pointer to the location into which the value of the named property is written.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetnurbsproperty
      */
-    static gluGetNurbsProperty(nobj, property, value) {
+    static gluGetNurbsProperty(nobj, _property, value) {
         nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
         valueMarshal := value is VarRef ? "float*" : "ptr"
 
-        DllCall("GLU32.dll\gluGetNurbsProperty", nobjMarshal, nobj, "uint", property, valueMarshal, value)
+        DllCall("GLU32.dll\gluGetNurbsProperty", nobjMarshal, nobj, "uint", _property, valueMarshal, value)
     }
 
     /**

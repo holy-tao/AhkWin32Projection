@@ -47,7 +47,7 @@ class IDirectSoundFullDuplex extends IUnknown{
      * @param {Pointer<Guid>} pRenderGuid 
      * @param {Pointer<DSCBUFFERDESC>} lpDscBufferDesc 
      * @param {Pointer<DSBUFFERDESC>} lpDsBufferDesc 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Integer} dwLevel 
      * @param {Pointer<IDirectSoundCaptureBuffer8>} lplpDirectSoundCaptureBuffer8 
      * @param {Pointer<IDirectSoundBuffer8>} lplpDirectSoundBuffer8 
@@ -64,10 +64,10 @@ class IDirectSoundFullDuplex extends IUnknown{
      * </ul>
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
-    Initialize(pCaptureGuid, pRenderGuid, lpDscBufferDesc, lpDsBufferDesc, hWnd, dwLevel, lplpDirectSoundCaptureBuffer8, lplpDirectSoundBuffer8) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    Initialize(pCaptureGuid, pRenderGuid, lpDscBufferDesc, lpDsBufferDesc, _hWnd, dwLevel, lplpDirectSoundCaptureBuffer8, lplpDirectSoundBuffer8) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(3, this, "ptr", pCaptureGuid, "ptr", pRenderGuid, "ptr", lpDscBufferDesc, "ptr", lpDsBufferDesc, "ptr", hWnd, "uint", dwLevel, "ptr*", lplpDirectSoundCaptureBuffer8, "ptr*", lplpDirectSoundBuffer8, "HRESULT")
+        result := ComCall(3, this, "ptr", pCaptureGuid, "ptr", pRenderGuid, "ptr", lpDscBufferDesc, "ptr", lpDsBufferDesc, "ptr", _hWnd, "uint", dwLevel, "ptr*", lplpDirectSoundCaptureBuffer8, "ptr*", lplpDirectSoundBuffer8, "HRESULT")
         return result
     }
 }

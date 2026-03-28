@@ -47,32 +47,28 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
 
     /**
      * Retrieves the name of a control-specific view. (IUIAutomationMultipleViewPattern.GetViewName)
-     * @param {Integer} view Type: <b>int</b>
-     * 
-     * The identifier of the view.
+     * @param {Integer} _view 
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives a pointer to a localized view name.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getviewname
      */
-    GetViewName(view) {
+    GetViewName(_view) {
         name := BSTR()
-        result := ComCall(3, this, "int", view, "ptr", name, "HRESULT")
+        result := ComCall(3, this, "int", _view, "ptr", name, "HRESULT")
         return name
     }
 
     /**
      * Sets the view of the control.
-     * @param {Integer} view Type: <b>int</b>
-     * 
-     * The control-specific view identifier.
+     * @param {Integer} _view 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-setcurrentview
      */
-    SetCurrentView(view) {
-        result := ComCall(4, this, "int", view, "HRESULT")
+    SetCurrentView(_view) {
+        result := ComCall(4, this, "int", _view, "HRESULT")
         return result
     }
 

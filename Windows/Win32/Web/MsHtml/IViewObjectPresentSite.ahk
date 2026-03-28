@@ -36,11 +36,11 @@ class IViewObjectPresentSite extends IUnknown{
      * @param {Integer} height 
      * @param {Integer} backBufferCount 
      * @param {Integer} format 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {ISurfacePresenter} 
      */
-    CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, mode) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", &ppQueue := 0, "HRESULT")
+    CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, _mode) {
+        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", _mode, "ptr*", &ppQueue := 0, "HRESULT")
         return ISurfacePresenter(ppQueue)
     }
 
@@ -55,11 +55,11 @@ class IViewObjectPresentSite extends IUnknown{
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      */
-    SetCompositionMode(mode) {
-        result := ComCall(5, this, "int", mode, "HRESULT")
+    SetCompositionMode(_mode) {
+        result := ComCall(5, this, "int", _mode, "HRESULT")
         return result
     }
 }

@@ -9527,7 +9527,7 @@ class Tapi {
      * <b>lineInitialize</b> is equivalent to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a> using the LINEINITIALIZEEXOPTION_USEHIDDENWINDOW option.
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9538,14 +9538,14 @@ class Tapi {
      * LINEERR_INVALAPPNAME, LINEERR_OPERATIONFAILED, LINEERR_INIFILECORRUPT, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_REINIT, LINEERR_NODRIVER, LINEERR_NODEVICE, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineinitialize
      */
-    static lineInitialize(lphLineApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static lineInitialize(lphLineApp, _hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
 
         lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
+        result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, "ptr", _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
         return result
     }
 
@@ -9607,7 +9607,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9623,15 +9623,15 @@ class Tapi {
      * LINEERR_INVALAPPNAME, LINEERR_OPERATIONFAILED, LINEERR_INIFILECORRUPT, LINEERR_INVALPOINTER, LINEERR_REINIT, LINEERR_NOMEM, LINEERR_INVALPARAM.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineinitializeexa
      */
-    static lineInitializeExA(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static lineInitializeExA(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, "ptr", _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
     }
 
@@ -9693,7 +9693,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9709,15 +9709,15 @@ class Tapi {
      * LINEERR_INVALAPPNAME, LINEERR_OPERATIONFAILED, LINEERR_INIFILECORRUPT, LINEERR_INVALPOINTER, LINEERR_REINIT, LINEERR_NOMEM, LINEERR_INVALPARAM.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineinitializeexw
      */
-    static lineInitializeExW(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static lineInitializeExW(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, "ptr", _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
     }
 
@@ -13201,7 +13201,7 @@ class Tapi {
      * If any service provider fails to initialize properly, the 
      * <b>phoneInitialize</b> function fails and returns the error indicated by the service provider. If the PHONEERR_INVALPARAM error value is returned, the specified <i>hInstance</i> parameter is invalid.
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the phone device.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated string that contains displayable characters. If this parameter is non-<b>NULL</b>, it contains an application-supplied name of the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application is the current owner of the phone device. This information can be useful for logging and status reporting purposes. If <i>lpszAppName</i> is <b>NULL</b>, the application's filename is used instead.
@@ -13211,14 +13211,14 @@ class Tapi {
      * PHONEERR_INVALAPPNAME, PHONEERR_INIFILECORRUPT, PHONEERR_INVALPOINTER, PHONEERR_NOMEM, PHONEERR_OPERATIONFAILED, PHONEERR_REINIT, PHONEERR_RESOURCEUNAVAIL, PHONEERR_NODEVICE, PHONEERR_NODRIVER, PHONEERR_INVALPARAM
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneinitialize
      */
-    static phoneInitialize(lphPhoneApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static phoneInitialize(lphPhoneApp, _hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
 
         lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
+        result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, "ptr", _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
         return result
     }
 
@@ -13278,7 +13278,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -13294,15 +13294,15 @@ class Tapi {
      * PHONEERR_INVALAPPNAME, PHONEERR_OPERATIONFAILED, PHONEERR_INIFILECORRUPT, PHONEERR_INVALPOINTER, PHONEERR_REINIT, PHONEERR_NOMEM, PHONEERR_INVALPARAM.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneinitializeexa
      */
-    static phoneInitializeExA(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static phoneInitializeExA(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, "ptr", _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
     }
 
@@ -13362,7 +13362,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
+     * @param {HINSTANCE} _hInstance 
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -13378,15 +13378,15 @@ class Tapi {
      * PHONEERR_INVALAPPNAME, PHONEERR_OPERATIONFAILED, PHONEERR_INIFILECORRUPT, PHONEERR_INVALPOINTER, PHONEERR_REINIT, PHONEERR_NOMEM, PHONEERR_INVALPARAM.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneinitializeexw
      */
-    static phoneInitializeExW(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static phoneInitializeExW(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, "ptr", _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
     }
 
@@ -13773,15 +13773,15 @@ class Tapi {
 
     /**
      * Closes a call request made by a previous call to tapiRequestMediaCall.
-     * @param {HWND} hwnd Handle to the Windows process that issued this request.
+     * @param {HWND} _hwnd 
      * @param {WPARAM} wRequestID Pointer to a 32-bit integer value that contains the ID of the call request.
      * @returns {Integer} The function is obsolete and will always return an error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapirequestdrop
      */
-    static tapiRequestDrop(hwnd, wRequestID) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestDrop(_hwnd, wRequestID) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("TAPI32.dll\tapiRequestDrop", "ptr", hwnd, "ptr", wRequestID, "int")
+        result := DllCall("TAPI32.dll\tapiRequestDrop", "ptr", _hwnd, "ptr", wRequestID, "int")
         return result
     }
 
@@ -13884,7 +13884,7 @@ class Tapi {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {WPARAM} wRequestID 
      * @param {PSTR} lpszDeviceClass 
      * @param {PSTR} lpDeviceID 
@@ -13896,8 +13896,8 @@ class Tapi {
      * @param {PSTR} lpszComment 
      * @returns {Integer} 
      */
-    static tapiRequestMediaCall(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestMediaCall(_hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13905,13 +13905,13 @@ class Tapi {
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-        result := DllCall("TAPI32.dll\tapiRequestMediaCall", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
+        result := DllCall("TAPI32.dll\tapiRequestMediaCall", "ptr", _hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {WPARAM} wRequestID 
      * @param {PSTR} lpszDeviceClass 
      * @param {PSTR} lpDeviceID 
@@ -13923,8 +13923,8 @@ class Tapi {
      * @param {PSTR} lpszComment 
      * @returns {Integer} 
      */
-    static tapiRequestMediaCallA(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestMediaCallA(_hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13932,13 +13932,13 @@ class Tapi {
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-        result := DllCall("TAPI32.dll\tapiRequestMediaCallA", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
+        result := DllCall("TAPI32.dll\tapiRequestMediaCallA", "ptr", _hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {WPARAM} wRequestID 
      * @param {PWSTR} lpszDeviceClass 
      * @param {PWSTR} lpDeviceID 
@@ -13950,8 +13950,8 @@ class Tapi {
      * @param {PWSTR} lpszComment 
      * @returns {Integer} 
      */
-    static tapiRequestMediaCallW(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestMediaCallW(_hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13959,7 +13959,7 @@ class Tapi {
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-        result := DllCall("TAPI32.dll\tapiRequestMediaCallW", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
+        result := DllCall("TAPI32.dll\tapiRequestMediaCallW", "ptr", _hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
     }
 

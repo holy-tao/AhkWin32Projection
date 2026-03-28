@@ -1491,11 +1491,7 @@ class Performance {
      * @param {Integer} CounterId Identifier that uniquely identifies the counter to update in the instance block. The identifier is defined in the <b>id</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-counters-counter--counterset--element">counter</a> element and must match the <b>CounterId</b> member of one of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structures in the instance block. Use the counter ID constant that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the constant, see the <b>symbol</b> attribute of the <b>counter</b> element.
      * 
      * <b>Windows Vista:  </b>The counter ID constant is not available.
-     * @param {Pointer<Void>} Address Pointer to the actual counter data. 
-     * 
-     * If <b>NULL</b>, the consumer receives ERROR_NO_DATA.
-     * 
-     * To indicate that the counter data is accessed by reference, the counter declaration in the manifest must include a <a href="https://docs.microsoft.com/previous-versions/aa371909(v=vs.85)">counterAttribute</a> element whose <b>name</b> attribute is set to "reference".
+     * @param {Pointer<Void>} _Address 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1504,12 +1500,12 @@ class Performance {
      * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetcounterrefvalue
      * @since windows6.0.6000
      */
-    static PerfSetCounterRefValue(Provider, Instance, CounterId, Address) {
+    static PerfSetCounterRefValue(Provider, Instance, CounterId, _Address) {
         Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
 
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, AddressMarshal, Address, "uint")
+        result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, _AddressMarshal, _Address, "uint")
         return result
     }
 
@@ -6894,8 +6890,7 @@ class Performance {
      * Collects counter data for the current query and writes the data to the log file. (Unicode)
      * @remarks
      * If you are updating a log file from another log file, the comments from the other log file do not migrate.
-     * @param {PDH_HLOG} hLog Handle of a single log file to update. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
+     * @param {PDH_HLOG} _hLog 
      * @param {PWSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -6935,11 +6930,11 @@ class Performance {
      * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdatelogw
      * @since windows5.1.2600
      */
-    static PdhUpdateLogW(hLog, szUserString) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhUpdateLogW(_hLog, szUserString) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
         szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
-        result := DllCall("pdh.dll\PdhUpdateLogW", "ptr", hLog, "ptr", szUserString, "uint")
+        result := DllCall("pdh.dll\PdhUpdateLogW", "ptr", _hLog, "ptr", szUserString, "uint")
         return result
     }
 
@@ -6947,8 +6942,7 @@ class Performance {
      * Collects counter data for the current query and writes the data to the log file. (ANSI)
      * @remarks
      * If you are updating a log file from another log file, the comments from the other log file do not migrate.
-     * @param {PDH_HLOG} hLog Handle of a single log file to update. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
+     * @param {PDH_HLOG} _hLog 
      * @param {PSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -6988,11 +6982,11 @@ class Performance {
      * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdateloga
      * @since windows5.1.2600
      */
-    static PdhUpdateLogA(hLog, szUserString) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhUpdateLogA(_hLog, szUserString) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
         szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
-        result := DllCall("pdh.dll\PdhUpdateLogA", "ptr", hLog, "ptr", szUserString, "uint")
+        result := DllCall("pdh.dll\PdhUpdateLogA", "ptr", _hLog, "ptr", szUserString, "uint")
         return result
     }
 
@@ -7004,8 +6998,7 @@ class Performance {
      * Catalogs should be updated when the data collection process is complete and the log file has been closed. The catalog can be updated during data collection, but doing this may disrupt the process of logging the performance data because updating the catalogs can be time consuming.
      * 
      * Perfmon, CSV, and TSV log files do not have catalogs. Specifying a handle to these log file types will result in a return value of PDH_NOT_IMPLEMENTED.
-     * @param {PDH_HLOG} hLog Handle to the log file containing the file catalog to update. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
+     * @param {PDH_HLOG} _hLog 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -7055,10 +7048,10 @@ class Performance {
      * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdatelogfilecatalog
      * @since windows5.1.2600
      */
-    static PdhUpdateLogFileCatalog(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhUpdateLogFileCatalog(_hLog) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
-        result := DllCall("pdh.dll\PdhUpdateLogFileCatalog", "ptr", hLog, "uint")
+        result := DllCall("pdh.dll\PdhUpdateLogFileCatalog", "ptr", _hLog, "uint")
         return result
     }
 
@@ -7066,8 +7059,7 @@ class Performance {
      * Returns the size of the specified log file.
      * @remarks
      * If the log file handle points to multiple bound log files, the size is the sum of all the log files. If the log file is a SQL log file, the <i>llSize</i> parameter is the number of records in the log file.
-     * @param {PDH_HLOG} hLog Handle to the log file. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
+     * @param {PDH_HLOG} _hLog 
      * @param {Pointer<Integer>} llSize Size of the log file, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -7107,19 +7099,18 @@ class Performance {
      * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetlogfilesize
      * @since windows5.1.2600
      */
-    static PdhGetLogFileSize(hLog, llSize) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhGetLogFileSize(_hLog, llSize) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         llSizeMarshal := llSize is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("pdh.dll\PdhGetLogFileSize", "ptr", hLog, llSizeMarshal, llSize, "uint")
+        result := DllCall("pdh.dll\PdhGetLogFileSize", "ptr", _hLog, llSizeMarshal, llSize, "uint")
         return result
     }
 
     /**
      * Closes the specified log file.
-     * @param {PDH_HLOG} hLog Handle to the log file to be closed. This handle is returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
+     * @param {PDH_HLOG} _hLog 
      * @param {Integer} dwFlags You can specify the following flag. 
      * 
      * 
@@ -7167,10 +7158,10 @@ class Performance {
      * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcloselog
      * @since windows5.1.2600
      */
-    static PdhCloseLog(hLog, dwFlags) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhCloseLog(_hLog, dwFlags) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
-        result := DllCall("pdh.dll\PdhCloseLog", "ptr", hLog, "uint", dwFlags, "uint")
+        result := DllCall("pdh.dll\PdhCloseLog", "ptr", _hLog, "uint", dwFlags, "uint")
         return result
     }
 
@@ -7658,8 +7649,7 @@ class Performance {
      * Reads the information in the specified binary trace log file.
      * @remarks
      * You should call this function twice, the first time to get the required buffer size (set <i>pRawLogRecord</i> to <b>NULL</b> and <i>pdwBufferLength</i> to 0), and the second time to get the data.
-     * @param {PDH_HLOG} hLog Handle to the log file. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
+     * @param {PDH_HLOG} _hLog 
      * @param {FILETIME} ftRecord Time stamp of the record to be read. If the time stamp does not match a record in the log file, the function returns the record that has a time stamp closest to (but not greater than) the given time stamp.
      * @param {Pointer<PDH_RAW_LOG_RECORD>} pRawLogRecord Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_log_record">PDH_RAW_LOG_RECORD</a> structure; the structure contains the log file record information. Set to <b>NULL</b> if <i>pdwBufferLength</i> is zero.
@@ -7713,12 +7703,12 @@ class Performance {
      * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhreadrawlogrecord
      * @since windows5.1.2600
      */
-    static PdhReadRawLogRecord(hLog, ftRecord, pRawLogRecord, pdwBufferLength) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhReadRawLogRecord(_hLog, ftRecord, pRawLogRecord, pdwBufferLength) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("pdh.dll\PdhReadRawLogRecord", "ptr", hLog, "ptr", ftRecord, "ptr", pRawLogRecord, pdwBufferLengthMarshal, pdwBufferLength, "uint")
+        result := DllCall("pdh.dll\PdhReadRawLogRecord", "ptr", _hLog, "ptr", ftRecord, "ptr", pRawLogRecord, pdwBufferLengthMarshal, pdwBufferLength, "uint")
         return result
     }
 
@@ -9497,30 +9487,30 @@ class Performance {
 
     /**
      * 
-     * @param {PDH_HLOG} hLog 
+     * @param {PDH_HLOG} _hLog 
      * @param {Pointer<Guid>} pGuid 
      * @param {Pointer<Integer>} pRunId 
      * @returns {Integer} 
      */
-    static PdhGetLogSetGUID(hLog, pGuid, pRunId) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhGetLogSetGUID(_hLog, pGuid, pRunId) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
         pRunIdMarshal := pRunId is VarRef ? "int*" : "ptr"
 
-        result := DllCall("pdh.dll\PdhGetLogSetGUID", "ptr", hLog, "ptr", pGuid, pRunIdMarshal, pRunId, "uint")
+        result := DllCall("pdh.dll\PdhGetLogSetGUID", "ptr", _hLog, "ptr", pGuid, pRunIdMarshal, pRunId, "uint")
         return result
     }
 
     /**
      * 
-     * @param {PDH_HLOG} hLog 
+     * @param {PDH_HLOG} _hLog 
      * @param {Integer} RunId 
      * @returns {Integer} 
      */
-    static PdhSetLogSetRunID(hLog, RunId) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhSetLogSetRunID(_hLog, RunId) {
+        _hLog := _hLog is Win32Handle ? NumGet(_hLog, "ptr") : _hLog
 
-        result := DllCall("pdh.dll\PdhSetLogSetRunID", "ptr", hLog, "int", RunId, "uint")
+        result := DllCall("pdh.dll\PdhSetLogSetRunID", "ptr", _hLog, "int", RunId, "uint")
         return result
     }
 

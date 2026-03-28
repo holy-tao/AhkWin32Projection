@@ -49,16 +49,14 @@ class IDockProvider extends IUnknown{
      * Sets the docking position of this element.
      * @remarks
      * A docking container is a control that allows the arrangement of child elements, both horizontally and vertically, relative to the boundaries of the docking container and other elements within the container.
-     * @param {Integer} dockPosition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-dockposition">DockPosition</a></b>
-     * 
-     * The new docking position.
+     * @param {Integer} _dockPosition 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idockprovider-setdockposition
      */
-    SetDockPosition(dockPosition) {
-        result := ComCall(3, this, "int", dockPosition, "HRESULT")
+    SetDockPosition(_dockPosition) {
+        result := ComCall(3, this, "int", _dockPosition, "HRESULT")
         return result
     }
 

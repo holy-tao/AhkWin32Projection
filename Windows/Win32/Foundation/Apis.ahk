@@ -35349,14 +35349,14 @@ class Foundation {
      * Returns the length (in bytes) of a BSTR.
      * @remarks
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded null characters. This function always returns the number of bytes specified in the len parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringbytelen">SysAllocStringByteLen</a> function used to allocate the BSTR.
-     * @param {BSTR} bstr A previously allocated string.
+     * @param {BSTR} _bstr 
      * @returns {Integer} The number of bytes in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringbytelen
      */
-    static SysStringByteLen(bstr) {
-        bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
+    static SysStringByteLen(_bstr) {
+        _bstr := _bstr is Win32Handle ? NumGet(_bstr, "ptr") : _bstr
 
-        result := DllCall("OLEAUT32.dll\SysStringByteLen", "ptr", bstr, "uint")
+        result := DllCall("OLEAUT32.dll\SysStringByteLen", "ptr", _bstr, "uint")
         return result
     }
 
@@ -36020,13 +36020,13 @@ class Foundation {
      * ERROR_MR_MID_NOT_FOUND is returned when the specified NTSTATUS code does not have a corresponding system error code.
      * 
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * @param {NTSTATUS} Status The NTSTATUS code to be converted.
+     * @param {NTSTATUS} _Status 
      * @returns {Integer} The function returns the corresponding <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlntstatustodoserror
      * @since windows5.1.2600
      */
-    static RtlNtStatusToDosError(Status) {
-        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "int", Status, "uint")
+    static RtlNtStatusToDosError(_Status) {
+        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "int", _Status, "uint")
         return result
     }
 

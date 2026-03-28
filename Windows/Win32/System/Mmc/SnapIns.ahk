@@ -72,8 +72,8 @@ class SnapIns extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &SnapIn := 0, "HRESULT")
-        return SnapIn(SnapIn)
+        result := ComCall(8, this, "int", Index, "ptr*", &_SnapIn := 0, "HRESULT")
+        return SnapIn(_SnapIn)
     }
 
     /**
@@ -96,22 +96,22 @@ class SnapIns extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {BSTR} SnapinNameOrCLSID 
      * @param {VARIANT} ParentSnapin 
-     * @param {VARIANT} Properties 
+     * @param {VARIANT} _Properties 
      * @returns {SnapIn} 
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
-    Add(SnapinNameOrCLSID, ParentSnapin, Properties) {
+    Add(SnapinNameOrCLSID, ParentSnapin, _Properties) {
         SnapinNameOrCLSID := SnapinNameOrCLSID is String ? BSTR.Alloc(SnapinNameOrCLSID).Value : SnapinNameOrCLSID
 
-        result := ComCall(10, this, "ptr", SnapinNameOrCLSID, "ptr", ParentSnapin, "ptr", Properties, "ptr*", &SnapIn := 0, "HRESULT")
-        return SnapIn(SnapIn)
+        result := ComCall(10, this, "ptr", SnapinNameOrCLSID, "ptr", ParentSnapin, "ptr", _Properties, "ptr*", &_SnapIn := 0, "HRESULT")
+        return SnapIn(_SnapIn)
     }
 
     /**
      * Removes a TPM command from the local list of commands blocked from running on the computer.
      * @remarks
      * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @param {SnapIn} SnapIn 
+     * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} Type: **uint32**
      * 
      * All TPM errors as well as errors specific to TPM Base Services can be returned.
@@ -125,8 +125,8 @@ class SnapIns extends IDispatch{
      * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
      * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
      */
-    Remove(SnapIn) {
-        result := ComCall(11, this, "ptr", SnapIn, "HRESULT")
+    Remove(_SnapIn) {
+        result := ComCall(11, this, "ptr", _SnapIn, "HRESULT")
         return result
     }
 }

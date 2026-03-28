@@ -612,17 +612,17 @@ class StructuredStorage {
      * <b>CreateStreamOnHGlobal</b> will accept a memory handle allocated with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GMEM_FIXED</a>, but this usage is not recommended. HGLOBALs allocated with <b>GMEM_FIXED</b> are not really handles and their value can change when they are reallocated. If the memory handle was allocated with <b>GMEM_FIXED</b> and <i>fDeleteOnRelease</i> is <b>FALSE</b>,  the caller must call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-gethglobalfromstream">GetHGlobalFromStream</a> to get the correct handle in order to free it.
      * 
      * Prior to Windows 7 and Windows Server 2008 R2, this implementation did not zero memory when calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> to grow the memory block. Increasing the size of the stream with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-setsize">IStream::SetSize</a> or by writing to a location past the current end of the stream may leave portions of the newly allocated memory uninitialized.
-     * @param {HGLOBAL} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
+     * @param {HGLOBAL} _hGlobal 
      * @param {BOOL} fDeleteOnRelease A value that indicates whether the underlying handle for this stream object should be automatically freed when the stream object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the underlying handle. See the Remarks for further discussion of the case where <i>fDeleteOnRelease</i> is <b>FALSE</b>.
      * @returns {IStream} The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the new stream object. Its value cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-createstreamonhglobal
      * @since windows5.0
      */
-    static CreateStreamOnHGlobal(hGlobal, fDeleteOnRelease) {
-        hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
+    static CreateStreamOnHGlobal(_hGlobal, fDeleteOnRelease) {
+        _hGlobal := _hGlobal is Win32Handle ? NumGet(_hGlobal, "ptr") : _hGlobal
 
-        result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr*", &ppstm := 0, "HRESULT")
+        result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", _hGlobal, "int", fDeleteOnRelease, "ptr*", &ppstm := 0, "HRESULT")
         return IStream(ppstm)
     }
 
@@ -1119,8 +1119,7 @@ class StructuredStorage {
      * 
      * <b>Windows 2000:  </b>Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, you cannot exceed the MAX_PATH limit by using the "\\?\" prefix.
      * @param {Integer} grfMode A value that specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
-     * @param {Integer} stgfmt A value that specifies the storage file format. For more information, see the 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa380330(v=vs.85)">STGFMT</a> enumeration.
+     * @param {Integer} _stgfmt 
      * @param {Integer} grfAttrs A value that depends on the value of the <i>stgfmt</i> parameter.
      * 
      * <table>
@@ -1163,11 +1162,11 @@ class StructuredStorage {
      * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgcreatestorageex
      * @since windows5.0
      */
-    static StgCreateStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
+    static StgCreateStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
+        result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", _stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
         return ppObjectOpen
     }
 
@@ -1237,8 +1236,7 @@ class StructuredStorage {
      * 
      * The mode in which a file is opened can affect implementation performance. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Stg/structured-storage-interfaces">Compound File Implementation Limits</a>.
-     * @param {Integer} stgfmt A value that specifies the storage file format. For more information, see the 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa380330(v=vs.85)">STGFMT</a> enumeration.
+     * @param {Integer} _stgfmt 
      * @param {Integer} grfAttrs A value that depends upon the value of the <i>stgfmt</i> parameter. 
      * 
      * <b>STGFMT_DOCFILE</b> must be zero (0) or <b>FILE_FLAG_NO_BUFFERING</b>. For more information about this value, see <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>. If the sector size of the file, specified in <i>pStgOptions</i>, is not an integer multiple of the physical sector size of the underlying disk, then this operation will fail. All other values of <i>stgfmt</i> must be zero.
@@ -1253,11 +1251,11 @@ class StructuredStorage {
      * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgopenstorageex
      * @since windows5.0
      */
-    static StgOpenStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
+    static StgOpenStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
+        result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", _stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
         return ppObjectOpen
     }
 
@@ -1548,17 +1546,17 @@ class StructuredStorage {
      * <li>Instead of a compound file in memory, create a temporary file by calling <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-stgcreatestorageex">StgCreateStorageEx</a> with a <b>NULL</b> value for the <i>pwcsName</i> parameter. When it is time to write to the destination file, use the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-irootstorage-switchtofile">IRootStorage::SwitchToFile</a> method.</li>
      * <li>Implement the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface such that memory reallocations are zeroed (see for example the <b>HEAP_ZERO_MEMORY</b> flag in <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heaprealloc">HeapReAlloc</a>). The memory contents of this byte array can then be written to a file. </li>
      * </ul>
-     * @param {HGLOBAL} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
+     * @param {HGLOBAL} _hGlobal 
      * @param {BOOL} fDeleteOnRelease A flag  that specifies whether the underlying handle for this byte array object should be automatically freed when the object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the <i>hGlobal</i> parameter.
      * @returns {ILockBytes} The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> pointer variable that receives the interface pointer to the new byte array object.
      * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-createilockbytesonhglobal
      * @since windows5.0
      */
-    static CreateILockBytesOnHGlobal(hGlobal, fDeleteOnRelease) {
-        hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
+    static CreateILockBytesOnHGlobal(_hGlobal, fDeleteOnRelease) {
+        _hGlobal := _hGlobal is Win32Handle ? NumGet(_hGlobal, "ptr") : _hGlobal
 
-        result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr*", &pplkbyt := 0, "HRESULT")
+        result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", _hGlobal, "int", fDeleteOnRelease, "ptr*", &pplkbyt := 0, "HRESULT")
         return ILockBytes(pplkbyt)
     }
 
@@ -4597,9 +4595,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar2 Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to the second <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Integer} unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/ne-propvarutil-propvar_compare_unit">PROPVAR_COMPARE_UNIT</a></b>
-     * 
-     * Specifies, where appropriate, one of the comparison units defined in <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/ne-propvarutil-propvar_compare_unit">PROPVAR_COMPARE_UNIT</a>.
+     * @param {Integer} _unit 
      * @param {Integer} flags Type: <b>PROPVAR_COMPARE_FLAGS</b>
      * 
      * Specifies one of the following:
@@ -4613,8 +4609,8 @@ class StructuredStorage {
      * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantcompareex
      * @since windows5.1.2600
      */
-    static PropVariantCompareEx(propvar1, propvar2, unit, flags) {
-        result := DllCall("PROPSYS.dll\PropVariantCompareEx", "ptr", propvar1, "ptr", propvar2, "int", unit, "int", flags, "int")
+    static PropVariantCompareEx(propvar1, propvar2, _unit, flags) {
+        result := DllCall("PROPSYS.dll\PropVariantCompareEx", "ptr", propvar1, "ptr", propvar2, "int", _unit, "int", flags, "int")
         return result
     }
 

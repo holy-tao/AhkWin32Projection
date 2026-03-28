@@ -46,16 +46,14 @@ class IDWriteFont3 extends IDWriteFont2{
 
     /**
      * Compares two instances of font references for equality.
-     * @param {IDWriteFont} font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
-     * 
-     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> interface for the other font instance to compare to this font instance.
+     * @param {IDWriteFont} _font 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns whether the two instances of font references are equal. Returns <b>TRUE</b> if the two instances are equal; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefont3-equals
      */
-    Equals(font) {
-        result := ComCall(20, this, "ptr", font, "int")
+    Equals(_font) {
+        result := ComCall(20, this, "ptr", _font, "int")
         return result
     }
 

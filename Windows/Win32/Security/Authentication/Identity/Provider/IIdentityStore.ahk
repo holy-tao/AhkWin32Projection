@@ -74,16 +74,16 @@ class IIdentityStore extends IUnknown{
      * @param {PWSTR} lpszUniqueID The identity for which to retrieve the SID.
      * @param {Pointer<Guid>} ProviderGUID The GUID of the identity provider.
      * @param {Integer} cbSid The size, in bytes, of the buffer pointed to by the <i>pSid</i> parameter.
-     * @param {Pointer<Integer>} pSid A pointer to the SID this method retrieves.
+     * @param {Pointer<Integer>} _pSid 
      * @returns {Integer} The required length, in bytes,  of the <i>pSid</i> buffer.
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-converttosid
      */
-    ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid) {
+    ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, _pSid) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
         return pcbRequiredSid
     }
 

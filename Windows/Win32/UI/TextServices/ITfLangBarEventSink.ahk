@@ -68,13 +68,13 @@ class ITfLangBarEventSink extends IUnknown{
      * ITfLangBarEventSink::OnModalInput method
      * @param {Integer} dwThreadId Not currently used.
      * @param {Integer} uMsg Not currently used.
-     * @param {WPARAM} wParam Not currently used.
-     * @param {LPARAM} lParam Not currently used.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onmodalinput
      */
-    OnModalInput(dwThreadId, uMsg, wParam, lParam) {
-        result := ComCall(6, this, "uint", dwThreadId, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+    OnModalInput(dwThreadId, uMsg, _wParam, _lParam) {
+        result := ComCall(6, this, "uint", dwThreadId, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 

@@ -15,10 +15,7 @@ class Input {
      * Retrieves the raw input from the specified device.
      * @remarks
      * <b>GetRawInputData</b> gets the raw input one <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure at a time. In contrast, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputbuffer">GetRawInputBuffer</a> gets an array of <b>RAWINPUT</b> structures.
-     * @param {HRAWINPUT} hRawInput Type: <b>HRAWINPUT</b>
-     * 
-     * A handle to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure. This comes from the 
-     * 					<i>lParam</i> in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-input">WM_INPUT</a>.
+     * @param {HRAWINPUT} _hRawInput 
      * @param {Integer} uiCommand Type: <b>UINT</b>
      * @param {Pointer} pData Type: <b>LPVOID</b>
      * 
@@ -42,12 +39,12 @@ class Input {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdata
      * @since windows5.1.2600
      */
-    static GetRawInputData(hRawInput, uiCommand, pData, pcbSize, cbSizeHeader) {
-        hRawInput := hRawInput is Win32Handle ? NumGet(hRawInput, "ptr") : hRawInput
+    static GetRawInputData(_hRawInput, uiCommand, pData, pcbSize, cbSizeHeader) {
+        _hRawInput := _hRawInput is Win32Handle ? NumGet(_hRawInput, "ptr") : _hRawInput
 
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\GetRawInputData", "ptr", hRawInput, "uint", uiCommand, "ptr", pData, pcbSizeMarshal, pcbSize, "uint", cbSizeHeader, "uint")
+        result := DllCall("USER32.dll\GetRawInputData", "ptr", _hRawInput, "uint", uiCommand, "ptr", pData, pcbSizeMarshal, pcbSize, "uint", cbSizeHeader, "uint")
         return result
     }
 

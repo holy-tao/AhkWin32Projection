@@ -34,25 +34,25 @@ class ITfKeyTraceEventSink extends IUnknown{
 
     /**
      * ITfKeyTraceEventSink::OnKeyTraceDown method
-     * @param {WPARAM} wParam The WPARAM of the key event. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
-     * @param {LPARAM} lParam The LPARAM of the key event. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeytraceeventsink-onkeytracedown
      */
-    OnKeyTraceDown(wParam, lParam) {
-        result := ComCall(3, this, "ptr", wParam, "ptr", lParam, "HRESULT")
+    OnKeyTraceDown(_wParam, _lParam) {
+        result := ComCall(3, this, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 
     /**
      * ITfKeyTraceEventSink::OnKeyTraceUp method
-     * @param {WPARAM} wParam The WPARAM of the key event. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
-     * @param {LPARAM} lParam The LPARAM of the key event. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeytraceeventsink-onkeytraceup
      */
-    OnKeyTraceUp(wParam, lParam) {
-        result := ComCall(4, this, "ptr", wParam, "ptr", lParam, "HRESULT")
+    OnKeyTraceUp(_wParam, _lParam) {
+        result := ComCall(4, this, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 }

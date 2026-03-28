@@ -1109,9 +1109,9 @@ class AddressBook {
      * @remarks
      * The _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ input parameters point to the [MAPIAllocateBuffer](mapiallocatebuffer.md), [MAPIAllocateMore](mapiallocatemore.md), and [MAPIFreeBuffer](mapifreebuffer.md) functions, respectively. A client application calling **CreateTable** passes in pointers to the MAPI functions just named; a service provider passes the pointers to these functions that it received in its initialization call or retrieved with a call to the [IMAPISupport::GetMemAllocRoutines](imapisupport-getmemallocroutines.md) method.
      * @param {Pointer<Guid>} lpInterface > [in] Pointer to an interface identifier (IID) for the table data object. The valid interface identifier is IID_IMAPITableData. Passing NULL in the _lpInterface_ parameter also causes the table data object returned in the _lppTableData_ parameter to be cast to the standard interface for a table data object.
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
-     * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore > [in] Pointer to the [MAPIAllocateMore](mapiallocatemore.md) function, to be used to allocate additional memory.
-     * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore 
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @param {Pointer<Void>} lpvReserved > [in] Reserved; must be zero.
      * @param {Integer} ulTableType > [in] A table type that is available to a client application or service provider as part of the [IMAPITable::GetStatus](imapitable-getstatus.md) return data on its table views. Possible values are:
      * 
@@ -1134,10 +1134,10 @@ class AddressBook {
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createtable
      */
-    static CreateTable(lpInterface, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpvReserved, ulTableType, ulPropTagIndexColumn, lpSPropTagArrayColumns, lppTableData) {
+    static CreateTable(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpvReserved, ulTableType, ulPropTagIndexColumn, lpSPropTagArrayColumns, lppTableData) {
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("rtm.dll\CreateTable", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, lpvReservedMarshal, lpvReserved, "uint", ulTableType, "uint", ulPropTagIndexColumn, "ptr", lpSPropTagArrayColumns, "ptr*", lppTableData, "int")
+        result := DllCall("rtm.dll\CreateTable", "ptr", lpInterface, "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, lpvReservedMarshal, lpvReserved, "uint", ulTableType, "uint", ulPropTagIndexColumn, "ptr", lpSPropTagArrayColumns, "ptr*", lppTableData, "int")
         return result
     }
 
@@ -1146,9 +1146,9 @@ class AddressBook {
      * @remarks
      * The _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ input parameters point to the [MAPIAllocateBuffer](mapiallocatebuffer.md), [MAPIAllocateMore](mapiallocatemore.md), and [MAPIFreeBuffer](mapifreebuffer.md) functions, respectively. A client application calling **CreateIProp** passes in pointers to the MAPI functions just named; a service provider passes the pointers to these functions it received in its initialization call or retrieved with a call to the [IMAPISupport::GetMemAllocRoutines](imapisupport-getmemallocroutines.md) method.
      * @param {Pointer<Guid>} lpInterface > [in] Pointer to an interface identifier (IID) for the property data object. The valid interface identifier is IID_IMAPIPropData. Passing NULL in the _lpInterface_ parameter also causes the property data object returned in the _lppPropData_ parameter to be cast to the standard interface for a property data object.
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
-     * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore > [in] Pointer to the [MAPIAllocateMore](mapiallocatemore.md) function, to be used to allocate additional memory.
-     * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore 
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @param {Pointer<Void>} lpvReserved > [in] Reserved; must be zero.
      * @param {Pointer<IPropData>} lppPropData > [out] Pointer to a pointer to the returned property data object.
      * @returns {Integer} S_OK
@@ -1160,10 +1160,10 @@ class AddressBook {
      * > The requested interface is not supported for this object.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createiprop
      */
-    static CreateIProp(lpInterface, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpvReserved, lppPropData) {
+    static CreateIProp(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpvReserved, lppPropData) {
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MAPI32.dll\CreateIProp", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, lpvReservedMarshal, lpvReserved, "ptr*", lppPropData, "int")
+        result := DllCall("MAPI32.dll\CreateIProp", "ptr", lpInterface, "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, lpvReservedMarshal, lpvReserved, "ptr*", lppPropData, "int")
         return result
     }
 
@@ -1413,8 +1413,8 @@ class AddressBook {
      * When the calling client application or service provider is finished with the **IStream** object, it should free it by calling the OLE **IStream::Release** method.
      *   
      * MAPI uses the functions pointed to by _lpAllocateBuffer_ and _lpFreeBuffer_ for most memory allocation and deallocation, in particular to allocate memory for use by client applications when calling object interfaces such as [IMAPIProp::GetProps](imapiprop-getprops.md) and [IMAPITable::QueryRows](imapitable-queryrows.md).
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
-     * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @param {Integer} ulFlags > [in] Bitmask of flags used to control the creation or opening of the file to be accessed through the OLE **IStream** object. The following flags can be set:
      * 
      * SOF_UNIQUEFILENAME
@@ -1441,11 +1441,11 @@ class AddressBook {
      * @returns {IStream} > [out] Pointer to a pointer to an object exposing the **IStream** interface.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openstreamonfile
      */
-    static OpenStreamOnFile(lpAllocateBuffer, lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix) {
+    static OpenStreamOnFile(_lpAllocateBuffer, _lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix) {
         lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
         lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
+        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", _lpAllocateBuffer, "ptr", _lpFreeBuffer, "uint", ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
         return IStream(lppStream)
     }
 
@@ -1612,15 +1612,15 @@ class AddressBook {
      * The **HrAddColumns** function is equivalent to using **HrAddColumnsEx** with  _lpfnFilterColumns_ set to NULL.
      * @param {IMAPITable} lptbl > [in] Pointer to the MAPI table affected.
      * @param {Pointer<SPropTagArray>} lpproptagColumnsNew > [in] Pointer to an **SPropTagArray** structure that contains an array of property tags for the properties to be added or moved to the beginning of the table.
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the **MAPIAllocateBuffer** function. Used to allocate memory.
-     * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the **MAPIFreeBuffer** function. Used to free memory.
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @returns {HRESULT} **S_OK**
      *   
      * > The call succeeded and the specified columns were moved or added.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumns
      */
-    static HrAddColumns(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer) {
-        result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "HRESULT")
+    static HrAddColumns(lptbl, lpproptagColumnsNew, _lpAllocateBuffer, _lpFreeBuffer) {
+        result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", _lpAllocateBuffer, "ptr", _lpFreeBuffer, "HRESULT")
         return result
     }
 
@@ -1632,16 +1632,16 @@ class AddressBook {
      * If any table properties are undefined when **QueryRows** is called, they are returned with property type PT_NULL and property identifier PROP_ID_NULL.
      * @param {IMAPITable} lptbl > [in] Pointer to the MAPI table affected.
      * @param {Pointer<SPropTagArray>} lpproptagColumnsNew > [in] Pointer to an [SPropTagArray](sproptagarray.md) structure that contains an array of property tags for the properties to be added or moved to the beginning of the table.
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
-     * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @param {Pointer} lpfnFilterColumns > [in] Pointer to a callback function furnished by the caller. If the  _lpfnFilterColumns_ parameter is set to NULL, no callback is made.
      * @returns {HRESULT} S_OK 
      *   
      * > The call succeeded and the specified columns were moved or added.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumnsex
      */
-    static HrAddColumnsEx(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer, lpfnFilterColumns) {
-        result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "ptr", lpfnFilterColumns, "HRESULT")
+    static HrAddColumnsEx(lptbl, lpproptagColumnsNew, _lpAllocateBuffer, _lpFreeBuffer, lpfnFilterColumns) {
+        result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", _lpAllocateBuffer, "ptr", _lpFreeBuffer, "ptr", lpfnFilterColumns, "HRESULT")
         return result
     }
 
@@ -1718,11 +1718,11 @@ class AddressBook {
      * Creates a display table from the property page data contained in one or more DTPAGE structures.
      * @remarks
      * MAPI uses the functions pointed to by _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ for most memory allocation and deallocation, in particular to allocate memory for use by client applications when calling object interfaces such as [IMAPIProp::GetProps](imapiprop-getprops.md) and [IMAPITable::QueryRows](imapitable-queryrows.md).
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
-     * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore > [in] Pointer to the [MAPIAllocateMore](mapiallocatemore.md) function, to be used to allocate additional memory.
-     * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore 
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @param {IMalloc} lpMalloc > Unused; should be set to NULL.
-     * @param {HINSTANCE} hInstance > [in] An instance of a MAPI object from which **BuildDisplayTable** retrieves resources.
+     * @param {HINSTANCE} _hInstance 
      * @param {Integer} cPages > [in] Count of [DTPAGE](dtpage.md) structures in the array pointed to by the _lpPage_ parameter.
      * @param {Pointer<DTPAGE>} lpPage > [in] Pointer to an array of **DTPAGE** structures that contain information about the display table pages to be built.
      * @param {Integer} ulFlags > [in] Bitmask of flags. The following flag can be set:
@@ -1735,10 +1735,10 @@ class AddressBook {
      * @returns {HRESULT} None
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/builddisplaytable
      */
-    static BuildDisplayTable(lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, hInstance, cPages, lpPage, ulFlags, lppTable, lppTblData) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static BuildDisplayTable(_lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpMalloc, _hInstance, cPages, lpPage, ulFlags, lppTable, lppTblData) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
-        result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr*", lppTable, "ptr*", lppTblData, "HRESULT")
+        result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, "ptr", lpMalloc, "ptr", _hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr*", lppTable, "ptr*", lppTblData, "HRESULT")
         return result
     }
 
@@ -1925,17 +1925,17 @@ class AddressBook {
      * Duplicates a property value array in a single block of MAPI memory combining the operations of the ScCopyProps and ScCountProps functions.
      * @param {Integer} cValues 
      * @param {Pointer<SPropValue>} lpPropArray 
-     * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory for the duplicated array.
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
      * @param {Pointer<Pointer<SPropValue>>} lppPropArray 
      * @returns {Integer} S_OK 
      *   
      * > The call succeeded and has returned the expected value or values.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scduppropset
      */
-    static ScDupPropset(cValues, lpPropArray, lpAllocateBuffer, lppPropArray) {
+    static ScDupPropset(cValues, lpPropArray, _lpAllocateBuffer, lppPropArray) {
         lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\ScDupPropset", "int", cValues, "ptr", lpPropArray, "ptr", lpAllocateBuffer, lppPropArrayMarshal, lppPropArray, "int")
+        result := DllCall("MAPI32.dll\ScDupPropset", "int", cValues, "ptr", lpPropArray, "ptr", _lpAllocateBuffer, lppPropArrayMarshal, lppPropArray, "int")
         return result
     }
 

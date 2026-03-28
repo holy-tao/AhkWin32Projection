@@ -59,25 +59,23 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
 
     /**
      * Sets the paint color that is used if the paint type is D2D1\_SVG\_PAINT\_TYPE\_COLOR.
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgpaint-setcolor-overload
      */
-    SetColor(color) {
-        result := ComCall(8, this, "ptr", color, "HRESULT")
+    SetColor(_color) {
+        result := ComCall(8, this, "ptr", _color, "HRESULT")
         return result
     }
 
     /**
      * Gets the paint color that is used if the paint type is D2D1_SVG_PAINT_TYPE_COLOR.
-     * @param {Pointer<D2D1_COLOR_F>} color Type: <b>D2D1_COLOR_F*</b>
-     * 
-     * The paint color that is used if the paint type is D2D1_SVG_PAINT_TYPE_COLOR.
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-getcolor
      */
-    GetColor(color) {
-        ComCall(9, this, "ptr", color)
+    GetColor(_color) {
+        ComCall(9, this, "ptr", _color)
     }
 
     /**

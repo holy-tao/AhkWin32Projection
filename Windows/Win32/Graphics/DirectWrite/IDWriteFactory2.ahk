@@ -72,9 +72,7 @@ class IDWriteFactory2 extends IDWriteFactory1{
      * @param {Float} baselineOriginY Type: <b>FLOAT</b>
      * 
      * The vertical baseline origin of the original glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
-     * 
-     * Original glyph run containing monochrome glyph IDs.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a>*</b>
      * 
      * Optional glyph run description.
@@ -98,8 +96,8 @@ class IDWriteFactory2 extends IDWriteFactory1{
      *             If the original glyph run does not contain color glyphs, this method returns <b>DWRITE_E_NOCOLOR</b> and the output pointer is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-translatecolorglyphrun
      */
-    TranslateColorGlyphRun(baselineOriginX, baselineOriginY, glyphRun, glyphRunDescription, measuringMode, worldToDeviceTransform, colorPaletteIndex) {
-        result := ComCall(28, this, "float", baselineOriginX, "float", baselineOriginY, "ptr", glyphRun, "ptr", glyphRunDescription, "int", measuringMode, "ptr", worldToDeviceTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+    TranslateColorGlyphRun(baselineOriginX, baselineOriginY, _glyphRun, glyphRunDescription, measuringMode, worldToDeviceTransform, colorPaletteIndex) {
+        result := ComCall(28, this, "float", baselineOriginX, "float", baselineOriginY, "ptr", _glyphRun, "ptr", glyphRunDescription, "int", measuringMode, "ptr", worldToDeviceTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator(colorLayers)
     }
 
@@ -138,9 +136,7 @@ class IDWriteFactory2 extends IDWriteFactory1{
 
     /**
      * Creates a glyph run analysis object, which encapsulates information used to render a glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: **const [**DWRITE\_GLYPH\_RUN**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run)\***
-     * 
-     * Structure specifying the properties of the glyph run.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_MATRIX>} transform Type: **const [**DWRITE\_MATRIX**](/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix)\***
      * 
      * Optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the emSize and pixelsPerDip.
@@ -167,8 +163,8 @@ class IDWriteFactory2 extends IDWriteFactory1{
      * Receives a pointer to the newly created object.
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createglyphrunanalysis
      */
-    CreateGlyphRunAnalysis(glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(30, this, "ptr", glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+    CreateGlyphRunAnalysis(_glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
+        result := ComCall(30, this, "ptr", _glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 }

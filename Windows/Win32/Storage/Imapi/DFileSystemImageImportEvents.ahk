@@ -63,7 +63,7 @@ class DFileSystemImageImportEvents extends IDispatch{
      * Import notifications are generated only for files and directories, and not for associated named streams.
      * 
      * If the <i>currentItem</i> is a directory, it contains a back slash '\' at the end.
-     * @param {IDispatch} object_R 
+     * @param {IDispatch} _object 
      * @param {Integer} fileSystem Type of the file system currently being imported. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @param {BSTR} currentItem A string containing the name of the file or directory being imported at the moment.
      * @param {Integer} importedDirectoryItems The number of directories imported so far.
@@ -73,10 +73,10 @@ class DFileSystemImageImportEvents extends IDispatch{
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-dfilesystemimageimportevents-updateimport
      */
-    UpdateImport(object_R, fileSystem, currentItem, importedDirectoryItems, totalDirectoryItems, importedFileItems, totalFileItems) {
+    UpdateImport(_object, fileSystem, currentItem, importedDirectoryItems, totalDirectoryItems, importedFileItems, totalFileItems) {
         currentItem := currentItem is String ? BSTR.Alloc(currentItem).Value : currentItem
 
-        result := ComCall(7, this, "ptr", object_R, "int", fileSystem, "ptr", currentItem, "int", importedDirectoryItems, "int", totalDirectoryItems, "int", importedFileItems, "int", totalFileItems, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, "int", fileSystem, "ptr", currentItem, "int", importedDirectoryItems, "int", totalDirectoryItems, "int", importedFileItems, "int", totalFileItems, "HRESULT")
         return result
     }
 }

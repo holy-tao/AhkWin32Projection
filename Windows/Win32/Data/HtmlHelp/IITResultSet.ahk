@@ -45,13 +45,13 @@ class IITResultSet extends IUnknown{
      * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Void>} lpvHeap 
-     * @param {Pointer<PFNCOLHEAPFREE>} pfnColHeapFree 
+     * @param {Pointer<PFNCOLHEAPFREE>} _pfnColHeapFree 
      * @returns {HRESULT} 
      */
-    SetColumnHeap(lColumnIndex, lpvHeap, pfnColHeapFree) {
+    SetColumnHeap(lColumnIndex, lpvHeap, _pfnColHeapFree) {
         lpvHeapMarshal := lpvHeap is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "int", lColumnIndex, lpvHeapMarshal, lpvHeap, "ptr", pfnColHeapFree, "HRESULT")
+        result := ComCall(4, this, "int", lColumnIndex, lpvHeapMarshal, lpvHeap, "ptr", _pfnColHeapFree, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ class IITResultSet extends IUnknown{
      * This method is used to add a column for pointer properties.
      * @param {Integer} PropID Property ID associated with column.
      * @param {Integer} dwDefaultData 
-     * @param {Integer} Priority Download priority of column (PRIORITY_LOW, PRIORITY_NORMAL, or PRIORITY_HIGH).
+     * @param {Integer} _Priority 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -106,8 +106,8 @@ class IITResultSet extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
-    Add(PropID, dwDefaultData, Priority) {
-        result := ComCall(6, this, "uint", PropID, "uint", dwDefaultData, "int", Priority, "HRESULT")
+    Add(PropID, dwDefaultData, _Priority) {
+        result := ComCall(6, this, "uint", PropID, "uint", dwDefaultData, "int", _Priority, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ class IITResultSet extends IUnknown{
      * This method is used to add a column for pointer properties.
      * @param {Integer} PropID Property ID associated with column.
      * @param {PWSTR} lpszwDefault 
-     * @param {Integer} Priority Download priority of column (PRIORITY_LOW, PRIORITY_NORMAL, or PRIORITY_HIGH).
+     * @param {Integer} _Priority 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -152,10 +152,10 @@ class IITResultSet extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
-    Add1(PropID, lpszwDefault, Priority) {
+    Add1(PropID, lpszwDefault, _Priority) {
         lpszwDefault := lpszwDefault is String ? StrPtr(lpszwDefault) : lpszwDefault
 
-        result := ComCall(7, this, "uint", PropID, "ptr", lpszwDefault, "int", Priority, "HRESULT")
+        result := ComCall(7, this, "uint", PropID, "ptr", lpszwDefault, "int", _Priority, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ class IITResultSet extends IUnknown{
      * @param {Integer} PropID Property ID associated with column.
      * @param {Pointer<Void>} lpvDefaultData Buffer containing default value of data.
      * @param {Integer} cbData Buffer size.
-     * @param {Integer} Priority Download priority of column (PRIORITY_LOW, PRIORITY_NORMAL, or PRIORITY_HIGH).
+     * @param {Integer} _Priority 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -201,10 +201,10 @@ class IITResultSet extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
-    Add2(PropID, lpvDefaultData, cbData, Priority) {
+    Add2(PropID, lpvDefaultData, cbData, _Priority) {
         lpvDefaultDataMarshal := lpvDefaultData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", PropID, lpvDefaultDataMarshal, lpvDefaultData, "uint", cbData, "int", Priority, "HRESULT")
+        result := ComCall(8, this, "uint", PropID, lpvDefaultDataMarshal, lpvDefaultData, "uint", cbData, "int", _Priority, "HRESULT")
         return result
     }
 

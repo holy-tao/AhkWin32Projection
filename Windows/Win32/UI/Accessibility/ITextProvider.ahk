@@ -131,17 +131,15 @@ class ITextProvider extends IUnknown{
      * 			closest to the given point is returned.
      * 
      * The property never returns <b>NULL</b>.
-     * @param {UiaPoint} point Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiapoint">UiaPoint</a></b>
-     * 
-     * The location in screen coordinates.
+     * @param {UiaPoint} _point 
      * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
      * Receives a pointer to the degenerate (empty) text range 
      * 				nearest the specified location. This parameter is passed uninitialized.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-rangefrompoint
      */
-    RangeFromPoint(point) {
-        result := ComCall(6, this, "ptr", point, "ptr*", &pRetVal := 0, "HRESULT")
+    RangeFromPoint(_point) {
+        result := ComCall(6, this, "ptr", _point, "ptr*", &pRetVal := 0, "HRESULT")
         return ITextRangeProvider(pRetVal)
     }
 

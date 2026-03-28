@@ -52,13 +52,13 @@ class IApplicationDebugger extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} pstr 
+     * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
-    onDebugOutput(pstr) {
-        pstr := pstr is String ? StrPtr(pstr) : pstr
+    onDebugOutput(_pstr) {
+        _pstr := _pstr is String ? StrPtr(_pstr) : _pstr
 
-        result := ComCall(5, this, "ptr", pstr, "HRESULT")
+        result := ComCall(5, this, "ptr", _pstr, "HRESULT")
         return result
     }
 

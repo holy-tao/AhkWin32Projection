@@ -77,7 +77,7 @@ class IX509Enrollment2 extends IX509Enrollment{
      * <li>Initializes the request object by using the template.</li>
      * <li>Retrieves the signature count, issuance policies, and application policies from the template.</li>
      * </ul>
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -115,8 +115,8 @@ class IX509Enrollment2 extends IX509Enrollment{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-initializefromtemplate
      */
-    InitializeFromTemplate(context, pPolicyServer, pTemplate) {
-        result := ComCall(30, this, "int", context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+    InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
+        result := ComCall(30, this, "int", _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ class IX509Enrollment2 extends IX509Enrollment{
      * If you call this method from the web, you can specify only <b>AllowNone</b> or <b>AllowUntrustedRoot</b> in the <i>Restrictions</i> parameter. If you specify <b>AllowNoOutstandingRequest</b> or <b>AllowUntrustedCertificate</b>, the method returns an <b>E_ACCESSDENIED</b> error.
      * 
      * The last four parameters (<i>strEnrollmentPolicyServerUrl</i>, <i>strEnrollmentPolicyServerID</i>, <i>EnrollmentPolicyServerFlags</i>, and <i>authFlags</i>) are not included in the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-installresponse">InstallResponse</a> method. They enable you to add a property value to the installed certificate in much the same way as the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver">ICertPropertyEnrollmentPolicyServer</a> interface does.
-     * @param {Integer} Restrictions 
+     * @param {Integer} _Restrictions 
      * @param {BSTR} strResponse A <b>BSTR</b> variable that contains the DER-encoded response.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to  the string that contains the DER-encoded response.
      * @param {BSTR} strPassword An optional password for the certificate installation. This can be  <b>NULL</b> to indicate that  no password is used.  When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
@@ -253,13 +253,13 @@ class IX509Enrollment2 extends IX509Enrollment{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-installresponse2
      */
-    InstallResponse2(Restrictions, strResponse, Encoding, strPassword, strEnrollmentPolicyServerUrl, strEnrollmentPolicyServerID, EnrollmentPolicyServerFlags, authFlags) {
+    InstallResponse2(_Restrictions, strResponse, Encoding, strPassword, strEnrollmentPolicyServerUrl, strEnrollmentPolicyServerID, EnrollmentPolicyServerFlags, authFlags) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
         strEnrollmentPolicyServerUrl := strEnrollmentPolicyServerUrl is String ? BSTR.Alloc(strEnrollmentPolicyServerUrl).Value : strEnrollmentPolicyServerUrl
         strEnrollmentPolicyServerID := strEnrollmentPolicyServerID is String ? BSTR.Alloc(strEnrollmentPolicyServerID).Value : strEnrollmentPolicyServerID
 
-        result := ComCall(31, this, "int", Restrictions, "ptr", strResponse, "int", Encoding, "ptr", strPassword, "ptr", strEnrollmentPolicyServerUrl, "ptr", strEnrollmentPolicyServerID, "int", EnrollmentPolicyServerFlags, "int", authFlags, "HRESULT")
+        result := ComCall(31, this, "int", _Restrictions, "ptr", strResponse, "int", Encoding, "ptr", strPassword, "ptr", strEnrollmentPolicyServerUrl, "ptr", strEnrollmentPolicyServerID, "int", EnrollmentPolicyServerFlags, "int", authFlags, "HRESULT")
         return result
     }
 

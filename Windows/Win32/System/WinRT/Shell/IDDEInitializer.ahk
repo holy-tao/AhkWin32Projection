@@ -48,7 +48,7 @@ class IDDEInitializer extends IUnknown{
      * @param {PWSTR} currentDirectory 
      * @param {IShellItem} execTarget 
      * @param {IUnknown} site 
-     * @param {PWSTR} application 
+     * @param {PWSTR} _application 
      * @param {PWSTR} targetFile 
      * @param {PWSTR} arguments 
      * @param {PWSTR} verb 
@@ -65,15 +65,15 @@ class IDDEInitializer extends IUnknown{
      * </ul>
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
-    Initialize(fileExtensionOrProtocol, method, currentDirectory, execTarget, site, application, targetFile, arguments, verb) {
+    Initialize(fileExtensionOrProtocol, method, currentDirectory, execTarget, site, _application, targetFile, arguments, verb) {
         fileExtensionOrProtocol := fileExtensionOrProtocol is String ? StrPtr(fileExtensionOrProtocol) : fileExtensionOrProtocol
         currentDirectory := currentDirectory is String ? StrPtr(currentDirectory) : currentDirectory
-        application := application is String ? StrPtr(application) : application
+        _application := _application is String ? StrPtr(_application) : _application
         targetFile := targetFile is String ? StrPtr(targetFile) : targetFile
         arguments := arguments is String ? StrPtr(arguments) : arguments
         verb := verb is String ? StrPtr(verb) : verb
 
-        result := ComCall(3, this, "ptr", fileExtensionOrProtocol, "int", method, "ptr", currentDirectory, "ptr", execTarget, "ptr", site, "ptr", application, "ptr", targetFile, "ptr", arguments, "ptr", verb, "HRESULT")
+        result := ComCall(3, this, "ptr", fileExtensionOrProtocol, "int", method, "ptr", currentDirectory, "ptr", execTarget, "ptr", site, "ptr", _application, "ptr", targetFile, "ptr", arguments, "ptr", verb, "HRESULT")
         return result
     }
 }

@@ -188,12 +188,12 @@ class ITuneRequestInfo extends IUnknown{
      * @remarks
      * This method might be used by a custom Guide Store Loader to enumerate the available services on a transport stream.
      * @param {ITuneRequest} CurrentRequest Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the current request.
-     * @returns {ITuneRequest} Pointer to a variable that will receive a tune request for the next service on the transport stream.
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getnextprogram
      */
     GetNextProgram(CurrentRequest) {
-        result := ComCall(6, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(6, this, "ptr", CurrentRequest, "ptr*", &_TuneRequest := 0, "HRESULT")
+        return ITuneRequest(_TuneRequest)
     }
 
     /**
@@ -201,12 +201,12 @@ class ITuneRequestInfo extends IUnknown{
      * @remarks
      * This method might be used by a custom Guide Store Loader to enumerate the available services on a transport stream.
      * @param {ITuneRequest} CurrentRequest Specifies the current request.
-     * @returns {ITuneRequest} Pointer to a variable that receives a tune request for the previous service in the current transport stream.
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getpreviousprogram
      */
     GetPreviousProgram(CurrentRequest) {
-        result := ComCall(7, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(7, this, "ptr", CurrentRequest, "ptr*", &_TuneRequest := 0, "HRESULT")
+        return ITuneRequest(_TuneRequest)
     }
 
     /**
@@ -216,12 +216,12 @@ class ITuneRequestInfo extends IUnknown{
      * 
      * Currently this method is not implemented for DVB-C or DVB-S networks, and the method returns E_NOTIMPL. The method is implemented for DVB-T.
      * @param {ITuneRequest} CurrentRequest Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the current tune request. <b>NULL</b> means to return information for the first stream.
-     * @returns {ITuneRequest} Pointer to a variable that receives a tune request for the next transport stream.
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getnextlocator
      */
     GetNextLocator(CurrentRequest) {
-        result := ComCall(8, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(8, this, "ptr", CurrentRequest, "ptr*", &_TuneRequest := 0, "HRESULT")
+        return ITuneRequest(_TuneRequest)
     }
 
     /**
@@ -229,11 +229,11 @@ class ITuneRequestInfo extends IUnknown{
      * @remarks
      * Currently this method is not implemented for DVB-C or DVB-S networks, and the method returns E_NOTIMPL. The method is implemented for DVB-T.
      * @param {ITuneRequest} CurrentRequest Specifies current request.
-     * @returns {ITuneRequest} Pointer to a variable that receives the tune request for the previous transport stream in the network.
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getpreviouslocator
      */
     GetPreviousLocator(CurrentRequest) {
-        result := ComCall(9, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(9, this, "ptr", CurrentRequest, "ptr*", &_TuneRequest := 0, "HRESULT")
+        return ITuneRequest(_TuneRequest)
     }
 }

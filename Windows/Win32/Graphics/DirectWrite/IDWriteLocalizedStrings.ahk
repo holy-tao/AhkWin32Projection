@@ -185,19 +185,16 @@ class IDWriteLocalizedStrings extends IUnknown{
      * @param {PWSTR} localeName Type: <b>WCHAR*</b>
      * 
      * When this method returns, contains a character array, which is null-terminated, that receives the locale name from the language/string pair.  The buffer allocated for this array must be at least the size of <i>size</i>, in element count.
-     * @param {Integer} size Type: <b>UINT32</b>
-     * 
-     * The size of the array in characters. The size must include space for the terminating
-     *      null character.
+     * @param {Integer} _size 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getlocalename
      */
-    GetLocaleName(index, localeName, size) {
+    GetLocaleName(index, localeName, _size) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(6, this, "uint", index, "ptr", localeName, "uint", size, "HRESULT")
+        result := ComCall(6, this, "uint", index, "ptr", localeName, "uint", _size, "HRESULT")
         return result
     }
 
@@ -278,19 +275,16 @@ class IDWriteLocalizedStrings extends IUnknown{
      * @param {PWSTR} stringBuffer Type: <b>WCHAR*</b>
      * 
      * The null terminated array of characters that receives the string from the language/string pair.  The buffer allocated for this array should be at least the size of <i>size</i>. <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength">GetStringLength</a> can be used to get the size of the array before using this method.
-     * @param {Integer} size Type: <b>UINT32</b>
-     * 
-     * The size of the array in characters. The size must include space for the terminating
-     *      null character. <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength">GetStringLength</a> can be used to get the size of the array before using this method.
+     * @param {Integer} _size 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstring
      */
-    GetString(index, stringBuffer, size) {
+    GetString(index, stringBuffer, _size) {
         stringBuffer := stringBuffer is String ? StrPtr(stringBuffer) : stringBuffer
 
-        result := ComCall(8, this, "uint", index, "ptr", stringBuffer, "uint", size, "HRESULT")
+        result := ComCall(8, this, "uint", index, "ptr", stringBuffer, "uint", _size, "HRESULT")
         return result
     }
 }

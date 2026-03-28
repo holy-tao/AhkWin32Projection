@@ -72,14 +72,12 @@ class IDWriteFontCollection extends IUnknown{
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * Zero-based index of the font family.
-     * @returns {IDWriteFontFamily} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily">IDWriteFontFamily</a>**</b>
-     * 
-     * When this method returns, contains the address of   a pointer to the newly created font family object.
+     * @returns {IDWriteFontFamily} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfamily
      */
     GetFontFamily(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &fontFamily := 0, "HRESULT")
-        return IDWriteFontFamily(fontFamily)
+        result := ComCall(4, this, "uint", index, "ptr*", &_fontFamily := 0, "HRESULT")
+        return IDWriteFontFamily(_fontFamily)
     }
 
     /**
@@ -113,13 +111,11 @@ class IDWriteFontCollection extends IUnknown{
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
      * 
      * A font face object that specifies the physical font.
-     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the newly created font object if successful; otherwise, <b>NULL</b>.
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfromfontface
      */
     GetFontFromFontFace(fontFace) {
-        result := ComCall(6, this, "ptr", fontFace, "ptr*", &font := 0, "HRESULT")
-        return IDWriteFont(font)
+        result := ComCall(6, this, "ptr", fontFace, "ptr*", &_font := 0, "HRESULT")
+        return IDWriteFont(_font)
     }
 }

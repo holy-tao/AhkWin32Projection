@@ -60,13 +60,13 @@ class IDirect3DDevice9Video extends IUnknown{
      * If the <i>ChannelType</i> parameter is <b>D3DAUTHENTICATEDCHANNEL_D3D9</b>, the method creates a channel with the Direct3D device. This type of channel does not support authentication.
      * 
      * If <i>ChannelType</i> is <b>D3DAUTHENTICATEDCHANNEL_DRIVER_SOFTWARE</b> or <b>D3DAUTHENTICATEDCHANNEL_DRIVER_HARDWARE</b>, the method creates an authenticated channel with the graphics driver.
-     * @param {Integer} ChannelType Specifies the type of channel, as a member of the <a href="https://docs.microsoft.com/windows/desktop/medfound/d3dauthenticatedchanneltype">D3DAUTHENTICATEDCHANNELTYPE</a> enumeration.
+     * @param {Integer} _ChannelType 
      * @param {Pointer<HANDLE>} pChannelHandle Receives a pointer to a handle for the channel.
      * @returns {IDirect3DAuthenticatedChannel9} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dauthenticatedchannel9">IDirect3DAuthenticatedChannel9</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-createauthenticatedchannel
      */
-    CreateAuthenticatedChannel(ChannelType, pChannelHandle) {
-        result := ComCall(4, this, "int", ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "ptr", pChannelHandle, "HRESULT")
+    CreateAuthenticatedChannel(_ChannelType, pChannelHandle) {
+        result := ComCall(4, this, "int", _ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "ptr", pChannelHandle, "HRESULT")
         return IDirect3DAuthenticatedChannel9(ppAuthenticatedChannel)
     }
 

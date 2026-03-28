@@ -873,7 +873,7 @@ class WebAuthn {
 
     /**
      * Creates a public key credential source bound to a managing authenticator and returns the credential public key associated with its credential private key.
-     * @param {HWND} hWnd The handle for the window that will be used to display the UI.
+     * @param {HWND} _hWnd 
      * @param {Pointer<WEBAUTHN_RP_ENTITY_INFORMATION>} pRpInformation The Relying Party's **WEBAUTHN_RP_ENTITY_INFORMATION**.
      * @param {Pointer<WEBAUTHN_USER_ENTITY_INFORMATION>} pUserInformation The user account’s **WEBAUTHN_USER_ENTITY_INFORMATION**, containing the user handle given by the Relying Party.
      * @param {Pointer<WEBAUTHN_COSE_CREDENTIAL_PARAMETERS>} pPubKeyCredParams A sequence of pairs of public key credential type and public key algorithms requested by the Relying Party. This sequence is ordered from most preferred to least preferred. The authenticator makes a best-effort to create the most preferred credential that it can.
@@ -882,10 +882,10 @@ class WebAuthn {
      * @returns {Pointer<WEBAUTHN_CREDENTIAL_ATTESTATION>} On successful completion of this operation, the authenticator returns the attestation object to the client.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatormakecredential
      */
-    static WebAuthNAuthenticatorMakeCredential(hWnd, pRpInformation, pUserInformation, pPubKeyCredParams, pWebAuthNClientData, pWebAuthNMakeCredentialOptions) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static WebAuthNAuthenticatorMakeCredential(_hWnd, pRpInformation, pUserInformation, pPubKeyCredParams, pWebAuthNClientData, pWebAuthNMakeCredentialOptions) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("webauthn.dll\WebAuthNAuthenticatorMakeCredential", "ptr", hWnd, "ptr", pRpInformation, "ptr", pUserInformation, "ptr", pPubKeyCredParams, "ptr", pWebAuthNClientData, "ptr", pWebAuthNMakeCredentialOptions, "ptr*", &ppWebAuthNCredentialAttestation := 0, "HRESULT")
+        result := DllCall("webauthn.dll\WebAuthNAuthenticatorMakeCredential", "ptr", _hWnd, "ptr", pRpInformation, "ptr", pUserInformation, "ptr", pPubKeyCredParams, "ptr", pWebAuthNClientData, "ptr", pWebAuthNMakeCredentialOptions, "ptr*", &ppWebAuthNCredentialAttestation := 0, "HRESULT")
         return ppWebAuthNCredentialAttestation
     }
 
@@ -896,18 +896,18 @@ class WebAuthn {
      * > Before performing this operation, all other operations in progress in the authenticator session MUST be aborted by running the [WebAuthNCancelCurrentOperation](./nf-webauthn-webauthncancelcurrentoperation.md) operation.
      * 
      * If the authenticator cannot find any credential corresponding to the specified Relying Party that matches the specified criteria, it terminates the operation and returns an error.
-     * @param {HWND} hWnd The handle for the window that will be used to display the UI.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pwszRpId The ID of the Relying Party.
      * @param {Pointer<WEBAUTHN_CLIENT_DATA>} pWebAuthNClientData The client data to be sent to the authenticator for the Relying Party.
      * @param {Pointer<WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS>} pWebAuthNGetAssertionOptions The options for the **WebAuthNAuthenticatorGetAssertion** operation.
      * @returns {Pointer<WEBAUTHN_ASSERTION>} A pointer to a **WEBAUTHN_ASSERTION** that receives the assertion.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatorgetassertion
      */
-    static WebAuthNAuthenticatorGetAssertion(hWnd, pwszRpId, pWebAuthNClientData, pWebAuthNGetAssertionOptions) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static WebAuthNAuthenticatorGetAssertion(_hWnd, pwszRpId, pWebAuthNClientData, pWebAuthNGetAssertionOptions) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pwszRpId := pwszRpId is String ? StrPtr(pwszRpId) : pwszRpId
 
-        result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", "ptr", hWnd, "ptr", pwszRpId, "ptr", pWebAuthNClientData, "ptr", pWebAuthNGetAssertionOptions, "ptr*", &ppWebAuthNAssertion := 0, "HRESULT")
+        result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", "ptr", _hWnd, "ptr", pwszRpId, "ptr", pWebAuthNClientData, "ptr", pWebAuthNGetAssertionOptions, "ptr*", &ppWebAuthNAssertion := 0, "HRESULT")
         return ppWebAuthNAssertion
     }
 

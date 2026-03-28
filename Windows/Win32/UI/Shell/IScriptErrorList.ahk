@@ -97,9 +97,9 @@ class IScriptErrorList extends IDispatch{
      * @returns {BSTR} 
      */
     getErrorMsg() {
-        pstr := BSTR()
-        result := ComCall(14, this, "ptr", pstr, "HRESULT")
-        return pstr
+        _pstr := BSTR()
+        result := ComCall(14, this, "ptr", _pstr, "HRESULT")
+        return _pstr
     }
 
     /**
@@ -107,9 +107,9 @@ class IScriptErrorList extends IDispatch{
      * @returns {BSTR} 
      */
     getErrorUrl() {
-        pstr := BSTR()
-        result := ComCall(15, this, "ptr", pstr, "HRESULT")
-        return pstr
+        _pstr := BSTR()
+        result := ComCall(15, this, "ptr", _pstr, "HRESULT")
+        return _pstr
     }
 
     /**

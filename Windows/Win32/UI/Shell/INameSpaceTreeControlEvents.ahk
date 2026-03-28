@@ -130,19 +130,15 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message value.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Specifies the WParam parameters of the message.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Specifies the LParam parameters of the message.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onkeyboardinput
      */
-    OnKeyboardInput(uMsg, wParam, lParam) {
-        result := ComCall(8, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+    OnKeyboardInput(uMsg, _wParam, _lParam) {
+        result := ComCall(8, this, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 

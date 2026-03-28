@@ -52,13 +52,13 @@ class IOpenServiceActivityCategory extends IUnknown{
     /**
      * 
      * @param {IOpenServiceActivity} pActivity 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
-    SetDefaultActivity(pActivity, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetDefaultActivity(pActivity, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(5, this, "ptr", pActivity, "ptr", hwnd, "HRESULT")
+        result := ComCall(5, this, "ptr", pActivity, "ptr", _hwnd, "HRESULT")
         return result
     }
 

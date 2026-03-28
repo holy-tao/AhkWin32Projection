@@ -356,19 +356,19 @@ class ClrHosting {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {HINSTANCE} hinst 
      * @param {PWSTR} lpszCmdLine 
      * @param {Integer} nCmdShow 
      * @returns {HRESULT} 
      * @deprecated 
      */
-    static RunDll32ShimW(hwnd, hinst, lpszCmdLine, nCmdShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RunDll32ShimW(_hwnd, hinst, lpszCmdLine, nCmdShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         lpszCmdLine := lpszCmdLine is String ? StrPtr(lpszCmdLine) : lpszCmdLine
 
-        result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "HRESULT")
+        result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", _hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "HRESULT")
         return result
     }
 

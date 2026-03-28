@@ -384,8 +384,8 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_ink
      */
     get_Ink() {
-        result := ComCall(12, this, "ptr*", &Ink := 0, "HRESULT")
-        return IInkDisp(Ink)
+        result := ComCall(12, this, "ptr*", &_Ink := 0, "HRESULT")
+        return IInkDisp(_Ink)
     }
 
     /**
@@ -530,8 +530,8 @@ class IInkPicture extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_collectionmode
      */
     get_CollectionMode() {
-        result := ComCall(17, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(17, this, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**
@@ -540,12 +540,12 @@ class IInkPicture extends IDispatch{
      * For a list of the modes that you can use, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkcollectionmode">InkCollectionMode</a> enumeration type.
      * 
      * For further details about this property, refer to the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object's <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_collectionmode">CollectionMode</a> property, which has the same functionality.
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-put_collectionmode
      */
-    put_CollectionMode(Mode) {
-        result := ComCall(18, this, "int", Mode, "HRESULT")
+    put_CollectionMode(_Mode) {
+        result := ComCall(18, this, "int", _Mode, "HRESULT")
         return result
     }
 

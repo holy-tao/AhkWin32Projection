@@ -51,9 +51,7 @@ class IDXGIFactory6 extends IDXGIFactory5{
      * <dd>2. dGPUs</dd>
      * <dd>3. iGPUs</dd>
      * </dl>
-     * @param {Integer} Adapter Type: <b>UINT</b>
-     * 
-     * The index of the adapter to enumerate. The indices are in order of the preference specified in <i>GpuPreference</i>—for example, if <b>DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE</b> is specified, then the highest-performing adapter is at index 0, the second-highest is at index 1, and so on.
+     * @param {Integer} _Adapter 
      * @param {Integer} GpuPreference Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_6/ne-dxgi1_6-dxgi_gpu_preference">DXGI_GPU_PREFERENCE</a></b>
      * 
      * The GPU preference for the app.
@@ -67,8 +65,8 @@ class IDXGIFactory6 extends IDXGIFactory5{
      * This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory6-enumadapterbygpupreference
      */
-    EnumAdapterByGpuPreference(Adapter, GpuPreference, riid) {
-        result := ComCall(29, this, "uint", Adapter, "int", GpuPreference, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+    EnumAdapterByGpuPreference(_Adapter, GpuPreference, riid) {
+        result := ComCall(29, this, "uint", _Adapter, "int", GpuPreference, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
         return ppvAdapter
     }
 }

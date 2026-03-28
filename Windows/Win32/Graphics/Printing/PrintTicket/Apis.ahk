@@ -131,7 +131,7 @@ class PrintTicket {
      *       
      * 
      * A handle cannot be used after it is closed.
-     * @param {HPTPROVIDER} hProvider A handle to the provider. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
+     * @param {HPTPROVIDER} _hProvider 
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the <b>HRESULT</b> contains an error code.
      * 
      * If <i>hProvider</i> was opened in a different thread, the <b>HRESULT</b> is E_INVALIDARG.
@@ -140,10 +140,10 @@ class PrintTicket {
      * @see https://learn.microsoft.com/windows/win32/api/prntvpt/nf-prntvpt-ptcloseprovider
      * @since windows5.1.2600
      */
-    static PTCloseProvider(hProvider) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PTCloseProvider(_hProvider) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        result := DllCall("prntvpt.dll\PTCloseProvider", "ptr", hProvider, "HRESULT")
+        result := DllCall("prntvpt.dll\PTCloseProvider", "ptr", _hProvider, "HRESULT")
         return result
     }
 
@@ -180,41 +180,41 @@ class PrintTicket {
      * When the function returns, the seek position of <i>pPrintTicket</i> is at the end of the print ticket content and the seek position of <i>pCapabilities</i> is at the end of the stream. If the caller uses a memory stream for <i>pCapabilities</i>, such as a stream created by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-createstreamonhglobal">CreateStreamOnHGlobal</a> , the caller is responsible for resetting the seek position before reading the data.
      * 
      * If <i>pbstrErrorMessage</i> is not <b>NULL</b> when the function returns, the caller must free the string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @param {HPTPROVIDER} hProvider A handle to an open provider whose print capabilities are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
+     * @param {HPTPROVIDER} _hProvider 
      * @param {IStream} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
      * @param {IStream} pCapabilities A pointer to the stream where the print capabilities will be written, starting at the current seek position.
      * @returns {BSTR} A pointer to a string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/prntvpt/nf-prntvpt-ptgetprintcapabilities
      * @since windows5.1.2600
      */
-    static PTGetPrintCapabilities(hProvider, pPrintTicket, pCapabilities) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PTGetPrintCapabilities(_hProvider, pPrintTicket, pCapabilities) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pbstrErrorMessage := BSTR()
-        result := DllCall("prntvpt.dll\PTGetPrintCapabilities", "ptr", hProvider, "ptr", pPrintTicket, "ptr", pCapabilities, "ptr", pbstrErrorMessage, "HRESULT")
+        result := DllCall("prntvpt.dll\PTGetPrintCapabilities", "ptr", _hProvider, "ptr", pPrintTicket, "ptr", pCapabilities, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }
 
     /**
      * Retrieves the device printer's capabilities formatted in compliance with the XML Print Schema.
-     * @param {HPTPROVIDER} hProvider A handle to an open device provider whose print capabilities are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
+     * @param {HPTPROVIDER} _hProvider 
      * @param {IStream} pPrintTicket An optional pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
      * @param {IStream} pDeviceCapabilities A pointer to the stream where the device print capabilities will be written, starting at the current seek position.
      * @returns {BSTR} A pointer to a PDC file or string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.The function uses this parameter only used if <i>pPrintTicket</i> is used.
      * @see https://learn.microsoft.com/windows/win32/api/prntvpt/nf-prntvpt-ptgetprintdevicecapabilities
      * @since windows10.0.15063
      */
-    static PTGetPrintDeviceCapabilities(hProvider, pPrintTicket, pDeviceCapabilities) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PTGetPrintDeviceCapabilities(_hProvider, pPrintTicket, pDeviceCapabilities) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pbstrErrorMessage := BSTR()
-        result := DllCall("prntvpt.dll\PTGetPrintDeviceCapabilities", "ptr", hProvider, "ptr", pPrintTicket, "ptr", pDeviceCapabilities, "ptr", pbstrErrorMessage, "HRESULT")
+        result := DllCall("prntvpt.dll\PTGetPrintDeviceCapabilities", "ptr", _hProvider, "ptr", pPrintTicket, "ptr", pDeviceCapabilities, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }
 
     /**
      * It retrieves the print devices resources for a printer formatted in compliance with the XML Print Schema.
-     * @param {HPTPROVIDER} hProvider A handle to an open device provider whose print device resources are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
+     * @param {HPTPROVIDER} _hProvider 
      * @param {PWSTR} pszLocaleName Optional pointer to the locale name. This parameter can be <b>NULL</b>.
      * @param {IStream} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
      * @param {IStream} pDeviceResources A pointer to the stream where the device print resources will be written, starting at the current seek position.
@@ -222,12 +222,12 @@ class PrintTicket {
      * @see https://learn.microsoft.com/windows/win32/api/prntvpt/nf-prntvpt-ptgetprintdeviceresources
      * @since windows10.0.15063
      */
-    static PTGetPrintDeviceResources(hProvider, pszLocaleName, pPrintTicket, pDeviceResources) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PTGetPrintDeviceResources(_hProvider, pszLocaleName, pPrintTicket, pDeviceResources) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
         pbstrErrorMessage := BSTR()
-        result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "HRESULT")
+        result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", _hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }
 
@@ -252,7 +252,7 @@ class PrintTicket {
      * When the function returns a value, the seek position of <i>pResultTicket</i> is at the end of the print ticket content. The caller is responsible for resetting the seek position before reading the data.
      * 
      * If <i>pbstrErrorMessage</i> is not <b>NULL</b> when the function returns, the caller must free the string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @param {HPTPROVIDER} hProvider A handle to an open print ticket provider. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
+     * @param {HPTPROVIDER} _hProvider 
      * @param {IStream} pBaseTicket A pointer to a print ticket. The stream's seek position must be at the beginning of the print ticket content. 
      * 
      * <div class="alert"><b>Note</b>  <b>PTMergeAndValidatePrintTicket</b> will validate the base ticket against the <a href="https://docs.microsoft.com/windows/desktop/printdocs/printschema">Print Schema Framework</a> before merging.</div>
@@ -267,11 +267,11 @@ class PrintTicket {
      * @see https://learn.microsoft.com/windows/win32/api/prntvpt/nf-prntvpt-ptmergeandvalidateprintticket
      * @since windows5.1.2600
      */
-    static PTMergeAndValidatePrintTicket(hProvider, pBaseTicket, pDeltaTicket, scope, pResultTicket) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PTMergeAndValidatePrintTicket(_hProvider, pBaseTicket, pDeltaTicket, scope, pResultTicket) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pbstrErrorMessage := BSTR()
-        result := DllCall("prntvpt.dll\PTMergeAndValidatePrintTicket", "ptr", hProvider, "ptr", pBaseTicket, "ptr", pDeltaTicket, "int", scope, "ptr", pResultTicket, "ptr", pbstrErrorMessage, "HRESULT")
+        result := DllCall("prntvpt.dll\PTMergeAndValidatePrintTicket", "ptr", _hProvider, "ptr", pBaseTicket, "ptr", pDeltaTicket, "int", scope, "ptr", pResultTicket, "ptr", pbstrErrorMessage, "HRESULT")
         return pbstrErrorMessage
     }
 
@@ -292,7 +292,7 @@ class PrintTicket {
      * Values of <i>pPrintTicket</i> that are outside of the <i>scope</i> are ignored. For example, if the scope is only a single page, then job-wide settings and document-wide settings are ignored. Job scope includes document scope and page scope. Document scope includes page scope.
      * 
      * If <i>pbstrErrorMessage</i> is not <b>NULL</b> when the function returns, the caller must free the string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @param {HPTPROVIDER} hProvider A handle to an opened print ticket provider. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
+     * @param {HPTPROVIDER} _hProvider 
      * @param {IStream} pPrintTicket A pointer to an <a href="https://docs.microsoft.com/windows/desktop/Stg/istream-compound-file-implementation">IStream</a> with its seek position at the beginning of the print ticket.
      * @param {Integer} baseDevmodeType A value indicating whether the user's default <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> or the print queue's default <b>DEVMODE</b> is used to provide values to the output <b>DEVMODE</b> when <i>pPrintTicket</i> does not specify every possible setting for a <b>DEVMODE</b>.
      * @param {Integer} scope A value that specifies the scope of <i>pPrintTicket</i>. This value can specify a single page, an entire document, or all documents in the print job. Settings in <i>pPrintTicket</i> that are outside of the specified scope are ignored. See Remarks.
@@ -309,13 +309,13 @@ class PrintTicket {
      * @see https://learn.microsoft.com/windows/win32/api/prntvpt/nf-prntvpt-ptconvertprinttickettodevmode
      * @since windows5.1.2600
      */
-    static PTConvertPrintTicketToDevMode(hProvider, pPrintTicket, baseDevmodeType, scope, pcbDevmode, ppDevmode, pbstrErrorMessage) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PTConvertPrintTicketToDevMode(_hProvider, pPrintTicket, baseDevmodeType, scope, pcbDevmode, ppDevmode, pbstrErrorMessage) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pcbDevmodeMarshal := pcbDevmode is VarRef ? "uint*" : "ptr"
         ppDevmodeMarshal := ppDevmode is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, pcbDevmodeMarshal, pcbDevmode, ppDevmodeMarshal, ppDevmode, "ptr", pbstrErrorMessage, "HRESULT")
+        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", _hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, pcbDevmodeMarshal, pcbDevmode, ppDevmodeMarshal, ppDevmode, "ptr", pbstrErrorMessage, "HRESULT")
         return result
     }
 
@@ -332,7 +332,7 @@ class PrintTicket {
      * Settings in <i>pDevmode</i> that are outside the <i>scope</i> are not included in <i>pPrintTicket</i>. For example, if the scope is a single page, then job-wide settings and document-wide settings are not included. A job scope includes document scope and page scope. A document scope includes page scope.
      * 
      * <b>PTConvertDevModeToPrintTicket</b> writes the print ticket to the <a href="https://docs.microsoft.com/windows/desktop/Stg/istream-compound-file-implementation">IStream</a> referenced by <i>pPrintTicket</i> starting at the stream's current seek point. After <b>PTConvertDevModeToPrintTicket</b> returns, the caller must reset the seek point to the initial seek point to read the print ticket returned by the function.
-     * @param {HPTPROVIDER} hProvider A handle to an open print ticket provider. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
+     * @param {HPTPROVIDER} _hProvider 
      * @param {Integer} cbDevmode The size of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> in bytes.
      * @param {Pointer<DEVMODEA>} pDevmode A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a>.
      * @param {Integer} scope A value that specifies the scope of <i>pPrintTicket</i>. This value can specify a single page, an entire document, or all documents in the print job. Settings in <i>pDevmode</i> that are outside the specified scope will not be included in <i>pPrintTicket</i>. See Remarks.
@@ -345,10 +345,10 @@ class PrintTicket {
      * @see https://learn.microsoft.com/windows/win32/api/prntvpt/nf-prntvpt-ptconvertdevmodetoprintticket
      * @since windows5.1.2600
      */
-    static PTConvertDevModeToPrintTicket(hProvider, cbDevmode, pDevmode, scope, pPrintTicket) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static PTConvertDevModeToPrintTicket(_hProvider, cbDevmode, pDevmode, scope, pPrintTicket) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        result := DllCall("prntvpt.dll\PTConvertDevModeToPrintTicket", "ptr", hProvider, "uint", cbDevmode, "ptr", pDevmode, "int", scope, "ptr", pPrintTicket, "HRESULT")
+        result := DllCall("prntvpt.dll\PTConvertDevModeToPrintTicket", "ptr", _hProvider, "uint", cbDevmode, "ptr", pDevmode, "int", scope, "ptr", pPrintTicket, "HRESULT")
         return result
     }
 

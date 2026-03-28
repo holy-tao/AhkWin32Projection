@@ -80,12 +80,12 @@ class IResultData extends IUnknown{
      * FindItemByLParam searches for an item based on its lParam. The unique identifier (cookie) of the first item in the list with a matching lParam is returned in pItemID. If no item is found, the search returns S_FALSE.
      * 
      * This method does not support virtual lists.
-     * @param {LPARAM} lParam A generic 32-bit value in which information can be stored.
+     * @param {LPARAM} _lParam 
      * @returns {Pointer} A pointer to an item identifier to hold the results of the search for the lParam value.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-finditembylparam
      */
-    FindItemByLParam(lParam) {
-        result := ComCall(5, this, "ptr", lParam, "ptr*", &pItemID := 0, "HRESULT")
+    FindItemByLParam(_lParam) {
+        result := ComCall(5, this, "ptr", _lParam, "ptr*", &pItemID := 0, "HRESULT")
         return pItemID
     }
 

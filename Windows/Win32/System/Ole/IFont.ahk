@@ -306,7 +306,7 @@ class IFont extends IUnknown{
 
     /**
      * Sets the point size of the font.
-     * @param {CY} size The new size of the font, in <b>HIMETRIC</b> units.
+     * @param {CY} _size 
      * @returns {HRESULT} The method supports the standard return value <b>E_UNEXPECTED</b>, as well as the following values.
      * 
      * <table>
@@ -339,8 +339,8 @@ class IFont extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_size
      */
-    put_Size(size) {
-        result := ComCall(6, this, "ptr", size, "HRESULT")
+    put_Size(_size) {
+        result := ComCall(6, this, "ptr", _size, "HRESULT")
         return result
     }
 
@@ -750,7 +750,7 @@ class IFont extends IUnknown{
 
     /**
      * Notifies the font object that the previously realized font identified with hFont should remain valid until ReleaseHfont is called or the font object itself is released completely.
-     * @param {HFONT} hFont Font handle previously realized through <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">get_hFont</a> to be locked in the font object's cache.
+     * @param {HFONT} _hFont 
      * @returns {HRESULT} The method supports the standard return values <b>E_UNEXPECTED</b> and <b>E_INVALIDARG</b>, as well as the following values.
      * 
      * <table>
@@ -772,19 +772,16 @@ class IFont extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-addrefhfont
      */
-    AddRefHfont(hFont) {
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    AddRefHfont(_hFont) {
+        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
 
-        result := ComCall(24, this, "ptr", hFont, "HRESULT")
+        result := ComCall(24, this, "ptr", _hFont, "HRESULT")
         return result
     }
 
     /**
      * Notifies the font object that the caller that previously locked this font in the cache with IFont::AddRefHfont no longer requires the lock.
-     * @param {HFONT} hFont A font handle previously realized through 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">IFont::get_hFont</a>. This value was passed to a previous 
-     *       call to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-addrefhfont">IFont::AddRefHfont</a> to lock the font, and the 
-     *       caller would now like to unlock the font in the cache.
+     * @param {HFONT} _hFont 
      * @returns {HRESULT} The method supports the standard return values <b>E_UNEXPECTED</b> and 
      *       <b>E_INVALIDARG</b>, as well as the following values.
      * 
@@ -819,10 +816,10 @@ class IFont extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-releasehfont
      */
-    ReleaseHfont(hFont) {
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    ReleaseHfont(_hFont) {
+        _hFont := _hFont is Win32Handle ? NumGet(_hFont, "ptr") : _hFont
 
-        result := ComCall(25, this, "ptr", hFont, "HRESULT")
+        result := ComCall(25, this, "ptr", _hFont, "HRESULT")
         return result
     }
 
@@ -841,7 +838,7 @@ class IFont extends IUnknown{
      *      <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a>, or 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>) because screen device contexts are a limited system 
      *      resource.
-     * @param {HDC} hDC A handle to the device context in which to select the font.
+     * @param {HDC} _hDC 
      * @returns {HRESULT} The method supports the standard return value <b>E_INVALIDARG</b>, as well as the 
      *       following values.
      * 
@@ -875,10 +872,10 @@ class IFont extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-sethdc
      */
-    SetHdc(hDC) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    SetHdc(_hDC) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
-        result := ComCall(26, this, "ptr", hDC, "HRESULT")
+        result := ComCall(26, this, "ptr", _hDC, "HRESULT")
         return result
     }
 }

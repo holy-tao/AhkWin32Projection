@@ -62,8 +62,8 @@ class Views extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &View := 0, "HRESULT")
-        return View(View)
+        result := ComCall(7, this, "int", Index, "ptr*", &_View := 0, "HRESULT")
+        return View(_View)
     }
 
     /**
@@ -84,7 +84,7 @@ class Views extends IDispatch{
      * 
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @param {Integer} viewOptions 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
@@ -154,8 +154,8 @@ class Views extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
-    Add(Node, viewOptions) {
-        result := ComCall(9, this, "ptr", Node, "int", viewOptions, "HRESULT")
+    Add(_Node, viewOptions) {
+        result := ComCall(9, this, "ptr", _Node, "int", viewOptions, "HRESULT")
         return result
     }
 

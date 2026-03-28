@@ -34,14 +34,14 @@ class IInitializeWithWindow extends IUnknown{
 
     /**
      * Specifies an owner window to be used by a Windows Runtime object that is used in a desktop app.
-     * @param {HWND} hwnd The handle of the window to be used as the owner window.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize
      */
-    Initialize(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Initialize(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 }

@@ -651,32 +651,32 @@ class IFELanguage extends IUnknown{
 
     /**
      * 
-     * @param {BSTR} string_R 
+     * @param {BSTR} _string 
      * @param {Integer} start 
      * @param {Integer} length 
      * @param {Pointer<BSTR>} phonetic 
      * @returns {HRESULT} 
      */
-    GetPhonetic(string_R, start, length, phonetic) {
-        string_R := string_R is String ? BSTR.Alloc(string_R).Value : string_R
+    GetPhonetic(_string, start, length, phonetic) {
+        _string := _string is String ? BSTR.Alloc(_string).Value : _string
 
-        result := ComCall(7, this, "ptr", string_R, "int", start, "int", length, "ptr", phonetic, "HRESULT")
+        result := ComCall(7, this, "ptr", _string, "int", start, "int", length, "ptr", phonetic, "HRESULT")
         return result
     }
 
     /**
      * Converts the input string (which usually contains the Hiragana character) to converted strings.
-     * @param {BSTR} string_R 
+     * @param {BSTR} _string 
      * @param {Integer} start The starting character from which <a href="https://docs.microsoft.com/windows/desktop/api/msime/nn-msime-ifelanguage">IFELanguage</a> begins conversion. The first character of <i>string</i> is represented by 1 (not 0).
      * @param {Integer} length The number of characters to convert. If this value is -1, all of the remaining characters from <i>start</i>  are converted.
      * @param {Pointer<BSTR>} result The converted string. This string is allocated by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> and must be freed by the client.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-getconversion
      */
-    GetConversion(string_R, start, length, result) {
-        string_R := string_R is String ? BSTR.Alloc(string_R).Value : string_R
+    GetConversion(_string, start, length, result) {
+        _string := _string is String ? BSTR.Alloc(_string).Value : _string
 
-        result := ComCall(8, this, "ptr", string_R, "int", start, "int", length, "ptr", result, "HRESULT")
+        result := ComCall(8, this, "ptr", _string, "int", start, "int", length, "ptr", result, "HRESULT")
         return result
     }
 }

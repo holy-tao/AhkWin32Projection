@@ -52,12 +52,12 @@ class IComMethodEvents extends IUnknown{
      * @param {Pointer<Guid>} guidCid The CLSID for the object being called.
      * @param {Pointer<Guid>} guidRid The identifier of the method.
      * @param {Integer} iMeth The v-table index of the method.
-     * @param {HRESULT} hresult The result of the method call.
+     * @param {HRESULT} _hresult 
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethodevents-onmethodreturn
      */
-    OnMethodReturn(pInfo, oid, guidCid, guidRid, iMeth, hresult) {
-        result := ComCall(4, this, "ptr", pInfo, "uint", oid, "ptr", guidCid, "ptr", guidRid, "uint", iMeth, "int", hresult, "HRESULT")
+    OnMethodReturn(pInfo, oid, guidCid, guidRid, iMeth, _hresult) {
+        result := ComCall(4, this, "ptr", pInfo, "uint", oid, "ptr", guidCid, "ptr", guidRid, "uint", iMeth, "int", _hresult, "HRESULT")
         return result
     }
 

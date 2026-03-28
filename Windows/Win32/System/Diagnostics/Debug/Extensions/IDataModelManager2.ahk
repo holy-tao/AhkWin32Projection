@@ -48,13 +48,13 @@ class IDataModelManager2 extends IDataModelManager{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 
      * @returns {IModelObject} 
      */
-    CreateTypedIntrinsicObjectEx(context, intrinsicData, type) {
-        result := ComCall(24, this, "ptr", context, "ptr", intrinsicData, "ptr", type, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+    CreateTypedIntrinsicObjectEx(_context, intrinsicData, type) {
+        result := ComCall(24, this, "ptr", _context, "ptr", intrinsicData, "ptr", type, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 }

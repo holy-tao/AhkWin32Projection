@@ -127,13 +127,13 @@ class ISpeechLexicon extends IDispatch{
      * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
-     * @param {Integer} TypeFlags 
+     * @param {Integer} _TypeFlags 
      * @returns {ISpeechLexiconPronunciations} 
      */
-    GetPronunciations(bstrWord, LangId, TypeFlags) {
+    GetPronunciations(bstrWord, LangId, _TypeFlags) {
         bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
 
-        result := ComCall(13, this, "ptr", bstrWord, "int", LangId, "int", TypeFlags, "ptr*", &ppPronunciations := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrWord, "int", LangId, "int", _TypeFlags, "ptr*", &ppPronunciations := 0, "HRESULT")
         return ISpeechLexiconPronunciations(ppPronunciations)
     }
 

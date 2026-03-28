@@ -126,7 +126,7 @@ class IEAPProviderConfig extends IUnknown{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">IEAPProviderConfig</a> may support more than one authentication protocol. The <i>dwEapTypeId</i> parameter specifies for which authentication protocol to invoke the configuration user interface.
      * @param {Integer} dwEapTypeId Specifies the EAP for which to invoke the configuration user interface.
      * @param {Pointer} uConnectionParam Specifies the configuration session for which to invoke the user interface.
-     * @param {HWND} hWnd Handle to the parent window for the configuration user interface.
+     * @param {HWND} _hWnd 
      * @param {Pointer} uReserved1 This parameter is reserved and should be zero.
      * @param {Pointer} uReserved2 This parameter is reserved and should be zero.
      * @returns {HRESULT} If the function succeeds, the return value should be <b>S_OK</b>.
@@ -185,10 +185,10 @@ class IEAPProviderConfig extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-serverinvokeconfigui
      */
-    ServerInvokeConfigUI(dwEapTypeId, uConnectionParam, hWnd, uReserved1, uReserved2) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    ServerInvokeConfigUI(dwEapTypeId, uConnectionParam, _hWnd, uReserved1, uReserved2) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(5, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(5, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", _hWnd, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
         return result
     }
 

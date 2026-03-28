@@ -36,7 +36,7 @@ class ITfSystemLangBarItem extends IUnknown{
      * ITfSystemLangBarItem::SetIcon method
      * @remarks
      * In response to this method, the system language bar menu should call <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemsink-onupdate">ITfLangBarItemSink::OnUpdate</a> with TF_LBI_ICON to force the language bar to obtain the new icon.
-     * @param {HICON} hIcon Contains the handle to the new icon.
+     * @param {HICON} _hIcon 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -69,10 +69,10 @@ class ITfSystemLangBarItem extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritem-seticon
      */
-    SetIcon(hIcon) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    SetIcon(_hIcon) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
-        result := ComCall(3, this, "ptr", hIcon, "HRESULT")
+        result := ComCall(3, this, "ptr", _hIcon, "HRESULT")
         return result
     }
 

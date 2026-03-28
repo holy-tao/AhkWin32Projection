@@ -365,7 +365,7 @@ class IUIAnimationStoryboard extends IUnknown{
      * Sets the tag for the storyboard. (IUIAnimationStoryboard.SetTag)
      * @remarks
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify a storyboard.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The identifier portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
@@ -388,8 +388,8 @@ class IUIAnimationStoryboard extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-settag
      */
-    SetTag(object_R, id) {
-        result := ComCall(15, this, "ptr", object_R, "uint", id, "HRESULT")
+    SetTag(_object, id) {
+        result := ComCall(15, this, "ptr", _object, "uint", id, "HRESULT")
         return result
     }
 
@@ -399,7 +399,7 @@ class IUIAnimationStoryboard extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify a storyboard.
      * 
      * The parameters are optional so that the method can return both portions of the tag, or just the identifier or object portion.
-     * @param {Pointer<IUnknown>} object_R 
+     * @param {Pointer<IUnknown>} _object 
      * @param {Pointer<Integer>} id The identifier portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
@@ -422,10 +422,10 @@ class IUIAnimationStoryboard extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-gettag
      */
-    GetTag(object_R, id) {
+    GetTag(_object, id) {
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr*", object_R, idMarshal, id, "HRESULT")
+        result := ComCall(16, this, "ptr*", _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -434,12 +434,12 @@ class IUIAnimationStoryboard extends IUnknown{
      * @remarks
      * Unless this method is called from a handler for <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationstoryboardeventhandler-onstoryboardstatuschanged">OnStoryboardStatusChanged</a> events, the only values it returns are <b>UI_ANIMATION_STORYBOARD_BUILDING</b>, <b>UI_ANIMATION_STORYBOARD_SCHEDULED</b>,
      * <b>UI_ANIMATION_STORYBOARD_PLAYING</b>, and <b>UI_ANIMATION_STORYBOARD_READY</b>.
-     * @returns {Integer} The storyboard status.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-getstatus
      */
     GetStatus() {
-        result := ComCall(17, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(17, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**

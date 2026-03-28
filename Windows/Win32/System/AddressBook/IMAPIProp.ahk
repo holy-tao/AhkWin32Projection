@@ -51,7 +51,7 @@ class IMAPIProp extends IUnknown{
      * The **IMAPIProp::GetLastError** method supplies information about a prior method call that failed. Clients can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box. 
      *   
      * All of the implementations of **GetLastError** provided by MAPI are ANSI implementations, except for the [IAddrBook](iaddrbookimapiprop.md) implementation. The **GetLastError** method included with **IAddrBook** supports Unicode.
-     * @param {HRESULT} hResult > [in] A handle to the error code generated in the previous method call.
+     * @param {HRESULT} _hResult 
      * @param {Integer} ulFlags > [in] A bitmask of flags that indicates the format for the text returned in the **MAPIERROR** structure pointed to by  _lppMAPIError_. The following flag can be set:
      *     
      * MAPI_UNICODE 
@@ -67,10 +67,10 @@ class IMAPIProp extends IUnknown{
      * > Either the MAPI_UNICODE flag was set and the implementation does not support Unicode, or MAPI_UNICODE was not set and the implementation supports only Unicode.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getlasterror
      */
-    GetLastError(hResult, ulFlags, lppMAPIError) {
+    GetLastError(_hResult, ulFlags, lppMAPIError) {
         lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 

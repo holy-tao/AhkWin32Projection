@@ -32,9 +32,7 @@ class ID2D1DeviceContext6 extends ID2D1DeviceContext5{
 
     /**
      * Draws an image to the device context using the specified blend mode. Results are equivalent to using Direct2D's built-in Blend effect. (ID2D1DeviceContext6.BlendImage)
-     * @param {ID2D1Image} image Type: <b>ID2D1Image*</b>
-     * 
-     * The image to be drawn to the device context.
+     * @param {ID2D1Image} _image 
      * @param {Integer} blendMode Type: <b>D2D1_BLEND_MODE</b>
      * 
      * The blend mode to be used. See <a href="https://docs.microsoft.com/windows/desktop/Direct2D/blend">Blend modes</a> for more info.
@@ -48,13 +46,11 @@ class ID2D1DeviceContext6 extends ID2D1DeviceContext5{
      * @param {Pointer<D2D_RECT_F>} imageRectangle Type: <b>const D2D1_RECT_F*</b>
      * 
      * The corresponding rectangle in the image space will be mapped to the given origins when processing the image. The default value is NULL.
-     * @param {Integer} interpolationMode Type: <b>D2D1_INTERPOLATION_MODE</b>
-     * 
-     * The interpolation mode that will be used to scale the image if necessary. The default value is D2D1_INTERPOLATION_MODE_LINEAR.
+     * @param {Integer} _interpolationMode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext6-blendimage
      */
-    BlendImage(image, blendMode, targetOffset, imageRectangle, interpolationMode) {
-        ComCall(119, this, "ptr", image, "int", blendMode, "ptr", targetOffset, "ptr", imageRectangle, "int", interpolationMode)
+    BlendImage(_image, blendMode, targetOffset, imageRectangle, _interpolationMode) {
+        ComCall(119, this, "ptr", _image, "int", blendMode, "ptr", targetOffset, "ptr", imageRectangle, "int", _interpolationMode)
     }
 }

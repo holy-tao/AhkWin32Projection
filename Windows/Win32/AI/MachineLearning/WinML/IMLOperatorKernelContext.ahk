@@ -65,11 +65,11 @@ class IMLOperatorKernelContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} size 
+     * @param {Pointer} _size 
      * @returns {IUnknown} 
      */
-    AllocateTemporaryData(size) {
-        result := ComCall(6, this, "ptr", size, "ptr*", &data := 0, "HRESULT")
+    AllocateTemporaryData(_size) {
+        result := ComCall(6, this, "ptr", _size, "ptr*", &data := 0, "HRESULT")
         return IUnknown(data)
     }
 

@@ -144,8 +144,8 @@ class IFeedEnclosure extends IDispatch{
      * @returns {Integer} 
      */
     get_DownloadStatus() {
-        result := ComCall(12, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(12, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**

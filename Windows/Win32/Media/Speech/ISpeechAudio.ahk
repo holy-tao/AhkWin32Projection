@@ -80,8 +80,8 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {ISpeechAudioStatus} 
      */
     get_Status() {
-        result := ComCall(12, this, "ptr*", &Status := 0, "HRESULT")
-        return ISpeechAudioStatus(Status)
+        result := ComCall(12, this, "ptr*", &_Status := 0, "HRESULT")
+        return ISpeechAudioStatus(_Status)
     }
 
     /**

@@ -118,6 +118,11 @@ class GeneratedApiSmokeTests {
         Yunit.Assert(memSize != 0)  
     }
 
+    ParamterAndTypeNameConflicts_AreResolved() {
+        ; The HWND and hwnd parameter should not conflict here, so no error should be thrown
+        WindowsAndMessaging.GetAncestor(A_ScriptHwnd, 0)
+    }
+
     /**
      * Smoke tests for a few cases where the entry point for a method is not equal to its
      * name. Note RtlEncryptMemory and RtlDecryptMemory are deprecated

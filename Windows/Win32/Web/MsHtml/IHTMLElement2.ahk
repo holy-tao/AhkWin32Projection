@@ -423,18 +423,18 @@ class IHTMLElement2 extends IDispatch{
      * @returns {BSTR} 
      */
     componentFromPoint(x, y) {
-        component := BSTR()
-        result := ComCall(12, this, "int", x, "int", y, "ptr", component, "HRESULT")
-        return component
+        _component := BSTR()
+        result := ComCall(12, this, "int", x, "int", y, "ptr", _component, "HRESULT")
+        return _component
     }
 
     /**
      * 
-     * @param {VARIANT} component 
+     * @param {VARIANT} _component 
      * @returns {HRESULT} 
      */
-    doScroll(component) {
-        result := ComCall(13, this, "ptr", component, "HRESULT")
+    doScroll(_component) {
+        result := ComCall(13, this, "ptr", _component, "HRESULT")
         return result
     }
 

@@ -42,7 +42,7 @@ class IUIAutomationStructureChangedEventHandler extends IUnknown{
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
-     * @param {Integer} changeType 
+     * @param {Integer} _changeType 
      * @param {Pointer<SAFEARRAY>} runtimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * Receives the runtime identifier of the element. This parameter is used only when <i>changeType</i> is <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType_ChildRemoved</a>; it is <b>NULL</b> for all other structure-change events.
@@ -51,8 +51,8 @@ class IUIAutomationStructureChangedEventHandler extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstructurechangedeventhandler-handlestructurechangedevent
      */
-    HandleStructureChangedEvent(sender, changeType, runtimeId) {
-        result := ComCall(3, this, "ptr", sender, "int", changeType, "ptr", runtimeId, "HRESULT")
+    HandleStructureChangedEvent(sender, _changeType, runtimeId) {
+        result := ComCall(3, this, "ptr", sender, "int", _changeType, "ptr", runtimeId, "HRESULT")
         return result
     }
 }

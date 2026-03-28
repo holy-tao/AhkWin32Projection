@@ -39,23 +39,19 @@ class IDWriteGdiInterop extends IUnknown{
      * @param {Pointer<LOGFONTW>} logFont Type: <b>const LOGFONTW*</b>
      * 
      * A structure containing a GDI-compatible font description.
-     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
-     * 
-     * When this method returns, contains an address of a  pointer to a newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>  object if successful; otherwise, <b>NULL</b>.
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfromlogfont
      */
     CreateFontFromLOGFONT(logFont) {
-        result := ComCall(3, this, "ptr", logFont, "ptr*", &font := 0, "HRESULT")
-        return IDWriteFont(font)
+        result := ComCall(3, this, "ptr", logFont, "ptr*", &_font := 0, "HRESULT")
+        return IDWriteFont(_font)
     }
 
     /**
      * Initializes a LOGFONT structure based on the GDI-compatible properties of the specified font. (IDWriteGdiInterop.ConvertFontToLOGFONT)
      * @remarks
      * The conversion to a  <b>LOGFONT</b> by using <b>ConvertFontToLOGFONT</b> operates at the logical font level and does not guarantee that it will map to a specific physical font. It is not guaranteed that GDI will select the same physical font for displaying  text formatted by a <b>LOGFONT</b> as the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object that was converted.
-     * @param {IDWriteFont} font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
-     * 
-     * An <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object to be converted into a GDI-compatible <b>LOGFONT</b> structure.
+     * @param {IDWriteFont} _font 
      * @param {Pointer<LOGFONTW>} logFont Type: <b>LOGFONTW*</b>
      * 
      * When this method returns, contains a structure that receives a GDI-compatible font description.
@@ -67,10 +63,10 @@ class IDWriteGdiInterop extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-convertfonttologfont
      */
-    ConvertFontToLOGFONT(font, logFont, isSystemFont) {
+    ConvertFontToLOGFONT(_font, logFont, isSystemFont) {
         isSystemFontMarshal := isSystemFont is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", font, "ptr", logFont, isSystemFontMarshal, isSystemFont, "HRESULT")
+        result := ComCall(4, this, "ptr", _font, "ptr", logFont, isSystemFontMarshal, isSystemFont, "HRESULT")
         return result
     }
 
@@ -78,17 +74,15 @@ class IDWriteGdiInterop extends IUnknown{
      * Initializes a LOGFONT structure based on the GDI-compatible properties of the specified font. (IDWriteGdiInterop.ConvertFontFaceToLOGFONT)
      * @remarks
      * The conversion to a  LOGFONT by using <b>ConvertFontFaceToLOGFONT</b> operates at the logical font level and does not guarantee that it will map to a specific physical font. It is not guaranteed that GDI will select the same physical font for displaying  text formatted by a LOGFONT as the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object that was converted.
-     * @param {IDWriteFontFace} font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
-     * 
-     * An <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a> object to be converted into a GDI-compatible LOGFONT structure.
+     * @param {IDWriteFontFace} _font 
      * @returns {LOGFONTW} Type: <b>LOGFONTW*</b>
      * 
      * When this method returns, contains a pointer to a structure that receives a GDI-compatible font description.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-convertfontfacetologfont
      */
-    ConvertFontFaceToLOGFONT(font) {
+    ConvertFontFaceToLOGFONT(_font) {
         logFont := LOGFONTW()
-        result := ComCall(5, this, "ptr", font, "ptr", logFont, "HRESULT")
+        result := ComCall(5, this, "ptr", _font, "ptr", logFont, "HRESULT")
         return logFont
     }
 
@@ -96,28 +90,22 @@ class IDWriteGdiInterop extends IUnknown{
      * Creates an IDWriteFontFace object that corresponds to the currently selected HFONT of the specified HDC.
      * @remarks
      * This function is intended for scenarios in which an application wants to use GDI and Uniscribe 1.x for text layout and shaping, but  DirectWrite for final rendering. This function assumes the client is performing text output using glyph indexes.
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * A handle to a device context into which a font has been selected. It is assumed that the client
-     *      has already performed font mapping and that the font selected into the device context is the actual font to be used 
-     *      for rendering glyphs.
+     * @param {HDC} _hdc 
      * @returns {IDWriteFontFace} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>**</b>
      * 
      * Contains an address of a pointer to  the newly created font face object, or <b>NULL</b> in case of failure. The font face returned is guaranteed to reference the same physical typeface that would be used for drawing glyphs (but not necessarily characters) using ExtTextOut.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfacefromhdc
      */
-    CreateFontFaceFromHdc(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    CreateFontFaceFromHdc(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(6, this, "ptr", hdc, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _hdc, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace(fontFace)
     }
 
     /**
      * Creates an object that encapsulates a bitmap and memory DC (device context) which can be used for rendering glyphs.
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * A handle to the optional device context used to create a compatible memory DC (device context).
+     * @param {HDC} _hdc 
      * @param {Integer} width Type: <b>UINT32</b>
      * 
      * The width of the bitmap render target.
@@ -129,10 +117,10 @@ class IDWriteGdiInterop extends IUnknown{
      * When this method returns, contains an address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritebitmaprendertarget">IDWriteBitmapRenderTarget</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget
      */
-    CreateBitmapRenderTarget(hdc, width, height) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    CreateBitmapRenderTarget(_hdc, width, height) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(7, this, "ptr", hdc, "uint", width, "uint", height, "ptr*", &renderTarget := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _hdc, "uint", width, "uint", height, "ptr*", &renderTarget := 0, "HRESULT")
         return IDWriteBitmapRenderTarget(renderTarget)
     }
 }

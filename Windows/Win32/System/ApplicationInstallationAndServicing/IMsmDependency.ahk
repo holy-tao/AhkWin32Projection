@@ -136,7 +136,7 @@ class IMsmDependency extends IDispatch{
      * The get_Version method retrieves the Version property of the Dependency object. This method returns the version of the required module in the form of a BSTR.
      * @remarks
      * The client is responsible for freeing the resulting string using <b>SysFreeString</b>.
-     * @param {Pointer<BSTR>} Version A pointer to a location in memory that is filled in with a <b>BSTR</b> value.
+     * @param {Pointer<BSTR>} _Version 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -169,8 +169,8 @@ class IMsmDependency extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmdependency-get_version
      */
-    get_Version(Version) {
-        result := ComCall(9, this, "ptr", Version, "HRESULT")
+    get_Version(_Version) {
+        result := ComCall(9, this, "ptr", _Version, "HRESULT")
         return result
     }
 }

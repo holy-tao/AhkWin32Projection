@@ -63,9 +63,7 @@ class IUIFramework extends IUnknown{
      * @param {HWND} frameWnd Type: <b>HWND</b>
      * 
      * Handle to the top-level window that will contain the Ribbon.
-     * @param {IUIApplication} application Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiapplication">IUIApplication</a>*</b>
-     * 
-     * Pointer to the IUIApplication implementation of the host application.
+     * @param {IUIApplication} _application 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful; otherwise, an error value from the following list.
@@ -94,10 +92,10 @@ class IUIFramework extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-initialize
      */
-    Initialize(frameWnd, application) {
+    Initialize(frameWnd, _application) {
         frameWnd := frameWnd is Win32Handle ? NumGet(frameWnd, "ptr") : frameWnd
 
-        result := ComCall(3, this, "ptr", frameWnd, "ptr", application, "HRESULT")
+        result := ComCall(3, this, "ptr", frameWnd, "ptr", _application, "HRESULT")
         return result
     }
 

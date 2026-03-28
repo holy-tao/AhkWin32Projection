@@ -113,17 +113,17 @@ class IGPM extends IDispatch{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/gpmc/igpmrsop-property-methods">Namespace</a> property method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmrsop">IGPMRSOP</a> interface. Or, call the <b>RsopCreateSession</b> method of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsoploggingmodeprovider">RsopLoggingModeProvider</a> and 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/rsopplanningmodeprovider">RsopPlanningModeProvider</a> WMI classes. For more information about these methods, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/group-policy-start-page">Group Policy</a> documentation.
-     * @param {Integer} gpmRSoPMode Required. Mode in which to open the object. The following modes are supported.
+     * @param {Integer} _gpmRSoPMode 
      * @param {BSTR} bstrNamespace WMI namespace for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmrsop">IGPMRSOP</a><b>GPMRSOP</b><b>GPMRSOP</b>.  Use a null-terminated string. This parameter can be <b>NULL</b>. For more information about how to retrieve the namespace, see the "Remarks" section.
      * @param {Integer} lFlags This parameter must be zero.
      * @returns {IGPMRSOP} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmrsop">IGPMRSOP</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm-getrsop
      */
-    GetRSOP(gpmRSoPMode, bstrNamespace, lFlags) {
+    GetRSOP(_gpmRSoPMode, bstrNamespace, lFlags) {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
 
-        result := ComCall(10, this, "int", gpmRSoPMode, "ptr", bstrNamespace, "int", lFlags, "ptr*", &ppIGPMRSOP := 0, "HRESULT")
+        result := ComCall(10, this, "int", _gpmRSoPMode, "ptr", bstrNamespace, "int", lFlags, "ptr*", &ppIGPMRSOP := 0, "HRESULT")
         return IGPMRSOP(ppIGPMRSOP)
     }
 

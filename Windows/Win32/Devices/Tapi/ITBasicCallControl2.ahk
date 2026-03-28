@@ -41,16 +41,15 @@ class ITBasicCallControl2 extends ITBasicCallControl{
      * @param {BSTR} bstrTerminalClassGUID The terminal class required for the call.
      * @param {Integer} lMediaType Bitwise ORed list of 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> required for the call.
-     * @param {Integer} Direction The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the terminal.
+     * @param {Integer} _Direction 
      * @returns {ITTerminal} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol2-requestterminal
      */
-    RequestTerminal(bstrTerminalClassGUID, lMediaType, Direction) {
+    RequestTerminal(bstrTerminalClassGUID, lMediaType, _Direction) {
         bstrTerminalClassGUID := bstrTerminalClassGUID is String ? BSTR.Alloc(bstrTerminalClassGUID).Value : bstrTerminalClassGUID
 
-        result := ComCall(25, this, "ptr", bstrTerminalClassGUID, "int", lMediaType, "int", Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrTerminalClassGUID, "int", lMediaType, "int", _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 

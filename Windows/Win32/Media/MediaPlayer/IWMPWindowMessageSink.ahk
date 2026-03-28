@@ -31,17 +31,17 @@ class IWMPWindowMessageSink extends IUnknown{
     /**
      * 
      * @param {Integer} uMsg 
-     * @param {WPARAM} wparam 
-     * @param {LPARAM} lparam 
+     * @param {WPARAM} _wparam 
+     * @param {LPARAM} _lparam 
      * @param {Pointer<LRESULT>} plRet 
      * @param {Pointer<BOOL>} pfHandled 
      * @returns {HRESULT} 
      */
-    OnWindowMessage(uMsg, wparam, lparam, plRet, pfHandled) {
+    OnWindowMessage(uMsg, _wparam, _lparam, plRet, pfHandled) {
         plRetMarshal := plRet is VarRef ? "ptr*" : "ptr"
         pfHandledMarshal := pfHandled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", uMsg, "ptr", wparam, "ptr", lparam, plRetMarshal, plRet, pfHandledMarshal, pfHandled, "HRESULT")
+        result := ComCall(3, this, "uint", uMsg, "ptr", _wparam, "ptr", _lparam, plRetMarshal, plRet, pfHandledMarshal, pfHandled, "HRESULT")
         return result
     }
 }

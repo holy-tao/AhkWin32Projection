@@ -62,12 +62,12 @@ class IDesktopWindowXamlSourceNative extends IUnknown{
 
     /**
      * Gets the window handle of the parent UI element that is associated with the current IDesktopWindowXamlSourceNative instance.
-     * @returns {HWND} On output, this parameter contains the window handle of the parent UI element that is associated with the current [IDesktopWindowXamlSourceNative](nn-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative.md) instance.
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nf-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative-get_windowhandle
      */
     get_WindowHandle() {
-        hWnd := HWND()
-        result := ComCall(4, this, "ptr", hWnd, "HRESULT")
-        return hWnd
+        _hWnd := HWND()
+        result := ComCall(4, this, "ptr", _hWnd, "HRESULT")
+        return _hWnd
     }
 }

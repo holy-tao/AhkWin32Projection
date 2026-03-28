@@ -154,15 +154,12 @@ class IXpsSignature extends IUnknown{
      *     This means that  if, for example,  a signature is found to be incompliant, no digest will be calculated  if the signature is also broken.
      * 
      * For more information on the different types of signature statuses that can be detected by this method, see  <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status">XPS_SIGNATURE_STATUS</a>.
-     * @param {Pointer<CERT_CONTEXT>} x509Certificate The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the X.509 certificate that will be used for verification.
-     * 
-     * If the signature is not incomplete or incompliant, this  certificate will be used  only to  validate that the signed data in the XPS package is intact. The certificate will not be used to perform any other checks.
-     *     Before using the certificate the application is expected to verify the trust chain and any other requirements.
+     * @param {Pointer<CERT_CONTEXT>} _x509Certificate 
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status">XPS_SIGNATURE_STATUS</a> value that describes the results of the verification.
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-verify
      */
-    Verify(x509Certificate) {
-        result := ComCall(9, this, "ptr", x509Certificate, "int*", &sigStatus := 0, "HRESULT")
+    Verify(_x509Certificate) {
+        result := ComCall(9, this, "ptr", _x509Certificate, "int*", &sigStatus := 0, "HRESULT")
         return sigStatus
     }
 

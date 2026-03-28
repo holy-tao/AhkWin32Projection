@@ -315,7 +315,7 @@ class IOleUIObjInfoA extends IUnknown{
      * You should apply the new attributes (icon, aspect, and scale) to the object. If <i>bRelativeToOrig</i> is set to <b>TRUE</b>, <i>nCurrentScale</i> (in percentage units) applies to the original size of the object before it was scaled. If <i>bRelativeToOrig</i> is <b>FALSE</b>, <i>nCurrentScale</i> applies to the object's current size.
      * @param {Integer} dwObject Unique identifier for the object.
      * @param {HGLOBAL} hMetaPict The new icon.
-     * @param {Integer} dvAspect The new display aspect or view.
+     * @param {Integer} _dvAspect 
      * @param {Integer} nCurrentScale The new scale.
      * @param {BOOL} bRelativeToOrig The new scale of the object, relative to the origin. This value is <b>TRUE</b> if the scale should be relative to the original scale of the object. If <b>FALSE</b>, <i>nCurrentScale</i> applies to the object's current size.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
@@ -372,10 +372,10 @@ class IOleUIObjInfoA extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-setviewinfo
      */
-    SetViewInfo(dwObject, hMetaPict, dvAspect, nCurrentScale, bRelativeToOrig) {
+    SetViewInfo(dwObject, hMetaPict, _dvAspect, nCurrentScale, bRelativeToOrig) {
         hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
 
-        result := ComCall(7, this, "uint", dwObject, "ptr", hMetaPict, "uint", dvAspect, "int", nCurrentScale, "int", bRelativeToOrig, "HRESULT")
+        result := ComCall(7, this, "uint", dwObject, "ptr", hMetaPict, "uint", _dvAspect, "int", nCurrentScale, "int", bRelativeToOrig, "HRESULT")
         return result
     }
 }

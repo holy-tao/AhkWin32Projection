@@ -129,16 +129,14 @@ class IDCompositionVisual extends IUnknown{
      * 
      * 
      * If the Transform property previously specified a transform object, the newly specified transform matrix replaces the transform object.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_matrix_3x2_f">D2D_MATRIX_3X2_F</a></b>
-     * 
-     * The 3-by-2 transform matrix that is used to modify  the coordinate system of this visual.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-settransform(constd2d_matrix_3x2_f_)
      */
-    SetTransform1(matrix) {
-        result := ComCall(8, this, "ptr", matrix, "HRESULT")
+    SetTransform1(_matrix) {
+        result := ComCall(8, this, "ptr", _matrix, "HRESULT")
         return result
     }
 
@@ -183,16 +181,14 @@ class IDCompositionVisual extends IUnknown{
      * 
      * 
      * This method fails if <i>effect</i> is an invalid pointer or if it was not created by the same <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiondevice">IDCompositionDevice</a> interface that created this visual. The interface cannot be a custom implementation; only interfaces created by Microsoft DirectComposition can be used with this method.
-     * @param {IDCompositionEffect} effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioneffect">IDCompositionEffect</a>*</b>
-     * 
-     * A pointer to an effect object. This parameter can be NULL.
+     * @param {IDCompositionEffect} _effect 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-seteffect
      */
-    SetEffect(effect) {
-        result := ComCall(10, this, "ptr", effect, "HRESULT")
+    SetEffect(_effect) {
+        result := ComCall(10, this, "ptr", _effect, "HRESULT")
         return result
     }
 
@@ -208,16 +204,14 @@ class IDCompositionVisual extends IUnknown{
      * 
      * 
      * If the <i>interpolationMode</i> parameter is anything other than <a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_bitmap_interpolation_mode">DCOMPOSITION_BITMAP_INTERPOLATION_MODE_INHERIT</a>, this visual's bitmap is composed with the specified interpolation mode, and this mode becomes the new default mode for the children of this visual. That is, if the interpolation mode of this visual's children is unchanged or explicitly set to <b>DCOMPOSITION_BITMAP_INTERPOLATION_MODE_INHERIT</b>, the bitmaps of the child visuals are composed using the interpolation mode of this visual.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_bitmap_interpolation_mode">DCOMPOSITION_BITMAP_INTERPOLATION_MODE</a></b>
-     * 
-     * The interpolation mode to use.
+     * @param {Integer} _interpolationMode 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setbitmapinterpolationmode
      */
-    SetBitmapInterpolationMode(interpolationMode) {
-        result := ComCall(11, this, "int", interpolationMode, "HRESULT")
+    SetBitmapInterpolationMode(_interpolationMode) {
+        result := ComCall(11, this, "int", _interpolationMode, "HRESULT")
         return result
     }
 
@@ -286,18 +280,15 @@ class IDCompositionVisual extends IUnknown{
      * If the clip rectangle is empty, the visual is fully clipped; that is, the visual is included in the visual tree, but it does not render anything. 
      *       To exclude a particular visual from a composition, remove the visual from the visual tree instead of setting an empty clip rectangle. 
      *       Removing the visual results in better performance.
-     * @param {Pointer<D2D_RECT_F>} rect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_rect_f">D2D_RECT_F</a></b>
-     * 
-     * The rectangle to use to clip this visual. All properties of the rect parameter have a numerical limit of -2^21 to 2^21. 
-     *           The API accepts numbers outside of this range, but they are always clamped to this range.
+     * @param {Pointer<D2D_RECT_F>} _rect 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. 
      *               See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setclip(constd2d_rect_f_)
      */
-    SetClip1(rect) {
-        result := ComCall(14, this, "ptr", rect, "HRESULT")
+    SetClip1(_rect) {
+        result := ComCall(14, this, "ptr", _rect, "HRESULT")
         return result
     }
 

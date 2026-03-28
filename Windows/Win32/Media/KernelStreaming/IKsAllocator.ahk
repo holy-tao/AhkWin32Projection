@@ -61,10 +61,10 @@ class IKsAllocator extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {String} Nothing - always returns an empty string
      */
-    KsSetAllocatorMode(Mode) {
-        ComCall(6, this, "int", Mode)
+    KsSetAllocatorMode(_Mode) {
+        ComCall(6, this, "int", _Mode)
     }
 }

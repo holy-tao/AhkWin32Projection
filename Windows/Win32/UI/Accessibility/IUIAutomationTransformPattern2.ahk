@@ -103,14 +103,14 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
 
     /**
      * Zooms the viewport of the control by the specified unit.
-     * @param {Integer} zoomUnit 
+     * @param {Integer} _zoomUnit 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-zoombyunit
      */
-    ZoomByUnit(zoomUnit) {
-        result := ComCall(13, this, "int", zoomUnit, "HRESULT")
+    ZoomByUnit(_zoomUnit) {
+        result := ComCall(13, this, "int", _zoomUnit, "HRESULT")
         return result
     }
 

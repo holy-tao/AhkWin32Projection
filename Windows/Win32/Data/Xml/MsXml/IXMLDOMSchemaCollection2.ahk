@@ -81,11 +81,11 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection{
 
     /**
      * 
-     * @param {IXMLDOMNode} node 
+     * @param {IXMLDOMNode} _node 
      * @returns {ISchemaItem} 
      */
-    getDeclaration(node) {
-        result := ComCall(18, this, "ptr", node, "ptr*", &item := 0, "HRESULT")
+    getDeclaration(_node) {
+        result := ComCall(18, this, "ptr", _node, "ptr*", &item := 0, "HRESULT")
         return ISchemaItem(item)
     }
 }

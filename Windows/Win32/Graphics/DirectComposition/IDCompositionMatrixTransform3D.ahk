@@ -42,16 +42,14 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
      * This method fails if any of the matrix values are NaN, positive infinity, or negative infinity.
      * 
      * If any of the matrix elements were previously animated, this method removes the animations and sets the elements to the specified static value.
-     * @param {Pointer<D3DMATRIX>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a></b>
-     * 
-     * The new matrix for this 3D transformation effect.
+     * @param {Pointer<D3DMATRIX>} _matrix 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrix
      */
-    SetMatrix(matrix) {
-        result := ComCall(3, this, "ptr", matrix, "HRESULT")
+    SetMatrix(_matrix) {
+        result := ComCall(3, this, "ptr", _matrix, "HRESULT")
         return result
     }
 
@@ -64,9 +62,7 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row index of the element to change. This value must be between 0 and 3, inclusive.
-     * @param {Integer} column Type: <b>int</b>
-     * 
-     * The column index of the element to change. This value must be between 0 and 3, inclusive.
+     * @param {Integer} _column 
      * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
      * An animation that represents how the value of the specified element changes over time. This parameter must not be NULL.
@@ -75,8 +71,8 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrixelement(int_int_idcompositionanimation)
      */
-    SetMatrixElement(row, column, animation) {
-        result := ComCall(4, this, "int", row, "int", column, "ptr", animation, "HRESULT")
+    SetMatrixElement(row, _column, animation) {
+        result := ComCall(4, this, "int", row, "int", _column, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -89,17 +85,15 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row index of the element to change. This value must be between 0 and 3, inclusive.
-     * @param {Integer} column Type: <b>int</b>
-     * 
-     * The column index of the element to change. This value must be between 0 and 3, inclusive.
+     * @param {Integer} _column 
      * @param {Float} value 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrixelement(int_int_idcompositionanimation)
      */
-    SetMatrixElement1(row, column, value) {
-        result := ComCall(5, this, "int", row, "int", column, "float", value, "HRESULT")
+    SetMatrixElement1(row, _column, value) {
+        result := ComCall(5, this, "int", row, "int", _column, "float", value, "HRESULT")
         return result
     }
 }

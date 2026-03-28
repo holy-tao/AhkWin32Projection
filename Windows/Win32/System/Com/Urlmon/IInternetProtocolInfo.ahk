@@ -31,18 +31,18 @@ class IInternetProtocolInfo extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} ParseAction 
+     * @param {Integer} _ParseAction 
      * @param {Integer} dwParseFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
      */
-    ParseUrl(pwzUrl, ParseAction, dwParseFlags, pwzResult, cchResult, dwReserved) {
+    ParseUrl(pwzUrl, _ParseAction, dwParseFlags, pwzResult, cchResult, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(3, this, "ptr", pwzUrl, "int", ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzUrl, "int", _ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
         return pcchResult
     }
 

@@ -118,14 +118,14 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {Integer} Tag 
      * @param {Pointer} Buf 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {Pointer<FA_ENTRY>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, or an error value otherwise. If an error occurs, <i>ppbBuffer</i>  is set to <b>NULL</b> and <i>pcxRow</i> is set to zero.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpaintbits
      */
-    GetBuffer(Tag, Buf, Size) {
-        result := ComCall(9, this, "int", Tag, "ptr", Buf, "uint", Size, "ptr")
+    GetBuffer(Tag, Buf, _Size) {
+        result := ComCall(9, this, "int", Tag, "ptr", Buf, "uint", _Size, "ptr")
         return result
     }
 
@@ -186,13 +186,13 @@ class IDebugFailureAnalysis2 extends IUnknown{
     /**
      * 
      * @param {Integer} Tag 
-     * @param {PSTR} Extension 
+     * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
      */
-    SetExtensionCommand(Tag, Extension) {
-        Extension := Extension is String ? StrPtr(Extension) : Extension
+    SetExtensionCommand(Tag, _Extension) {
+        _Extension := _Extension is String ? StrPtr(_Extension) : _Extension
 
-        result := ComCall(14, this, "int", Tag, "ptr", Extension, "ptr")
+        result := ComCall(14, this, "int", Tag, "ptr", _Extension, "ptr")
         return result
     }
 
@@ -223,12 +223,12 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * @param {Integer} Tag 
      * @param {Integer} EntryType 
      * @param {Pointer} Buf 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {Pointer<FA_ENTRY>} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecleakybucket-setbufferfullnessbits
      */
-    SetBuffer(Tag, EntryType, Buf, Size) {
-        result := ComCall(17, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", Size, "ptr")
+    SetBuffer(Tag, EntryType, Buf, _Size) {
+        result := ComCall(17, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", _Size, "ptr")
         return result
     }
 
@@ -248,13 +248,13 @@ class IDebugFailureAnalysis2 extends IUnknown{
     /**
      * 
      * @param {Integer} Tag 
-     * @param {PSTR} Extension 
+     * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
      */
-    AddExtensionCommand(Tag, Extension) {
-        Extension := Extension is String ? StrPtr(Extension) : Extension
+    AddExtensionCommand(Tag, _Extension) {
+        _Extension := _Extension is String ? StrPtr(_Extension) : _Extension
 
-        result := ComCall(19, this, "int", Tag, "ptr", Extension, "ptr")
+        result := ComCall(19, this, "int", Tag, "ptr", _Extension, "ptr")
         return result
     }
 
@@ -285,11 +285,11 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * @param {Integer} Tag 
      * @param {Integer} EntryType 
      * @param {Pointer} Buf 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {Pointer<FA_ENTRY>} 
      */
-    AddBuffer(Tag, EntryType, Buf, Size) {
-        result := ComCall(22, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", Size, "ptr")
+    AddBuffer(Tag, EntryType, Buf, _Size) {
+        result := ComCall(22, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", _Size, "ptr")
         return result
     }
 

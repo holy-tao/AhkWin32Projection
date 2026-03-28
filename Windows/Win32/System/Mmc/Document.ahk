@@ -166,8 +166,8 @@ class Document extends IDispatch{
      * @returns {Views} 
      */
     get_Views() {
-        result := ComCall(10, this, "ptr*", &Views := 0, "HRESULT")
-        return Views(Views)
+        result := ComCall(10, this, "ptr*", &_Views := 0, "HRESULT")
+        return Views(_Views)
     }
 
     /**
@@ -175,8 +175,8 @@ class Document extends IDispatch{
      * @returns {SnapIns} 
      */
     get_SnapIns() {
-        result := ComCall(11, this, "ptr*", &SnapIns := 0, "HRESULT")
-        return SnapIns(SnapIns)
+        result := ComCall(11, this, "ptr*", &_SnapIns := 0, "HRESULT")
+        return SnapIns(_SnapIns)
     }
 
     /**
@@ -184,8 +184,8 @@ class Document extends IDispatch{
      * @returns {View} 
      */
     get_ActiveView() {
-        result := ComCall(12, this, "ptr*", &View := 0, "HRESULT")
-        return View(View)
+        result := ComCall(12, this, "ptr*", &_View := 0, "HRESULT")
+        return View(_View)
     }
 
     /**
@@ -215,9 +215,9 @@ class Document extends IDispatch{
      * @returns {BSTR} 
      */
     get_Location() {
-        Location := BSTR()
-        result := ComCall(15, this, "ptr", Location, "HRESULT")
-        return Location
+        _Location := BSTR()
+        result := ComCall(15, this, "ptr", _Location, "HRESULT")
+        return _Location
     }
 
     /**
@@ -234,17 +234,17 @@ class Document extends IDispatch{
      * @returns {Integer} 
      */
     get_Mode() {
-        result := ComCall(17, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(17, this, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
-    put_Mode(Mode) {
-        result := ComCall(18, this, "int", Mode, "HRESULT")
+    put_Mode(_Mode) {
+        result := ComCall(18, this, "int", _Mode, "HRESULT")
         return result
     }
 
@@ -253,8 +253,8 @@ class Document extends IDispatch{
      * @returns {Node} 
      */
     get_RootNode() {
-        result := ComCall(19, this, "ptr*", &Node := 0, "HRESULT")
-        return Node(Node)
+        result := ComCall(19, this, "ptr*", &_Node := 0, "HRESULT")
+        return Node(_Node)
     }
 
     /**
@@ -262,8 +262,8 @@ class Document extends IDispatch{
      * @returns {ScopeNamespace} 
      */
     get_ScopeNamespace() {
-        result := ComCall(20, this, "ptr*", &ScopeNamespace := 0, "HRESULT")
-        return ScopeNamespace(ScopeNamespace)
+        result := ComCall(20, this, "ptr*", &_ScopeNamespace := 0, "HRESULT")
+        return ScopeNamespace(_ScopeNamespace)
     }
 
     /**
@@ -271,8 +271,8 @@ class Document extends IDispatch{
      * @returns {Properties} 
      */
     CreateProperties() {
-        result := ComCall(21, this, "ptr*", &Properties := 0, "HRESULT")
-        return Properties(Properties)
+        result := ComCall(21, this, "ptr*", &_Properties := 0, "HRESULT")
+        return Properties(_Properties)
     }
 
     /**
@@ -280,7 +280,7 @@ class Document extends IDispatch{
      * @returns {_Application} 
      */
     get_Application() {
-        result := ComCall(22, this, "ptr*", &Application := 0, "HRESULT")
-        return _Application(Application)
+        result := ComCall(22, this, "ptr*", &_Application := 0, "HRESULT")
+        return _Application(_Application)
     }
 }

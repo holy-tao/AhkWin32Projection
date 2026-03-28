@@ -105,8 +105,8 @@ class IUIAutomation6 extends IUIAutomation5{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
      */
     get_ConnectionRecoveryBehavior() {
-        result := ComCall(73, this, "int*", &connectionRecoveryBehaviorOptions := 0, "HRESULT")
-        return connectionRecoveryBehaviorOptions
+        result := ComCall(73, this, "int*", &_connectionRecoveryBehaviorOptions := 0, "HRESULT")
+        return _connectionRecoveryBehaviorOptions
     }
 
     /**
@@ -119,12 +119,12 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **ConnectionRecoveryBehaviorOptions**
      * >
      * > Value indicating whether provider request timeouts are adjusted. The default is [ConnectionRecoveryBehaviorOptions_Disabled](ne-uiautomationclient-connectionrecoverybehavioroptions.md).
-     * @param {Integer} connectionRecoveryBehaviorOptions 
+     * @param {Integer} _connectionRecoveryBehaviorOptions 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_connectionrecoverybehavior
      */
-    put_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions) {
-        result := ComCall(74, this, "int", connectionRecoveryBehaviorOptions, "HRESULT")
+    put_ConnectionRecoveryBehavior(_connectionRecoveryBehaviorOptions) {
+        result := ComCall(74, this, "int", _connectionRecoveryBehaviorOptions, "HRESULT")
         return result
     }
 
@@ -142,8 +142,8 @@ class IUIAutomation6 extends IUIAutomation5{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
      */
     get_CoalesceEvents() {
-        result := ComCall(75, this, "int*", &coalesceEventsOptions := 0, "HRESULT")
-        return coalesceEventsOptions
+        result := ComCall(75, this, "int*", &_coalesceEventsOptions := 0, "HRESULT")
+        return _coalesceEventsOptions
     }
 
     /**
@@ -156,12 +156,12 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **CoalesceEventsOptions**
      * >
      * > Value indicating whether events are filtered. The default is [CoalesceEventsOptions_Disabled](ne-uiautomationclient-coalesceeventsoptions.md).
-     * @param {Integer} coalesceEventsOptions 
+     * @param {Integer} _coalesceEventsOptions 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_coalesceevents
      */
-    put_CoalesceEvents(coalesceEventsOptions) {
-        result := ComCall(76, this, "int", coalesceEventsOptions, "HRESULT")
+    put_CoalesceEvents(_coalesceEventsOptions) {
+        result := ComCall(76, this, "int", _coalesceEventsOptions, "HRESULT")
         return result
     }
 

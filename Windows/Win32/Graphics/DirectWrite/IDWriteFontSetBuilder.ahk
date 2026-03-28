@@ -36,15 +36,15 @@ class IDWriteFontSetBuilder extends IUnknown{
      * @param {IDWriteFontFaceReference} fontFaceReference Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>*</b>
      * 
      * Font face reference object to add to the set.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties 
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties 
      * @param {Integer} propertyCount 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder-addfontfacereference(idwritefontfacereference)
      */
-    AddFontFaceReference(fontFaceReference, properties, propertyCount) {
-        result := ComCall(3, this, "ptr", fontFaceReference, "ptr", properties, "uint", propertyCount, "HRESULT")
+    AddFontFaceReference(fontFaceReference, _properties, propertyCount) {
+        result := ComCall(3, this, "ptr", fontFaceReference, "ptr", _properties, "uint", propertyCount, "HRESULT")
         return result
     }
 

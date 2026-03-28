@@ -135,17 +135,17 @@ class View extends IDispatch{
      * @returns {Node} 
      */
     get_ActiveScopeNode() {
-        result := ComCall(7, this, "ptr*", &Node := 0, "HRESULT")
-        return Node(Node)
+        result := ComCall(7, this, "ptr*", &_Node := 0, "HRESULT")
+        return Node(_Node)
     }
 
     /**
      * 
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {HRESULT} 
      */
-    put_ActiveScopeNode(Node) {
-        result := ComCall(8, this, "ptr", Node, "HRESULT")
+    put_ActiveScopeNode(_Node) {
+        result := ComCall(8, this, "ptr", _Node, "HRESULT")
         return result
     }
 
@@ -154,8 +154,8 @@ class View extends IDispatch{
      * @returns {Nodes} 
      */
     get_Selection() {
-        result := ComCall(9, this, "ptr*", &Nodes := 0, "HRESULT")
-        return Nodes(Nodes)
+        result := ComCall(9, this, "ptr*", &_Nodes := 0, "HRESULT")
+        return Nodes(_Nodes)
     }
 
     /**
@@ -163,8 +163,8 @@ class View extends IDispatch{
      * @returns {Nodes} 
      */
     get_ListItems() {
-        result := ComCall(10, this, "ptr*", &Nodes := 0, "HRESULT")
-        return Nodes(Nodes)
+        result := ComCall(10, this, "ptr*", &_Nodes := 0, "HRESULT")
+        return Nodes(_Nodes)
     }
 
     /**
@@ -196,12 +196,12 @@ class View extends IDispatch{
      * The Windows Media Format SDK constant for this attribute is g\_wszWMProtected.
      * 
      * To determine whether you can change the value of this attribute, use the [Media.isReadOnlyItem](media-isreadonlyitem.md) method.
-     * @param {View} View 
+     * @param {View} _View 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/WMP/is-protected-attribute
      */
-    Is(View) {
-        result := ComCall(13, this, "ptr", View, "short*", &TheSame := 0, "HRESULT")
+    Is(_View) {
+        result := ComCall(13, this, "ptr", _View, "short*", &TheSame := 0, "HRESULT")
         return TheSame
     }
 
@@ -210,8 +210,8 @@ class View extends IDispatch{
      * @returns {Document} 
      */
     get_Document() {
-        result := ComCall(14, this, "ptr*", &Document := 0, "HRESULT")
-        return Document(Document)
+        result := ComCall(14, this, "ptr*", &_Document := 0, "HRESULT")
+        return Document(_Document)
     }
 
     /**
@@ -225,32 +225,32 @@ class View extends IDispatch{
 
     /**
      * An XPath query that identifies the events to include in the query result set.
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/WES/queryschema-select-querytype-element
      */
-    Select(Node) {
-        result := ComCall(16, this, "ptr", Node, "HRESULT")
+    Select(_Node) {
+        result := ComCall(16, this, "ptr", _Node, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {HRESULT} 
      */
-    Deselect(Node) {
-        result := ComCall(17, this, "ptr", Node, "HRESULT")
+    Deselect(_Node) {
+        result := ComCall(17, this, "ptr", _Node, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Node} Node 
+     * @param {Node} _Node 
      * @returns {BOOL} 
      */
-    IsSelected(Node) {
-        result := ComCall(18, this, "ptr", Node, "int*", &IsSelected := 0, "HRESULT")
+    IsSelected(_Node) {
+        result := ComCall(18, this, "ptr", _Node, "int*", &IsSelected := 0, "HRESULT")
         return IsSelected
     }
 
@@ -342,8 +342,8 @@ class View extends IDispatch{
      * @returns {ContextMenu} 
      */
     get_ScopeNodeContextMenu(ScopeNode) {
-        result := ComCall(27, this, "ptr", ScopeNode, "ptr*", &ContextMenu := 0, "HRESULT")
-        return ContextMenu(ContextMenu)
+        result := ComCall(27, this, "ptr", ScopeNode, "ptr*", &_ContextMenu := 0, "HRESULT")
+        return ContextMenu(_ContextMenu)
     }
 
     /**
@@ -351,8 +351,8 @@ class View extends IDispatch{
      * @returns {ContextMenu} 
      */
     get_SelectionContextMenu() {
-        result := ComCall(28, this, "ptr*", &ContextMenu := 0, "HRESULT")
-        return ContextMenu(ContextMenu)
+        result := ComCall(28, this, "ptr*", &_ContextMenu := 0, "HRESULT")
+        return ContextMenu(_ContextMenu)
     }
 
     /**
@@ -422,8 +422,8 @@ class View extends IDispatch{
      * @returns {Frame} 
      */
     get_Frame() {
-        result := ComCall(34, this, "ptr*", &Frame := 0, "HRESULT")
-        return Frame(Frame)
+        result := ComCall(34, this, "ptr*", &_Frame := 0, "HRESULT")
+        return Frame(_Frame)
     }
 
     /**
@@ -520,32 +520,32 @@ class View extends IDispatch{
      * @returns {Columns} 
      */
     get_Columns() {
-        result := ComCall(43, this, "ptr*", &Columns := 0, "HRESULT")
-        return Columns(Columns)
+        result := ComCall(43, this, "ptr*", &_Columns := 0, "HRESULT")
+        return Columns(_Columns)
     }
 
     /**
      * 
-     * @param {Node} Node 
-     * @param {Integer} Column 
+     * @param {Node} _Node 
+     * @param {Integer} _Column 
      * @returns {BSTR} 
      */
-    get_CellContents(Node, Column) {
+    get_CellContents(_Node, _Column) {
         CellContents := BSTR()
-        result := ComCall(44, this, "ptr", Node, "int", Column, "ptr", CellContents, "HRESULT")
+        result := ComCall(44, this, "ptr", _Node, "int", _Column, "ptr", CellContents, "HRESULT")
         return CellContents
     }
 
     /**
      * 
-     * @param {BSTR} File 
+     * @param {BSTR} _File 
      * @param {Integer} exportoptions 
      * @returns {HRESULT} 
      */
-    ExportList(File, exportoptions) {
-        File := File is String ? BSTR.Alloc(File).Value : File
+    ExportList(_File, exportoptions) {
+        _File := _File is String ? BSTR.Alloc(_File).Value : _File
 
-        result := ComCall(45, this, "ptr", File, "int", exportoptions, "HRESULT")
+        result := ComCall(45, this, "ptr", _File, "int", exportoptions, "HRESULT")
         return result
     }
 
@@ -554,17 +554,17 @@ class View extends IDispatch{
      * @returns {Integer} 
      */
     get_ListViewMode() {
-        result := ComCall(46, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(46, this, "int*", &_Mode := 0, "HRESULT")
+        return _Mode
     }
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      */
-    put_ListViewMode(mode) {
-        result := ComCall(47, this, "int", mode, "HRESULT")
+    put_ListViewMode(_mode) {
+        result := ComCall(47, this, "int", _mode, "HRESULT")
         return result
     }
 

@@ -189,15 +189,15 @@ class IVdsService extends IUnknown{
      * @remarks
      * VDS notifications return an object identifier instead of an object pointer. Callers  use this method to get a 
      *     pointer to the object referenced in the notification.
-     * @param {Guid} ObjectId The GUID of the desired object.
+     * @param {Guid} _ObjectId 
      * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration value that specifies the object type. 
      *       <b>VDS_OT_UNKNOWN</b>, <b>VDS_OT_PROVIDER</b>, 
      *       <b>VDS_OT_ASYNC</b>, <b>VDS_OT_ENUM</b>, and <b>VDS_OT_OPEN_VDISK</b> are not supported.
      * @returns {IUnknown} A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer to the object. When the pointer is no longer needed, the caller should release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-getobject
      */
-    GetObject(ObjectId, type) {
-        result := ComCall(9, this, "ptr", ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
+    GetObject(_ObjectId, type) {
+        result := ComCall(9, this, "ptr", _ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
         return IUnknown(ppObjectUnk)
     }
 

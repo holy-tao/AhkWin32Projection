@@ -55,9 +55,7 @@ class IAccClientDocMgr extends IUnknown{
      * Clients call IAccClientDocMgr::LookupByHWND to get a document by providing the HWND for the document.
      * @remarks
      * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
-     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
-     * 
-     * The <b>HWND</b> of the document to be returned.
+     * @param {HWND} _hWnd 
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the document being requested. This is usually IID_ITextStoreAnchor.
@@ -66,10 +64,10 @@ class IAccClientDocMgr extends IUnknown{
      * Interface pointer to the document being requested.
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-lookupbyhwnd
      */
-    LookupByHWND(hWnd, riid) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    LookupByHWND(_hWnd, riid) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(4, this, "ptr", hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", _hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 

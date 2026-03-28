@@ -66,8 +66,8 @@ class IDirectManipulationContent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getviewport
      */
     GetViewport(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &object_R := 0, "HRESULT")
-        return object_R
+        result := ComCall(5, this, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        return _object
     }
 
     /**
@@ -80,16 +80,16 @@ class IDirectManipulationContent extends IUnknown{
      * A tag is a pairing of an integer ID (<i>id</i>) with a Component Object Model (COM) object (<i>object</i>). It can be used by an app to identify a motion.
      * The parameters are optional, so that the method can return both parts of the tag, the identifier portion, or the tag object.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to use. The tag object typically implements this interface.
-     * @param {Pointer<Pointer<Void>>} object_R 
+     * @param {Pointer<Pointer<Void>>} _object 
      * @param {Pointer<Integer>} id The ID portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag
      */
-    GetTag(riid, object_R, id) {
-        object_RMarshal := object_R is VarRef ? "ptr*" : "ptr"
+    GetTag(riid, _object, id) {
+        _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, object_RMarshal, object_R, idMarshal, id, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -101,13 +101,13 @@ class IDirectManipulationContent extends IUnknown{
      * A tag is a pairing of an integer ID  (<i>id</i>) with a Component Object Model (COM) object (<i>object</i>). It can be used by an app to store and retrieve an arbitrary object associated with the content.
      * 
      * The <i>object</i> parameter is optional, so that the method can set just the identifier portion.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The ID portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-settag
      */
-    SetTag(object_R, id) {
-        result := ComCall(7, this, "ptr", object_R, "uint", id, "HRESULT")
+    SetTag(_object, id) {
+        result := ComCall(7, this, "ptr", _object, "uint", id, "HRESULT")
         return result
     }
 
@@ -118,12 +118,12 @@ class IDirectManipulationContent extends IUnknown{
      * 
      * This transform contains both the content transform and the sync transform set with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform">SyncContentTransform</a>.
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
-     * @returns {Float} The transform matrix.
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getoutputtransform
      */
     GetOutputTransform(pointCount) {
-        result := ComCall(8, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
-        return matrix
+        result := ComCall(8, this, "float*", &_matrix := 0, "uint", pointCount, "HRESULT")
+        return _matrix
     }
 
     /**
@@ -144,12 +144,12 @@ class IDirectManipulationContent extends IUnknown{
      * <i>matrix</i>
      * <i>matrix</i>
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
-     * @returns {Float} The transform matrix.
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontenttransform
      */
     GetContentTransform(pointCount) {
-        result := ComCall(9, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
-        return matrix
+        result := ComCall(9, this, "float*", &_matrix := 0, "uint", pointCount, "HRESULT")
+        return _matrix
     }
 
     /**
@@ -158,15 +158,15 @@ class IDirectManipulationContent extends IUnknown{
      * This method will fail if the viewport state is <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_RUNNING</a>, <b>DIRECTMANIPULATION_INERTIA</b> or <b>DIRECTMANIPULATION_SUSPENDED</b>.
      * 
      * This method is useful when the application wants to apply transforms on top of the content transforms at the end of a manipulation, while preserving the visual output transform of the content.
-     * @param {Pointer<Float>} matrix The transform matrix.
+     * @param {Pointer<Float>} _matrix 
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform
      */
-    SyncContentTransform(matrix, pointCount) {
-        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+    SyncContentTransform(_matrix, pointCount) {
+        _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
 
-        result := ComCall(10, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
+        result := ComCall(10, this, _matrixMarshal, _matrix, "uint", pointCount, "HRESULT")
         return result
     }
 }

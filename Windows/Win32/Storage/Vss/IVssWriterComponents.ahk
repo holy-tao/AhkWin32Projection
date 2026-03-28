@@ -147,15 +147,13 @@ class IVssWriterComponents extends Win32ComInterface{
      * @remarks
      * The caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> to release system resources held by the returned 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> object.
-     * @param {Integer} iComponent Number of the component. The value of this parameter is an integer from 0 
-     *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of components returned by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponentcount">IVssWriterComponents::GetComponentCount</a>.
+     * @param {Integer} _iComponent 
      * @returns {IVssComponent} Doubly indirect pointer to an instance of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> object that contains component information.
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponent
      */
-    GetComponent(iComponent) {
-        result := ComCall(2, this, "uint", iComponent, "ptr*", &ppComponent := 0, "HRESULT")
+    GetComponent(_iComponent) {
+        result := ComCall(2, this, "uint", _iComponent, "ptr*", &ppComponent := 0, "HRESULT")
         return IVssComponent(ppComponent)
     }
 }

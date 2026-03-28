@@ -66,16 +66,14 @@ class IUIAutomationGridPattern extends IUnknown{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The zero-based index of the row.
-     * @param {Integer} column Type: <b>int</b>
-     * 
-     * The zero-based index of the column.
+     * @param {Integer} _column 
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the element representing the grid item.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-getitem
      */
-    GetItem(row, column) {
-        result := ComCall(3, this, "int", row, "int", column, "ptr*", &element := 0, "HRESULT")
+    GetItem(row, _column) {
+        result := ComCall(3, this, "int", row, "int", _column, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 

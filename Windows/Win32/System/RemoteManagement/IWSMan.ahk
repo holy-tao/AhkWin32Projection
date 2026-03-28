@@ -82,7 +82,7 @@ class IWSMan extends IDispatch{
      * 
      * </li>
      * </ul>
-     * @param {BSTR} connection The protocol and service to connect to, including either IPv4 or IPv6. The format of the connection information is as follows: &lt;<i>Transport</i>&gt;&lt;<i>Address</i>&gt;&lt;<i>Suffix</i>&gt;. For examples, see Remarks. If no connection information is provided, the local computer is used.
+     * @param {BSTR} _connection 
      * @param {Integer} flags The session flags that specify the authentication method, such as 
      *      <a href="https://docs.microsoft.com/windows/desktop/WinRM/windows-remote-management-glossary">Negotiate authentication</a> 
      *      or 
@@ -106,10 +106,10 @@ class IWSMan extends IDispatch{
      * @returns {IDispatch} A pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmansession">IWSManSession</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-createsession
      */
-    CreateSession(connection, flags, connectionOptions) {
-        connection := connection is String ? BSTR.Alloc(connection).Value : connection
+    CreateSession(_connection, flags, connectionOptions) {
+        _connection := _connection is String ? BSTR.Alloc(_connection).Value : _connection
 
-        result := ComCall(7, this, "ptr", connection, "int", flags, "ptr", connectionOptions, "ptr*", &session := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _connection, "int", flags, "ptr", connectionOptions, "ptr*", &session := 0, "HRESULT")
         return IDispatch(session)
     }
 

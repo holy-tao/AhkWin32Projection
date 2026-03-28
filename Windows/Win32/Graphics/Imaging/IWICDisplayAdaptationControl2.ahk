@@ -49,11 +49,11 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      */
-    SetToneMappingMode(mode) {
-        result := ComCall(8, this, "int", mode, "HRESULT")
+    SetToneMappingMode(_mode) {
+        result := ComCall(8, this, "int", _mode, "HRESULT")
         return result
     }
 
@@ -62,17 +62,17 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
      * @returns {Integer} 
      */
     GetToneMappingMode() {
-        result := ComCall(9, this, "int*", &mode := 0, "HRESULT")
-        return mode
+        result := ComCall(9, this, "int*", &_mode := 0, "HRESULT")
+        return _mode
     }
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {BOOL} 
      */
-    DoesSupportToneMappingMode(mode) {
-        result := ComCall(10, this, "int", mode, "int*", &pfIsSupported := 0, "HRESULT")
+    DoesSupportToneMappingMode(_mode) {
+        result := ComCall(10, this, "int", _mode, "int*", &pfIsSupported := 0, "HRESULT")
         return pfIsSupported
     }
 }

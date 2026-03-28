@@ -44,14 +44,14 @@ class IAppVisibility extends IUnknown{
 
     /**
      * Queries the current mode of the specified monitor.
-     * @param {HMONITOR} hMonitor The monitor to query.
+     * @param {HMONITOR} _hMonitor 
      * @returns {Integer} The current mode of <i>hMonitor</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iappvisibility-getappvisibilityonmonitor
      */
-    GetAppVisibilityOnMonitor(hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    GetAppVisibilityOnMonitor(_hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := ComCall(3, this, "ptr", hMonitor, "int*", &pMode := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hMonitor, "int*", &pMode := 0, "HRESULT")
         return pMode
     }
 

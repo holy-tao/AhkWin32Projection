@@ -49,13 +49,13 @@ class IDirectManipulationPrimaryContent extends IUnknown{
      * 
      *  Snap points set by <b>SetSnapInterval</b> can be cleared by calling <b>SetSnapInterval</b> with an interval of 0.0f.
      * @param {Integer} motion One of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_motion_types">DIRECTMANIPULATION_MOTION_TYPES</a> enumeration values.
-     * @param {Float} interval The interval between each snap point.
+     * @param {Float} _interval 
      * @param {Float} offset The offset from the coordinate specified in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnapcoordinate">SetSnapCoordinate</a>.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnapinterval
      */
-    SetSnapInterval(motion, interval, offset) {
-        result := ComCall(3, this, "int", motion, "float", interval, "float", offset, "HRESULT")
+    SetSnapInterval(motion, _interval, offset) {
+        result := ComCall(3, this, "int", motion, "float", _interval, "float", offset, "HRESULT")
         return result
     }
 
@@ -64,15 +64,15 @@ class IDirectManipulationPrimaryContent extends IUnknown{
      * @remarks
      * If snap points are invalid (for example, outside of the content boundaries), they are ignored and the content is always within the content boundaries.
      * @param {Integer} motion One or more of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_motion_types">DIRECTMANIPULATION_MOTION_TYPES</a> enumeration values. Only <b>DIRECTMANIPULATION_MOTION_TRANSLATE_X</b>, <b>DIRECTMANIPULATION_MOTION_TRANSLATE_Y</b>, or <b>DIRECTMANIPULATION_MOTION_ZOOM</b> are allowed.
-     * @param {Pointer<Float>} points An array of snap points within the boundaries of the content to snap to. Should be specified in increasing order relative to the origin set in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnapcoordinate">SetSnapCoordinate</a>.
+     * @param {Pointer<Float>} _points 
      * @param {Integer} pointCount The size of the array of snap points. Should be greater than 0.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. If there is no change in the snap points, this method can return <b>S_FALSE</b>. Otherwise, it returns an <b>HRESULT</b> error code. If invalid snap points are specified, existing snap points might be affected.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnappoints
      */
-    SetSnapPoints(motion, points, pointCount) {
-        pointsMarshal := points is VarRef ? "float*" : "ptr"
+    SetSnapPoints(motion, _points, pointCount) {
+        _pointsMarshal := _points is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, "int", motion, pointsMarshal, points, "uint", pointCount, "HRESULT")
+        result := ComCall(4, this, "int", motion, _pointsMarshal, _points, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -165,12 +165,12 @@ class IDirectManipulationPrimaryContent extends IUnknown{
      * @param {Integer} pointCount The size of the matrix. 
      * 
      *  This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
-     * @returns {Float} The transformed matrix that represents the inertia ending position.
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-getinertiaendtransform
      */
     GetInertiaEndTransform(pointCount) {
-        result := ComCall(10, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
-        return matrix
+        result := ComCall(10, this, "float*", &_matrix := 0, "uint", pointCount, "HRESULT")
+        return _matrix
     }
 
     /**

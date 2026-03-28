@@ -31,24 +31,24 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadVirtual(Offset, Buffer_R, BufferSize) {
-        result := ComCall(3, this, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadVirtual(Offset, _Buffer, BufferSize) {
+        result := ComCall(3, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WriteVirtual(Offset, Buffer_R, BufferSize) {
-        result := ComCall(4, this, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WriteVirtual(Offset, _Buffer, BufferSize) {
+        result := ComCall(4, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -69,24 +69,24 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadVirtualUncached(Offset, Buffer_R, BufferSize) {
-        result := ComCall(6, this, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadVirtualUncached(Offset, _Buffer, BufferSize) {
+        result := ComCall(6, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WriteVirtualUncached(Offset, Buffer_R, BufferSize) {
-        result := ComCall(7, this, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WriteVirtualUncached(Offset, _Buffer, BufferSize) {
+        result := ComCall(7, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -118,24 +118,24 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadPhysical(Offset, Buffer_R, BufferSize) {
-        result := ComCall(10, this, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadPhysical(Offset, _Buffer, BufferSize) {
+        result := ComCall(10, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
     /**
      * 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WritePhysical(Offset, Buffer_R, BufferSize) {
-        result := ComCall(11, this, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WritePhysical(Offset, _Buffer, BufferSize) {
+        result := ComCall(11, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -143,12 +143,12 @@ class IDebugDataSpaces extends IUnknown{
      * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadControl(Processor, Offset, Buffer_R, BufferSize) {
-        result := ComCall(12, this, "uint", Processor, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadControl(Processor, Offset, _Buffer, BufferSize) {
+        result := ComCall(12, this, "uint", Processor, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -156,12 +156,12 @@ class IDebugDataSpaces extends IUnknown{
      * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WriteControl(Processor, Offset, Buffer_R, BufferSize) {
-        result := ComCall(13, this, "uint", Processor, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WriteControl(Processor, Offset, _Buffer, BufferSize) {
+        result := ComCall(13, this, "uint", Processor, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -171,12 +171,12 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadIo(InterfaceType, BusNumber, AddressSpace, Offset, Buffer_R, BufferSize) {
-        result := ComCall(14, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadIo(InterfaceType, BusNumber, AddressSpace, Offset, _Buffer, BufferSize) {
+        result := ComCall(14, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -186,12 +186,12 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WriteIo(InterfaceType, BusNumber, AddressSpace, Offset, Buffer_R, BufferSize) {
-        result := ComCall(15, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WriteIo(InterfaceType, BusNumber, AddressSpace, Offset, _Buffer, BufferSize) {
+        result := ComCall(15, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -222,12 +222,12 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadBusData(BusDataType, BusNumber, SlotNumber, Offset, Buffer_R, BufferSize) {
-        result := ComCall(18, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadBusData(BusDataType, BusNumber, SlotNumber, Offset, _Buffer, BufferSize) {
+        result := ComCall(18, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -237,12 +237,12 @@ class IDebugDataSpaces extends IUnknown{
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
      * @param {Integer} Offset 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WriteBusData(BusDataType, BusNumber, SlotNumber, Offset, Buffer_R, BufferSize) {
-        result := ComCall(19, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WriteBusData(BusDataType, BusNumber, SlotNumber, Offset, _Buffer, BufferSize) {
+        result := ComCall(19, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -258,12 +258,12 @@ class IDebugDataSpaces extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadDebuggerData(Index, Buffer_R, BufferSize) {
-        result := ComCall(21, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &DataSize := 0, "HRESULT")
+    ReadDebuggerData(Index, _Buffer, BufferSize) {
+        result := ComCall(21, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &DataSize := 0, "HRESULT")
         return DataSize
     }
 
@@ -271,12 +271,12 @@ class IDebugDataSpaces extends IUnknown{
      * 
      * @param {Integer} Processor 
      * @param {Integer} Index 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadProcessorSystemData(Processor, Index, Buffer_R, BufferSize) {
-        result := ComCall(22, this, "uint", Processor, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &DataSize := 0, "HRESULT")
+    ReadProcessorSystemData(Processor, Index, _Buffer, BufferSize) {
+        result := ComCall(22, this, "uint", Processor, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &DataSize := 0, "HRESULT")
         return DataSize
     }
 }

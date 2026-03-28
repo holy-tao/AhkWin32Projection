@@ -42,12 +42,12 @@ class IDCompositionVisual2 extends IDCompositionVisual{
      * 
      * 
      * If the <i>opacityMode</i> parameter is anything other than DCOMPOSITION_OPACITY_MODE_INHERIT, this visual's surfaces are composed with the specified opacity mode. In addition, this opacity mode becomes the new default for the children of the current visual. That is, if the opacity mode of this visual's children is unchanged or explicitly set to DCOMPOSITION_OPACITY_MODE_INHERIT, the surfaces the child visuals are composed using the opacity mode of this visual.
-     * @param {Integer} mode The opacity mode to use when composing the visual to the screen.
+     * @param {Integer} _mode 
      * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual2-setopacitymode
      */
-    SetOpacityMode(mode) {
-        result := ComCall(20, this, "int", mode, "HRESULT")
+    SetOpacityMode(_mode) {
+        result := ComCall(20, this, "int", _mode, "HRESULT")
         return result
     }
 

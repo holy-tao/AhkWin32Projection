@@ -33,29 +33,29 @@ class IWiaLogEx extends IUnknown{
 
     /**
      * This method is not supported. (IWiaLogEx.InitializeLogEx)
-     * @param {Pointer<Integer>} hInstance Type: <b>BYTE*</b>
+     * @param {Pointer<Integer>} _hInstance 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-initializelogex
      */
-    InitializeLogEx(hInstance) {
-        hInstanceMarshal := hInstance is VarRef ? "char*" : "ptr"
+    InitializeLogEx(_hInstance) {
+        _hInstanceMarshal := _hInstance is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, hInstanceMarshal, hInstance, "HRESULT")
+        result := ComCall(3, this, _hInstanceMarshal, _hInstance, "HRESULT")
         return result
     }
 
     /**
      * This method is not supported. (IWiaLogEx.hResult)
-     * @param {HRESULT} hResult Type: <b>HRESULT</b>
+     * @param {HRESULT} _hResult 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-hresult
      */
-    hResult(hResult) {
-        result := ComCall(4, this, "int", hResult, "HRESULT")
+    hResult(_hResult) {
+        result := ComCall(4, this, "int", _hResult, "HRESULT")
         return result
     }
 
@@ -80,14 +80,14 @@ class IWiaLogEx extends IUnknown{
     /**
      * This method is not supported. (IWiaLogEx.hResultEx)
      * @param {Integer} lMethodId Type: <b>LONG</b>
-     * @param {HRESULT} hResult Type: <b>HRESULT</b>
+     * @param {HRESULT} _hResult 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-hresultex
      */
-    hResultEx(lMethodId, hResult) {
-        result := ComCall(6, this, "int", lMethodId, "int", hResult, "HRESULT")
+    hResultEx(lMethodId, _hResult) {
+        result := ComCall(6, this, "int", lMethodId, "int", _hResult, "HRESULT")
         return result
     }
 

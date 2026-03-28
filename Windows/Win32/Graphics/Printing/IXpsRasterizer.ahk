@@ -39,8 +39,8 @@ class IXpsRasterizer extends IUnknown{
      * @returns {IWICBitmap} 
      */
     RasterizeRect(x, y, width, height, notificationCallback) {
-        result := ComCall(3, this, "int", x, "int", y, "int", width, "int", height, "ptr", notificationCallback, "ptr*", &bitmap := 0, "HRESULT")
-        return IWICBitmap(bitmap)
+        result := ComCall(3, this, "int", x, "int", y, "int", width, "int", height, "ptr", notificationCallback, "ptr*", &_bitmap := 0, "HRESULT")
+        return IWICBitmap(_bitmap)
     }
 
     /**

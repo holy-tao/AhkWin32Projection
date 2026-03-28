@@ -74,8 +74,8 @@ class ContextMenu extends IDispatch{
      * @returns {MenuItem} 
      */
     get_Item(IndexOrPath) {
-        result := ComCall(8, this, "ptr", IndexOrPath, "ptr*", &MenuItem := 0, "HRESULT")
-        return MenuItem(MenuItem)
+        result := ComCall(8, this, "ptr", IndexOrPath, "ptr*", &_MenuItem := 0, "HRESULT")
+        return MenuItem(_MenuItem)
     }
 
     /**

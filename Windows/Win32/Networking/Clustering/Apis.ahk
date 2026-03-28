@@ -3424,13 +3424,13 @@ class Clustering {
      * @remarks
      * Do not close a cluster handle if there are any object handles still in use that were obtained from the cluster 
      *     handle. After a cluster handle has been closed, all handles obtained from that handle are invalid.
-     * @param {HCLUSTER} hCluster Handle to the cluster to close.
+     * @param {HCLUSTER} _hCluster 
      * @returns {BOOL} This function always returns <b>TRUE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closecluster
      * @since windowsserver2008
      */
-    static CloseCluster(hCluster) {
-        result := DllCall("CLUSAPI.dll\CloseCluster", "ptr", hCluster, "int")
+    static CloseCluster(_hCluster) {
+        result := DllCall("CLUSAPI.dll\CloseCluster", "ptr", _hCluster, "int")
         return result
     }
 
@@ -3440,7 +3440,7 @@ class Clustering {
      * The cluster name is stored in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the core  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource (that is, the Network Name resource of the cluster). Because of possible dependencies on this resource, the change is not effective until the Network Name resource is brought back online.
      * 
      * Do not call  <b>SetClusterName</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HCLUSTER} hCluster Handle to a cluster to rename.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNewClusterName Pointer to a null-terminated Unicode string containing the new cluster name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_RESOURCE_PROPERTIES_STORED</b>.
      * 
@@ -3449,25 +3449,25 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustername
      * @since windowsserver2008
      */
-    static SetClusterName(hCluster, lpszNewClusterName) {
+    static SetClusterName(_hCluster, lpszNewClusterName) {
         lpszNewClusterName := lpszNewClusterName is String ? StrPtr(lpszNewClusterName) : lpszNewClusterName
 
-        result := DllCall("CLUSAPI.dll\SetClusterName", "ptr", hCluster, "ptr", lpszNewClusterName, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterName", "ptr", _hCluster, "ptr", lpszNewClusterName, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNewClusterName 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetClusterNameEx(hCluster, lpszNewClusterName, lpszReason) {
+    static SetClusterNameEx(_hCluster, lpszNewClusterName, lpszReason) {
         lpszNewClusterName := lpszNewClusterName is String ? StrPtr(lpszNewClusterName) : lpszNewClusterName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterNameEx", "ptr", hCluster, "ptr", lpszNewClusterName, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterNameEx", "ptr", _hCluster, "ptr", lpszNewClusterName, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -3478,7 +3478,7 @@ class Clustering {
      *     and that the returned size does not include the terminating <b>NULL</b> in the count. For more 
      *     information on sizing buffers, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HCLUSTER} hCluster Handle to a cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszClusterName Pointer to a null-terminated Unicode string containing the name of the cluster identified by 
      *       <i>hCluster</i>.
      * @param {Pointer<Integer>} lpcchClusterName Pointer to the size of the <i>lpszClusterName</i> buffer as a count of characters. On 
@@ -3519,12 +3519,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterinformation
      * @since windowsserver2008
      */
-    static GetClusterInformation(hCluster, lpszClusterName, lpcchClusterName, lpClusterInfo) {
+    static GetClusterInformation(_hCluster, lpszClusterName, lpcchClusterName, lpClusterInfo) {
         lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
         lpcchClusterNameMarshal := lpcchClusterName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterInformation", "ptr", hCluster, "ptr", lpszClusterName, lpcchClusterNameMarshal, lpcchClusterName, "ptr", lpClusterInfo, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterInformation", "ptr", _hCluster, "ptr", lpszClusterName, lpcchClusterNameMarshal, lpcchClusterName, "ptr", lpClusterInfo, "uint")
         return result
     }
 
@@ -3532,7 +3532,7 @@ class Clustering {
      * Returns the name of a cluster's quorum resource.
      * @remarks
      * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HCLUSTER} hCluster Handle to an existing <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the cluster's quorum resource. The name is read from the quorum resource's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-name">Name</a> common property. Do not pass <b>NULL</b> for this parameter.
      * @param {Pointer<Integer>} lpcchResourceName Pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @param {PWSTR} lpszDeviceName Pointer to a null-terminated Unicode string containing the path to the location of the quorum log files maintained by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. Do not pass <b>NULL</b> for this parameter.
@@ -3563,7 +3563,7 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterquorumresource
      * @since windowsserver2008
      */
-    static GetClusterQuorumResource(hCluster, lpszResourceName, lpcchResourceName, lpszDeviceName, lpcchDeviceName, lpdwMaxQuorumLogSize) {
+    static GetClusterQuorumResource(_hCluster, lpszResourceName, lpcchResourceName, lpszDeviceName, lpcchDeviceName, lpdwMaxQuorumLogSize) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
@@ -3571,7 +3571,7 @@ class Clustering {
         lpcchDeviceNameMarshal := lpcchDeviceName is VarRef ? "uint*" : "ptr"
         lpdwMaxQuorumLogSizeMarshal := lpdwMaxQuorumLogSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterQuorumResource", "ptr", hCluster, "ptr", lpszResourceName, lpcchResourceNameMarshal, lpcchResourceName, "ptr", lpszDeviceName, lpcchDeviceNameMarshal, lpcchDeviceName, lpdwMaxQuorumLogSizeMarshal, lpdwMaxQuorumLogSize, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterQuorumResource", "ptr", _hCluster, "ptr", lpszResourceName, lpcchResourceNameMarshal, lpcchResourceName, "ptr", lpszDeviceName, lpcchDeviceNameMarshal, lpcchDeviceName, lpdwMaxQuorumLogSizeMarshal, lpdwMaxQuorumLogSize, "uint")
         return result
     }
 
@@ -3581,10 +3581,7 @@ class Clustering {
      * Do not call <b>SetClusterQuorumResource</b> from 
      *      a resource DLL. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to the new quorum resource; or the existing 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource</a> when 
-     *        <i>dwMaxQuoLogSize</i> is 
-     *        <b>CLUS_NODE_MAJORITY_QUORUM</b>.
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDeviceName Determines the drive letter and path that the Cluster service will use to maintain the quorum files on the 
      *        new quorum resource. Pass a null-terminated Unicode string or <b>NULL</b>, as follows.
      * 
@@ -3631,26 +3628,26 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterquorumresource
      * @since windowsserver2008
      */
-    static SetClusterQuorumResource(hResource, lpszDeviceName, dwMaxQuoLogSize) {
+    static SetClusterQuorumResource(_hResource, lpszDeviceName, dwMaxQuoLogSize) {
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        result := DllCall("CLUSAPI.dll\SetClusterQuorumResource", "ptr", hResource, "ptr", lpszDeviceName, "uint", dwMaxQuoLogSize, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterQuorumResource", "ptr", _hResource, "ptr", lpszDeviceName, "uint", dwMaxQuoLogSize, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDeviceName 
      * @param {Integer} dwMaxQuorumLogSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetClusterQuorumResourceEx(hResource, lpszDeviceName, dwMaxQuorumLogSize, lpszReason) {
+    static SetClusterQuorumResourceEx(_hResource, lpszDeviceName, dwMaxQuorumLogSize, lpszReason) {
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterQuorumResourceEx", "ptr", hResource, "ptr", lpszDeviceName, "uint", dwMaxQuorumLogSize, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterQuorumResourceEx", "ptr", _hResource, "ptr", lpszDeviceName, "uint", dwMaxQuorumLogSize, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -3739,7 +3736,7 @@ class Clustering {
      * 
      * If possible, make multiple copies of the backup directory on different media and store these copies in separate 
      *      locations.
-     * @param {HCLUSTER} hCluster Handle to the cluster to be backed up.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszPathName Null-terminated Unicode string specifying the path to where the backup should be created. Cluster 
      *       configuration information will be saved to this location; this is sensitive data that should be protected. For 
      *       example, this data can be protected by using an access control list to restrict access to the location where the 
@@ -3751,10 +3748,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-backupclusterdatabase
      * @since windowsserver2003
      */
-    static BackupClusterDatabase(hCluster, lpszPathName) {
+    static BackupClusterDatabase(_hCluster, lpszPathName) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("CLUSAPI.dll\BackupClusterDatabase", "ptr", hCluster, "ptr", lpszPathName, "uint")
+        result := DllCall("CLUSAPI.dll\BackupClusterDatabase", "ptr", _hCluster, "ptr", lpszPathName, "uint")
         return result
     }
 
@@ -3913,7 +3910,7 @@ class Clustering {
      *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HCLUSTER} hCluster Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to be affected.
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} NetworkCount Number of items in the list specified by the <i>NetworkList</i> parameter.
      * @param {Pointer<HNETWORK>} NetworkList Prioritized array of handles to network objects. The first handle in the array has the highest priority. The 
      *        list must contain only those networks that are used for internal communication between nodes in the cluster, 
@@ -3945,10 +3942,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusternetworkpriorityorder
      * @since windowsserver2003
      */
-    static SetClusterNetworkPriorityOrder(hCluster, NetworkCount, NetworkList) {
+    static SetClusterNetworkPriorityOrder(_hCluster, NetworkCount, NetworkList) {
         NetworkListMarshal := NetworkList is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\SetClusterNetworkPriorityOrder", "ptr", hCluster, "uint", NetworkCount, NetworkListMarshal, NetworkList, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterNetworkPriorityOrder", "ptr", _hCluster, "uint", NetworkCount, NetworkListMarshal, NetworkList, "uint")
         return result
     }
 
@@ -4061,7 +4058,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HCLUSTER} hCluster Handle to the cluster to be affected.
+     * @param {HCLUSTER} _hCluster 
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the local node performs the operation. Specifying 
      *        <i>hHostNode</i> is optional.
@@ -4193,16 +4190,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustercontrol
      * @since windowsserver2008
      */
-    static ClusterControl(hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
+    static ClusterControl(_hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterControl", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterControl", "ptr", _hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -4213,18 +4210,18 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterControlEx(hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterControlEx(_hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterControlEx", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterControlEx", "ptr", _hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Initiates a rolling upgrade of the operating system on a cluster. PCLUSAPI_CLUSTER_UPGRADE defines a pointer to this function.
-     * @param {HCLUSTER} hCluster A handle to the cluster to upgrade.
+     * @param {HCLUSTER} _hCluster 
      * @param {BOOL} perform <b>True</b> to initiate the rolling upgrade; otherwise <b>false</b>.
      * @param {Pointer<PCLUSTER_UPGRADE_PROGRESS_CALLBACK>} pfnProgressCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_upgrade_progress_callback">ClusterUpgradeProgressCallback</a> callback function that retrieves the status of the rolling upgrade.
      * @param {Pointer<Void>} pvCallbackArg A pointer to the arguments for <b>pfnProgressCallback</b>.
@@ -4232,24 +4229,17 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterupgradefunctionallevel
      * @since windowsserver2016
      */
-    static ClusterUpgradeFunctionalLevel(hCluster, perform, pfnProgressCallback, pvCallbackArg) {
+    static ClusterUpgradeFunctionalLevel(_hCluster, perform, pfnProgressCallback, pvCallbackArg) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", "ptr", hCluster, "int", perform, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", "ptr", _hCluster, "int", perform, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
         return result
     }
 
     /**
      * Creates or modifies a notification port. For information about notification ports, see Receiving Cluster Events.
-     * @param {HCHANGE} hChange A handle to a notification port or <b>INVALID_HANDLE_VALUE</b>, indicating that a new handle 
-     *        should be created. If the <i>hChange</i>  parameter is an existing handle, the events that are specified in 
-     *        the <i>dwFilter</i> parameter are added to the notification port.
-     * @param {HCLUSTER} hCluster A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to be associated with the 
-     *        notification port that is  identified by the  <i>hChange</i>    parameter or 
-     *        <b>INVALID_HANDLE_VALUE</b>, indicating that the notification port should not be associated 
-     *        with a cluster. If the  <i>hChange</i>  parameter  is not set to 
-     *        <b>INVALID_HANDLE_VALUE</b>, the <i>hCluster</i>  parameter cannot be set to 
-     *        <b>INVALID_HANDLE_VALUE</b>.
+     * @param {HCHANGE} _hChange 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} Filters A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> structure that specifies the  type of notifications that the port can accept.
      * @param {Integer} dwFilterCount The number of filters that are  specified by the <i>Filters</i> parameter.
      * @param {Pointer} dwNotifyKey A user-specified value to associate with the retrieval of notifications from the notification port. The 
@@ -4264,10 +4254,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusternotifyportv2
      * @since windowsserver2012
      */
-    static CreateClusterNotifyPortV2(hChange, hCluster, Filters, dwFilterCount, dwNotifyKey) {
+    static CreateClusterNotifyPortV2(_hChange, _hCluster, Filters, dwFilterCount, dwNotifyKey) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CreateClusterNotifyPortV2", "ptr", hChange, "ptr", hCluster, "ptr", Filters, "uint", dwFilterCount, "ptr", dwNotifyKey, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterNotifyPortV2", "ptr", _hChange, "ptr", _hCluster, "ptr", Filters, "uint", dwFilterCount, "ptr", dwNotifyKey, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4277,8 +4267,7 @@ class Clustering {
 
     /**
      * Registers an event type with a notification port by adding the notification key to the event type.
-     * @param {HCHANGE} hChange A handle to a notification port that is created with the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyportv2">CreateClusterNotifyPortV2</a> function.
+     * @param {HCHANGE} _hChange 
      * @param {NOTIFY_FILTER_AND_TYPE} Filter A <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> structure that specifies the event type to create.
      * @param {HANDLE} hObject A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">failover cluster object</a> 
      *        that is affected by the event as specified in the <i>dwFilterType</i> parameter. The type of handle 
@@ -4293,16 +4282,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-registerclusternotifyv2
      * @since windowsserver2016
      */
-    static RegisterClusterNotifyV2(hChange, Filter, hObject, dwNotifyKey) {
+    static RegisterClusterNotifyV2(_hChange, Filter, hObject, dwNotifyKey) {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
-        result := DllCall("CLUSAPI.dll\RegisterClusterNotifyV2", "ptr", hChange, "ptr", Filter, "ptr", hObject, "ptr", dwNotifyKey, "uint")
+        result := DllCall("CLUSAPI.dll\RegisterClusterNotifyV2", "ptr", _hChange, "ptr", Filter, "ptr", hObject, "ptr", dwNotifyKey, "uint")
         return result
     }
 
     /**
      * Retrieves a handle to a notification event.
-     * @param {HCHANGE} hChange A handle to the notification port that received the notification event.
+     * @param {HCHANGE} _hChange 
      * @param {Pointer<HANDLE>} lphTargetEvent The handle to the notification event.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. 
      * 
@@ -4310,19 +4299,18 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getnotifyeventhandle
      * @since windowsserver2012
      */
-    static GetNotifyEventHandle(hChange, lphTargetEvent) {
-        result := DllCall("CLUSAPI.dll\GetNotifyEventHandle", "ptr", hChange, "ptr", lphTargetEvent, "uint")
+    static GetNotifyEventHandle(_hChange, lphTargetEvent) {
+        result := DllCall("CLUSAPI.dll\GetNotifyEventHandle", "ptr", _hChange, "ptr", lphTargetEvent, "uint")
         return result
     }
 
     /**
      * Retrieves information about the next notification event for a notification port.
-     * @param {HCHANGE} hChange A handle to the notification port. This handle is created by the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyportv2">CreateClusterNotifyPortV2</a> function.
+     * @param {HCHANGE} _hChange 
      * @param {Pointer<Pointer>} lpdwNotifyKey A pointer to the notification key for the notification port.
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} pFilterAndType A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> 
      *       structure that describes the next notification event for the notification port.
-     * @param {Pointer} buffer_R 
+     * @param {Pointer} _buffer 
      * @param {Pointer<Integer>} lpbBufferSize A pointer to  the size of the <i>buffer</i> parameter, in bytes.
      * @param {PWSTR} lpszObjectId A pointer to a  Unicode string   with  the ID of the 
      *        cluster object that triggered the event. The string ends with a  terminating null character.
@@ -4402,7 +4390,7 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternotifyv2
      * @since windowsserver2012
      */
-    static GetClusterNotifyV2(hChange, lpdwNotifyKey, pFilterAndType, buffer_R, lpbBufferSize, lpszObjectId, lpcchObjectId, lpszParentId, lpcchParentId, lpszName, lpcchName, lpszType, lpcchType, dwMilliseconds) {
+    static GetClusterNotifyV2(_hChange, lpdwNotifyKey, pFilterAndType, _buffer, lpbBufferSize, lpszObjectId, lpcchObjectId, lpszParentId, lpcchParentId, lpszName, lpcchName, lpszType, lpcchType, dwMilliseconds) {
         lpszObjectId := lpszObjectId is String ? StrPtr(lpszObjectId) : lpszObjectId
         lpszParentId := lpszParentId is String ? StrPtr(lpszParentId) : lpszParentId
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
@@ -4415,7 +4403,7 @@ class Clustering {
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
         lpcchTypeMarshal := lpcchType is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, "ptr", pFilterAndType, "ptr", buffer_R, lpbBufferSizeMarshal, lpbBufferSize, "ptr", lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, "ptr", lpszParentId, lpcchParentIdMarshal, lpcchParentId, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpszType, lpcchTypeMarshal, lpcchType, "uint", dwMilliseconds, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, "ptr", pFilterAndType, "ptr", _buffer, lpbBufferSizeMarshal, lpbBufferSize, "ptr", lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, "ptr", lpszParentId, lpcchParentIdMarshal, lpcchParentId, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpszType, lpcchTypeMarshal, lpcchType, "uint", dwMilliseconds, "uint")
         return result
     }
 
@@ -4427,15 +4415,8 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternotify">GetClusterNotify</a>, and 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-registerclusternotify">RegisterClusterNotify</a>, functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>.
-     * @param {HCHANGE} hChange Handle to a notification port or <b>INVALID_HANDLE_VALUE</b>, indicating that a new handle 
-     *        should be created. If <i>hChange</i> is an existing handle, the events specified in 
-     *        <i>dwFilter</i> are added to the notification port.
-     * @param {HCLUSTER} hCluster Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to be associated with the 
-     *        notification port identified by <i>hChange</i>, or 
-     *        <b>INVALID_HANDLE_VALUE</b>, indicating that the notification port should not be associated 
-     *        with a cluster. If <i>hChange</i> is not set to 
-     *        <b>INVALID_HANDLE_VALUE</b>, <i>hCluster</i> cannot be set to 
-     *        <b>INVALID_HANDLE_VALUE</b>.
+     * @param {HCHANGE} _hChange 
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} dwFilter Bitmask of flags enumerated from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_change">CLUSTER_CHANGE</a> 
      *        enumeration that specifies the events that will cause notifications to be stored in the queue. One or more of 
      *        the following flags can be set using the OR operator, or you can specify all of the flags by using the value 
@@ -4452,10 +4433,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusternotifyport
      * @since windowsserver2008
      */
-    static CreateClusterNotifyPort(hChange, hCluster, dwFilter, dwNotifyKey) {
+    static CreateClusterNotifyPort(_hChange, _hCluster, dwFilter, dwNotifyKey) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CreateClusterNotifyPort", "ptr", hChange, "ptr", hCluster, "uint", dwFilter, "ptr", dwNotifyKey, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterNotifyPort", "ptr", _hChange, "ptr", _hCluster, "uint", dwFilter, "ptr", dwNotifyKey, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4473,8 +4454,7 @@ class Clustering {
      *     flags applicable to the database must be set in the <i>dwFilterType</i> parameter. Applicable 
      *     flags start with the prefix CLUSTER_CHANGE_REGISTRY. Making manual changes to the cluster database through the 
      *     registry editor, RegEdit.exe, does not generate notifications.
-     * @param {HCHANGE} hChange Handle to a notification port created with the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
+     * @param {HCHANGE} _hChange 
      * @param {Integer} dwFilterType Bitmask of flags that describes the event to be added to the set of events currently being monitored by the 
      *       notification port. For more information about these event types, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a>. The 
@@ -4492,10 +4472,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-registerclusternotify
      * @since windowsserver2008
      */
-    static RegisterClusterNotify(hChange, dwFilterType, hObject, dwNotifyKey) {
+    static RegisterClusterNotify(_hChange, dwFilterType, hObject, dwNotifyKey) {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
-        result := DllCall("CLUSAPI.dll\RegisterClusterNotify", "ptr", hChange, "uint", dwFilterType, "ptr", hObject, "ptr", dwNotifyKey, "uint")
+        result := DllCall("CLUSAPI.dll\RegisterClusterNotify", "ptr", _hChange, "uint", dwFilterType, "ptr", hObject, "ptr", dwNotifyKey, "uint")
         return result
     }
 
@@ -4509,8 +4489,7 @@ class Clustering {
      * 
      * The notifications are asynchronous, and the state of the cluster at the time that the application processes the 
      *      notification can be different than the state of the cluster at the time the notification was generated.
-     * @param {HCHANGE} hChange The handle to a notification port that is created with the 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
+     * @param {HCHANGE} _hChange 
      * @param {Pointer<Pointer>} lpdwNotifyKey A  pointer to the notification key for the port that is  identified by the  <i>hChange</i> parameter.
      * @param {Pointer<Integer>} lpdwFilterType 
      * @param {PWSTR} lpszName A pointer to a null-terminated Unicode string containing the name of the 
@@ -4577,26 +4556,26 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternotify
      * @since windowsserver2008
      */
-    static GetClusterNotify(hChange, lpdwNotifyKey, lpdwFilterType, lpszName, lpcchName, dwMilliseconds) {
+    static GetClusterNotify(_hChange, lpdwNotifyKey, lpdwFilterType, lpszName, lpcchName, dwMilliseconds) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : "ptr"
         lpdwFilterTypeMarshal := lpdwFilterType is VarRef ? "uint*" : "ptr"
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterNotify", "ptr", hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, lpdwFilterTypeMarshal, lpdwFilterType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint", dwMilliseconds, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNotify", "ptr", _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, lpdwFilterTypeMarshal, lpdwFilterType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint", dwMilliseconds, "uint")
         return result
     }
 
     /**
      * Closes a notification port established through CreateClusterNotifyPort.
-     * @param {HCHANGE} hChange Handle to the notification port to close.
+     * @param {HCHANGE} _hChange 
      * @returns {BOOL} This function always returns <b>TRUE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternotifyport
      * @since windowsserver2008
      */
-    static CloseClusterNotifyPort(hChange) {
-        result := DllCall("CLUSAPI.dll\CloseClusterNotifyPort", "ptr", hChange, "int")
+    static CloseClusterNotifyPort(_hChange) {
+        result := DllCall("CLUSAPI.dll\CloseClusterNotifyPort", "ptr", _hChange, "int")
         return result
     }
 
@@ -4615,7 +4594,7 @@ class Clustering {
      *      to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterenum">ClusterEnum</a> to access each of the cluster groups or 
      *      nodes and to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustercloseenum">ClusterCloseEnum</a> to release the 
      *      enumerator.
-     * @param {HCLUSTER} hCluster A handle to a cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} dwType 
      * @returns {HCLUSENUM} If the operation succeeds, <b>ClusterOpenEnum</b> 
      *        returns a handle to a cluster enumerator.
@@ -4625,10 +4604,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusteropenenum
      * @since windowsserver2008
      */
-    static ClusterOpenEnum(hCluster, dwType) {
+    static ClusterOpenEnum(_hCluster, dwType) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterOpenEnum", "ptr", hCluster, "uint", dwType, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterOpenEnum", "ptr", _hCluster, "uint", dwType, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4761,18 +4740,18 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} dwType 
      * @param {Pointer<Void>} pOptions 
      * @returns {HCLUSENUMEX} 
      * @since windowsserver2008
      */
-    static ClusterOpenEnumEx(hCluster, dwType, pOptions) {
+    static ClusterOpenEnumEx(_hCluster, dwType, pOptions) {
         pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterOpenEnumEx", "ptr", hCluster, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterOpenEnumEx", "ptr", _hCluster, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4869,7 +4848,7 @@ class Clustering {
 
     /**
      * Adds a groupset to a cluster and returns a handle to the newly added groupset.
-     * @param {HCLUSTER} hCluster A handle to the target cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} groupSetName Pointer to a null-terminated Unicode string containing the name of the groupset to be added.
      * @returns {HGROUPSET} If the operation succeeds, 
      * returns a groupset handle.
@@ -4879,12 +4858,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclustergroupset
      * @since windowsserver2016
      */
-    static CreateClusterGroupSet(hCluster, groupSetName) {
+    static CreateClusterGroupSet(_hCluster, groupSetName) {
         groupSetName := groupSetName is String ? StrPtr(groupSetName) : groupSetName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CreateClusterGroupSet", "ptr", hCluster, "ptr", groupSetName, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterGroupSet", "ptr", _hCluster, "ptr", groupSetName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4894,7 +4873,7 @@ class Clustering {
 
     /**
      * Opens a handle to the specified groupset.
-     * @param {HCLUSTER} hCluster A handle to the cluster containing the collection.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupSetName The name of the collection to be opened
      * @returns {HGROUPSET} If the operation succeeds, 
      * the function returns a groupset handle.
@@ -4904,12 +4883,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclustergroupset
      * @since windowsserver2016
      */
-    static OpenClusterGroupSet(hCluster, lpszGroupSetName) {
+    static OpenClusterGroupSet(_hCluster, lpszGroupSetName) {
         lpszGroupSetName := lpszGroupSetName is String ? StrPtr(lpszGroupSetName) : lpszGroupSetName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterGroupSet", "ptr", hCluster, "ptr", lpszGroupSetName, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterGroupSet", "ptr", _hCluster, "ptr", lpszGroupSetName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4919,7 +4898,7 @@ class Clustering {
 
     /**
      * Closes a groupset handle returned from OpenClusterGroupSet.
-     * @param {HGROUPSET} hGroupSet The handle to close
+     * @param {HGROUPSET} _hGroupSet 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -4951,10 +4930,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclustergroupset
      * @since windowsserver2016
      */
-    static CloseClusterGroupSet(hGroupSet) {
+    static CloseClusterGroupSet(_hGroupSet) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CloseClusterGroupSet", "ptr", hGroupSet, "int")
+        result := DllCall("CLUSAPI.dll\CloseClusterGroupSet", "ptr", _hGroupSet, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4964,7 +4943,7 @@ class Clustering {
 
     /**
      * Deletes the specified groupset from the cluster.
-     * @param {HGROUPSET} hGroupSet A handle to the collection to be deleted
+     * @param {HGROUPSET} _hGroupSet 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -4972,28 +4951,28 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclustergroupset
      * @since windowsserver2016
      */
-    static DeleteClusterGroupSet(hGroupSet) {
-        result := DllCall("CLUSAPI.dll\DeleteClusterGroupSet", "ptr", hGroupSet, "uint")
+    static DeleteClusterGroupSet(_hGroupSet) {
+        result := DllCall("CLUSAPI.dll\DeleteClusterGroupSet", "ptr", _hGroupSet, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUPSET} hGroupSet 
+     * @param {HGROUPSET} _hGroupSet 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static DeleteClusterGroupSetEx(hGroupSet, lpszReason) {
+    static DeleteClusterGroupSetEx(_hGroupSet, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\DeleteClusterGroupSetEx", "ptr", hGroupSet, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\DeleteClusterGroupSetEx", "ptr", _hGroupSet, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Adds the specified group to a groupset in the cluster.
-     * @param {HGROUPSET} hGroupSet The collection to which to add the group
-     * @param {HGROUP} hGroup The group to add to the collection
+     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -5001,43 +4980,43 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusteraddgrouptogroupset
      * @since windowsserver2016
      */
-    static ClusterAddGroupToGroupSet(hGroupSet, hGroup) {
-        result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSet", "ptr", hGroupSet, "ptr", hGroup, "uint")
+    static ClusterAddGroupToGroupSet(_hGroupSet, _hGroup) {
+        result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSet", "ptr", _hGroupSet, "ptr", _hGroup, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUPSET} hGroupSet 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUP} _hGroup 
      * @param {Integer} faultDomain 
      * @param {Integer} updateDomain 
      * @returns {Integer} 
      */
-    static ClusterAddGroupToGroupSetWithDomains(hGroupSet, hGroup, faultDomain, updateDomain) {
-        result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSetWithDomains", "ptr", hGroupSet, "ptr", hGroup, "uint", faultDomain, "uint", updateDomain, "uint")
+    static ClusterAddGroupToGroupSetWithDomains(_hGroupSet, _hGroup, faultDomain, updateDomain) {
+        result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSetWithDomains", "ptr", _hGroupSet, "ptr", _hGroup, "uint", faultDomain, "uint", updateDomain, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUPSET} hGroupSet 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUP} _hGroup 
      * @param {Integer} faultDomain 
      * @param {Integer} updateDomain 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterAddGroupToGroupSetWithDomainsEx(hGroupSet, hGroup, faultDomain, updateDomain, lpszReason) {
+    static ClusterAddGroupToGroupSetWithDomainsEx(_hGroupSet, _hGroup, faultDomain, updateDomain, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSetWithDomainsEx", "ptr", hGroupSet, "ptr", hGroup, "uint", faultDomain, "uint", updateDomain, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSetWithDomainsEx", "ptr", _hGroupSet, "ptr", _hGroup, "uint", faultDomain, "uint", updateDomain, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Removes the specified group from the groupset to which it is currently a member.
-     * @param {HGROUP} hGroup A handle to the group to remove.
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b>  if successful, or if the group was not currently a member of a collection.
      * 
      * If the operation fails, 
@@ -5045,27 +5024,27 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterremovegroupfromgroupset
      * @since windowsserver2016
      */
-    static ClusterRemoveGroupFromGroupSet(hGroup) {
-        result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromGroupSet", "ptr", hGroup, "uint")
+    static ClusterRemoveGroupFromGroupSet(_hGroup) {
+        result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromGroupSet", "ptr", _hGroup, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterRemoveGroupFromGroupSetEx(hGroup, lpszReason) {
+    static ClusterRemoveGroupFromGroupSetEx(_hGroup, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromGroupSetEx", "ptr", hGroup, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromGroupSetEx", "ptr", _hGroup, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Initiates an operation affecting a groupset.
-     * @param {HGROUPSET} hGroupSet Handle to the groupset to be affected.
+     * @param {HGROUPSET} _hGroupSet 
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that owns the 
      *        groupset performs the operation. Specifying <i>hHostNode</i> is optional.
@@ -5162,16 +5141,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetcontrol
      * @since windowsserver2016
      */
-    static ClusterGroupSetControl(hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
+    static ClusterGroupSetControl(_hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", "ptr", _hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUPSET} hGroupSet 
+     * @param {HGROUPSET} _hGroupSet 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -5182,12 +5161,12 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterGroupSetControlEx(hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterGroupSetControlEx(_hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", "ptr", _hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -5223,7 +5202,7 @@ class Clustering {
 
     /**
      * Sets the dependency expression for a cluster group.
-     * @param {HGROUP} hGroup A handle to the group on which to set the dependency expression.
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszDependencyExpression The dependency expression to set on the group.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5232,31 +5211,31 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setgroupdependencyexpression
      * @since windowsserver2016
      */
-    static SetGroupDependencyExpression(hGroup, lpszDependencyExpression) {
+    static SetGroupDependencyExpression(_hGroup, lpszDependencyExpression) {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
 
-        result := DllCall("CLUSAPI.dll\SetGroupDependencyExpression", "ptr", hGroup, "ptr", lpszDependencyExpression, "uint")
+        result := DllCall("CLUSAPI.dll\SetGroupDependencyExpression", "ptr", _hGroup, "ptr", lpszDependencyExpression, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszDependencyExpression 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetGroupDependencyExpressionEx(hGroup, lpszDependencyExpression, lpszReason) {
+    static SetGroupDependencyExpressionEx(_hGroup, lpszDependencyExpression, lpszReason) {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetGroupDependencyExpressionEx", "ptr", hGroup, "ptr", lpszDependencyExpression, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetGroupDependencyExpressionEx", "ptr", _hGroup, "ptr", lpszDependencyExpression, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Removes a dependency between two cluster groups.
-     * @param {HGROUP} hGroup The dependent group
+     * @param {HGROUP} _hGroup 
      * @param {HGROUP} hDependsOn The group <i>hDependentGroup</i> depends on
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5265,22 +5244,22 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclustergroupdependency
      * @since windowsserver2016
      */
-    static RemoveClusterGroupDependency(hGroup, hDependsOn) {
-        result := DllCall("CLUSAPI.dll\RemoveClusterGroupDependency", "ptr", hGroup, "ptr", hDependsOn, "uint")
+    static RemoveClusterGroupDependency(_hGroup, hDependsOn) {
+        result := DllCall("CLUSAPI.dll\RemoveClusterGroupDependency", "ptr", _hGroup, "ptr", hDependsOn, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {HGROUP} hDependsOn 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static RemoveClusterGroupDependencyEx(hGroup, hDependsOn, lpszReason) {
+    static RemoveClusterGroupDependencyEx(_hGroup, hDependsOn, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\RemoveClusterGroupDependencyEx", "ptr", hGroup, "ptr", hDependsOn, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\RemoveClusterGroupDependencyEx", "ptr", _hGroup, "ptr", hDependsOn, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -5316,7 +5295,7 @@ class Clustering {
 
     /**
      * Sets the dependency expression for a cluster groupset.
-     * @param {HGROUPSET} hGroupSet The collection to receive the dependency expression
+     * @param {HGROUPSET} _hGroupSet 
      * @param {PWSTR} lpszDependencyExprssion The dependency expression for <i>hCollection</i>
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5325,31 +5304,31 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustergroupsetdependencyexpression
      * @since windowsserver2016
      */
-    static SetClusterGroupSetDependencyExpression(hGroupSet, lpszDependencyExprssion) {
+    static SetClusterGroupSetDependencyExpression(_hGroupSet, lpszDependencyExprssion) {
         lpszDependencyExprssion := lpszDependencyExprssion is String ? StrPtr(lpszDependencyExprssion) : lpszDependencyExprssion
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupSetDependencyExpression", "ptr", hGroupSet, "ptr", lpszDependencyExprssion, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupSetDependencyExpression", "ptr", _hGroupSet, "ptr", lpszDependencyExprssion, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUPSET} hGroupSet 
+     * @param {HGROUPSET} _hGroupSet 
      * @param {PWSTR} lpszDependencyExpression 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetClusterGroupSetDependencyExpressionEx(hGroupSet, lpszDependencyExpression, lpszReason) {
+    static SetClusterGroupSetDependencyExpressionEx(_hGroupSet, lpszDependencyExpression, lpszReason) {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupSetDependencyExpressionEx", "ptr", hGroupSet, "ptr", lpszDependencyExpression, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupSetDependencyExpressionEx", "ptr", _hGroupSet, "ptr", lpszDependencyExpression, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Removes a groupset from a groupset's dependency expression.
-     * @param {HGROUPSET} hGroupSet The groupset from which to remove the dependency.
+     * @param {HGROUPSET} _hGroupSet 
      * @param {HGROUPSET} hDependsOn The collection to remove
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5358,22 +5337,22 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclustergroupsetdependency
      * @since windowsserver2016
      */
-    static RemoveClusterGroupSetDependency(hGroupSet, hDependsOn) {
-        result := DllCall("CLUSAPI.dll\RemoveClusterGroupSetDependency", "ptr", hGroupSet, "ptr", hDependsOn, "uint")
+    static RemoveClusterGroupSetDependency(_hGroupSet, hDependsOn) {
+        result := DllCall("CLUSAPI.dll\RemoveClusterGroupSetDependency", "ptr", _hGroupSet, "ptr", hDependsOn, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUPSET} hGroupSet 
+     * @param {HGROUPSET} _hGroupSet 
      * @param {HGROUPSET} hDependsOn 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static RemoveClusterGroupSetDependencyEx(hGroupSet, hDependsOn, lpszReason) {
+    static RemoveClusterGroupSetDependencyEx(_hGroupSet, hDependsOn, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\RemoveClusterGroupSetDependencyEx", "ptr", hGroupSet, "ptr", hDependsOn, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\RemoveClusterGroupSetDependencyEx", "ptr", _hGroupSet, "ptr", hDependsOn, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -5409,7 +5388,7 @@ class Clustering {
 
     /**
      * Removes a groupset from a group's dependency expression.
-     * @param {HGROUP} hGroup The group from which to remove the dependency.
+     * @param {HGROUP} _hGroup 
      * @param {HGROUPSET} hDependsOn The groupset to remove.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5418,28 +5397,28 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclustergrouptogroupsetdependency
      * @since windowsserver2016
      */
-    static RemoveClusterGroupToGroupSetDependency(hGroup, hDependsOn) {
-        result := DllCall("CLUSAPI.dll\RemoveClusterGroupToGroupSetDependency", "ptr", hGroup, "ptr", hDependsOn, "uint")
+    static RemoveClusterGroupToGroupSetDependency(_hGroup, hDependsOn) {
+        result := DllCall("CLUSAPI.dll\RemoveClusterGroupToGroupSetDependency", "ptr", _hGroup, "ptr", hDependsOn, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {HGROUPSET} hDependsOn 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static RemoveClusterGroupToGroupSetDependencyEx(hGroup, hDependsOn, lpszReason) {
+    static RemoveClusterGroupToGroupSetDependencyEx(_hGroup, hDependsOn, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\RemoveClusterGroupToGroupSetDependencyEx", "ptr", hGroup, "ptr", hDependsOn, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\RemoveClusterGroupToGroupSetDependencyEx", "ptr", _hGroup, "ptr", hDependsOn, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Starts the enumeration of groupset for a cluster.
-     * @param {HCLUSTER} hCluster A handle to the cluster containing the groupset.
+     * @param {HCLUSTER} _hCluster 
      * @returns {HGROUPSETENUM} If successful, returns a handle suitable for use with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clustergroupsetenum">ClusterGroupSetEnum</a>
      * 
      * 
@@ -5448,10 +5427,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetopenenum
      * @since windowsserver2016
      */
-    static ClusterGroupSetOpenEnum(hCluster) {
+    static ClusterGroupSetOpenEnum(_hCluster) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetOpenEnum", "ptr", hCluster, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetOpenEnum", "ptr", _hCluster, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5461,20 +5440,19 @@ class Clustering {
 
     /**
      * Gets the number of items contained the enumerator's collection.
-     * @param {HGROUPSETENUM} hGroupSetEnum A handle to an enumerator returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clustergroupsetopenenum">ClusterGroupSetOpenEnum</a>.
+     * @param {HGROUPSETENUM} _hGroupSetEnum 
      * @returns {Integer} The number of items in the enumerator's collection. May be zero.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetgetenumcount
      * @since windowsserver2016
      */
-    static ClusterGroupSetGetEnumCount(hGroupSetEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetGetEnumCount", "ptr", hGroupSetEnum, "uint")
+    static ClusterGroupSetGetEnumCount(_hGroupSetEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetGetEnumCount", "ptr", _hGroupSetEnum, "uint")
         return result
     }
 
     /**
      * Returns the next enumerable object.
-     * @param {HGROUPSETENUM} hGroupSetEnum A handle to an open cluster node enumeration
-     *     returned by <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a>
+     * @param {HGROUPSETENUM} _hGroupSetEnum 
      * @param {Integer} dwIndex The index to enumerate, zero for the first call to this function and then
      *     incremented for subsequent calls.
      * @param {PWSTR} lpszName Points to a buffer that receives the name of the object,
@@ -5491,18 +5469,18 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetenum
      * @since windowsserver2016
      */
-    static ClusterGroupSetEnum(hGroupSetEnum, dwIndex, lpszName, lpcchName) {
+    static ClusterGroupSetEnum(_hGroupSetEnum, dwIndex, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetEnum", "ptr", hGroupSetEnum, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetEnum", "ptr", _hGroupSetEnum, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
     /**
      * Closes an open enumeration for a groupset.
-     * @param {HGROUPSETENUM} hGroupSetEnum The enumeration to be closed.
+     * @param {HGROUPSETENUM} _hGroupSetEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -5510,8 +5488,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetcloseenum
      * @since windowsserver2016
      */
-    static ClusterGroupSetCloseEnum(hGroupSetEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetCloseEnum", "ptr", hGroupSetEnum, "uint")
+    static ClusterGroupSetCloseEnum(_hGroupSetEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetCloseEnum", "ptr", _hGroupSetEnum, "uint")
         return result
     }
 
@@ -5547,91 +5525,91 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpAvailabilitySetName 
      * @param {Pointer<CLUSTER_AVAILABILITY_SET_CONFIG>} pAvailabilitySetConfig 
      * @returns {HGROUPSET} 
      */
-    static CreateClusterAvailabilitySet(hCluster, lpAvailabilitySetName, pAvailabilitySetConfig) {
+    static CreateClusterAvailabilitySet(_hCluster, lpAvailabilitySetName, pAvailabilitySetConfig) {
         lpAvailabilitySetName := lpAvailabilitySetName is String ? StrPtr(lpAvailabilitySetName) : lpAvailabilitySetName
 
-        result := DllCall("CLUSAPI.dll\CreateClusterAvailabilitySet", "ptr", hCluster, "ptr", lpAvailabilitySetName, "ptr", pAvailabilitySetConfig, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterAvailabilitySet", "ptr", _hCluster, "ptr", lpAvailabilitySetName, "ptr", pAvailabilitySetConfig, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeNameCurrent 
      * @param {PWSTR} lpszNodeNameNew 
      * @returns {Integer} 
      */
-    static ClusterNodeReplacement(hCluster, lpszNodeNameCurrent, lpszNodeNameNew) {
+    static ClusterNodeReplacement(_hCluster, lpszNodeNameCurrent, lpszNodeNameNew) {
         lpszNodeNameCurrent := lpszNodeNameCurrent is String ? StrPtr(lpszNodeNameCurrent) : lpszNodeNameCurrent
         lpszNodeNameNew := lpszNodeNameNew is String ? StrPtr(lpszNodeNameNew) : lpszNodeNameNew
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeReplacement", "ptr", hCluster, "ptr", lpszNodeNameCurrent, "ptr", lpszNodeNameNew, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeReplacement", "ptr", _hCluster, "ptr", lpszNodeNameCurrent, "ptr", lpszNodeNameNew, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @param {Integer} ruleType 
      * @returns {Integer} 
      */
-    static ClusterCreateAffinityRule(hCluster, ruleName, ruleType) {
+    static ClusterCreateAffinityRule(_hCluster, ruleName, ruleType) {
         ruleName := ruleName is String ? StrPtr(ruleName) : ruleName
 
-        result := DllCall("CLUSAPI.dll\ClusterCreateAffinityRule", "ptr", hCluster, "ptr", ruleName, "int", ruleType, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterCreateAffinityRule", "ptr", _hCluster, "ptr", ruleName, "int", ruleType, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @returns {Integer} 
      */
-    static ClusterRemoveAffinityRule(hCluster, ruleName) {
+    static ClusterRemoveAffinityRule(_hCluster, ruleName) {
         ruleName := ruleName is String ? StrPtr(ruleName) : ruleName
 
-        result := DllCall("CLUSAPI.dll\ClusterRemoveAffinityRule", "ptr", hCluster, "ptr", ruleName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRemoveAffinityRule", "ptr", _hCluster, "ptr", ruleName, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} 
      */
-    static ClusterAddGroupToAffinityRule(hCluster, ruleName, hGroup) {
+    static ClusterAddGroupToAffinityRule(_hCluster, ruleName, _hGroup) {
         ruleName := ruleName is String ? StrPtr(ruleName) : ruleName
 
-        result := DllCall("CLUSAPI.dll\ClusterAddGroupToAffinityRule", "ptr", hCluster, "ptr", ruleName, "ptr", hGroup, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterAddGroupToAffinityRule", "ptr", _hCluster, "ptr", ruleName, "ptr", _hGroup, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} 
      */
-    static ClusterRemoveGroupFromAffinityRule(hCluster, ruleName, hGroup) {
+    static ClusterRemoveGroupFromAffinityRule(_hCluster, ruleName, _hGroup) {
         ruleName := ruleName is String ? StrPtr(ruleName) : ruleName
 
-        result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromAffinityRule", "ptr", hCluster, "ptr", ruleName, "ptr", hGroup, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromAffinityRule", "ptr", _hCluster, "ptr", ruleName, "ptr", _hGroup, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} affinityRuleName 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -5642,20 +5620,18 @@ class Clustering {
      * @param {Pointer<Integer>} lpBytesReturned 
      * @returns {Integer} 
      */
-    static ClusterAffinityRuleControl(hCluster, affinityRuleName, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
+    static ClusterAffinityRuleControl(_hCluster, affinityRuleName, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
         affinityRuleName := affinityRuleName is String ? StrPtr(affinityRuleName) : affinityRuleName
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", "ptr", hCluster, "ptr", affinityRuleName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", "ptr", _hCluster, "ptr", affinityRuleName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
     /**
      * Opens a node and returns a handle to it. (OpenClusterNode)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
      *       <b>OpenClusterNode</b> function will fail and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
@@ -5684,12 +5660,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternode
      * @since windowsserver2008
      */
-    static OpenClusterNode(hCluster, lpszNodeName) {
+    static OpenClusterNode(_hCluster, lpszNodeName) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNode", "ptr", _hCluster, "ptr", lpszNodeName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5699,9 +5675,7 @@ class Clustering {
 
     /**
      * Opens a node and returns a handle to it. (OpenClusterNodeEx)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
      *       <b>OpenClusterNodeEx</b> function will fail and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
@@ -5743,14 +5717,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternodeex
      * @since windowsserver2008
      */
-    static OpenClusterNodeEx(hCluster, lpszNodeName, dwDesiredAccess, lpdwGrantedAccess) {
+    static OpenClusterNodeEx(_hCluster, lpszNodeName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
         lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", _hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5760,18 +5734,18 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} nodeId 
      * @returns {HNODE} 
      */
-    static OpenClusterNodeById(hCluster, nodeId) {
-        result := DllCall("CLUSAPI.dll\OpenClusterNodeById", "ptr", hCluster, "uint", nodeId, "ptr")
+    static OpenClusterNodeById(_hCluster, nodeId) {
+        result := DllCall("CLUSAPI.dll\OpenClusterNodeById", "ptr", _hCluster, "uint", nodeId, "ptr")
         return result
     }
 
     /**
      * Closes a node handle.
-     * @param {HNODE} hNode Handle to an existing node.
+     * @param {HNODE} _hNode 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -5803,10 +5777,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternode
      * @since windowsserver2008
      */
-    static CloseClusterNode(hNode) {
+    static CloseClusterNode(_hNode) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CloseClusterNode", "ptr", hNode, "int")
+        result := DllCall("CLUSAPI.dll\CloseClusterNode", "ptr", _hNode, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5833,7 +5807,7 @@ class Clustering {
      *     the <b>ClusterNodePaused</b> state (see the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-pauseclusternode">PauseClusterNode</a> function). Nodes that are undergoing 
      *     maintenance are typically placed in this state.
-     * @param {HNODE} hNode Handle to the node for which state information should be returned.
+     * @param {HNODE} _hNode 
      * @returns {Integer} <b>GetClusterNodeState</b> returns the current state 
      *        of the node, which is represented by one of the following values.
      * 
@@ -5914,10 +5888,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternodestate
      * @since windowsserver2008
      */
-    static GetClusterNodeState(hNode) {
+    static GetClusterNodeState(_hNode) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", hNode, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", _hNode, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5944,9 +5918,7 @@ class Clustering {
      * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
      *      that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing 
      *      buffers, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNODE} hNode Handle to the node with the identifier to be returned or <b>NULL</b>. If 
-     *        <i>hNode</i> is set to <b>NULL</b>, the node identifier for the node on 
-     *        which the application is running is returned in the content of <i>lpszNodeId</i>.
+     * @param {HNODE} _hNode 
      * @param {PWSTR} lpszNodeId This parameter points to a buffer that receives the unique ID of <i>hNode</i>, including 
      *        the terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} lpcchName On input, pointer to the count of characters in the buffer pointed to by the 
@@ -5993,12 +5965,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternodeid
      * @since windowsserver2008
      */
-    static GetClusterNodeId(hNode, lpszNodeId, lpcchName) {
+    static GetClusterNodeId(_hNode, lpszNodeId, lpcchName) {
         lpszNodeId := lpszNodeId is String ? StrPtr(lpszNodeId) : lpszNodeId
 
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeId", "ptr", hNode, "ptr", lpszNodeId, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNodeId", "ptr", _hNode, "ptr", lpszNodeId, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -6008,7 +5980,7 @@ class Clustering {
      * For <i>hNode</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternode">OpenClusterNode</a>).  <b>GetClusterFromNode</b> returns another instance of the handle from which <i>hNode</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNode</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNode</i> or the cluster handle from which <i>hNode</i> was obtained.
-     * @param {HNODE} hNode Handle to the node.
+     * @param {HNODE} _hNode 
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the node.
      * 
      * If the operation fails, 
@@ -6016,10 +5988,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromnode
      * @since windowsserver2008
      */
-    static GetClusterFromNode(hNode) {
+    static GetClusterFromNode(_hNode) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterFromNode", "ptr", hNode, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterFromNode", "ptr", _hNode, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6035,7 +6007,7 @@ class Clustering {
      * Groups that are owned by a paused node remain owned by the node. A paused node's groups and resources can be taken offline, but they cannot be brought online. Because the paused state is persistent, a paused node that is rebooted continues to be paused when it comes back up.
      * 
      * A paused node is said to be in the <b>ClusterNodePaused</b> state (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternodestate">GetClusterNodeState</a>). To resume a node's cluster activity, use the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-resumeclusternode">ResumeClusterNode</a> function.
-     * @param {HNODE} hNode Handle to the node to suspend activity.
+     * @param {HNODE} _hNode 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -6043,14 +6015,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-pauseclusternode
      * @since windowsserver2008
      */
-    static PauseClusterNode(hNode) {
-        result := DllCall("CLUSAPI.dll\PauseClusterNode", "ptr", hNode, "uint")
+    static PauseClusterNode(_hNode) {
+        result := DllCall("CLUSAPI.dll\PauseClusterNode", "ptr", _hNode, "uint")
         return result
     }
 
     /**
      * Requests that a paused node resume its cluster activity. The PCLUSAPI_RESUME_CLUSTER_NODE type defines a pointer to this function.
-     * @param {HNODE} hNode Handle to the paused node.
+     * @param {HNODE} _hNode 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -6058,8 +6030,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-resumeclusternode
      * @since windowsserver2008
      */
-    static ResumeClusterNode(hNode) {
-        result := DllCall("CLUSAPI.dll\ResumeClusterNode", "ptr", hNode, "uint")
+    static ResumeClusterNode(_hNode) {
+        result := DllCall("CLUSAPI.dll\ResumeClusterNode", "ptr", _hNode, "uint")
         return result
     }
 
@@ -6067,7 +6039,7 @@ class Clustering {
      * Deletes a node from the cluster database.
      * @remarks
      * To reinstate an evicted node, you must first remove the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> from the node and then reinstall it. During installation, choose the <b>Join an Existing Cluster</b> option.
-     * @param {HNODE} hNode Handle to the node to delete.
+     * @param {HNODE} _hNode 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -6075,14 +6047,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-evictclusternode
      * @since windowsserver2008
      */
-    static EvictClusterNode(hNode) {
-        result := DllCall("CLUSAPI.dll\EvictClusterNode", "ptr", hNode, "uint")
+    static EvictClusterNode(_hNode) {
+        result := DllCall("CLUSAPI.dll\EvictClusterNode", "ptr", _hNode, "uint")
         return result
     }
 
     /**
      * Opens an enumerator for iterating through the installed network interfaces.
-     * @param {HCLUSTER} hCluster Handle to a cluster
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName The name of the node.
      * @param {PWSTR} lpszNetworkName The name of the network.
      * @returns {HNETINTERFACEENUM} If the operation succeeds, returns a handle to an 
@@ -6093,13 +6065,13 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfaceopenenum
      * @since windowsserver2016
      */
-    static ClusterNetInterfaceOpenEnum(hCluster, lpszNodeName, lpszNetworkName) {
+    static ClusterNetInterfaceOpenEnum(_hCluster, lpszNodeName, lpszNetworkName) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceOpenEnum", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceOpenEnum", "ptr", _hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6109,8 +6081,7 @@ class Clustering {
 
     /**
      * Enumerates the network interfaces installed on a cluster, returning one name with each call.
-     * @param {HNETINTERFACEENUM} hNetInterfaceEnum Handle to an existing enumeration object originally returned by the 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusternetinterfaceopenenum">ClusterNetInterfaceOpenEnum</a> function.
+     * @param {HNETINTERFACEENUM} _hNetInterfaceEnum 
      * @param {Integer} dwIndex Index used to identify the entry to be enumerated. This parameter should be zero for the first call and then incremented for each subsequent 
      *        call.
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
@@ -6169,26 +6140,26 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfaceenum
      * @since windowsserver2016
      */
-    static ClusterNetInterfaceEnum(hNetInterfaceEnum, dwIndex, lpszName, lpcchName) {
+    static ClusterNetInterfaceEnum(_hNetInterfaceEnum, dwIndex, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceEnum", "ptr", hNetInterfaceEnum, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceEnum", "ptr", _hNetInterfaceEnum, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
     /**
      * Closes a network interface enumeration handle.
-     * @param {HNETINTERFACEENUM} hNetInterfaceEnum Handle to the node enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusternetinterfaceopenenum">ClusterNetInterfaceOpenEnum</a> function.
+     * @param {HNETINTERFACEENUM} _hNetInterfaceEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfacecloseenum
      * @since windowsserver2016
      */
-    static ClusterNetInterfaceCloseEnum(hNetInterfaceEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceCloseEnum", "ptr", hNetInterfaceEnum, "uint")
+    static ClusterNetInterfaceCloseEnum(_hNetInterfaceEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceCloseEnum", "ptr", _hNetInterfaceEnum, "uint")
         return result
     }
 
@@ -6200,7 +6171,7 @@ class Clustering {
      *      access each of the objects to be enumerated and to 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodecloseenum">ClusterNodeCloseEnum</a> to release the 
      *      enumerator.
-     * @param {HNODE} hNode Handle to a node.
+     * @param {HNODE} _hNode 
      * @param {Integer} dwType Bitmask describing the type of objects to be enumerated. The following values of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_enum">CLUSTER_NODE_ENUM</a> enumeration are valid.
      * @returns {HNODEENUM} If the operation succeeds, 
@@ -6212,10 +6183,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodeopenenum
      * @since windowsserver2008
      */
-    static ClusterNodeOpenEnum(hNode, dwType) {
+    static ClusterNodeOpenEnum(_hNode, dwType) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnum", "ptr", hNode, "uint", dwType, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnum", "ptr", _hNode, "uint", dwType, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6225,18 +6196,18 @@ class Clustering {
 
     /**
      * 
-     * @param {HNODE} hNode 
+     * @param {HNODE} _hNode 
      * @param {Integer} dwType 
      * @param {Pointer<Void>} pOptions 
      * @returns {HNODEENUMEX} 
      * @since windowsserver2008
      */
-    static ClusterNodeOpenEnumEx(hNode, dwType, pOptions) {
+    static ClusterNodeOpenEnumEx(_hNode, dwType, pOptions) {
         pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnumEx", "ptr", hNode, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnumEx", "ptr", _hNode, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6246,19 +6217,19 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects that are associated with a node enumeration handle.
-     * @param {HNODEENUMEX} hNodeEnum The handle to a node enumeration that was retrieved by the   <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenumex">ClusterNodeOpenEnumEx</a> function. A valid handle is required. This parameter cannot be <b>NULL</b>.
+     * @param {HNODEENUMEX} _hNodeEnum 
      * @returns {Integer} The number of objects that are associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodegetenumcountex
      * @since windowsserver2008
      */
-    static ClusterNodeGetEnumCountEx(hNodeEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeGetEnumCountEx", "ptr", hNodeEnum, "uint")
+    static ClusterNodeGetEnumCountEx(_hNodeEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterNodeGetEnumCountEx", "ptr", _hNodeEnum, "uint")
         return result
     }
 
     /**
      * Retrieves the specified cluster node from a CLUSTER_ENUM_ITEM enumeration.
-     * @param {HNODEENUMEX} hNodeEnum A handle to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-cluster_enum_item">CLUSTER_ENUM_ITEM</a> enumeration that contains the cluster node to retrieve.
+     * @param {HNODEENUMEX} _hNodeEnum 
      * @param {Integer} dwIndex The index that identifies the next object to enumerate. This parameter should be zero for the first call to the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterenumex">ClusterEnumEx</a>  function and then be incremented for subsequent calls.
      * @param {Pointer<CLUSTER_ENUM_ITEM>} pItem A pointer that receives the returned cluster node.
      * @param {Pointer<Integer>} cbItem On input, the size of the  <i>pItem</i>    parameter.
@@ -6306,50 +6277,50 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodeenumex
      * @since windowsserver2008
      */
-    static ClusterNodeEnumEx(hNodeEnum, dwIndex, pItem, cbItem) {
+    static ClusterNodeEnumEx(_hNodeEnum, dwIndex, pItem, cbItem) {
         cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeEnumEx", "ptr", hNodeEnum, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeEnumEx", "ptr", _hNodeEnum, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
         return result
     }
 
     /**
      * Closes a node enumeration handle. (ClusterNodeCloseEnumEx)
-     * @param {HNODEENUMEX} hNodeEnum The handle to the node enumeration  to close. This handle is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenumex">ClusterNodeOpenEnumEx</a> function.
+     * @param {HNODEENUMEX} _hNodeEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodecloseenumex
      * @since windowsserver2008
      */
-    static ClusterNodeCloseEnumEx(hNodeEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeCloseEnumEx", "ptr", hNodeEnum, "uint")
+    static ClusterNodeCloseEnumEx(_hNodeEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterNodeCloseEnumEx", "ptr", _hNodeEnum, "uint")
         return result
     }
 
     /**
      * Returns the number of cluster objects associated with a node enumeration handle.
-     * @param {HNODEENUM} hNodeEnum Handle to a node enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
+     * @param {HNODEENUM} _hNodeEnum 
      * @returns {Integer} <b>ClusterNodeGetEnumCount</b> returns the number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodegetenumcount
      * @since windowsserver2008
      */
-    static ClusterNodeGetEnumCount(hNodeEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeGetEnumCount", "ptr", hNodeEnum, "uint")
+    static ClusterNodeGetEnumCount(_hNodeEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterNodeGetEnumCount", "ptr", _hNodeEnum, "uint")
         return result
     }
 
     /**
      * Closes a node enumeration handle. (ClusterNodeCloseEnum)
-     * @param {HNODEENUM} hNodeEnum Handle to the node enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a> function.
+     * @param {HNODEENUM} _hNodeEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodecloseenum
      * @since windowsserver2008
      */
-    static ClusterNodeCloseEnum(hNodeEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeCloseEnum", "ptr", hNodeEnum, "uint")
+    static ClusterNodeCloseEnum(_hNodeEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterNodeCloseEnum", "ptr", _hNodeEnum, "uint")
         return result
     }
 
@@ -6366,8 +6337,7 @@ class Clustering {
      *      bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. 
      *      For more information on sizing buffers, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNODEENUM} hNodeEnum Handle to an existing enumeration object originally returned by the 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a> function.
+     * @param {HNODEENUM} _hNodeEnum 
      * @param {Integer} dwIndex Index used to identify the next entry to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterNodeEnum</b> and then incremented for subsequent 
      *        calls.
@@ -6430,19 +6400,19 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodeenum
      * @since windowsserver2008
      */
-    static ClusterNodeEnum(hNodeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
+    static ClusterNodeEnum(_hNodeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeEnum", "ptr", hNodeEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeEnum", "ptr", _hNodeEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
     /**
      * Evicts a node from the cluster and initiates cleanup operations on the node.
-     * @param {HNODE} hNode Handle to the node to remove from the cluster.
+     * @param {HNODE} _hNode 
      * @param {Integer} dwTimeOut Specifies the number of milliseconds for the function to wait for cleanup operations to occur. The function 
      *       will return when the cleanup is complete or when the specified time elapses, whichever is sooner.
      * @param {Pointer<HRESULT>} phrCleanupStatus Pointer to an <b>HRESULT</b>   that describes the results of the cleanup operation.
@@ -6471,27 +6441,27 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-evictclusternodeex
      * @since windowsserver2008
      */
-    static EvictClusterNodeEx(hNode, dwTimeOut, phrCleanupStatus) {
+    static EvictClusterNodeEx(_hNode, dwTimeOut, phrCleanupStatus) {
         phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", hNode, "uint", dwTimeOut, phrCleanupStatusMarshal, phrCleanupStatus, "uint")
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", _hNode, "uint", dwTimeOut, phrCleanupStatusMarshal, phrCleanupStatus, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HNODE} hNode 
+     * @param {HNODE} _hNode 
      * @param {Integer} dwTimeout 
      * @param {Pointer<HRESULT>} phrCleanupStatus 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static EvictClusterNodeEx2(hNode, dwTimeout, phrCleanupStatus, lpszReason) {
+    static EvictClusterNodeEx2(_hNode, dwTimeout, phrCleanupStatus, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", hNode, "uint", dwTimeout, phrCleanupStatusMarshal, phrCleanupStatus, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", _hNode, "uint", dwTimeout, phrCleanupStatusMarshal, phrCleanupStatus, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -6499,7 +6469,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a resource type.
      * @remarks
      * The  <b>GetClusterResourceTypeKey</b> function returns a handle to a cluster database key representing the subtree root for the resource type pointed to by <i>lpszTypeName</i> in the cluster identified by <i>hCluster</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceTypeKey</b> when they are done with it.
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszTypeName Pointer to a NULL-terminated Unicode string specifying the name of a resource type (the registered type name, not the display name).
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the resource type.
@@ -6509,12 +6479,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcetypekey
      * @since windowsserver2008
      */
-    static GetClusterResourceTypeKey(hCluster, lpszTypeName, samDesired) {
+    static GetClusterResourceTypeKey(_hCluster, lpszTypeName, samDesired) {
         lpszTypeName := lpszTypeName is String ? StrPtr(lpszTypeName) : lpszTypeName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", hCluster, "ptr", lpszTypeName, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", _hCluster, "ptr", lpszTypeName, "uint", samDesired, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6529,7 +6499,7 @@ class Clustering {
      * Do not call  <b>CreateClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * The <b>CreateClusterGroup</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclustergroupex">CreateClusterGroupEx</a> function with a <b>NULL</b> CLUSTER_CREATE_GROUP_INFO. The new group is created with a group type of ClusGroupTypeUnknown.
-     * @param {HCLUSTER} hCluster Handle to the target cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupName Pointer to a null-terminated Unicode string containing the name of the group to be added to the cluster identified by <i>hCluster</i>. If there is not a group by this name,  <b>CreateClusterGroup</b> creates it.
      * @returns {HGROUP} If the operation succeeds, 
      * the function returns a group handle.
@@ -6539,12 +6509,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclustergroup
      * @since windowsserver2008
      */
-    static CreateClusterGroup(hCluster, lpszGroupName) {
+    static CreateClusterGroup(_hCluster, lpszGroupName) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CreateClusterGroup", "ptr", hCluster, "ptr", lpszGroupName, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterGroup", "ptr", _hCluster, "ptr", lpszGroupName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6554,7 +6524,7 @@ class Clustering {
 
     /**
      * Opens a failover cluster group and returns a handle to it. (OpenClusterGroup)
-     * @param {HCLUSTER} hCluster Handle to a cluster that includes the group to open.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupName Name of the group to open.
      * @returns {HGROUP} <table>
      * <tr>
@@ -6581,12 +6551,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclustergroup
      * @since windowsserver2008
      */
-    static OpenClusterGroup(hCluster, lpszGroupName) {
+    static OpenClusterGroup(_hCluster, lpszGroupName) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterGroup", "ptr", hCluster, "ptr", lpszGroupName, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterGroup", "ptr", _hCluster, "ptr", lpszGroupName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6596,7 +6566,7 @@ class Clustering {
 
     /**
      * Opens a failover cluster group and returns a handle to it. (OpenClusterGroupEx)
-     * @param {HCLUSTER} hCluster Handle to a cluster that includes the group to open.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupName Name of the group to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
@@ -6635,14 +6605,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclustergroupex
      * @since windowsserver2008
      */
-    static OpenClusterGroupEx(hCluster, lpszGroupName, dwDesiredAccess, lpdwGrantedAccess) {
+    static OpenClusterGroupEx(_hCluster, lpszGroupName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
         lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", _hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6652,37 +6622,37 @@ class Clustering {
 
     /**
      * 
-     * @param {HNODE} hNode 
+     * @param {HNODE} _hNode 
      * @param {BOOL} bDrainNode 
      * @param {Integer} dwPauseFlags 
      * @param {HNODE} hNodeDrainTarget 
      * @returns {Integer} 
      * @since windowsserver2012
      */
-    static PauseClusterNodeEx(hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget) {
-        result := DllCall("CLUSAPI.dll\PauseClusterNodeEx", "ptr", hNode, "int", bDrainNode, "uint", dwPauseFlags, "ptr", hNodeDrainTarget, "uint")
+    static PauseClusterNodeEx(_hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget) {
+        result := DllCall("CLUSAPI.dll\PauseClusterNodeEx", "ptr", _hNode, "int", bDrainNode, "uint", dwPauseFlags, "ptr", hNodeDrainTarget, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HNODE} hNode 
+     * @param {HNODE} _hNode 
      * @param {BOOL} bDrainNode 
      * @param {Integer} dwPauseFlags 
      * @param {HNODE} hNodeDrainTarget 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static PauseClusterNodeEx2(hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget, lpszReason) {
+    static PauseClusterNodeEx2(_hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\PauseClusterNodeEx2", "ptr", hNode, "int", bDrainNode, "uint", dwPauseFlags, "ptr", hNodeDrainTarget, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\PauseClusterNodeEx2", "ptr", _hNode, "int", bDrainNode, "uint", dwPauseFlags, "ptr", hNodeDrainTarget, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Initiates the specified failback operation, and then requests that a paused node resumes cluster activity.
-     * @param {HNODE} hNode The  handle to the paused node.
+     * @param {HNODE} _hNode 
      * @param {Integer} eResumeFailbackType The type of failback operation to use when cluster activity resumes. The available failback types are specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_resume_failback_type">CLUSTER_NODE_RESUME_FAILBACK_TYPE</a> enumeration.
      * @param {Integer} dwResumeFlagsReserved This parameter is reserved for future use.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -6692,23 +6662,23 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-resumeclusternodeex
      * @since windowsserver2012
      */
-    static ResumeClusterNodeEx(hNode, eResumeFailbackType, dwResumeFlagsReserved) {
-        result := DllCall("CLUSAPI.dll\ResumeClusterNodeEx", "ptr", hNode, "int", eResumeFailbackType, "uint", dwResumeFlagsReserved, "uint")
+    static ResumeClusterNodeEx(_hNode, eResumeFailbackType, dwResumeFlagsReserved) {
+        result := DllCall("CLUSAPI.dll\ResumeClusterNodeEx", "ptr", _hNode, "int", eResumeFailbackType, "uint", dwResumeFlagsReserved, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HNODE} hNode 
+     * @param {HNODE} _hNode 
      * @param {Integer} eResumeFailbackType 
      * @param {Integer} dwResumeFlagsReserved 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ResumeClusterNodeEx2(hNode, eResumeFailbackType, dwResumeFlagsReserved, lpszReason) {
+    static ResumeClusterNodeEx2(_hNode, eResumeFailbackType, dwResumeFlagsReserved, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ResumeClusterNodeEx2", "ptr", hNode, "int", eResumeFailbackType, "uint", dwResumeFlagsReserved, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ResumeClusterNodeEx2", "ptr", _hNode, "int", eResumeFailbackType, "uint", dwResumeFlagsReserved, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -6716,7 +6686,7 @@ class Clustering {
      * Creates a new cluster group with the options specified in the CLUSTER_CREATE_GROUP_INFO structure in a single operation.
      * @remarks
      * The <b>CLUSTER_CREATE_GROUP_INFO</b> structure enables additional properties for group creation.  Currently, only the group type can be specified, which  enables the group type to be set when the group is created.
-     * @param {HCLUSTER} hCluster The handle to the cluster in which the group will be created.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupName The name of the new cluster group.
      * @param {Pointer<CLUSTER_CREATE_GROUP_INFO>} pGroupInfo The additional information used to create the group.
      * @returns {HGROUP} If the operation is successful, the function returns a handle to the newly created group.
@@ -6724,10 +6694,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclustergroupex
      * @since windowsserver2012
      */
-    static CreateClusterGroupEx(hCluster, lpszGroupName, pGroupInfo) {
+    static CreateClusterGroupEx(_hCluster, lpszGroupName, pGroupInfo) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
-        result := DllCall("CLUSAPI.dll\CreateClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "ptr", pGroupInfo, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterGroupEx", "ptr", _hCluster, "ptr", lpszGroupName, "ptr", pGroupInfo, "ptr")
         return result
     }
 
@@ -6735,7 +6705,7 @@ class Clustering {
      * Opens a handle to the group enumeration.
      * @remarks
      * The <b>ClusterGroupOpenEnumEx</b> function connects to the cluster service via remote procedure call (RPC) and gathers all of the data to handle the entire enumeration.  After the RPC call completes, the data is maintained locally.  The <b>HGROUPENUMEX</b> handle contains all of the data required to satisfy the enumeration.  Additional calls to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupenumex">ClusterGroupEnumEx</a>   or <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupgetenumcountex">ClusterGroupGetEnumCountEx</a> do not connect to the cluster.
-     * @param {HCLUSTER} hCluster The handle to the cluster on which the enumeration will be performed.
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer} lpszProperties A pointer to a list of names of common properties.
      * @param {Integer} cbProperties The size, in bytes, of the <b>lpszProperties</b> field.
      * @param {Pointer} lpszRoProperties A pointer to a list of names of read-only common properties.
@@ -6747,8 +6717,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenumex
      * @since windowsserver2012
      */
-    static ClusterGroupOpenEnumEx(hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnumEx", "ptr", hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
+    static ClusterGroupOpenEnumEx(_hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
+        result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnumEx", "ptr", _hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -6756,13 +6726,13 @@ class Clustering {
      * Returns the number of elements in the enumeration.
      * @remarks
      * The <b>ClusterGroupGetEnumCountEx</b> function doesn't connect to the cluster, because <i>hGroupEnumEx</i> handle already contains the enumeration data.
-     * @param {HGROUPENUMEX} hGroupEnumEx The handle to the enumeration from which the number of entries will be returned.
+     * @param {HGROUPENUMEX} _hGroupEnumEx 
      * @returns {Integer} The number of items in the enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupgetenumcountex
      * @since windowsserver2012
      */
-    static ClusterGroupGetEnumCountEx(hGroupEnumEx) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupGetEnumCountEx", "ptr", hGroupEnumEx, "uint")
+    static ClusterGroupGetEnumCountEx(_hGroupEnumEx) {
+        result := DllCall("CLUSAPI.dll\ClusterGroupGetEnumCountEx", "ptr", _hGroupEnumEx, "uint")
         return result
     }
 
@@ -6770,7 +6740,7 @@ class Clustering {
      * Retrieves an item in the enumeration.
      * @remarks
      * The <b>ClusterGroupEnumEx</b> function doesn't connect to the cluster, because the <i>hGroupEnumEx</i> already contains the enumeration data.  The data is copied into the buffer but no data is retrieved from the cluster.
-     * @param {HGROUPENUMEX} hGroupEnumEx The handle to the enumeration from which the item will be retrieved.
+     * @param {HGROUPENUMEX} _hGroupEnumEx 
      * @param {Integer} dwIndex The zero-based index of the item in the enumeration.
      * @param {Pointer<CLUSTER_GROUP_ENUM_ITEM>} pItem A pointer to the buffer to be filled.
      * @param {Pointer<Integer>} cbItem On input, the size of <i>pItem</i>.
@@ -6818,10 +6788,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupenumex
      * @since windowsserver2012
      */
-    static ClusterGroupEnumEx(hGroupEnumEx, dwIndex, pItem, cbItem) {
+    static ClusterGroupEnumEx(_hGroupEnumEx, dwIndex, pItem, cbItem) {
         cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupEnumEx", "ptr", hGroupEnumEx, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupEnumEx", "ptr", _hGroupEnumEx, "uint", dwIndex, "ptr", pItem, cbItemMarshal, cbItem, "uint")
         return result
     }
 
@@ -6832,19 +6802,19 @@ class Clustering {
      *     <i>hGroupEnumEx</i> handle after the 
      *     <b>ClusterGroupCloseEnumEx</b> function is 
      *     called.
-     * @param {HGROUPENUMEX} hGroupEnumEx The handle to the enumeration that will be freed.
+     * @param {HGROUPENUMEX} _hGroupEnumEx 
      * @returns {Integer} ERROR_SUCCESS is returned when the enumeration handle is freed.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupcloseenumex
      * @since windowsserver2012
      */
-    static ClusterGroupCloseEnumEx(hGroupEnumEx) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupCloseEnumEx", "ptr", hGroupEnumEx, "uint")
+    static ClusterGroupCloseEnumEx(_hGroupEnumEx) {
+        result := DllCall("CLUSAPI.dll\ClusterGroupCloseEnumEx", "ptr", _hGroupEnumEx, "uint")
         return result
     }
 
     /**
      * Opens a handle to a resource enumeration that enables iteration through a resource's dependencies and nodes.
-     * @param {HCLUSTER} hCluster A handle to the resource to iterate through.
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer} lpszProperties A pointer to a list of names of common properties.
      * @param {Integer} cbProperties The size, in bytes, of the <i>lpszProperties</i>  parameter.
      * @param {Pointer} lpszRoProperties A pointer to a list of names of read-only common properties.
@@ -6857,10 +6827,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourceopenenumex
      * @since windowsserver2012
      */
-    static ClusterResourceOpenEnumEx(hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
+    static ClusterResourceOpenEnumEx(_hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnumEx", "ptr", hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnumEx", "ptr", _hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -6976,7 +6946,7 @@ class Clustering {
 
     /**
      * Brings a group online. (OnlineClusterGroupEx)
-     * @param {HGROUP} hGroup A handle to the group to be brought online.
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode A handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that is to host the group.
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
      * @param {Pointer} lpInBuffer A pointer to the input buffer that receives instructions for the operation.  The <i>lpInBuffer</i>  parameter is formatted as a property list.
@@ -7017,8 +6987,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclustergroupex
      * @since windowsserver2012
      */
-    static OnlineClusterGroupEx(hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
-        result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx", "ptr", hGroup, "ptr", hDestinationNode, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
+    static OnlineClusterGroupEx(_hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
+        result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx", "ptr", _hGroup, "ptr", hDestinationNode, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
         return result
     }
 
@@ -7037,7 +7007,7 @@ class Clustering {
      * 
      * <b>OfflineClusterGroupEx</b> requires that the client 
      *     be granted Full access in the cluster security descriptor.
-     * @param {HGROUP} hGroup The handle to a cluster group.
+     * @param {HGROUP} _hGroup 
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy. Along with 0x0, the following is an acceptable value: 
      *       <b>CLUSAPI_GROUP_OFFLINE_IGNORE_RESOURCE_LOCKED_STATUS</b> (0x00000001): disregard if a 
      *       resource has indicated that it should be “locked” in its current state.
@@ -7056,14 +7026,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclustergroupex
      * @since windowsserver2012
      */
-    static OfflineClusterGroupEx(hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
-        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx", "ptr", hGroup, "uint", dwOfflineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
+    static OfflineClusterGroupEx(_hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
+        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx", "ptr", _hGroup, "uint", dwOfflineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode 
      * @param {Integer} dwOnlineFlags 
      * @param {Pointer} lpInBuffer 
@@ -7071,34 +7041,34 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static OnlineClusterGroupEx2(hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
+    static OnlineClusterGroupEx2(_hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx2", "ptr", hGroup, "ptr", hDestinationNode, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx2", "ptr", _hGroup, "ptr", hDestinationNode, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {Integer} dwOfflineFlags 
      * @param {Pointer<Integer>} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static OfflineClusterGroupEx2(hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
+    static OfflineClusterGroupEx2(_hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", "ptr", hGroup, "uint", dwOfflineFlags, lpInBufferMarshal, lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", "ptr", _hGroup, "uint", dwOfflineFlags, lpInBufferMarshal, lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Brings an offline or failed resource online. (OnlineClusterResourceEx)
-     * @param {HRESOURCE} hResource The handle to the resource to bring online.
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
      * @param {Pointer} lpInBuffer A pointer to the input buffer that receives instructions for the operation. The <i>lpInBuffer</i>  parameter is formatted as a property list.
      * @param {Integer} cbInBufferSize The size of <i>lpInBuffer</i>, in bytes.
@@ -7127,24 +7097,24 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclusterresourceex
      * @since windowsserver2012
      */
-    static OnlineClusterResourceEx(hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
-        result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx", "ptr", hResource, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
+    static OnlineClusterResourceEx(_hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
+        result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx", "ptr", _hResource, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOnlineFlags 
      * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static OnlineClusterResourceEx2(hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
+    static OnlineClusterResourceEx2(_hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx2", "ptr", hResource, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx2", "ptr", _hResource, "uint", dwOnlineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7163,7 +7133,7 @@ class Clustering {
      * 
      * <b>OfflineClusterResourceEx</b> requires that the 
      *     client be granted Full access in the cluster security descriptor.
-     * @param {HRESOURCE} hResource The handle to a cluster resource.
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy.
      * @param {Pointer} lpInBuffer Contains instructions for the offline operation that are targeted at the specific resource. 
      *       <i>lpInBuffer</i> is formatted as a property list, which means that the instructions are 
@@ -7180,24 +7150,24 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclusterresourceex
      * @since windowsserver2012
      */
-    static OfflineClusterResourceEx(hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
-        result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx", "ptr", hResource, "uint", dwOfflineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
+    static OfflineClusterResourceEx(_hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
+        result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx", "ptr", _hResource, "uint", dwOfflineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOfflineFlags 
      * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static OfflineClusterResourceEx2(hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
+    static OfflineClusterResourceEx2(_hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx2", "ptr", hResource, "uint", dwOfflineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx2", "ptr", _hResource, "uint", dwOfflineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7221,7 +7191,7 @@ class Clustering {
      * <li>In the <i>lpInBuffer</i> parameter, add to the property list a resource type named "Virtual Machine" or "Virtual Machine Configuration" that specifies a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_property_format">CLUSTER_PROPERTY_FORMAT</a> enumeration value of <b>CLUSPROP_FORMAT_DWORD</b> (which represents the property's data format) and a property value of <b>VmResdllContextLiveMigration</b> (from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ne-resapi-vm_resdll_context">VM_RESDLL_CONTEXT</a> enumeration of possible virtual machine actions).</li>
      * </ol>
      * <b>MoveClusterGroupEx</b> requires that the client be granted Full access in the cluster security descriptor.
-     * @param {HGROUP} hGroup The handle to a cluster group.
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode The handle to a cluster node, indicating the node to which the group should be moved. This parameter is optional. If left <b>NULL</b>, the cluster will move the group to the most suitable node, according to failover policies configured for the cluster and for this particular group.
      * @param {Integer} dwMoveFlags A bitwise combination of the flags that influence the failover policy with respect to this move operation.
      * @param {Pointer} lpInBuffer A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> that contains move operation instructions for specific resources within the group. The instructions are contained in property values. Resources in the group search the property list for property names that they support for move operations and then interpret the instructions in the associated property value. The properties supported by a resource in a <b>MoveClusterGroupEx</b> operation are not related to the private properties associated with a resource.
@@ -7230,14 +7200,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroupex
      * @since windowsserver2012
      */
-    static MoveClusterGroupEx(hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize) {
-        result := DllCall("CLUSAPI.dll\MoveClusterGroupEx", "ptr", hGroup, "ptr", hDestinationNode, "uint", dwMoveFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
+    static MoveClusterGroupEx(_hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize) {
+        result := DllCall("CLUSAPI.dll\MoveClusterGroupEx", "ptr", _hGroup, "ptr", hDestinationNode, "uint", dwMoveFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode 
      * @param {Integer} dwMoveFlags 
      * @param {Pointer} lpInBuffer 
@@ -7245,10 +7215,10 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static MoveClusterGroupEx2(hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize, lpszReason) {
+    static MoveClusterGroupEx2(_hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\MoveClusterGroupEx2", "ptr", hGroup, "ptr", hDestinationNode, "uint", dwMoveFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\MoveClusterGroupEx2", "ptr", _hGroup, "ptr", hDestinationNode, "uint", dwMoveFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7261,7 +7231,7 @@ class Clustering {
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-moveclustergroupex">MoveClusterGroupEx</a> call that returned 
      *     <b>ERROR_IO_PENDING</b> and is still in progress. The call attempts to cancel the pending move 
      *     operation and bring the group to its persistent state.
-     * @param {HGROUP} hGroup The handle to a cluster group.
+     * @param {HGROUP} _hGroup 
      * @param {Integer} dwCancelFlags_RESERVED This parameter is reserved for future use and must be set to zero.
      * @returns {Integer} <b>CancelClusterGroupOperation</b> returns 
      *       <b>ERROR_SUCCESS</b> if the move operation on the group was successfully cancelled.
@@ -7275,40 +7245,40 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-cancelclustergroupoperation
      * @since windowsserver2012
      */
-    static CancelClusterGroupOperation(hGroup, dwCancelFlags_RESERVED) {
-        result := DllCall("CLUSAPI.dll\CancelClusterGroupOperation", "ptr", hGroup, "uint", dwCancelFlags_RESERVED, "uint")
+    static CancelClusterGroupOperation(_hGroup, dwCancelFlags_RESERVED) {
+        result := DllCall("CLUSAPI.dll\CancelClusterGroupOperation", "ptr", _hGroup, "uint", dwCancelFlags_RESERVED, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      * @since windowsserver2012
      */
-    static RestartClusterResource(hResource, dwFlags) {
-        result := DllCall("CLUSAPI.dll\RestartClusterResource", "ptr", hResource, "uint", dwFlags, "uint")
+    static RestartClusterResource(_hResource, dwFlags) {
+        result := DllCall("CLUSAPI.dll\RestartClusterResource", "ptr", _hResource, "uint", dwFlags, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static RestartClusterResourceEx(hResource, dwFlags, lpszReason) {
+    static RestartClusterResourceEx(_hResource, dwFlags, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\RestartClusterResourceEx", "ptr", hResource, "uint", dwFlags, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\RestartClusterResourceEx", "ptr", _hResource, "uint", dwFlags, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Closes a group handle.
-     * @param {HGROUP} hGroup Handle to the group to close.
+     * @param {HGROUP} _hGroup 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -7340,10 +7310,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclustergroup
      * @since windowsserver2008
      */
-    static CloseClusterGroup(hGroup) {
+    static CloseClusterGroup(_hGroup) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CloseClusterGroup", "ptr", hGroup, "int")
+        result := DllCall("CLUSAPI.dll\CloseClusterGroup", "ptr", _hGroup, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7357,7 +7327,7 @@ class Clustering {
      * For <i>hGroup</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclustergroup">OpenClusterGroup</a>).  <b>GetClusterFromGroup</b> returns another instance of the handle from which <i>hGroup</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromGroup</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hGroup</i> or the cluster handle from which <i>hGroup</i> was obtained.
-     * @param {HGROUP} hGroup Handle to the group.
+     * @param {HGROUP} _hGroup 
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the group.
      * 
      * If the operation fails, 
@@ -7365,10 +7335,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromgroup
      * @since windowsserver2008
      */
-    static GetClusterFromGroup(hGroup) {
+    static GetClusterFromGroup(_hGroup) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterFromGroup", "ptr", hGroup, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterFromGroup", "ptr", _hGroup, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7389,7 +7359,7 @@ class Clustering {
      *      <b>GetClusterGroupState</b> can safely be called from a 
      *      worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} hGroup Handle to the group for which state information should be returned.
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node that currently owns the group.
      * @param {Pointer<Integer>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
@@ -7484,14 +7454,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclustergroupstate
      * @since windowsserver2008
      */
-    static GetClusterGroupState(hGroup, lpszNodeName, lpcchNodeName) {
+    static GetClusterGroupState(_hGroup, lpszNodeName, lpcchNodeName) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
         lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", _hGroup, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7509,7 +7479,7 @@ class Clustering {
      * Do not call <b>SetClusterGroupName</b> from a 
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} hGroup Handle to the group to name.
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszGroupName Pointer to the new name for the group identified by <i>hGroup</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7518,10 +7488,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustergroupname
      * @since windowsserver2008
      */
-    static SetClusterGroupName(hGroup, lpszGroupName) {
+    static SetClusterGroupName(_hGroup, lpszGroupName) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupName", "ptr", hGroup, "ptr", lpszGroupName, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupName", "ptr", _hGroup, "ptr", lpszGroupName, "uint")
         return result
     }
 
@@ -7531,7 +7501,7 @@ class Clustering {
      * Do not call  <b>SetClusterGroupNodeList</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HGROUP} hGroup Handle to the group to be assigned the list of nodes.
+     * @param {HGROUP} _hGroup 
      * @param {Integer} NodeCount Count of nodes in the list identified by <i>NodeList</i>.
      * @param {Pointer<HNODE>} NodeList Array of handles to nodes, in order by preference, with the first node being the most preferred and the last node the least preferred. The number of nodes in the <i>NodeList</i> array is controlled by the <i>NodeCount</i> parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -7541,42 +7511,42 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustergroupnodelist
      * @since windowsserver2008
      */
-    static SetClusterGroupNodeList(hGroup, NodeCount, NodeList) {
+    static SetClusterGroupNodeList(_hGroup, NodeCount, NodeList) {
         NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeList", "ptr", hGroup, "uint", NodeCount, NodeListMarshal, NodeList, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeList", "ptr", _hGroup, "uint", NodeCount, NodeListMarshal, NodeList, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszGroupName 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetClusterGroupNameEx(hGroup, lpszGroupName, lpszReason) {
+    static SetClusterGroupNameEx(_hGroup, lpszGroupName, lpszReason) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupNameEx", "ptr", hGroup, "ptr", lpszGroupName, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupNameEx", "ptr", _hGroup, "ptr", lpszGroupName, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {Integer} NodeCount 
      * @param {Pointer<HNODE>} NodeList 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetClusterGroupNodeListEx(hGroup, NodeCount, NodeList, lpszReason) {
+    static SetClusterGroupNodeListEx(_hGroup, NodeCount, NodeList, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", "ptr", hGroup, "uint", NodeCount, NodeListMarshal, NodeList, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", "ptr", _hGroup, "uint", NodeCount, NodeListMarshal, NodeList, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7590,7 +7560,7 @@ class Clustering {
      * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HGROUP} hGroup Handle to the group to be brought online.
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode Handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> where the group identified by <i>hGroup</i> should be brought online or <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7628,8 +7598,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclustergroup
      * @since windowsserver2008
      */
-    static OnlineClusterGroup(hGroup, hDestinationNode) {
-        result := DllCall("CLUSAPI.dll\OnlineClusterGroup", "ptr", hGroup, "ptr", hDestinationNode, "uint")
+    static OnlineClusterGroup(_hGroup, hDestinationNode) {
+        result := DllCall("CLUSAPI.dll\OnlineClusterGroup", "ptr", _hGroup, "ptr", hDestinationNode, "uint")
         return result
     }
 
@@ -7649,7 +7619,7 @@ class Clustering {
      * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HGROUP} hGroup Handle to the group to be moved.
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode Handle to the node where the moved group should be brought back online or <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7676,8 +7646,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
      * @since windowsserver2008
      */
-    static MoveClusterGroup(hGroup, hDestinationNode) {
-        result := DllCall("CLUSAPI.dll\MoveClusterGroup", "ptr", hGroup, "ptr", hDestinationNode, "uint")
+    static MoveClusterGroup(_hGroup, hDestinationNode) {
+        result := DllCall("CLUSAPI.dll\MoveClusterGroup", "ptr", _hGroup, "ptr", hDestinationNode, "uint")
         return result
     }
 
@@ -7685,7 +7655,7 @@ class Clustering {
      * Takes a group offline.
      * @remarks
      * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} hGroup Handle to the group to be taken offline.
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -7711,8 +7681,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclustergroup
      * @since windowsserver2008
      */
-    static OfflineClusterGroup(hGroup) {
-        result := DllCall("CLUSAPI.dll\OfflineClusterGroup", "ptr", hGroup, "uint")
+    static OfflineClusterGroup(_hGroup) {
+        result := DllCall("CLUSAPI.dll\OfflineClusterGroup", "ptr", _hGroup, "uint")
         return result
     }
 
@@ -7734,7 +7704,7 @@ class Clustering {
      * Do not call <b>DeleteClusterGroup</b> from a resource 
      *      DLL. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} hGroup Handle to the group to be removed. You must close this handle separately.
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} This function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
      *        operation completes successfully the function returns <b>ERROR_SUCCESS</b> (0). Any other 
      *        returned system error code would indicate that the 
@@ -7742,8 +7712,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclustergroup
      * @since windowsserver2008
      */
-    static DeleteClusterGroup(hGroup) {
-        result := DllCall("CLUSAPI.dll\DeleteClusterGroup", "ptr", hGroup, "uint")
+    static DeleteClusterGroup(_hGroup) {
+        result := DllCall("CLUSAPI.dll\DeleteClusterGroup", "ptr", _hGroup, "uint")
         return result
     }
 
@@ -7759,7 +7729,7 @@ class Clustering {
      * Do not call <b>DestroyClusterGroup</b> from a resource 
      *      DLL. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} hGroup This parameter takes a handle to the cluster group to be destroyed.
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} This function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
      *        operation completes successfully the function returns <b>ERROR_SUCCESS</b> (0). Any other 
      *        returned system error code would indicate that the 
@@ -7767,34 +7737,34 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-destroyclustergroup
      * @since windowsserver2008
      */
-    static DestroyClusterGroup(hGroup) {
-        result := DllCall("CLUSAPI.dll\DestroyClusterGroup", "ptr", hGroup, "uint")
+    static DestroyClusterGroup(_hGroup) {
+        result := DllCall("CLUSAPI.dll\DestroyClusterGroup", "ptr", _hGroup, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static DeleteClusterGroupEx(hGroup, lpszReason) {
+    static DeleteClusterGroupEx(_hGroup, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\DeleteClusterGroupEx", "ptr", hGroup, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\DeleteClusterGroupEx", "ptr", _hGroup, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static DestroyClusterGroupEx(hGroup, lpszReason) {
+    static DestroyClusterGroupEx(_hGroup, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\DestroyClusterGroupEx", "ptr", hGroup, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\DestroyClusterGroupEx", "ptr", _hGroup, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7806,7 +7776,7 @@ class Clustering {
      *      <b>ClusterGroupOpenEnum</b> can safely be called from a 
      *      worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} hGroup A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> to be enumerated.
+     * @param {HGROUP} _hGroup 
      * @param {Integer} dwType A bitmask that describes the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> to be 
      *        enumerated. The following are valid values of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_group_enum">CLUSTER_GROUP_ENUM</a> enumeration.
@@ -7820,10 +7790,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenum
      * @since windowsserver2008
      */
-    static ClusterGroupOpenEnum(hGroup, dwType) {
+    static ClusterGroupOpenEnum(_hGroup, dwType) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnum", "ptr", hGroup, "uint", dwType, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnum", "ptr", _hGroup, "uint", dwType, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7833,16 +7803,14 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a group enumeration handle.
-     * @param {HGROUPENUM} hGroupEnum Handle to a group enumeration. This handle is obtained from 
-     *       <a href="https://docs.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenum">ClusterGroupOpenEnum</a>. A valid handle is 
-     *       required. This parameter cannot be <b>NULL</b>.
+     * @param {HGROUPENUM} _hGroupEnum 
      * @returns {Integer} <b>ClusterGroupGetEnumCount</b> returns the 
      *        number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupgetenumcount
      * @since windowsserver2008
      */
-    static ClusterGroupGetEnumCount(hGroupEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupGetEnumCount", "ptr", hGroupEnum, "uint")
+    static ClusterGroupGetEnumCount(_hGroupEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterGroupGetEnumCount", "ptr", _hGroupEnum, "uint")
         return result
     }
 
@@ -7858,8 +7826,7 @@ class Clustering {
      *      entry point function. <b>ClusterGroupEnum</b> can safely be 
      *      called from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUPENUM} hGroupEnum A group enumeration handle returned by the 
-     *        <a href="https://docs.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenum">ClusterGroupOpenEnum</a> function.
+     * @param {HGROUPENUM} _hGroupEnum 
      * @param {Integer} dwIndex The index of the resource or node to return. This parameter should be zero for the first call to 
      *        <b>ClusterGroupEnum</b> and then incremented for 
      *        subsequent calls.
@@ -7928,19 +7895,19 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupenum
      * @since windowsserver2008
      */
-    static ClusterGroupEnum(hGroupEnum, dwIndex, lpdwType, lpszResourceName, lpcchName) {
+    static ClusterGroupEnum(_hGroupEnum, dwIndex, lpdwType, lpszResourceName, lpcchName) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
         lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupEnum", "ptr", hGroupEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszResourceName, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupEnum", "ptr", _hGroupEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszResourceName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
     /**
      * Closes a group enumeration handle.
-     * @param {HGROUPENUM} hGroupEnum Enumeration handle to close.
+     * @param {HGROUPENUM} _hGroupEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -7948,8 +7915,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupcloseenum
      * @since windowsserver2008
      */
-    static ClusterGroupCloseEnum(hGroupEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupCloseEnum", "ptr", hGroupEnum, "uint")
+    static ClusterGroupCloseEnum(_hGroupEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterGroupCloseEnum", "ptr", _hGroupEnum, "uint")
         return result
     }
 
@@ -7959,7 +7926,7 @@ class Clustering {
      * Do not call <b>CreateClusterResource</b> from a 
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} hGroup Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> that should receive the resource.
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the new resource. The specified name 
      *       must be unique within the cluster.
      * @param {PWSTR} lpszResourceType Pointer to the type of new resource. The specified type must be installed in the cluster.
@@ -7971,13 +7938,13 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusterresource
      * @since windowsserver2008
      */
-    static CreateClusterResource(hGroup, lpszResourceName, lpszResourceType, dwFlags) {
+    static CreateClusterResource(_hGroup, lpszResourceName, lpszResourceType, dwFlags) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
         lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CreateClusterResource", "ptr", hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwFlags, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterResource", "ptr", _hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwFlags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -7987,25 +7954,25 @@ class Clustering {
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszResourceName 
      * @param {PWSTR} lpszResourceType 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszReason 
      * @returns {HRESOURCE} 
      */
-    static CreateClusterResourceEx(hGroup, lpszResourceName, lpszResourceType, dwFlags, lpszReason) {
+    static CreateClusterResourceEx(_hGroup, lpszResourceName, lpszResourceType, dwFlags, lpszReason) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
         lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\CreateClusterResourceEx", "ptr", hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwFlags, "ptr", lpszReason, "ptr")
+        result := DllCall("CLUSAPI.dll\CreateClusterResourceEx", "ptr", _hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwFlags, "ptr", lpszReason, "ptr")
         return result
     }
 
     /**
      * Opens a resource and returns a handle to it. (OpenClusterResource)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
      * Resource names are not case sensitive. A resource name must be unique within the cluster. The name is set 
@@ -8036,12 +8003,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusterresource
      * @since windowsserver2008
      */
-    static OpenClusterResource(hCluster, lpszResourceName) {
+    static OpenClusterResource(_hCluster, lpszResourceName) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterResource", "ptr", hCluster, "ptr", lpszResourceName, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterResource", "ptr", _hCluster, "ptr", lpszResourceName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8051,7 +8018,7 @@ class Clustering {
 
     /**
      * Opens a resource and returns a handle to it. (OpenClusterResourceEx)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
      * Resource names are not case sensitive. A resource name must be unique within the cluster. The name is set 
@@ -8095,14 +8062,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusterresourceex
      * @since windowsserver2008
      */
-    static OpenClusterResourceEx(hCluster, lpszResourceName, dwDesiredAccess, lpdwGrantedAccess) {
+    static OpenClusterResourceEx(_hCluster, lpszResourceName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
         lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", _hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8112,7 +8079,7 @@ class Clustering {
 
     /**
      * Closes a resource handle.
-     * @param {HRESOURCE} hResource Handle to the resource to be closed.
+     * @param {HRESOURCE} _hResource 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -8144,10 +8111,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusterresource
      * @since windowsserver2008
      */
-    static CloseClusterResource(hResource) {
+    static CloseClusterResource(_hResource) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CloseClusterResource", "ptr", hResource, "int")
+        result := DllCall("CLUSAPI.dll\CloseClusterResource", "ptr", _hResource, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8161,7 +8128,7 @@ class Clustering {
      * For <i>hResource</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>).  <b>GetClusterFromResource</b> returns another instance of the handle from which <i>hResource</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromResource</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hResource</i> or the cluster handle from which <i>hResource</i> was obtained.
-     * @param {HRESOURCE} hResource Handle to the resource.
+     * @param {HRESOURCE} _hResource 
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the resource.
      * 
      * If the operation fails, 
@@ -8169,10 +8136,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromresource
      * @since windowsserver2008
      */
-    static GetClusterFromResource(hResource) {
+    static GetClusterFromResource(_hResource) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterFromResource", "ptr", hResource, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterFromResource", "ptr", _hResource, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8186,7 +8153,7 @@ class Clustering {
      * <b>DeleteClusterResource</b> does not close the resource handle specified by <i>hResource</i>. To avoid memory leaks, be sure to close this handle with  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
      * Do not call  <b>DeleteClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to an offline resource. You must close this handle separately.
+     * @param {HRESOURCE} _hResource 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8223,21 +8190,21 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclusterresource
      * @since windowsserver2008
      */
-    static DeleteClusterResource(hResource) {
-        result := DllCall("CLUSAPI.dll\DeleteClusterResource", "ptr", hResource, "uint")
+    static DeleteClusterResource(_hResource) {
+        result := DllCall("CLUSAPI.dll\DeleteClusterResource", "ptr", _hResource, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static DeleteClusterResourceEx(hResource, lpszReason) {
+    static DeleteClusterResourceEx(_hResource, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\DeleteClusterResourceEx", "ptr", hResource, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\DeleteClusterResourceEx", "ptr", _hResource, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -8249,7 +8216,7 @@ class Clustering {
      *      <b>GetClusterResourceState</b> can safely be called 
      *      from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle specifying the resource for which state information should be returned.
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszNodeName Pointer to a buffer that receives the name of the specified resource's current owner node as a 
      *        <b>NULL</b>-terminated Unicode string. Pass <b>NULL</b> if the node name 
      *        is not required.
@@ -8381,7 +8348,7 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcestate
      * @since windowsserver2008
      */
-    static GetClusterResourceState(hResource, lpszNodeName, lpcchNodeName, lpszGroupName, lpcchGroupName) {
+    static GetClusterResourceState(_hResource, lpszNodeName, lpcchNodeName, lpszGroupName, lpcchGroupName) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
@@ -8390,7 +8357,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "ptr", lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", _hResource, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "ptr", lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8409,7 +8376,7 @@ class Clustering {
      * Do not call <b>SetClusterResourceName</b> from a 
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to a resource to rename.
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszResourceName Pointer to the new name for the resource identified by <i>hResource</i>. Resource names 
      *       are not case sensitive. A resource name must be unique within the cluster.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -8419,25 +8386,25 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterresourcename
      * @since windowsserver2008
      */
-    static SetClusterResourceName(hResource, lpszResourceName) {
+    static SetClusterResourceName(_hResource, lpszResourceName) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
-        result := DllCall("CLUSAPI.dll\SetClusterResourceName", "ptr", hResource, "ptr", lpszResourceName, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterResourceName", "ptr", _hResource, "ptr", lpszResourceName, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszResourceName 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetClusterResourceNameEx(hResource, lpszResourceName, lpszReason) {
+    static SetClusterResourceNameEx(_hResource, lpszResourceName, lpszReason) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterResourceNameEx", "ptr", hResource, "ptr", lpszResourceName, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterResourceNameEx", "ptr", _hResource, "ptr", lpszResourceName, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -8447,7 +8414,7 @@ class Clustering {
      * The resource identified by <i>hResource</i> is treated as inoperable, causing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to initiate the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failover</a> process that would result if the resource had actually failed. Applications call the  <b>FailClusterResource</b> function to test their policies for restarting resources and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a>.
      * 
      * Do not call  <b>FailClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> that is the target of the failure.
+     * @param {HRESOURCE} _hResource 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8455,21 +8422,21 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-failclusterresource
      * @since windowsserver2008
      */
-    static FailClusterResource(hResource) {
-        result := DllCall("CLUSAPI.dll\FailClusterResource", "ptr", hResource, "uint")
+    static FailClusterResource(_hResource) {
+        result := DllCall("CLUSAPI.dll\FailClusterResource", "ptr", _hResource, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static FailClusterResourceEx(hResource, lpszReason) {
+    static FailClusterResourceEx(_hResource, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\FailClusterResourceEx", "ptr", hResource, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\FailClusterResourceEx", "ptr", _hResource, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -8477,7 +8444,7 @@ class Clustering {
      * Brings an offline or failed resource online. (OnlineClusterResource)
      * @remarks
      * Do not call  <b>OnlineClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to the resource to be brought online.
+     * @param {HRESOURCE} _hResource 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8503,8 +8470,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclusterresource
      * @since windowsserver2008
      */
-    static OnlineClusterResource(hResource) {
-        result := DllCall("CLUSAPI.dll\OnlineClusterResource", "ptr", hResource, "uint")
+    static OnlineClusterResource(_hResource) {
+        result := DllCall("CLUSAPI.dll\OnlineClusterResource", "ptr", _hResource, "uint")
         return result
     }
 
@@ -8514,7 +8481,7 @@ class Clustering {
      * When calling <b>OfflineClusterResource</b> to offline a failed resource, it returns <b>ERROR_SUCCESS</b> instead of <b>ERROR_RESOURCE_FAILED</b>, and the resource will transition to the offline state.
      * 
      * Do not call  <b>OfflineClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to the resource to be taken offline.
+     * @param {HRESOURCE} _hResource 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns one of the following 
@@ -8554,8 +8521,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclusterresource
      * @since windowsserver2008
      */
-    static OfflineClusterResource(hResource) {
-        result := DllCall("CLUSAPI.dll\OfflineClusterResource", "ptr", hResource, "uint")
+    static OfflineClusterResource(_hResource) {
+        result := DllCall("CLUSAPI.dll\OfflineClusterResource", "ptr", _hResource, "uint")
         return result
     }
 
@@ -8581,9 +8548,8 @@ class Clustering {
      *     can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} hResource Handle of the resource to be moved.
-     * @param {HGROUP} hGroup Handle of the group that should receive the resource identified by 
-     *       <i>hResource</i>.
+     * @param {HRESOURCE} _hResource 
+     * @param {HGROUP} _hGroup 
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the 
@@ -8591,35 +8557,35 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-changeclusterresourcegroup
      * @since windowsserver2008
      */
-    static ChangeClusterResourceGroup(hResource, hGroup) {
-        result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroup", "ptr", hResource, "ptr", hGroup, "uint")
+    static ChangeClusterResourceGroup(_hResource, _hGroup) {
+        result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroup", "ptr", _hResource, "ptr", _hGroup, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
-     * @param {HGROUP} hGroup 
+     * @param {HRESOURCE} _hResource 
+     * @param {HGROUP} _hGroup 
      * @param {Integer} Flags 
      * @returns {Integer} 
      */
-    static ChangeClusterResourceGroupEx(hResource, hGroup, Flags) {
-        result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroupEx", "ptr", hResource, "ptr", hGroup, "uint", Flags, "uint")
+    static ChangeClusterResourceGroupEx(_hResource, _hGroup, Flags) {
+        result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroupEx", "ptr", _hResource, "ptr", _hGroup, "uint", Flags, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
-     * @param {HGROUP} hGroup 
+     * @param {HRESOURCE} _hResource 
+     * @param {HGROUP} _hGroup 
      * @param {Integer} Flags 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ChangeClusterResourceGroupEx2(hResource, hGroup, Flags, lpszReason) {
+    static ChangeClusterResourceGroupEx2(_hResource, _hGroup, Flags, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroupEx2", "ptr", hResource, "ptr", hGroup, "uint", Flags, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroupEx2", "ptr", _hResource, "ptr", _hGroup, "uint", Flags, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -8630,9 +8596,8 @@ class Clustering {
      *     can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} hResource Handle to a resource that will add a node to its possible owners list.
-     * @param {HNODE} hNode Handle to the node to be added to the list of potential host nodes belonging to the resource identified by 
-     *       <i>hResource</i>.
+     * @param {HRESOURCE} _hResource 
+     * @param {HNODE} _hNode 
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8641,8 +8606,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclusterresourcenode
      * @since windowsserver2008
      */
-    static AddClusterResourceNode(hResource, hNode) {
-        result := DllCall("CLUSAPI.dll\AddClusterResourceNode", "ptr", hResource, "ptr", hNode, "uint")
+    static AddClusterResourceNode(_hResource, _hNode) {
+        result := DllCall("CLUSAPI.dll\AddClusterResourceNode", "ptr", _hResource, "ptr", _hNode, "uint")
         return result
     }
 
@@ -8652,8 +8617,8 @@ class Clustering {
      * Do not call  <b>RemoveClusterResourceNode</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} hResource Handle to the target resource.
-     * @param {HNODE} hNode Handle to the node that should be removed from the list of potential host nodes belonging to the resource identified by <i>hResource</i>.
+     * @param {HRESOURCE} _hResource 
+     * @param {HNODE} _hNode 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8661,36 +8626,36 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclusterresourcenode
      * @since windowsserver2008
      */
-    static RemoveClusterResourceNode(hResource, hNode) {
-        result := DllCall("CLUSAPI.dll\RemoveClusterResourceNode", "ptr", hResource, "ptr", hNode, "uint")
+    static RemoveClusterResourceNode(_hResource, _hNode) {
+        result := DllCall("CLUSAPI.dll\RemoveClusterResourceNode", "ptr", _hResource, "ptr", _hNode, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
-     * @param {HNODE} hNode 
+     * @param {HRESOURCE} _hResource 
+     * @param {HNODE} _hNode 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static AddClusterResourceNodeEx(hResource, hNode, lpszReason) {
+    static AddClusterResourceNodeEx(_hResource, _hNode, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\AddClusterResourceNodeEx", "ptr", hResource, "ptr", hNode, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\AddClusterResourceNodeEx", "ptr", _hResource, "ptr", _hNode, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
-     * @param {HNODE} hNode 
+     * @param {HRESOURCE} _hResource 
+     * @param {HNODE} _hNode 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static RemoveClusterResourceNodeEx(hResource, hNode, lpszReason) {
+    static RemoveClusterResourceNodeEx(_hResource, _hNode, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\RemoveClusterResourceNodeEx", "ptr", hResource, "ptr", hNode, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\RemoveClusterResourceNodeEx", "ptr", _hResource, "ptr", _hNode, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -8723,7 +8688,7 @@ class Clustering {
      *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} hResource Handle to the dependent resource.
+     * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn Handle to the resource that the resource identified by <i>hResource</i> should depend 
      *        on.
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b> (0).
@@ -8814,8 +8779,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclusterresourcedependency
      * @since windowsserver2008
      */
-    static AddClusterResourceDependency(hResource, hDependsOn) {
-        result := DllCall("CLUSAPI.dll\AddClusterResourceDependency", "ptr", hResource, "ptr", hDependsOn, "uint")
+    static AddClusterResourceDependency(_hResource, hDependsOn) {
+        result := DllCall("CLUSAPI.dll\AddClusterResourceDependency", "ptr", _hResource, "ptr", hDependsOn, "uint")
         return result
     }
 
@@ -8825,7 +8790,7 @@ class Clustering {
      * Do not call  <b>RemoveClusterResourceDependency</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} hResource Handle to the dependent resource.
+     * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn Handle to the resource that the resource identified by <i>hResource</i> currently depends on.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -8834,36 +8799,36 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclusterresourcedependency
      * @since windowsserver2008
      */
-    static RemoveClusterResourceDependency(hResource, hDependsOn) {
-        result := DllCall("CLUSAPI.dll\RemoveClusterResourceDependency", "ptr", hResource, "ptr", hDependsOn, "uint")
+    static RemoveClusterResourceDependency(_hResource, hDependsOn) {
+        result := DllCall("CLUSAPI.dll\RemoveClusterResourceDependency", "ptr", _hResource, "ptr", hDependsOn, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static AddClusterResourceDependencyEx(hResource, hDependsOn, lpszReason) {
+    static AddClusterResourceDependencyEx(_hResource, hDependsOn, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\AddClusterResourceDependencyEx", "ptr", hResource, "ptr", hDependsOn, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\AddClusterResourceDependencyEx", "ptr", _hResource, "ptr", hDependsOn, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static RemoveClusterResourceDependencyEx(hResource, hDependsOn, lpszReason) {
+    static RemoveClusterResourceDependencyEx(_hResource, hDependsOn, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\RemoveClusterResourceDependencyEx", "ptr", hResource, "ptr", hDependsOn, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\RemoveClusterResourceDependencyEx", "ptr", _hResource, "ptr", hDependsOn, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -8896,22 +8861,22 @@ class Clustering {
      * This gives us expressions of the general form:<b>( [</b><i>id</i><b>] or [</b><i>id</i><b>] ... ) and ( [</b><i>id</i><b>] or [</b><i>id</i><b>] ... ) and ...</b>
      * 
      * For example: ([a904e1b7-95dd-47f0-9b2e-f1007d92699b] or [ae6fcf48-c42f-4960-a61a-7f1044067668]) and ([c471abc6-e454-482e-8be4-fae084cf799b] or [de976488-82cb-4950-8ce0-1b45e868e058])
-     * @param {HRESOURCE} hResource Handle to the resource.
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDependencyExpression Address of Unicode string containing the dependency expression.
      * @returns {Integer} <b>ERROR_SUCCESS</b> (0) if successful.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterresourcedependencyexpression
      * @since windowsserver2008
      */
-    static SetClusterResourceDependencyExpression(hResource, lpszDependencyExpression) {
+    static SetClusterResourceDependencyExpression(_hResource, lpszDependencyExpression) {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
 
-        result := DllCall("CLUSAPI.dll\SetClusterResourceDependencyExpression", "ptr", hResource, "ptr", lpszDependencyExpression, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterResourceDependencyExpression", "ptr", _hResource, "ptr", lpszDependencyExpression, "uint")
         return result
     }
 
     /**
      * Retrieves the dependency expression associated with the specified resource.
-     * @param {HRESOURCE} hResource Handle to the resource.
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDependencyExpression Address of buffer that will receive the dependency expression.
      * @param {Pointer<Integer>} lpcchDependencyExpression Size in characters of the buffer pointed to by the <i>lpszDependencyExpression</i> 
      *       parameter.
@@ -8919,12 +8884,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcedependencyexpression
      * @since windowsserver2008
      */
-    static GetClusterResourceDependencyExpression(hResource, lpszDependencyExpression, lpcchDependencyExpression) {
+    static GetClusterResourceDependencyExpression(_hResource, lpszDependencyExpression, lpcchDependencyExpression) {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
 
         lpcchDependencyExpressionMarshal := lpcchDependencyExpression is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", "ptr", hResource, "ptr", lpszDependencyExpression, lpcchDependencyExpressionMarshal, lpcchDependencyExpression, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", "ptr", _hResource, "ptr", lpszDependencyExpression, lpcchDependencyExpressionMarshal, lpcchDependencyExpression, "uint")
         return result
     }
 
@@ -8932,7 +8897,7 @@ class Clustering {
      * Adds storage to Cluster Shared Volumes.
      * @remarks
      * The system crash dump path cannot reside on any cluster shared volumes that use BitLocker encryption.
-     * @param {HRESOURCE} hResource Handle to the physical disk resource to add to Cluster Shared Volumes.
+     * @param {HRESOURCE} _hResource 
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8941,14 +8906,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addresourcetoclustersharedvolumes
      * @since windowsserver2008
      */
-    static AddResourceToClusterSharedVolumes(hResource) {
-        result := DllCall("CLUSAPI.dll\AddResourceToClusterSharedVolumes", "ptr", hResource, "uint")
+    static AddResourceToClusterSharedVolumes(_hResource) {
+        result := DllCall("CLUSAPI.dll\AddResourceToClusterSharedVolumes", "ptr", _hResource, "uint")
         return result
     }
 
     /**
      * Removes storage from Cluster Shared Volumes.
-     * @param {HRESOURCE} hResource Handle to the physical disk resource to remove from Cluster Shared Volumes.
+     * @param {HRESOURCE} _hResource 
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8957,8 +8922,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeresourcefromclustersharedvolumes
      * @since windowsserver2008
      */
-    static RemoveResourceFromClusterSharedVolumes(hResource) {
-        result := DllCall("CLUSAPI.dll\RemoveResourceFromClusterSharedVolumes", "ptr", hResource, "uint")
+    static RemoveResourceFromClusterSharedVolumes(_hResource) {
+        result := DllCall("CLUSAPI.dll\RemoveResourceFromClusterSharedVolumes", "ptr", _hResource, "uint")
         return result
     }
 
@@ -9019,7 +8984,7 @@ class Clustering {
      * Do not call  <b>CanResourceBeDependent</b> from any resource DLL entry point function.  <b>CanResourceBeDependent</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} hResource Handle to the resource in question.
+     * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hResourceDependent Handle to the resource upon which the resource identified by <i>hResource</i> may depend.
      * @returns {BOOL} <table>
      * <tr>
@@ -9052,8 +9017,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-canresourcebedependent
      * @since windowsserver2008
      */
-    static CanResourceBeDependent(hResource, hResourceDependent) {
-        result := DllCall("CLUSAPI.dll\CanResourceBeDependent", "ptr", hResource, "ptr", hResourceDependent, "int")
+    static CanResourceBeDependent(_hResource, hResourceDependent) {
+        result := DllCall("CLUSAPI.dll\CanResourceBeDependent", "ptr", _hResource, "ptr", hResourceDependent, "int")
         return result
     }
 
@@ -9073,7 +9038,7 @@ class Clustering {
      *      of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information 
      *      on control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HRESOURCE} hResource Handle to the resource to be affected.
+     * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode Optional handle to the node to perform the operation. If <b>NULL</b>, the node that owns 
      *        the resource identified by <i>hResource</i> performs the operation.
      * @param {Integer} dwControlCode A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-control-codes">resource control code</a>, enumerated by the 
@@ -9412,10 +9377,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcecontrol
      * @since windowsserver2008
      */
-    static ClusterResourceControl(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
+    static ClusterResourceControl(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControl", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControl", "ptr", _hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -9435,7 +9400,7 @@ class Clustering {
      *      of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information 
      *      on control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HRESOURCE} hResource Handle to the resource to be affected.
+     * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode Optional handle to the node to perform the operation. If <b>NULL</b>, the node that owns 
      *        the resource identified by <i>hResource</i> performs the operation.
      * @param {Integer} dwControlCode A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-control-codes">resource control code</a>, enumerated by the 
@@ -9536,10 +9501,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcecontrolasuser
      * @since windowsserver2016
      */
-    static ClusterResourceControlAsUser(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
+    static ClusterResourceControlAsUser(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", "ptr", _hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -9559,8 +9524,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HCLUSTER} hCluster Handle to the cluster containing the resource type identified in 
-     *        <i>lpszResourceTypeName</i>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
      *        type to be affected.
      * @param {HNODE} hHostNode Handle to the node hosting the affected resource type.
@@ -9708,12 +9672,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypecontrol
      * @since windowsserver2008
      */
-    static ClusterResourceTypeControl(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
+    static ClusterResourceTypeControl(_hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", "ptr", _hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -9734,8 +9698,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HCLUSTER} hCluster Handle to the cluster containing the resource type identified in 
-     *        <i>lpszResourceTypeName</i>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
      *        type to be affected.
      * @param {HNODE} hHostNode Handle to the node hosting the affected resource type.
@@ -9808,12 +9771,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypecontrolasuser
      * @since windowsserver2016
      */
-    static ClusterResourceTypeControlAsUser(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
+    static ClusterResourceTypeControlAsUser(_hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", "ptr", _hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
@@ -9833,7 +9796,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HGROUP} hGroup Handle to the group to be affected.
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that owns the 
      *        group performs the operation. Specifying <i>hHostNode</i> is optional.
@@ -9961,16 +9924,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupcontrol
      * @since windowsserver2008
      */
-    static ClusterGroupControl(hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
+    static ClusterGroupControl(_hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupControl", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupControl", "ptr", _hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -9981,18 +9944,18 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterResourceControlEx(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterResourceControlEx(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", "ptr", _hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HRESOURCE} hResource 
+     * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -10003,18 +9966,18 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterResourceControlAsUserEx(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterResourceControlAsUserEx(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", "ptr", _hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -10026,19 +9989,19 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterResourceTypeControlEx(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterResourceTypeControlEx(_hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", "ptr", _hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -10050,19 +10013,19 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterResourceTypeControlAsUserEx(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterResourceTypeControlAsUserEx(_hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", "ptr", _hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -10073,12 +10036,12 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterGroupControlEx(hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterGroupControlEx(_hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", "ptr", _hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -10098,7 +10061,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HNODE} hNode Handle to the node to be affected.
+     * @param {HNODE} _hNode 
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node that will perform the operation instead of the node 
      *        specified in <i>hNode</i>. If <b>NULL</b>, the node that handles the call 
      *        performs the operation.
@@ -10222,16 +10185,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodecontrol
      * @since windowsserver2008
      */
-    static ClusterNodeControl(hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
+    static ClusterNodeControl(_hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeControl", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeControl", "ptr", _hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HNODE} hNode 
+     * @param {HNODE} _hNode 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -10242,12 +10205,12 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterNodeControlEx(hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterNodeControlEx(_hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", "ptr", _hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -10260,7 +10223,7 @@ class Clustering {
      *     <b>GetClusterResourceNetworkName</b> can safely 
      *     be called from a worker thread. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to the dependent resource.
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpBuffer Buffer containing a null-terminated Unicode string that contains the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the Network Name 
      *       resource on which the resource depends.
@@ -10274,14 +10237,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcenetworkname
      * @since windowsserver2008
      */
-    static GetClusterResourceNetworkName(hResource, lpBuffer, nSize) {
+    static GetClusterResourceNetworkName(_hResource, lpBuffer, nSize) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", _hResource, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10297,7 +10260,7 @@ class Clustering {
      *      <b>ClusterResourceOpenEnum</b> can safely be called 
      *      from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource A handle to a resource.
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} dwType A bitmask that describes the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> 
      *        to be enumerated.
      * 
@@ -10311,10 +10274,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourceopenenum
      * @since windowsserver2008
      */
-    static ClusterResourceOpenEnum(hResource, dwType) {
+    static ClusterResourceOpenEnum(_hResource, dwType) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnum", "ptr", hResource, "uint", dwType, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnum", "ptr", _hResource, "uint", dwType, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10324,13 +10287,13 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a resource enumeration handle.
-     * @param {HRESENUM} hResEnum Handle to a resource enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
+     * @param {HRESENUM} _hResEnum 
      * @returns {Integer} <b>ClusterResourceGetEnumCount</b> returns the number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcegetenumcount
      * @since windowsserver2008
      */
-    static ClusterResourceGetEnumCount(hResEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceGetEnumCount", "ptr", hResEnum, "uint")
+    static ClusterResourceGetEnumCount(_hResEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterResourceGetEnumCount", "ptr", _hResEnum, "uint")
         return result
     }
 
@@ -10346,8 +10309,7 @@ class Clustering {
      *      <b>ClusterResourceEnum</b> can safely be called from a 
      *      worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESENUM} hResEnum A resource enumeration handle returned from 
-     *        the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a> function.
+     * @param {HRESENUM} _hResEnum 
      * @param {Integer} dwIndex The index of the resource or node object to return. This parameter should be zero for the first call to the 
      *        <b>ClusterResourceEnum</b> function and then 
      *        incremented for subsequent calls.
@@ -10421,27 +10383,27 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourceenum
      * @since windowsserver2008
      */
-    static ClusterResourceEnum(hResEnum, dwIndex, lpdwType, lpszName, lpcchName) {
+    static ClusterResourceEnum(_hResEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceEnum", "ptr", hResEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceEnum", "ptr", _hResEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
     /**
      * Closes a resource enumeration handle.
-     * @param {HRESENUM} hResEnum A resource enumeration handle to be closed.
+     * @param {HRESENUM} _hResEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a different <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcecloseenum
      * @since windowsserver2008
      */
-    static ClusterResourceCloseEnum(hResEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceCloseEnum", "ptr", hResEnum, "uint")
+    static ClusterResourceCloseEnum(_hResEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterResourceCloseEnum", "ptr", _hResEnum, "uint")
         return result
     }
 
@@ -10449,7 +10411,7 @@ class Clustering {
      * Creates a resource type in a cluster.
      * @remarks
      * The  <b>CreateClusterResourceType</b> function only defines the resource type in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> and registers the resource type with the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. To complete the process of installing a new resource type in a cluster, developers must install the resource DLLs and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Cluster Administrator</a> extension DLLs for the new types on each  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the cluster. Also, if Cluster Administrator will be used on systems that are not member nodes, the extension DLLs must also be installed on those systems.
-     * @param {HCLUSTER} hCluster Handle to the cluster to receive the new resource type.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the new resource type. The specified name must be unique within the cluster.
      * @param {PWSTR} lpszDisplayName Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a> for the new resource type. While the content of <i>lpszResourceTypeName</i> should uniquely identify the resource type on all clusters, the content of <i>lpszDisplayName</i> should be a localized friendly name for the resource suitable for displaying to administrators.
      * @param {PWSTR} lpszResourceTypeDll Pointer to the fully qualified name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> for the new resource type or the path name relative to the Cluster directory.
@@ -10462,12 +10424,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusterresourcetype
      * @since windowsserver2008
      */
-    static CreateClusterResourceType(hCluster, lpszResourceTypeName, lpszDisplayName, lpszResourceTypeDll, dwLooksAlivePollInterval, dwIsAlivePollInterval) {
+    static CreateClusterResourceType(_hCluster, lpszResourceTypeName, lpszDisplayName, lpszResourceTypeDll, dwLooksAlivePollInterval, dwIsAlivePollInterval) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszDisplayName := lpszDisplayName is String ? StrPtr(lpszDisplayName) : lpszDisplayName
         lpszResourceTypeDll := lpszResourceTypeDll is String ? StrPtr(lpszResourceTypeDll) : lpszResourceTypeDll
 
-        result := DllCall("CLUSAPI.dll\CreateClusterResourceType", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", lpszDisplayName, "ptr", lpszResourceTypeDll, "uint", dwLooksAlivePollInterval, "uint", dwIsAlivePollInterval, "uint")
+        result := DllCall("CLUSAPI.dll\CreateClusterResourceType", "ptr", _hCluster, "ptr", lpszResourceTypeName, "ptr", lpszDisplayName, "ptr", lpszResourceTypeDll, "uint", dwLooksAlivePollInterval, "uint", dwIsAlivePollInterval, "uint")
         return result
     }
 
@@ -10477,7 +10439,7 @@ class Clustering {
      * The  <b>DeleteClusterResourceType</b> function only removes the resource type with the name pointed to by <i>lpszResourceTypeName</i> from the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> and then unregisters it with the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. The caller must delete the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> for the resource type from each  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the cluster.
      * 
      * The caller must also delete any  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resources</a> of this type before calling  <b>DeleteClusterResourceType</b> to delete the type. If any resources of the specified type still exist when  <b>DeleteClusterResourceType</b> is called, the function fails.
-     * @param {HCLUSTER} hCluster Handle to the cluster containing the resource type to be removed.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the resource type to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10486,16 +10448,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclusterresourcetype
      * @since windowsserver2008
      */
-    static DeleteClusterResourceType(hCluster, lpszResourceTypeName) {
+    static DeleteClusterResourceType(_hCluster, lpszResourceTypeName) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-        result := DllCall("CLUSAPI.dll\DeleteClusterResourceType", "ptr", hCluster, "ptr", lpszResourceTypeName, "uint")
+        result := DllCall("CLUSAPI.dll\DeleteClusterResourceType", "ptr", _hCluster, "ptr", lpszResourceTypeName, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {PWSTR} lpszDisplayName 
      * @param {PWSTR} lpszResourceTypeDll 
@@ -10504,34 +10466,34 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static CreateClusterResourceTypeEx(hCluster, lpszResourceTypeName, lpszDisplayName, lpszResourceTypeDll, dwLooksAlivePollInterval, dwIsAlivePollInterval, lpszReason) {
+    static CreateClusterResourceTypeEx(_hCluster, lpszResourceTypeName, lpszDisplayName, lpszResourceTypeDll, dwLooksAlivePollInterval, dwIsAlivePollInterval, lpszReason) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszDisplayName := lpszDisplayName is String ? StrPtr(lpszDisplayName) : lpszDisplayName
         lpszResourceTypeDll := lpszResourceTypeDll is String ? StrPtr(lpszResourceTypeDll) : lpszResourceTypeDll
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\CreateClusterResourceTypeEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", lpszDisplayName, "ptr", lpszResourceTypeDll, "uint", dwLooksAlivePollInterval, "uint", dwIsAlivePollInterval, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\CreateClusterResourceTypeEx", "ptr", _hCluster, "ptr", lpszResourceTypeName, "ptr", lpszDisplayName, "ptr", lpszResourceTypeDll, "uint", dwLooksAlivePollInterval, "uint", dwIsAlivePollInterval, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszTypeName 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static DeleteClusterResourceTypeEx(hCluster, lpszTypeName, lpszReason) {
+    static DeleteClusterResourceTypeEx(_hCluster, lpszTypeName, lpszReason) {
         lpszTypeName := lpszTypeName is String ? StrPtr(lpszTypeName) : lpszTypeName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\DeleteClusterResourceTypeEx", "ptr", hCluster, "ptr", lpszTypeName, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\DeleteClusterResourceTypeEx", "ptr", _hCluster, "ptr", lpszTypeName, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Opens an enumerator for iterating through a resource type's possible owner nodes or resources.
-     * @param {HCLUSTER} hCluster <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">Cluster</a> handle.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName A null-terminated Unicode string containing the name of the resource type.
      * @param {Integer} dwType Bitmask describing the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> to be 
      *        enumerated. The following values of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_type_enum">CLUSTER_RESOURCE_TYPE_ENUM</a> enumeration are valid.
@@ -10543,12 +10505,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypeopenenum
      * @since windowsserver2008
      */
-    static ClusterResourceTypeOpenEnum(hCluster, lpszResourceTypeName, dwType) {
+    static ClusterResourceTypeOpenEnum(_hCluster, lpszResourceTypeName, dwType) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeOpenEnum", "ptr", hCluster, "ptr", lpszResourceTypeName, "uint", dwType, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeOpenEnum", "ptr", _hCluster, "ptr", lpszResourceTypeName, "uint", dwType, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10558,13 +10520,13 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a resource_type enumeration handle.
-     * @param {HRESTYPEENUM} hResTypeEnum Handle to a resource type enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeopenenum">ClusterResourceTypeOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
+     * @param {HRESTYPEENUM} _hResTypeEnum 
      * @returns {Integer} <b>ClusterResourceTypeGetEnumCount</b> returns the number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypegetenumcount
      * @since windowsserver2008
      */
-    static ClusterResourceTypeGetEnumCount(hResTypeEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeGetEnumCount", "ptr", hResTypeEnum, "uint")
+    static ClusterResourceTypeGetEnumCount(_hResTypeEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeGetEnumCount", "ptr", _hResTypeEnum, "uint")
         return result
     }
 
@@ -10574,8 +10536,7 @@ class Clustering {
      * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
      *      that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing 
      *      buffers, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HRESTYPEENUM} hResTypeEnum Resource type enumeration handle returned from 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeopenenum">ClusterResourceTypeOpenEnum</a>.
+     * @param {HRESTYPEENUM} _hResTypeEnum 
      * @param {Integer} dwIndex Index of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> or node object to return. This 
      *        parameter should be zero for the first call to 
      *        <b>ClusterResourceTypeEnum</b> and then 
@@ -10649,19 +10610,19 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypeenum
      * @since windowsserver2008
      */
-    static ClusterResourceTypeEnum(hResTypeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
+    static ClusterResourceTypeEnum(_hResTypeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeEnum", "ptr", hResTypeEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeEnum", "ptr", _hResTypeEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
     /**
      * Closes a resource type enumeration handle.
-     * @param {HRESTYPEENUM} hResTypeEnum Enumeration handle to be closed.
+     * @param {HRESTYPEENUM} _hResTypeEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -10669,14 +10630,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypecloseenum
      * @since windowsserver2008
      */
-    static ClusterResourceTypeCloseEnum(hResTypeEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeCloseEnum", "ptr", hResTypeEnum, "uint")
+    static ClusterResourceTypeCloseEnum(_hResTypeEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeCloseEnum", "ptr", _hResTypeEnum, "uint")
         return result
     }
 
     /**
      * Opens a connection to a network and returns a handle to it. (OpenClusterNetwork)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNetworkName Pointer to the name of an existing network.
      * @returns {HNETWORK} <table>
      * <tr>
@@ -10703,12 +10664,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetwork
      * @since windowsserver2008
      */
-    static OpenClusterNetwork(hCluster, lpszNetworkName) {
+    static OpenClusterNetwork(_hCluster, lpszNetworkName) {
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetwork", "ptr", hCluster, "ptr", lpszNetworkName, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetwork", "ptr", _hCluster, "ptr", lpszNetworkName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10718,7 +10679,7 @@ class Clustering {
 
     /**
      * Opens a connection to a network and returns a handle to it. (OpenClusterNetworkEx)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNetworkName Pointer to the name of an existing network.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
@@ -10758,14 +10719,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetworkex
      * @since windowsserver2008
      */
-    static OpenClusterNetworkEx(hCluster, lpszNetworkName, dwDesiredAccess, lpdwGrantedAccess) {
+    static OpenClusterNetworkEx(_hCluster, lpszNetworkName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
 
         lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", _hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10775,7 +10736,7 @@ class Clustering {
 
     /**
      * Closes a network handle.
-     * @param {HNETWORK} hNetwork Handle to the network to close.
+     * @param {HNETWORK} _hNetwork 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -10807,10 +10768,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternetwork
      * @since windowsserver2008
      */
-    static CloseClusterNetwork(hNetwork) {
+    static CloseClusterNetwork(_hNetwork) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CloseClusterNetwork", "ptr", hNetwork, "int")
+        result := DllCall("CLUSAPI.dll\CloseClusterNetwork", "ptr", _hNetwork, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10824,7 +10785,7 @@ class Clustering {
      * For <i>hNetwork</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetwork">OpenClusterNetwork</a>).  <b>GetClusterFromNetwork</b> returns another instance of the handle from which <i>hNetwork</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNetwork</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNetwork</i> or the cluster handle from which <i>hNetwork</i> was obtained.
-     * @param {HNETWORK} hNetwork Handle to the network.
+     * @param {HNETWORK} _hNetwork 
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the network.
      * 
      * If the operation fails, 
@@ -10832,10 +10793,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromnetwork
      * @since windowsserver2008
      */
-    static GetClusterFromNetwork(hNetwork) {
+    static GetClusterFromNetwork(_hNetwork) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterFromNetwork", "ptr", hNetwork, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterFromNetwork", "ptr", _hNetwork, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10855,7 +10816,7 @@ class Clustering {
      *      of the objects to be enumerated and to 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkcloseenum">ClusterNetworkCloseEnum</a> to release the 
      *      enumerator.
-     * @param {HNETWORK} hNetwork A handle to a network.
+     * @param {HNETWORK} _hNetwork 
      * @param {Integer} dwType 
      * @returns {HNETWORKENUM} If the operation was successful, 
      *        <b>ClusterNetworkOpenEnum</b> returns a handle to a 
@@ -10867,10 +10828,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkopenenum
      * @since windowsserver2008
      */
-    static ClusterNetworkOpenEnum(hNetwork, dwType) {
+    static ClusterNetworkOpenEnum(_hNetwork, dwType) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkOpenEnum", "ptr", hNetwork, "uint", dwType, "ptr")
+        result := DllCall("CLUSAPI.dll\ClusterNetworkOpenEnum", "ptr", _hNetwork, "uint", dwType, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10880,16 +10841,14 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a network enumeration handle.
-     * @param {HNETWORKENUM} hNetworkEnum Handle to a network enumeration. This handle is obtained from 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a>. A valid handle is 
-     *       required. This parameter cannot be <b>NULL</b>.
+     * @param {HNETWORKENUM} _hNetworkEnum 
      * @returns {Integer} <b>ClusterNetworkGetEnumCount</b> returns the 
      *        number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkgetenumcount
      * @since windowsserver2008
      */
-    static ClusterNetworkGetEnumCount(hNetworkEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterNetworkGetEnumCount", "ptr", hNetworkEnum, "uint")
+    static ClusterNetworkGetEnumCount(_hNetworkEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterNetworkGetEnumCount", "ptr", _hNetworkEnum, "uint")
         return result
     }
 
@@ -10913,8 +10872,7 @@ class Clustering {
      *      that the returned size does not include the terminating <b>NULL</b> in the count. For more 
      *      information on sizing buffers, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNETWORKENUM} hNetworkEnum A handle to an existing enumeration object originally returned by the 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a> function.
+     * @param {HNETWORKENUM} _hNetworkEnum 
      * @param {Integer} dwIndex The index used to identify the next entry to be enumerated. This parameter should be zero for the first call 
      *        to <b>ClusterNetworkEnum</b> and then incremented for 
      *        subsequent calls.
@@ -10977,19 +10935,19 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkenum
      * @since windowsserver2008
      */
-    static ClusterNetworkEnum(hNetworkEnum, dwIndex, lpdwType, lpszName, lpcchName) {
+    static ClusterNetworkEnum(_hNetworkEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkEnum", "ptr", hNetworkEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetworkEnum", "ptr", _hNetworkEnum, "uint", dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
     /**
      * Closes a network enumeration handle.
-     * @param {HNETWORKENUM} hNetworkEnum Handle to the network enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a> function.
+     * @param {HNETWORKENUM} _hNetworkEnum 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -10997,14 +10955,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkcloseenum
      * @since windowsserver2008
      */
-    static ClusterNetworkCloseEnum(hNetworkEnum) {
-        result := DllCall("CLUSAPI.dll\ClusterNetworkCloseEnum", "ptr", hNetworkEnum, "uint")
+    static ClusterNetworkCloseEnum(_hNetworkEnum) {
+        result := DllCall("CLUSAPI.dll\ClusterNetworkCloseEnum", "ptr", _hNetworkEnum, "uint")
         return result
     }
 
     /**
      * Current state of a network.
-     * @param {HNETWORK} hNetwork Handle to the network for which state information should be returned.
+     * @param {HNETWORK} _hNetwork 
      * @returns {Integer} <b>GetClusterNetworkState</b> returns the current 
      *        state of the network, which is represented by one of the following values enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_state">CLUSTER_NETWORK_STATE</a> enumeration.
@@ -11082,10 +11040,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetworkstate
      * @since windowsserver2008
      */
-    static GetClusterNetworkState(hNetwork) {
+    static GetClusterNetworkState(_hNetwork) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", hNetwork, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", _hNetwork, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11097,7 +11055,7 @@ class Clustering {
      * Sets the name for a network.
      * @remarks
      * <b>SetClusterNetworkName</b> changes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/networks-name">Name</a> common property of the network identified by <i>hNetwork</i>. This is the only way that  <b>Name</b>, a read-only property, can be changed.
-     * @param {HNETWORK} hNetwork Handle to a network to name.
+     * @param {HNETWORK} _hNetwork 
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the new network name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -11106,25 +11064,25 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusternetworkname
      * @since windowsserver2008
      */
-    static SetClusterNetworkName(hNetwork, lpszName) {
+    static SetClusterNetworkName(_hNetwork, lpszName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\SetClusterNetworkName", "ptr", hNetwork, "ptr", lpszName, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterNetworkName", "ptr", _hNetwork, "ptr", lpszName, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HNETWORK} hNetwork 
+     * @param {HNETWORK} _hNetwork 
      * @param {PWSTR} lpszName 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static SetClusterNetworkNameEx(hNetwork, lpszName, lpszReason) {
+    static SetClusterNetworkNameEx(_hNetwork, lpszName, lpszReason) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterNetworkNameEx", "ptr", hNetwork, "ptr", lpszName, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterNetworkNameEx", "ptr", _hNetwork, "ptr", lpszName, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -11132,7 +11090,7 @@ class Clustering {
      * Returns the identifier of a network.
      * @remarks
      * Note that <i>lpcchNetworkID</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNETWORK} hNetwork Handle to a network.
+     * @param {HNETWORK} _hNetwork 
      * @param {PWSTR} lpszNetworkId Pointer to the identifier of the network associated with <i>hNetwork</i>, including the null-terminating character.
      * @param {Pointer<Integer>} lpcchName Pointer to the size of the <i>lpszNetworkID</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -11160,12 +11118,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetworkid
      * @since windowsserver2008
      */
-    static GetClusterNetworkId(hNetwork, lpszNetworkId, lpcchName) {
+    static GetClusterNetworkId(_hNetwork, lpszNetworkId, lpcchName) {
         lpszNetworkId := lpszNetworkId is String ? StrPtr(lpszNetworkId) : lpszNetworkId
 
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkId", "ptr", hNetwork, "ptr", lpszNetworkId, lpcchNameMarshal, lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkId", "ptr", _hNetwork, "ptr", lpszNetworkId, lpcchNameMarshal, lpcchName, "uint")
         return result
     }
 
@@ -11185,7 +11143,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HNETWORK} hNetwork Handle to the network to be affected by the operation.
+     * @param {HNETWORK} _hNetwork 
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> 
      *        hosting the affected network. If <b>NULL</b>, the local node performs the operation. 
      *        Specifying <i>hHostNode</i> is optional.
@@ -11309,16 +11267,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkcontrol
      * @since windowsserver2008
      */
-    static ClusterNetworkControl(hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
+    static ClusterNetworkControl(_hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkControl", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetworkControl", "ptr", _hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HNETWORK} hNetwork 
+     * @param {HNETWORK} _hNetwork 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -11329,18 +11287,18 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterNetworkControlEx(hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterNetworkControlEx(_hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", "ptr", _hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Opens a handle to a network interface. (OpenClusterNetInterface)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @returns {HNETINTERFACE} If the operation was successful, 
      *        <b>OpenClusterNetInterface</b> returns an open 
@@ -11367,12 +11325,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetinterface
      * @since windowsserver2008
      */
-    static OpenClusterNetInterface(hCluster, lpszInterfaceName) {
+    static OpenClusterNetInterface(_hCluster, lpszInterfaceName) {
         lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetInterface", "ptr", hCluster, "ptr", lpszInterfaceName, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetInterface", "ptr", _hCluster, "ptr", lpszInterfaceName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11382,7 +11340,7 @@ class Clustering {
 
     /**
      * Opens a handle to a network interface. (OpenClusterNetInterfaceEx)
-     * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
@@ -11422,14 +11380,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetinterfaceex
      * @since windowsserver2008
      */
-    static OpenClusterNetInterfaceEx(hCluster, lpszInterfaceName, dwDesiredAccess, lpdwGrantedAccess) {
+    static OpenClusterNetInterfaceEx(_hCluster, lpszInterfaceName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
         lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", _hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11441,7 +11399,7 @@ class Clustering {
      * Returns the name of a node's interface to a network in a cluster.
      * @remarks
      * Note that <i>lpcchInterfaceName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HCLUSTER} hCluster Handle to a cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node in the cluster.
      * @param {PWSTR} lpszNetworkName Pointer to a null-terminated Unicode string containing the name of the network.
      * @param {PWSTR} lpszInterfaceName Pointer to an output buffer holding the name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-interfaces">network interface</a>.
@@ -11471,20 +11429,20 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetinterface
      * @since windowsserver2008
      */
-    static GetClusterNetInterface(hCluster, lpszNodeName, lpszNetworkName, lpszInterfaceName, lpcchInterfaceName) {
+    static GetClusterNetInterface(_hCluster, lpszNodeName, lpszNetworkName, lpszInterfaceName, lpcchInterfaceName) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
         lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
         lpcchInterfaceNameMarshal := lpcchInterfaceName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterface", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, lpcchInterfaceNameMarshal, lpcchInterfaceName, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterface", "ptr", _hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, lpcchInterfaceNameMarshal, lpcchInterfaceName, "uint")
         return result
     }
 
     /**
      * Closes a network interface handle.
-     * @param {HNETINTERFACE} hNetInterface Handle of the network interface to close.
+     * @param {HNETINTERFACE} _hNetInterface 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -11516,10 +11474,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternetinterface
      * @since windowsserver2008
      */
-    static CloseClusterNetInterface(hNetInterface) {
+    static CloseClusterNetInterface(_hNetInterface) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\CloseClusterNetInterface", "ptr", hNetInterface, "int")
+        result := DllCall("CLUSAPI.dll\CloseClusterNetInterface", "ptr", _hNetInterface, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11533,7 +11491,7 @@ class Clustering {
      * For <i>hNetInterface</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetinterface">OpenClusterNetInterface</a>).  <b>GetClusterFromNetInterface</b> returns another instance of the handle from which <i>hNetInterface</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNetInterface</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNetInterface</i> or the cluster handle from which <i>hNetInterface</i> was obtained.
-     * @param {HNETINTERFACE} hNetInterface Handle to the network interface.
+     * @param {HNETINTERFACE} _hNetInterface 
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the network interface.
      * 
      * If the operation fails, 
@@ -11541,10 +11499,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromnetinterface
      * @since windowsserver2008
      */
-    static GetClusterFromNetInterface(hNetInterface) {
+    static GetClusterFromNetInterface(_hNetInterface) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterFromNetInterface", "ptr", hNetInterface, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterFromNetInterface", "ptr", _hNetInterface, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11554,7 +11512,7 @@ class Clustering {
 
     /**
      * Returns the current state of a network interface.
-     * @param {HNETINTERFACE} hNetInterface Handle to the network interface for which state information should be returned.
+     * @param {HNETINTERFACE} _hNetInterface 
      * @returns {Integer} <b>GetClusterNetInterfaceState</b> returns 
      *        the current state of the network interface, which is represented by one of the following values enumerated by 
      *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_netinterface_state">CLUSTER_NETINTERFACE_STATE</a> 
@@ -11630,10 +11588,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetinterfacestate
      * @since windowsserver2008
      */
-    static GetClusterNetInterfaceState(hNetInterface) {
+    static GetClusterNetInterfaceState(_hNetInterface) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", hNetInterface, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", _hNetInterface, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11657,7 +11615,7 @@ class Clustering {
      *      the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HNETINTERFACE} hNetInterface Handle to the network interface to be affected.
+     * @param {HNETINTERFACE} _hNetInterface 
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that 
      *        owns the network interface to be affected. If <b>NULL</b>, the local node performs the 
      *        operation. Specifying <i>hHostNode</i> is optional.
@@ -11787,16 +11745,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfacecontrol
      * @since windowsserver2008
      */
-    static ClusterNetInterfaceControl(hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
+    static ClusterNetInterfaceControl(_hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", "ptr", _hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HNETINTERFACE} hNetInterface 
+     * @param {HNETINTERFACE} _hNetInterface 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
      * @param {Pointer} lpInBuffer 
@@ -11807,12 +11765,12 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterNetInterfaceControlEx(hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
+    static ClusterNetInterfaceControlEx(_hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", "ptr", _hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -11824,7 +11782,7 @@ class Clustering {
      *     <i>hCluster</i>. Callers should call 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle 
      *     retrieved by <b>GetClusterKey</b> when they are done with it.
-     * @param {HCLUSTER} hCluster Handle to a cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key. For more information and possible 
      *       values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
@@ -11835,10 +11793,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterkey
      * @since windowsserver2008
      */
-    static GetClusterKey(hCluster, samDesired) {
+    static GetClusterKey(_hCluster, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", hCluster, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", _hCluster, "uint", samDesired, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11851,7 +11809,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a group.
      * @remarks
      * The  <b>GetClusterGroupKey</b> function returns a handle to a cluster database key representing the subtree root for the group identified by <i>hGroup</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterGroupKey</b> when they are done with it.
-     * @param {HGROUP} hGroup Handle to a group.
+     * @param {HGROUP} _hGroup 
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a database key handle for the group.
      * 
@@ -11860,10 +11818,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclustergroupkey
      * @since windowsserver2008
      */
-    static GetClusterGroupKey(hGroup, samDesired) {
+    static GetClusterGroupKey(_hGroup, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", hGroup, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", _hGroup, "uint", samDesired, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11876,7 +11834,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a resource.
      * @remarks
      * The  <b>GetClusterResourceKey</b> function returns a handle to a cluster database key representing the subtree root for the resource identified by <i>hResource</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceKey</b> when they are done with it.
-     * @param {HRESOURCE} hResource Handle to a resource.
+     * @param {HRESOURCE} _hResource 
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the resource.
      * 
@@ -11885,10 +11843,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcekey
      * @since windowsserver2008
      */
-    static GetClusterResourceKey(hResource, samDesired) {
+    static GetClusterResourceKey(_hResource, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", hResource, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", _hResource, "uint", samDesired, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11901,7 +11859,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a node.
      * @remarks
      * The  <b>GetClusterNodeKey</b> function returns a handle to a cluster database key representing the subtree root for the node identified by <i>hNode</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNodeKey</b> when they are done with it.
-     * @param {HNODE} hNode Handle to a node.
+     * @param {HNODE} _hNode 
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the node.
      * 
@@ -11910,10 +11868,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternodekey
      * @since windowsserver2008
      */
-    static GetClusterNodeKey(hNode, samDesired) {
+    static GetClusterNodeKey(_hNode, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", hNode, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", _hNode, "uint", samDesired, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11926,7 +11884,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a network.
      * @remarks
      * The  <b>GetClusterNetworkKey</b> function returns a handle to a cluster database key representing the subtree root for the network identified by <i>hNetwork</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetworkKey</b> when they are done with it.
-     * @param {HNETWORK} hNetwork Handle to a network.
+     * @param {HNETWORK} _hNetwork 
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the network.
      * 
@@ -11935,10 +11893,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetworkkey
      * @since windowsserver2008
      */
-    static GetClusterNetworkKey(hNetwork, samDesired) {
+    static GetClusterNetworkKey(_hNetwork, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", hNetwork, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", _hNetwork, "uint", samDesired, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11951,7 +11909,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a network interface object.
      * @remarks
      * The  <b>GetClusterNetInterfaceKey</b> function returns a handle to a cluster database key representing the subtree root for the network interface identified by <i>hNetInterface</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetInterfaceKey</b> when they are done with it.
-     * @param {HNETINTERFACE} hNetInterface Handle to a network interface.
+     * @param {HNETINTERFACE} _hNetInterface 
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the network interface.
      * 
@@ -11960,10 +11918,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetinterfacekey
      * @since windowsserver2008
      */
-    static GetClusterNetInterfaceKey(hNetInterface, samDesired) {
+    static GetClusterNetInterfaceKey(_hNetInterface, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", hNetInterface, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", _hNetInterface, "uint", samDesired, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12002,7 +11960,7 @@ class Clustering {
      * <b>ClusterRegCreateKey</b> can be safely called from 
      *      any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} hKey Handle to an open cluster database key. This parameter cannot be <b>NULL</b>.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The 
      *        <i>lpszSubKey</i> parameter must point to a subkey that:
      * 
@@ -12034,19 +11992,19 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatekey
      * @since windowsserver2008
      */
-    static ClusterRegCreateKey(hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegCreateKey(_hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
         lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", "ptr", hKey, "ptr", lpszSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", "ptr", _hKey, "ptr", lpszSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "int")
         return result
     }
 
     /**
      * 
-     * @param {HKEY} hKey 
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpSubKey 
      * @param {Integer} dwOptions 
      * @param {Integer} samDesired 
@@ -12056,14 +12014,14 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterRegCreateKeyEx(hKey, lpSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, lpszReason) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegCreateKeyEx(_hKey, lpSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, lpszReason) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", "ptr", hKey, "ptr", lpSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", lpszReason, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", "ptr", _hKey, "ptr", lpSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", lpszReason, "int")
         return result
     }
 
@@ -12071,7 +12029,7 @@ class Clustering {
      * Opens an existing cluster database key.
      * @remarks
      * Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle opened by  <b>ClusterRegOpenKey</b> when they are done with it.
-     * @param {HKEY} hKey Handle to a currently open key. This parameter cannot be <b>NULL</b>.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The <i>lpszSubKey</i> parameter must point to a subkey that:
      * 
      * <ul>
@@ -12089,11 +12047,11 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregopenkey
      * @since windowsserver2008
      */
-    static ClusterRegOpenKey(hKey, lpszSubKey, samDesired, phkResult) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegOpenKey(_hKey, lpszSubKey, samDesired, phkResult) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegOpenKey", "ptr", hKey, "ptr", lpszSubKey, "uint", samDesired, "ptr", phkResult, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegOpenKey", "ptr", _hKey, "ptr", lpszSubKey, "uint", samDesired, "ptr", phkResult, "int")
         return result
     }
 
@@ -12126,7 +12084,7 @@ class Clustering {
      * <b>ClusterRegDeleteKey</b> can be safely called from 
      *     any other resource DLL entry point function or from a worker thread. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} hKey Handle to a currently open key.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the key to delete. The key pointed to by 
      *       <i>lpszSubKey</i> cannot have subkeys; 
      *       <b>ClusterRegDeleteKey</b> can only delete keys without 
@@ -12138,33 +12096,33 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregdeletekey
      * @since windowsserver2008
      */
-    static ClusterRegDeleteKey(hKey, lpszSubKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegDeleteKey(_hKey, lpszSubKey) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegDeleteKey", "ptr", hKey, "ptr", lpszSubKey, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegDeleteKey", "ptr", _hKey, "ptr", lpszSubKey, "int")
         return result
     }
 
     /**
      * 
-     * @param {HKEY} hKey 
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpSubKey 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterRegDeleteKeyEx(hKey, lpSubKey, lpszReason) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegDeleteKeyEx(_hKey, lpSubKey, lpszReason) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterRegDeleteKeyEx", "ptr", hKey, "ptr", lpSubKey, "ptr", lpszReason, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegDeleteKeyEx", "ptr", _hKey, "ptr", lpSubKey, "ptr", lpszReason, "int")
         return result
     }
 
     /**
      * Releases the handle of a cluster database key.
-     * @param {HKEY} hKey Handle to the cluster database key to be closed.
+     * @param {HKEY} _hKey 
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -12172,10 +12130,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosekey
      * @since windowsserver2008
      */
-    static ClusterRegCloseKey(hKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegCloseKey(_hKey) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseKey", "ptr", hKey, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseKey", "ptr", _hKey, "int")
         return result
     }
 
@@ -12190,7 +12148,7 @@ class Clustering {
      *      set to <b>NULL</b>, 
      *      <b>ClusterRegEnumKey</b> fails if the node is not part of 
      *      a cluster.
-     * @param {HKEY} hKey <b>HKEY</b> specifying a currently open key.
+     * @param {HKEY} _hKey 
      * @param {Integer} dwIndex Index used to identify the next subkey to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterRegEnumKey</b> and then incremented for 
      *        subsequent calls.
@@ -12265,13 +12223,13 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregenumkey
      * @since windowsserver2008
      */
-    static ClusterRegEnumKey(hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegEnumKey(_hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", "ptr", hKey, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpftLastWriteTime, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", "ptr", _hKey, "uint", dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpftLastWriteTime, "int")
         return result
     }
 
@@ -12304,7 +12262,7 @@ class Clustering {
      * <b>ClusterRegSetValue</b> can be safely called from any 
      *      other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} hKey Handle to a cluster database key.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to set. If a value with this 
      *        name is not already present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a>, 
      *        <b>ClusterRegSetValue</b> adds it to the resource.
@@ -12321,15 +12279,15 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregsetvalue
      * @since windowsserver2008
      */
-    static ClusterRegSetValue(hKey, lpszValueName, dwType, lpData, cbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegSetValue(_hKey, lpszValueName, dwType, lpData, cbData) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         lpDataMarshal := lpData is VarRef ? "char*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", _hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -12363,7 +12321,7 @@ class Clustering {
      * <b>ClusterRegDeleteValue</b> can be safely called 
      *      from any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} hKey Handle to a currently open key.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12372,17 +12330,17 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregdeletevalue
      * @since windowsserver2008
      */
-    static ClusterRegDeleteValue(hKey, lpszValueName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegDeleteValue(_hKey, lpszValueName) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegDeleteValue", "ptr", hKey, "ptr", lpszValueName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegDeleteValue", "ptr", _hKey, "ptr", lpszValueName, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HKEY} hKey 
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName 
      * @param {Integer} dwType 
      * @param {Pointer<Integer>} lpData 
@@ -12390,30 +12348,30 @@ class Clustering {
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterRegSetValueEx(hKey, lpszValueName, dwType, lpData, cbData, lpszReason) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegSetValueEx(_hKey, lpszValueName, dwType, lpData, cbData, lpszReason) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         lpDataMarshal := lpData is VarRef ? "char*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", "ptr", _hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HKEY} hKey 
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterRegDeleteValueEx(hKey, lpszValueName, lpszReason) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegDeleteValueEx(_hKey, lpszValueName, lpszReason) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterRegDeleteValueEx", "ptr", hKey, "ptr", lpszValueName, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegDeleteValueEx", "ptr", _hKey, "ptr", lpszValueName, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -12428,7 +12386,7 @@ class Clustering {
      * If <i>lpdwValueType</i> is set to <b>REG_SZ</b>, 
      *      <b>REG_MULTI_SZ</b> or <b>REG_EXPAND_SZ</b>, then 
      *      <i>lpbData</i> also includes a <b>NULL</b> terminator.
-     * @param {HKEY} hKey Handle of the cluster database key to query.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be queried.
      * @param {Pointer<Integer>} lpdwValueType Pointer to the key's value type. This parameter can be <b>NULL</b> if the type is not 
      *        required; otherwise, the value returned through this parameter is one of the following.
@@ -12477,20 +12435,20 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregqueryvalue
      * @since windowsserver2008
      */
-    static ClusterRegQueryValue(hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegQueryValue(_hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         lpdwValueTypeMarshal := lpdwValueType is VarRef ? "uint*" : "ptr"
         lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", "ptr", hKey, "ptr", lpszValueName, lpdwValueTypeMarshal, lpdwValueType, "ptr", lpData, lpcbDataMarshal, lpcbData, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", "ptr", _hKey, "ptr", lpszValueName, lpdwValueTypeMarshal, lpdwValueType, "ptr", lpData, lpcbDataMarshal, lpcbData, "int")
         return result
     }
 
     /**
      * Enumerates the values of an open cluster database key.
-     * @param {HKEY} hKey Handle of the cluster database key to enumerate.
+     * @param {HKEY} _hKey 
      * @param {Integer} dwIndex Index used to identify the next value to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterRegEnumValue</b> and then incremented for 
      *        subsequent calls.
@@ -12571,21 +12529,21 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregenumvalue
      * @since windowsserver2008
      */
-    static ClusterRegEnumValue(hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegEnumValue(_hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
         lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
         lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", "ptr", hKey, "uint", dwIndex, "ptr", lpszValueName, lpcchValueNameMarshal, lpcchValueName, lpdwTypeMarshal, lpdwType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", "ptr", _hKey, "uint", dwIndex, "ptr", lpszValueName, lpcchValueNameMarshal, lpcchValueName, lpdwTypeMarshal, lpdwType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
     /**
      * Returns information about a cluster database key.
-     * @param {HKEY} hKey Handle to a cluster database key. All subsequent parameters describe the contents of the key.
+     * @param {HKEY} _hKey 
      * @param {Pointer<Integer>} lpcSubKeys If not <b>NULL</b>, pointer to the number of subkeys in the specified key.
      * @param {Pointer<Integer>} lpcchMaxSubKeyLen If not <b>NULL</b>, pointer to the number of characters in the longest subkey name in the specified key. The number does not include the terminating <b>NULL</b>.
      * @param {Pointer<Integer>} lpcValues If not <b>NULL</b>, pointer to the number of values in the specified key.
@@ -12600,8 +12558,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregqueryinfokey
      * @since windowsserver2008
      */
-    static ClusterRegQueryInfoKey(hKey, lpcSubKeys, lpcchMaxSubKeyLen, lpcValues, lpcchMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegQueryInfoKey(_hKey, lpcSubKeys, lpcchMaxSubKeyLen, lpcValues, lpcchMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : "ptr"
         lpcchMaxSubKeyLenMarshal := lpcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
@@ -12610,13 +12568,13 @@ class Clustering {
         lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
         lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegQueryInfoKey", "ptr", hKey, lpcSubKeysMarshal, lpcSubKeys, lpcchMaxSubKeyLenMarshal, lpcchMaxSubKeyLen, lpcValuesMarshal, lpcValues, lpcchMaxValueNameLenMarshal, lpcchMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegQueryInfoKey", "ptr", _hKey, lpcSubKeysMarshal, lpcSubKeys, lpcchMaxSubKeyLenMarshal, lpcchMaxSubKeyLen, lpcValuesMarshal, lpcValues, lpcchMaxValueNameLenMarshal, lpcchMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "int")
         return result
     }
 
     /**
      * Returns a copy of the security descriptor protecting the specified cluster database key.
-     * @param {HKEY} hKey Handle to a cluster database key.
+     * @param {HKEY} _hKey 
      * @param {Integer} RequestedInformation A  <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that indicates the requested security descriptor.
      * @param {Pointer} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure containing a copy of the requested security descriptor.
      * @param {Pointer<Integer>} lpcbSecurityDescriptor On input, pointer to a count of the number of bytes in the buffer pointed to by <i>pSecurityDescriptor</i>. On output, pointer to a count of the number of bytes written to the buffer.
@@ -12627,12 +12585,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterreggetkeysecurity
      * @since windowsserver2008
      */
-    static ClusterRegGetKeySecurity(hKey, RequestedInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegGetKeySecurity(_hKey, RequestedInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegGetKeySecurity", "ptr", hKey, "uint", RequestedInformation, "ptr", pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegGetKeySecurity", "ptr", _hKey, "uint", RequestedInformation, "ptr", pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "int")
         return result
     }
 
@@ -12666,7 +12624,7 @@ class Clustering {
      * <b>ClusterRegSetKeySecurity</b> can be safely 
      *      called from any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} hKey Handle to a cluster database key.
+     * @param {HKEY} _hKey 
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that 
      *        indicates the content of the security descriptor pointed to by 
      *        <i>pSecurityDescriptor</i>.
@@ -12679,41 +12637,41 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregsetkeysecurity
      * @since windowsserver2008
      */
-    static ClusterRegSetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegSetKeySecurity(_hKey, SecurityInformation, pSecurityDescriptor) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurity", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurity", "ptr", _hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
         return result
     }
 
     /**
      * 
-     * @param {HKEY} hKey 
+     * @param {HKEY} _hKey 
      * @param {Integer} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
-    static ClusterRegSetKeySecurityEx(hKey, SecurityInformation, pSecurityDescriptor, lpszReason) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegSetKeySecurityEx(_hKey, SecurityInformation, pSecurityDescriptor, lpszReason) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurityEx", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "ptr", lpszReason, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurityEx", "ptr", _hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "ptr", lpszReason, "int")
         return result
     }
 
     /**
      * Synchronizes the Cluster Database with a cluster.
-     * @param {HCLUSTER} hCluster A handle to the cluster to synchronize with the cluster database.
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} flags This parameter is reserved for future use.
      * @returns {Integer} If the operation succeeds, returns <b>ERROR_SUCCESS</b> (0); otherwise, returns a system error code.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregsyncdatabase
      * @since windowsserver2012
      */
-    static ClusterRegSyncDatabase(hCluster, flags) {
-        result := DllCall("CLUSAPI.dll\ClusterRegSyncDatabase", "ptr", hCluster, "uint", flags, "int")
+    static ClusterRegSyncDatabase(_hCluster, flags) {
+        result := DllCall("CLUSAPI.dll\ClusterRegSyncDatabase", "ptr", _hCluster, "uint", flags, "int")
         return result
     }
 
@@ -12723,8 +12681,7 @@ class Clustering {
      * The key should not be closed until the batch has been submitted for execution.
      * 
      * The <b>PCLUSTER_REG_CREATE_BATCH</b> type defines a pointer to this function.
-     * @param {HKEY} hKey The handle of the opened cluster registry key.  All the operations on the batch are relative to this cluster 
-     *        registry key.
+     * @param {HKEY} _hKey 
      * @param {Pointer<HREGBATCH>} pHREGBATCH The pointer to the handle of the created batch.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -12787,12 +12744,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatebatch
      * @since windowsserver2008
      */
-    static ClusterRegCreateBatch(hKey, pHREGBATCH) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegCreateBatch(_hKey, pHREGBATCH) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pHREGBATCHMarshal := pHREGBATCH is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", "ptr", hKey, pHREGBATCHMarshal, pHREGBATCH, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", "ptr", _hKey, pHREGBATCHMarshal, pHREGBATCH, "int")
         return result
     }
 
@@ -12800,7 +12757,7 @@ class Clustering {
      * Adds a command to a batch that will be executed on a cluster registry key.
      * @remarks
      * The <b>PCLUSTER_REG_BATCH_ADD_COMMAND</b> type defines a pointer to this function.
-     * @param {HREGBATCH} hRegBatch The handle of the batch to which a command will be added.
+     * @param {HREGBATCH} _hRegBatch 
      * @param {Integer} dwCommand A command supported by this API that is taken from the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_reg_command">CLUSTER_REG_COMMAND</a> enumeration.  The possible 
      *        commands are as follows.
@@ -12902,10 +12859,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregbatchaddcommand
      * @since windowsserver2008
      */
-    static ClusterRegBatchAddCommand(hRegBatch, dwCommand, wzName, dwOptions, lpData, cbData) {
+    static ClusterRegBatchAddCommand(_hRegBatch, dwCommand, wzName, dwOptions, lpData, cbData) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegBatchAddCommand", "ptr", hRegBatch, "int", dwCommand, "ptr", wzName, "uint", dwOptions, "ptr", lpData, "uint", cbData, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegBatchAddCommand", "ptr", _hRegBatch, "int", dwCommand, "ptr", wzName, "uint", dwOptions, "ptr", lpData, "uint", cbData, "int")
         return result
     }
 
@@ -12916,10 +12873,7 @@ class Clustering {
      *      parameter is set to –1.
      * 
      * The <b>PCLUSTER_REG_CLOSE_BATCH</b> type defines a pointer to this function.
-     * @param {HREGBATCH} hRegBatch The handle of the  cluster registry key opened by 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatch">ClusterRegCreateBatch</a>. After the completion 
-     *        of <b>ClusterRegCloseBatch</b>, this handle is no 
-     *        longer valid and memory associated with it is freed.
+     * @param {HREGBATCH} _hRegBatch 
      * @param {BOOL} bCommit If the value this parameter takes is true, then a batch is sent for execution to a cluster server.
      * @param {Pointer<Integer>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
@@ -12961,10 +12915,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosebatch
      * @since windowsserver2008
      */
-    static ClusterRegCloseBatch(hRegBatch, bCommit, failedCommandNumber) {
+    static ClusterRegCloseBatch(_hRegBatch, bCommit, failedCommandNumber) {
         failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatch", "ptr", hRegBatch, "int", bCommit, failedCommandNumberMarshal, failedCommandNumber, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatch", "ptr", _hRegBatch, "int", bCommit, failedCommandNumberMarshal, failedCommandNumber, "int")
         return result
     }
 
@@ -12973,10 +12927,7 @@ class Clustering {
      * @remarks
      * If a failure has occurred before any command was executed, the <i>failedCommandNumber</i> 
      *      parameter is set to –1.
-     * @param {HREGBATCH} hRegBatch The handle of the  cluster registry key opened by 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatch">ClusterRegCreateBatch</a>. After the completion 
-     *        of <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosebatch">ClusterRegCloseBatch</a>, this handle is no 
-     *        longer valid and memory associated with it is freed.
+     * @param {HREGBATCH} _hRegBatch 
      * @param {Integer} flags 
      * @param {Pointer<Integer>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
@@ -13018,10 +12969,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosebatchex
      * @since windowsserver2012
      */
-    static ClusterRegCloseBatchEx(hRegBatch, flags, failedCommandNumber) {
+    static ClusterRegCloseBatchEx(_hRegBatch, flags, failedCommandNumber) {
         failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatchEx", "ptr", hRegBatch, "uint", flags, failedCommandNumberMarshal, failedCommandNumber, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatchEx", "ptr", _hRegBatch, "uint", flags, failedCommandNumberMarshal, failedCommandNumber, "int")
         return result
     }
 
@@ -13096,8 +13047,7 @@ class Clustering {
      * @remarks
      * The <b>PCLUSTER_REG_CREATE_BATCH_NOTIFY_PORT</b> type defines a pointer to this 
      *      function.
-     * @param {HKEY} hKey A cluster registry key. Any updates performed at this key or keys below it will be posted to a notification 
-     *        port.
+     * @param {HKEY} _hKey 
      * @param {Pointer<HREGBATCHPORT>} phBatchNotifyPort A handle to a batch notification port that allows subsequent reading batch notifications via the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterreggetbatchnotification">ClusterRegGetBatchNotification</a> 
      *        function.
@@ -13108,12 +13058,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatebatchnotifyport
      * @since windowsserver2008
      */
-    static ClusterRegCreateBatchNotifyPort(hKey, phBatchNotifyPort) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegCreateBatchNotifyPort(_hKey, phBatchNotifyPort) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         phBatchNotifyPortMarshal := phBatchNotifyPort is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatchNotifyPort", "ptr", hKey, phBatchNotifyPortMarshal, phBatchNotifyPort, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatchNotifyPort", "ptr", _hKey, phBatchNotifyPortMarshal, phBatchNotifyPort, "int")
         return result
     }
 
@@ -13253,7 +13203,7 @@ class Clustering {
      * Add commands to the batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregreadbatchaddcommand">ClusterRegReadBatchAddCommand</a>  function. Execute the batch by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
      * 
      * Do not close the key until the read batch has been submitted for execution.
-     * @param {HKEY} hKey The handle to the opened cluster registry key. All of the operations on the batch are relative to this cluster registry key.
+     * @param {HKEY} _hKey 
      * @param {Pointer<HREGREADBATCH>} phRegReadBatch A pointer to the handle of the created read batch.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -13291,12 +13241,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatereadbatch
      * @since windowsserver2012
      */
-    static ClusterRegCreateReadBatch(hKey, phRegReadBatch) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static ClusterRegCreateReadBatch(_hKey, phRegReadBatch) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         phRegReadBatchMarshal := phRegReadBatch is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateReadBatch", "ptr", hKey, phRegReadBatchMarshal, phRegReadBatch, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateReadBatch", "ptr", _hKey, phRegReadBatchMarshal, phRegReadBatch, "int")
         return result
     }
 
@@ -13304,7 +13254,7 @@ class Clustering {
      * Adds a read command to a batch that executes on a cluster registry key.
      * @remarks
      * Additional calls to the <b>ClusterRegReadBatchAddCommand</b> function add additional read commands to the batch.
-     * @param {HREGREADBATCH} hRegReadBatch The handle of the read batch to which a command will be added. Create a batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatereadbatch">ClusterRegCreateReadBatch</a> function.
+     * @param {HREGREADBATCH} _hRegReadBatch 
      * @param {PWSTR} wzSubkeyName The name of the key relative to the cluster registry key. If this name is <b>NULL</b>, the read is performed on the cluster registry key represented in the <i>hRegReadBatch</i> parameter.
      * @param {PWSTR} wzValueName The name of the registry value to be read. If this name is <b>NULL</b>, the content of the default value is returned.
      * @returns {Integer} The function returns one of the following 
@@ -13355,11 +13305,11 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregreadbatchaddcommand
      * @since windowsserver2012
      */
-    static ClusterRegReadBatchAddCommand(hRegReadBatch, wzSubkeyName, wzValueName) {
+    static ClusterRegReadBatchAddCommand(_hRegReadBatch, wzSubkeyName, wzValueName) {
         wzSubkeyName := wzSubkeyName is String ? StrPtr(wzSubkeyName) : wzSubkeyName
         wzValueName := wzValueName is String ? StrPtr(wzValueName) : wzValueName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegReadBatchAddCommand", "ptr", hRegReadBatch, "ptr", wzSubkeyName, "ptr", wzValueName, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegReadBatchAddCommand", "ptr", _hRegReadBatch, "ptr", wzSubkeyName, "ptr", wzValueName, "int")
         return result
     }
 
@@ -13367,7 +13317,7 @@ class Clustering {
      * Executes a read batch and returns results from the read batch executions. (ClusterRegCloseReadBatch)
      * @remarks
      * Create the read batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatereadbatch">ClusterRegCreateReadBatch</a> function.
-     * @param {HREGREADBATCH} hRegReadBatch The handle of the read batch. After the <b>ClusterRegCloseReadBatch</b> function completes, this handle is no longer valid, and memory associated with it is freed.
+     * @param {HREGREADBATCH} _hRegReadBatch 
      * @param {Pointer<HREGREADBATCHREPLY>} phRegReadBatchReply A pointer to the handle of the created read batch result. You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -13417,16 +13367,16 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosereadbatch
      * @since windowsserver2012
      */
-    static ClusterRegCloseReadBatch(hRegReadBatch, phRegReadBatchReply) {
+    static ClusterRegCloseReadBatch(_hRegReadBatch, phRegReadBatchReply) {
         phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatch", "ptr", hRegReadBatch, phRegReadBatchReplyMarshal, phRegReadBatchReply, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatch", "ptr", _hRegReadBatch, phRegReadBatchReplyMarshal, phRegReadBatchReply, "int")
         return result
     }
 
     /**
      * Executes a read batch and returns results from the read batch executions. (ClusterRegCloseReadBatchEx)
-     * @param {HREGREADBATCH} hRegReadBatch The handle of the read batch. After the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function completes, this handle is no longer valid, and memory associated with it is freed.
+     * @param {HREGREADBATCH} _hRegReadBatch 
      * @param {Integer} flags The flags for the operation.
      * @param {Pointer<HREGREADBATCHREPLY>} phRegReadBatchReply A pointer to the handle of the created read batch result. You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @returns {Integer} The function returns one of the following 
@@ -13477,10 +13427,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosereadbatchex
      * @since windowsserver2016
      */
-    static ClusterRegCloseReadBatchEx(hRegReadBatch, flags, phRegReadBatchReply) {
+    static ClusterRegCloseReadBatchEx(_hRegReadBatch, flags, phRegReadBatchReply) {
         phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchEx", "ptr", hRegReadBatch, "uint", flags, phRegReadBatchReplyMarshal, phRegReadBatchReply, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchEx", "ptr", _hRegReadBatch, "uint", flags, phRegReadBatchReplyMarshal, phRegReadBatchReply, "int")
         return result
     }
 
@@ -13488,7 +13438,7 @@ class Clustering {
      * Reads the next command from a read batch result.
      * @remarks
      * The number of records in the read batch results is equal to the number of commands in the read batch. Also, the results are in the same order as the commands that were added to the read batch.
-     * @param {HREGREADBATCHREPLY} hRegReadBatchReply A handle to a read batch result that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.  You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
+     * @param {HREGREADBATCHREPLY} _hRegReadBatchReply 
      * @param {Pointer<CLUSTER_READ_BATCH_COMMAND>} pBatchCommand A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-cluster_read_batch_command">CLUSTER_READ_BATCH_COMMAND</a> structure that contains information about the read command.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -13538,8 +13488,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregreadbatchreplynextcommand
      * @since windowsserver2012
      */
-    static ClusterRegReadBatchReplyNextCommand(hRegReadBatchReply, pBatchCommand) {
-        result := DllCall("CLUSAPI.dll\ClusterRegReadBatchReplyNextCommand", "ptr", hRegReadBatchReply, "ptr", pBatchCommand, "int")
+    static ClusterRegReadBatchReplyNextCommand(_hRegReadBatchReply, pBatchCommand) {
+        result := DllCall("CLUSAPI.dll\ClusterRegReadBatchReplyNextCommand", "ptr", _hRegReadBatchReply, "ptr", pBatchCommand, "int")
         return result
     }
 
@@ -13547,7 +13497,7 @@ class Clustering {
      * Closes a read batch result handle and frees the memory associated with it.
      * @remarks
      * Call the <b>ClusterRegCloseReadBatchReply</b> function to close a read batch result that was created by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
-     * @param {HREGREADBATCHREPLY} hRegReadBatchReply A handle to a read batch result that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
+     * @param {HREGREADBATCHREPLY} _hRegReadBatchReply 
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
@@ -13584,14 +13534,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosereadbatchreply
      * @since windowsserver2012
      */
-    static ClusterRegCloseReadBatchReply(hRegReadBatchReply) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchReply", "ptr", hRegReadBatchReply, "int")
+    static ClusterRegCloseReadBatchReply(_hRegReadBatchReply) {
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchReply", "ptr", _hRegReadBatchReply, "int")
         return result
     }
 
     /**
      * Updates an account access list (ACL) for a cluster.
-     * @param {HCLUSTER} hCluster A handle to the cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} szAccountSID The security identifier (SID) or the account name for the new account access entry (ACE).
      * @param {Integer} dwAccess The access rights controlled by the ACE.
      * 
@@ -13608,10 +13558,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustersetaccountaccess
      * @since windowsserver2016
      */
-    static ClusterSetAccountAccess(hCluster, szAccountSID, dwAccess, dwControlType) {
+    static ClusterSetAccountAccess(_hCluster, szAccountSID, dwAccess, dwControlType) {
         szAccountSID := szAccountSID is String ? StrPtr(szAccountSID) : szAccountSID
 
-        result := DllCall("CLUSAPI.dll\ClusterSetAccountAccess", "ptr", hCluster, "ptr", szAccountSID, "uint", dwAccess, "uint", dwControlType, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterSetAccountAccess", "ptr", _hCluster, "ptr", szAccountSID, "uint", dwAccess, "uint", dwControlType, "uint")
         return result
     }
 
@@ -13690,7 +13640,7 @@ class Clustering {
 
     /**
      * Creates a cluster name resource and then uses it add a cluster to a domain, even if the machines that host the cluster aren't members of the domain.
-     * @param {HCLUSTER} hCluster A handle to the cluster to add the cluster name resource to.
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<CREATE_CLUSTER_NAME_ACCOUNT>} pConfig A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-create_cluster_name_account">CREATE_CLUSTER_NAME_ACCOUNT</a> structure that contains the information about the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">cluster name</a> resource to create, and the domain credentials to use.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">ClusterSetupProgressCallback</a> callback function that receives the status of updates to the cluster.
      * @param {Pointer<Void>} pvCallbackArg Callback function arguments for the <i>pfnProgressCallback</i> parameter.
@@ -13698,36 +13648,36 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusternameaccount
      * @since windowsserver2016
      */
-    static CreateClusterNameAccount(hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
+    static CreateClusterNameAccount(_hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", "ptr", hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
+        result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", "ptr", _hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {BOOL} bDeleteComputerObjects 
      * @returns {Integer} 
      */
-    static RemoveClusterNameAccount(hCluster, bDeleteComputerObjects) {
-        result := DllCall("CLUSAPI.dll\RemoveClusterNameAccount", "ptr", hCluster, "int", bDeleteComputerObjects, "uint")
+    static RemoveClusterNameAccount(_hCluster, bDeleteComputerObjects) {
+        result := DllCall("CLUSAPI.dll\RemoveClusterNameAccount", "ptr", _hCluster, "int", bDeleteComputerObjects, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG>} pConfig 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
      * @param {Pointer<Void>} pvCallbackArg 
      * @returns {Integer} 
      */
-    static RepairClusterNameAccount(hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
+    static RepairClusterNameAccount(_hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", "ptr", hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
+        result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", "ptr", _hCluster, "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "uint")
         return result
     }
 
@@ -13748,14 +13698,14 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<Integer>} pCNOResType 
      * @returns {Integer} 
      */
-    static DetermineCNOResTypeFromCluster(hCluster, pCNOResType) {
+    static DetermineCNOResTypeFromCluster(_hCluster, pCNOResType) {
         pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromCluster", "ptr", hCluster, pCNOResTypeMarshal, pCNOResType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromCluster", "ptr", _hCluster, pCNOResTypeMarshal, pCNOResType, "uint")
         return result
     }
 
@@ -13776,14 +13726,14 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<Integer>} pCloudType 
      * @returns {Integer} 
      */
-    static DetermineClusterCloudTypeFromCluster(hCluster, pCloudType) {
+    static DetermineClusterCloudTypeFromCluster(_hCluster, pCloudType) {
         pCloudTypeMarshal := pCloudType is VarRef ? "int*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromCluster", "ptr", hCluster, pCloudTypeMarshal, pCloudType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromCluster", "ptr", _hCluster, pCloudTypeMarshal, pCloudType, "uint")
         return result
     }
 
@@ -13804,8 +13754,8 @@ class Clustering {
 
     /**
      * Adds a notification type to a cluster notification port.
-     * @param {HCHANGE} hChange A handle to the notification port.
-     * @param {HCLUSTER} hCluster A handle to the cluster object.
+     * @param {HCHANGE} _hChange 
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} Flags A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_change_resource_type_v2">CLUSTER_CHANGE_RESOURCE_TYPE_V2</a> enumeration value that specifies the notification type to add.
      * @param {PWSTR} resTypeName A pointer to a null-terminated Unicode string that contains the name of the resource type.
      * @param {Pointer} dwNotifyKey The notification key that is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternotifyv2">GetClusterNotifyV2</a> function when the event occurs.
@@ -13813,10 +13763,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-registerclusterresourcetypenotifyv2
      * @since windowsserver2016
      */
-    static RegisterClusterResourceTypeNotifyV2(hChange, hCluster, Flags, resTypeName, dwNotifyKey) {
+    static RegisterClusterResourceTypeNotifyV2(_hChange, _hCluster, Flags, resTypeName, dwNotifyKey) {
         resTypeName := resTypeName is String ? StrPtr(resTypeName) : resTypeName
 
-        result := DllCall("CLUSAPI.dll\RegisterClusterResourceTypeNotifyV2", "ptr", hChange, "ptr", hCluster, "int64", Flags, "ptr", resTypeName, "ptr", dwNotifyKey, "uint")
+        result := DllCall("CLUSAPI.dll\RegisterClusterResourceTypeNotifyV2", "ptr", _hChange, "ptr", _hCluster, "int64", Flags, "ptr", resTypeName, "ptr", dwNotifyKey, "uint")
         return result
     }
 
@@ -13827,8 +13777,7 @@ class Clustering {
      *      completes, at least 30 seconds should be allowed before the 
      *      <b>AddClusterNode</b> function is called to add additional 
      *      nodes.
-     * @param {HCLUSTER} hCluster Handle to a cluster, returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName Name of the computer to add to the cluster.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback Optional address to a 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">PCLUSTER_SETUP_PROGRESS_CALLBACK</a> 
@@ -13840,14 +13789,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclusternode
      * @since windowsserver2008
      */
-    static AddClusterNode(hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg) {
+    static AddClusterNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\AddClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
+        result := DllCall("CLUSAPI.dll\AddClusterNode", "ptr", _hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -13857,7 +13806,7 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
      * @param {Pointer<Void>} pvCallbackArg 
@@ -13865,47 +13814,47 @@ class Clustering {
      * @param {PWSTR} lpszClusterStorageNodeLocation 
      * @returns {Integer} 
      */
-    static AddClusterStorageNode(hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg, lpszClusterStorageNodeDescription, lpszClusterStorageNodeLocation) {
+    static AddClusterStorageNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg, lpszClusterStorageNodeDescription, lpszClusterStorageNodeLocation) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
         lpszClusterStorageNodeDescription := lpszClusterStorageNodeDescription is String ? StrPtr(lpszClusterStorageNodeDescription) : lpszClusterStorageNodeDescription
         lpszClusterStorageNodeLocation := lpszClusterStorageNodeLocation is String ? StrPtr(lpszClusterStorageNodeLocation) : lpszClusterStorageNodeLocation
 
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\AddClusterStorageNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr", lpszClusterStorageNodeDescription, "ptr", lpszClusterStorageNodeLocation, "uint")
+        result := DllCall("CLUSAPI.dll\AddClusterStorageNode", "ptr", _hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr", lpszClusterStorageNodeDescription, "ptr", lpszClusterStorageNodeLocation, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @param {Integer} dwFlags 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
      * @param {Pointer<Void>} pvCallbackArg 
      * @returns {HNODE} 
      */
-    static AddClusterNodeEx(hCluster, lpszNodeName, dwFlags, pfnProgressCallback, pvCallbackArg) {
+    static AddClusterNodeEx(_hCluster, lpszNodeName, dwFlags, pfnProgressCallback, pvCallbackArg) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\AddClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwFlags, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
+        result := DllCall("CLUSAPI.dll\AddClusterNodeEx", "ptr", _hCluster, "ptr", lpszNodeName, "uint", dwFlags, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszClusterStorageEnclosureName 
      * @param {Integer} dwTimeout 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
-    static RemoveClusterStorageNode(hCluster, lpszClusterStorageEnclosureName, dwTimeout, dwFlags) {
+    static RemoveClusterStorageNode(_hCluster, lpszClusterStorageEnclosureName, dwTimeout, dwFlags) {
         lpszClusterStorageEnclosureName := lpszClusterStorageEnclosureName is String ? StrPtr(lpszClusterStorageEnclosureName) : lpszClusterStorageEnclosureName
 
-        result := DllCall("CLUSAPI.dll\RemoveClusterStorageNode", "ptr", hCluster, "ptr", lpszClusterStorageEnclosureName, "uint", dwTimeout, "uint", dwFlags, "uint")
+        result := DllCall("CLUSAPI.dll\RemoveClusterStorageNode", "ptr", _hCluster, "ptr", lpszClusterStorageEnclosureName, "uint", dwTimeout, "uint", dwFlags, "uint")
         return result
     }
 
@@ -13915,8 +13864,7 @@ class Clustering {
      * It is possible for multiple steps to fail when removing a cluster with 
      *     <b>DestroyCluster</b>, but only one error code can be 
      *     returned. The cluster error log should be reviewed if an error is returned.
-     * @param {HCLUSTER} hCluster Handle to a cluster, returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback Address of callback function that matches the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">PCLUSTER_SETUP_PROGRESS_CALLBACK</a> 
      *       function pointer that will be called periodically to provide progress on the cluster destruction.
@@ -13928,10 +13876,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-destroycluster
      * @since windowsserver2008
      */
-    static DestroyCluster(hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
+    static DestroyCluster(_hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
         pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\DestroyCluster", "ptr", hCluster, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "int", fdeleteVirtualComputerObjects, "uint")
+        result := DllCall("CLUSAPI.dll\DestroyCluster", "ptr", _hCluster, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "int", fdeleteVirtualComputerObjects, "uint")
         return result
     }
 
@@ -13981,42 +13929,42 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} objects 
      * @param {Integer} flags 
      * @returns {Integer} 
      * @since windowsserver2016
      */
-    static ClusGetClusterHealthFaults(hCluster, objects, flags) {
-        result := DllCall("RESUTILS.dll\ClusGetClusterHealthFaults", "ptr", hCluster, "ptr", objects, "uint", flags, "uint")
+    static ClusGetClusterHealthFaults(_hCluster, objects, flags) {
+        result := DllCall("RESUTILS.dll\ClusGetClusterHealthFaults", "ptr", _hCluster, "ptr", objects, "uint", flags, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} id 
      * @param {Integer} flags 
      * @returns {Integer} 
      * @since windowsserver2016
      */
-    static ClusRemoveClusterHealthFault(hCluster, id, flags) {
+    static ClusRemoveClusterHealthFault(_hCluster, id, flags) {
         id := id is String ? StrPtr(id) : id
 
-        result := DllCall("RESUTILS.dll\ClusRemoveClusterHealthFault", "ptr", hCluster, "ptr", id, "uint", flags, "uint")
+        result := DllCall("RESUTILS.dll\ClusRemoveClusterHealthFault", "ptr", _hCluster, "ptr", id, "uint", flags, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<CLUSTER_HEALTH_FAULT>} failure 
      * @param {Integer} param2 
      * @returns {Integer} 
      * @since windowsserver2016
      */
-    static ClusAddClusterHealthFault(hCluster, failure, param2) {
-        result := DllCall("RESUTILS.dll\ClusAddClusterHealthFault", "ptr", hCluster, "ptr", failure, "uint", param2, "uint")
+    static ClusAddClusterHealthFault(_hCluster, failure, param2) {
+        result := DllCall("RESUTILS.dll\ClusAddClusterHealthFault", "ptr", _hCluster, "ptr", failure, "uint", param2, "uint")
         return result
     }
 
@@ -15970,7 +15918,7 @@ class Clustering {
     /**
      * Sets a value in the cluster database.
      * @param {HKEY} hkeyClusterKey A key that identifies the location of the value in the cluster database.
-     * @param {PWSTR} valueName A Null-terminated Unicode string that contains the name of the value to update.
+     * @param {PWSTR} _valueName 
      * @param {Integer} valueType A flag that indicates the type of the value to update.
      * @param {Pointer} valueData A pointer to the new data for the value.
      * @param {Integer} valueSize The size of the new value, in bytes.
@@ -15979,11 +15927,11 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetvalueex
      * @since windowsserver2012
      */
-    static ResUtilSetValueEx(hkeyClusterKey, valueName, valueType, valueData, valueSize, flags) {
+    static ResUtilSetValueEx(hkeyClusterKey, _valueName, valueType, valueData, valueSize, flags) {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
-        valueName := valueName is String ? StrPtr(valueName) : valueName
+        _valueName := _valueName is String ? StrPtr(_valueName) : _valueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetValueEx", "ptr", hkeyClusterKey, "ptr", valueName, "uint", valueType, "ptr", valueData, "uint", valueSize, "uint", flags, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetValueEx", "ptr", hkeyClusterKey, "ptr", _valueName, "uint", valueType, "ptr", valueData, "uint", valueSize, "uint", flags, "uint")
         return result
     }
 
@@ -16236,7 +16184,7 @@ class Clustering {
      * Use  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilfreeenvironment">ResUtilFreeEnvironment</a> to destroy the environment block.
      * 
      * Do not call  <b>ResUtilGetEnvironmentWithNetName</b> from any resource DLL entry point function.  <b>ResUtilGetEnvironmentWithNetName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} hResource Handle to a resource that depends on a Network Name resource.
+     * @param {HRESOURCE} _hResource 
      * @returns {Pointer<Void>} If the operations succeeds, the function returns a pointer to the environment block.
      * 
      * If the operation fails, 
@@ -16244,10 +16192,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetenvironmentwithnetname
      * @since windowsserver2008
      */
-    static ResUtilGetEnvironmentWithNetName(hResource) {
+    static ResUtilGetEnvironmentWithNetName(_hResource) {
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", hResource, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", _hResource, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -16301,7 +16249,7 @@ class Clustering {
      * 
      * Do not call  <b>ResUtilSetResourceServiceEnvironment</b> from any resource DLL entry point function.  <b>ResUtilSetResourceServiceEnvironment</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {PWSTR} pszServiceName Pointer a null-terminated Unicode string containing the name of the service.
-     * @param {HRESOURCE} hResource Resource handle for the service obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>.
+     * @param {HRESOURCE} _hResource 
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function of the resource DLL managing the service.
      * @param {Pointer} hResourceHandle Resource handle required by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function. Use the handle passed to the DLL in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -16311,10 +16259,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetresourceserviceenvironment
      * @since windowsserver2008
      */
-    static ResUtilSetResourceServiceEnvironment(pszServiceName, hResource, pfnLogEvent, hResourceHandle) {
+    static ResUtilSetResourceServiceEnvironment(pszServiceName, _hResource, pfnLogEvent, hResourceHandle) {
         pszServiceName := pszServiceName is String ? StrPtr(pszServiceName) : pszServiceName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceEnvironment", "ptr", pszServiceName, "ptr", hResource, "ptr", pfnLogEvent, "ptr", hResourceHandle, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetResourceServiceEnvironment", "ptr", pszServiceName, "ptr", _hResource, "ptr", pfnLogEvent, "ptr", hResourceHandle, "uint")
         return result
     }
 
@@ -17017,7 +16965,7 @@ class Clustering {
      * 
      * Do not pass LPC and RPC handles in the same function call. If you do, the call will raise an RPC exception and can result in additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hSelf Handle to one of the resources.
-     * @param {HRESOURCE} hResource Handle to the other resource.
+     * @param {HRESOURCE} _hResource 
      * @returns {BOOL} If the resources are equal, the function returns <b>TRUE</b>.
      * 
      * If the resources are not equal, 
@@ -17025,8 +16973,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilresourcesequal
      * @since windowsserver2008
      */
-    static ResUtilResourcesEqual(hSelf, hResource) {
-        result := DllCall("RESUTILS.dll\ResUtilResourcesEqual", "ptr", hSelf, "ptr", hResource, "int")
+    static ResUtilResourcesEqual(hSelf, _hResource) {
+        result := DllCall("RESUTILS.dll\ResUtilResourcesEqual", "ptr", hSelf, "ptr", _hResource, "int")
         return result
     }
 
@@ -17035,7 +16983,7 @@ class Clustering {
      * @remarks
      * The  <b>ResUtilResourceTypesEqual</b> utility function compares the resource type name pointed to by <i>lpszResourceTypeName</i> with the resource type name of the resource identified by <i>hResource</i>. To perform the comparison,  <b>ResUtilResourceTypesEqual</b> passes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-get-resource-type">CLUSCTL_RESOURCE_GET_RESOURCE_TYPE</a> control code to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> function to retrieve the resource type. If the two resource type names are the same, the resource types are equal. Note that  <b>ResUtilResourceTypesEqual</b> compares the resource type name and not the resource type  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a>.
      * @param {PWSTR} lpszResourceTypeName Pointer to the resource type name to test.
-     * @param {HRESOURCE} hResource Handle of the resource to test.
+     * @param {HRESOURCE} _hResource 
      * @returns {BOOL} If the resource types are equal, the function returns <b>TRUE</b>.
      * 
      * If the resource types are not equal, 
@@ -17043,17 +16991,17 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilresourcetypesequal
      * @since windowsserver2008
      */
-    static ResUtilResourceTypesEqual(lpszResourceTypeName, hResource) {
+    static ResUtilResourceTypesEqual(lpszResourceTypeName, _hResource) {
         lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-        result := DllCall("RESUTILS.dll\ResUtilResourceTypesEqual", "ptr", lpszResourceTypeName, "ptr", hResource, "int")
+        result := DllCall("RESUTILS.dll\ResUtilResourceTypesEqual", "ptr", lpszResourceTypeName, "ptr", _hResource, "int")
         return result
     }
 
     /**
      * Tests whether the resource class of a specified resource is equal to a specified resource class. The PRESUTIL_IS_RESOURCE_CLASS_EQUAL type defines a pointer to this function.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure describing the resource class.
-     * @param {HRESOURCE} hResource Handle to the resource whose class is to be compared to <i>prci</i>.
+     * @param {HRESOURCE} _hResource 
      * @returns {BOOL} If the resource classes are equal, the function returns <b>TRUE</b>.
      * 
      * If the resource classes are not equal, 
@@ -17061,8 +17009,8 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilisresourceclassequal
      * @since windowsserver2008
      */
-    static ResUtilIsResourceClassEqual(prci, hResource) {
-        result := DllCall("RESUTILS.dll\ResUtilIsResourceClassEqual", "ptr", prci, "ptr", hResource, "int")
+    static ResUtilIsResourceClassEqual(prci, _hResource) {
+        result := DllCall("RESUTILS.dll\ResUtilIsResourceClassEqual", "ptr", prci, "ptr", _hResource, "int")
         return result
     }
 
@@ -17141,7 +17089,7 @@ class Clustering {
      * <b>ResUtilEnumResourcesEx</b> is a convenient and 
      *      easy-to-use alternative to the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> function.
-     * @param {HCLUSTER} hCluster A handle to the cluster that contains  the resources to enumerate.
+     * @param {HCLUSTER} _hCluster 
      * @param {HRESOURCE} hSelf An optional handle to a cluster resource. The callback function is not invoked for a resource that is  identified by 
      *        <i>hSelf</i>.
      * @param {PWSTR} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
@@ -17172,12 +17120,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilenumresourcesex
      * @since windowsserver2008
      */
-    static ResUtilEnumResourcesEx(hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter) {
+    static ResUtilEnumResourcesEx(_hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter) {
         lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx", "ptr", _hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -17290,7 +17238,7 @@ class Clustering {
      *  
      * 
      * Do not call  <b>ResUtilGetResourceDependencyByName</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HCLUSTER} hCluster Handle to the cluster to which the resource belongs.
+     * @param {HCLUSTER} _hCluster 
      * @param {HANDLE} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {PWSTR} lpszResourceType NULL-terminated Unicode string specifying the resource type of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -17326,13 +17274,13 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybyname
      * @since windowsserver2008
      */
-    static ResUtilGetResourceDependencyByName(hCluster, hSelf, lpszResourceType, bRecurse) {
+    static ResUtilGetResourceDependencyByName(_hCluster, hSelf, lpszResourceType, bRecurse) {
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
         lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByName", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByName", "ptr", _hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17344,7 +17292,7 @@ class Clustering {
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency that matches a specified resource class. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS type defines a pointer to this function.
      * @remarks
      * Do not call  <b>ResUtilGetResourceDependencyByClass</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByClass</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HCLUSTER} hCluster Handle to the cluster to which the resource belongs.
+     * @param {HCLUSTER} _hCluster 
      * @param {HANDLE} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure describing the resource class of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -17355,12 +17303,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybyclass
      * @since windowsserver2008
      */
-    static ResUtilGetResourceDependencyByClass(hCluster, hSelf, prci, bRecurse) {
+    static ResUtilGetResourceDependencyByClass(_hCluster, hSelf, prci, bRecurse) {
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClass", "ptr", hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClass", "ptr", _hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17444,7 +17392,7 @@ class Clustering {
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-address">IP Address</a> resource), 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-address">IPv6 Address</a> resources, or 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-tunnel-address">IPv6 Tunnel Address</a> resources.
-     * @param {HRESOURCE} hResource Handle to the resource to query for dependencies.
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} pszAddress Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-address">Address</a> private property.
      * @param {Pointer<Integer>} pcchAddress On input, specifies the size of the <i>pszAddress</i> buffer as a count of 
@@ -17513,7 +17461,7 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependentipaddressprops
      * @since windowsserver2008
      */
-    static ResUtilGetResourceDependentIPAddressProps(hResource, pszAddress, pcchAddress, pszSubnetMask, pcchSubnetMask, pszNetwork, pcchNetwork) {
+    static ResUtilGetResourceDependentIPAddressProps(_hResource, pszAddress, pcchAddress, pszSubnetMask, pcchSubnetMask, pszNetwork, pcchNetwork) {
         pszAddress := pszAddress is String ? StrPtr(pszAddress) : pszAddress
         pszSubnetMask := pszSubnetMask is String ? StrPtr(pszSubnetMask) : pszSubnetMask
         pszNetwork := pszNetwork is String ? StrPtr(pszNetwork) : pszNetwork
@@ -17522,7 +17470,7 @@ class Clustering {
         pcchSubnetMaskMarshal := pcchSubnetMask is VarRef ? "uint*" : "ptr"
         pcchNetworkMarshal := pcchNetwork is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependentIPAddressProps", "ptr", hResource, "ptr", pszAddress, pcchAddressMarshal, pcchAddress, "ptr", pszSubnetMask, pcchSubnetMaskMarshal, pcchSubnetMask, "ptr", pszNetwork, pcchNetworkMarshal, pcchNetwork, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependentIPAddressProps", "ptr", _hResource, "ptr", pszAddress, pcchAddressMarshal, pcchAddress, "ptr", pszSubnetMask, pcchSubnetMaskMarshal, pcchSubnetMask, "ptr", pszNetwork, pcchNetworkMarshal, pcchNetwork, "uint")
         return result
     }
 
@@ -17536,8 +17484,8 @@ class Clustering {
      * If the resource identified by hResource depends on more than one Physical Disk resource, 
      *      <b>ResUtilFindDependentDiskResourceDriveLetter</b> 
      *      returns the drive letter of the first Physical Disk dependency that is enumerated for the resource.
-     * @param {HCLUSTER} hCluster Cluster handle.
-     * @param {HRESOURCE} hResource Handle to the resource to query for dependencies.
+     * @param {HCLUSTER} _hCluster 
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} pszDriveLetter Buffer in which to store the drive letter.
      * @param {Pointer<Integer>} pcchDriveLetter On input, specifies the size of the <i>pszDriveLetter</i> buffer as a count of 
      *        <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
@@ -17591,14 +17539,14 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfinddependentdiskresourcedriveletter
      * @since windowsserver2008
      */
-    static ResUtilFindDependentDiskResourceDriveLetter(hCluster, hResource, pszDriveLetter, pcchDriveLetter) {
+    static ResUtilFindDependentDiskResourceDriveLetter(_hCluster, _hResource, pszDriveLetter, pcchDriveLetter) {
         pszDriveLetter := pszDriveLetter is String ? StrPtr(pszDriveLetter) : pszDriveLetter
 
         pcchDriveLetterMarshal := pcchDriveLetter is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", hCluster, "ptr", hResource, "ptr", pszDriveLetter, pcchDriveLetterMarshal, pcchDriveLetter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", _hCluster, "ptr", _hResource, "ptr", pszDriveLetter, pcchDriveLetterMarshal, pcchDriveLetter, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -17674,7 +17622,7 @@ class Clustering {
 
     /**
      * Returns handles to the core Network Name, IP Address and quorum resources. The PRESUTIL_GET_CORE_CLUSTER_RESOURCES type defines a pointer to this function.
-     * @param {HCLUSTER} hCluster Cluster handle (see <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>).
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<HRESOURCE>} phClusterNameResource Pointer to a resource handle to the core 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource for the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>, which stores the cluster name.
@@ -17688,19 +17636,18 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetcoreclusterresources
      * @since windowsserver2008
      */
-    static ResUtilGetCoreClusterResources(hCluster, phClusterNameResource, phClusterIPAddressResource, phClusterQuorumResource) {
+    static ResUtilGetCoreClusterResources(_hCluster, phClusterNameResource, phClusterIPAddressResource, phClusterQuorumResource) {
         phClusterNameResourceMarshal := phClusterNameResource is VarRef ? "ptr*" : "ptr"
         phClusterIPAddressResourceMarshal := phClusterIPAddressResource is VarRef ? "ptr*" : "ptr"
         phClusterQuorumResourceMarshal := phClusterQuorumResource is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResources", "ptr", hCluster, phClusterNameResourceMarshal, phClusterNameResource, phClusterIPAddressResourceMarshal, phClusterIPAddressResource, phClusterQuorumResourceMarshal, phClusterQuorumResource, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResources", "ptr", _hCluster, phClusterNameResourceMarshal, phClusterNameResource, phClusterIPAddressResourceMarshal, phClusterIPAddressResource, phClusterQuorumResourceMarshal, phClusterQuorumResource, "uint")
         return result
     }
 
     /**
      * Returns the name of a resource. The PRESUTIL_GET_RESOURCE_NAME type defines a pointer to this function.
-     * @param {HRESOURCE} hResource Resource handle (see 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>).
+     * @param {HRESOURCE} _hResource 
      * @param {PWSTR} pszResourceName Pointer to a buffer that receives the resource name.
      * @param {Pointer<Integer>} pcchResourceNameInOut On input, specifies the size of the buffer pointed to by <i>pszResourceName</i>, in wide 
      *       characters. On output, specifies the actual size of the resource name returned as a count of wide 
@@ -17712,18 +17659,18 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcename
      * @since windowsserver2008
      */
-    static ResUtilGetResourceName(hResource, pszResourceName, pcchResourceNameInOut) {
+    static ResUtilGetResourceName(_hResource, pszResourceName, pcchResourceNameInOut) {
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
         pcchResourceNameInOutMarshal := pcchResourceNameInOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceName", "ptr", hResource, "ptr", pszResourceName, pcchResourceNameInOutMarshal, pcchResourceNameInOut, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceName", "ptr", _hResource, "ptr", pszResourceName, pcchResourceNameInOutMarshal, pcchResourceNameInOut, "uint")
         return result
     }
 
     /**
      * Determines whether or not a specific role has been assigned to a cluster.
-     * @param {HCLUSTER} hCluster The handle of the queried cluster.
+     * @param {HCLUSTER} _hCluster 
      * @param {Integer} eClusterRole The role the cluster was queried about.  The possible values for this parameter are enumerators from the <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role">CLUSTER_ROLE</a> enumeration.  The following values are valid.
      * @returns {Integer} The possible return values for this function are enumerators from the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
      * 
@@ -17772,10 +17719,10 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetclusterrolestate
      * @since windowsserver2008
      */
-    static ResUtilGetClusterRoleState(hCluster, eClusterRole) {
+    static ResUtilGetClusterRoleState(_hCluster, eClusterRole) {
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", hCluster, "int", eClusterRole, "int")
+        result := DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", _hCluster, "int", eClusterRole, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18133,7 +18080,7 @@ class Clustering {
 
     /**
      * Enumerates all of the resources in a specified cluster and initiates a user-defined operation for each resource. The PRESUTIL_ENUM_RESOURCES_EX2 type defines a pointer to this function.
-     * @param {HCLUSTER} hCluster A handle to the cluster that contains the resources to enumerate.
+     * @param {HCLUSTER} _hCluster 
      * @param {HRESOURCE} hSelf An optional handle to a cluster resource. The callback function is not invoked for a resource identified by 
      *        <i>hSelf</i>.
      * @param {PWSTR} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
@@ -18165,12 +18112,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilenumresourcesex2
      * @since windowsserver2012
      */
-    static ResUtilEnumResourcesEx2(hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter, dwDesiredAccess) {
+    static ResUtilEnumResourcesEx2(_hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter, dwDesiredAccess) {
         lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx2", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint", dwDesiredAccess, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx2", "ptr", _hCluster, "ptr", hSelf, "ptr", lpszResTypeName, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint", dwDesiredAccess, "uint")
         return result
     }
 
@@ -18203,7 +18150,7 @@ class Clustering {
 
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency of a specified type. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_NAME_EX type defines a pointer to this function.
-     * @param {HCLUSTER} hCluster A handle to the cluster to which the resource belongs.
+     * @param {HCLUSTER} _hCluster 
      * @param {HANDLE} hSelf A handle to the dependent resource. This resource depends on one or more resources.
      * @param {PWSTR} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -18240,13 +18187,13 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybynameex
      * @since windowsserver2012
      */
-    static ResUtilGetResourceDependencyByNameEx(hCluster, hSelf, lpszResourceType, bRecurse, dwDesiredAccess) {
+    static ResUtilGetResourceDependencyByNameEx(_hCluster, hSelf, lpszResourceType, bRecurse, dwDesiredAccess) {
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
         lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByNameEx", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByNameEx", "ptr", _hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18256,7 +18203,7 @@ class Clustering {
 
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency that matches a specified resource class. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS_EX type defines a pointer to this function.
-     * @param {HCLUSTER} hCluster A handle to the cluster to which the resource belongs.
+     * @param {HCLUSTER} _hCluster 
      * @param {HANDLE} hSelf A handle to the dependent resource. This resource depends on one or more resources.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci A pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">PCLUS_RESOURCE_CLASS_INFO</a> structure that describes  the resource class of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -18268,12 +18215,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybyclassex
      * @since windowsserver2012
      */
-    static ResUtilGetResourceDependencyByClassEx(hCluster, hSelf, prci, bRecurse, dwDesiredAccess) {
+    static ResUtilGetResourceDependencyByClassEx(_hCluster, hSelf, prci, bRecurse, dwDesiredAccess) {
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClassEx", "ptr", hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClassEx", "ptr", _hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18371,19 +18318,19 @@ class Clustering {
 
     /**
      * Closes a handle to a Cryptographic Service Provider (CSP). The PCLOSE_CLUSTER_CRYPT_PROVIDER type defines a pointer to this function.
-     * @param {HCLUSCRYPTPROVIDER} hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to a CSP.
+     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
      * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-closeclustercryptprovider
      * @since windowsserver2012
      */
-    static CloseClusterCryptProvider(hClusCryptProvider) {
-        result := DllCall("RESUTILS.dll\CloseClusterCryptProvider", "ptr", hClusCryptProvider, "uint")
+    static CloseClusterCryptProvider(_hClusCryptProvider) {
+        result := DllCall("RESUTILS.dll\CloseClusterCryptProvider", "ptr", _hClusCryptProvider, "uint")
         return result
     }
 
     /**
      * Encrypts Checkpointing data for a Cryptographic Service Provider (CSP).
-     * @param {HCLUSCRYPTPROVIDER} hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to the CSP.
+     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
      * @param {Pointer<Integer>} pData A pointer to the data to encrypt.
      * @param {Integer} cbData The total number of bytes in the data pointed to by the <i>pDta</i> parameter.
      * @param {Pointer<Pointer<Integer>>} ppData A pointer to a buffer that receives the encrypted data.
@@ -18392,18 +18339,18 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterencrypt
      * @since windowsserver2012
      */
-    static ClusterEncrypt(hClusCryptProvider, pData, cbData, ppData, pcbData) {
+    static ClusterEncrypt(_hClusCryptProvider, pData, cbData, ppData, pcbData) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, pDataMarshal, pData, "uint", cbData, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", _hClusCryptProvider, pDataMarshal, pData, "uint", cbData, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
     /**
      * Decrypts Checkpointing data for a Cryptographic Service Provider (CSP).
-     * @param {HCLUSCRYPTPROVIDER} hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to the CSP.
+     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
      * @param {Pointer<Integer>} pCryptInput A pointer to the data to decrypt.
      * @param {Integer} cbCryptInput The total number of bytes in the data pointed to by the <i>pCryptInput</i> parameter.
      * @param {Pointer<Pointer<Integer>>} ppCryptOutput A pointer to a buffer that receives the decrypted data.
@@ -18412,12 +18359,12 @@ class Clustering {
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterdecrypt
      * @since windowsserver2012
      */
-    static ClusterDecrypt(hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
+    static ClusterDecrypt(_hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
         pCryptInputMarshal := pCryptInput is VarRef ? "char*" : "ptr"
         ppCryptOutputMarshal := ppCryptOutput is VarRef ? "ptr*" : "ptr"
         pcbCryptOutputMarshal := pcbCryptOutput is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, pCryptInputMarshal, pCryptInput, "uint", cbCryptInput, ppCryptOutputMarshal, ppCryptOutput, pcbCryptOutputMarshal, pcbCryptOutput, "uint")
+        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", _hClusCryptProvider, pCryptInputMarshal, pCryptInput, "uint", cbCryptInput, ppCryptOutputMarshal, ppCryptOutput, pcbCryptOutputMarshal, pcbCryptOutput, "uint")
         return result
     }
 
@@ -18492,45 +18439,45 @@ class Clustering {
     /**
      * 
      * @param {HGROUP} hSelf 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {Pointer<BOOL>} pEqual 
      * @returns {Integer} 
      */
-    static ResUtilGroupsEqual(hSelf, hGroup, pEqual) {
+    static ResUtilGroupsEqual(hSelf, _hGroup, pEqual) {
         pEqualMarshal := pEqual is VarRef ? "int*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGroupsEqual", "ptr", hSelf, "ptr", hGroup, pEqualMarshal, pEqual, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGroupsEqual", "ptr", hSelf, "ptr", _hGroup, pEqualMarshal, pEqual, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {HGROUP} hSelf 
      * @param {Pointer<LPGROUP_CALLBACK_EX>} pResCallBack 
      * @param {Pointer<Void>} pParameter 
      * @returns {Integer} 
      */
-    static ResUtilEnumGroups(hCluster, hSelf, pResCallBack, pParameter) {
+    static ResUtilEnumGroups(_hCluster, hSelf, pResCallBack, pParameter) {
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumGroups", "ptr", hCluster, "ptr", hSelf, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilEnumGroups", "ptr", _hCluster, "ptr", hSelf, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {HGROUP} hSelf 
      * @param {Integer} groupType 
      * @param {Pointer<LPGROUP_CALLBACK_EX>} pResCallBack 
      * @param {Pointer<Void>} pParameter 
      * @returns {Integer} 
      */
-    static ResUtilEnumGroupsEx(hCluster, hSelf, groupType, pResCallBack, pParameter) {
+    static ResUtilEnumGroupsEx(_hCluster, hSelf, groupType, pResCallBack, pParameter) {
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilEnumGroupsEx", "ptr", hCluster, "ptr", hSelf, "int", groupType, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilEnumGroupsEx", "ptr", _hCluster, "ptr", hSelf, "int", groupType, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -18549,39 +18496,39 @@ class Clustering {
 
     /**
      * 
-     * @param {HGROUP} hGroup 
+     * @param {HGROUP} _hGroup 
      * @param {Pointer<Integer>} groupType 
      * @returns {Integer} 
      */
-    static ResUtilGetClusterGroupType(hGroup, groupType) {
+    static ResUtilGetClusterGroupType(_hGroup, groupType) {
         groupTypeMarshal := groupType is VarRef ? "int*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetClusterGroupType", "ptr", hGroup, groupTypeMarshal, groupType, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetClusterGroupType", "ptr", _hGroup, groupTypeMarshal, groupType, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @returns {HGROUP} 
      */
-    static ResUtilGetCoreGroup(hCluster) {
-        result := DllCall("RESUTILS.dll\ResUtilGetCoreGroup", "ptr", hCluster, "ptr")
+    static ResUtilGetCoreGroup(_hCluster) {
+        result := DllCall("RESUTILS.dll\ResUtilGetCoreGroup", "ptr", _hCluster, "ptr")
         return result
     }
 
     /**
      * 
      * @param {HRESOURCE} hSelf 
-     * @param {Integer} enumType 
+     * @param {Integer} _enumType 
      * @param {Pointer<LPRESOURCE_CALLBACK_EX>} pResCallBack 
      * @param {Pointer<Void>} pParameter 
      * @returns {Integer} 
      */
-    static ResUtilResourceDepEnum(hSelf, enumType, pResCallBack, pParameter) {
+    static ResUtilResourceDepEnum(hSelf, _enumType, pResCallBack, pParameter) {
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilResourceDepEnum", "ptr", hSelf, "uint", enumType, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilResourceDepEnum", "ptr", hSelf, "uint", _enumType, "ptr", pResCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 
@@ -18600,26 +18547,26 @@ class Clustering {
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<Guid>} guid 
      * @returns {Integer} 
      */
-    static ResUtilGetClusterId(hCluster, guid) {
-        result := DllCall("RESUTILS.dll\ResUtilGetClusterId", "ptr", hCluster, "ptr", guid, "uint")
+    static ResUtilGetClusterId(_hCluster, guid) {
+        result := DllCall("RESUTILS.dll\ResUtilGetClusterId", "ptr", _hCluster, "ptr", guid, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HCLUSTER} hCluster 
+     * @param {HCLUSTER} _hCluster 
      * @param {Pointer<LPNODE_CALLBACK>} pNodeCallBack 
      * @param {Pointer<Void>} pParameter 
      * @returns {Integer} 
      */
-    static ResUtilNodeEnum(hCluster, pNodeCallBack, pParameter) {
+    static ResUtilNodeEnum(_hCluster, pNodeCallBack, pParameter) {
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilNodeEnum", "ptr", hCluster, "ptr", pNodeCallBack, pParameterMarshal, pParameter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilNodeEnum", "ptr", _hCluster, "ptr", pNodeCallBack, pParameterMarshal, pParameter, "uint")
         return result
     }
 

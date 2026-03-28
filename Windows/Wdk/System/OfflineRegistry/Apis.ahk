@@ -84,16 +84,16 @@ class OfflineRegistry {
      * The **ORCloseHive** function frees all memory allocated by the offline registry functions on behalf of the specified hive.
      * 
      * To preserve changes to the hive, call the [**ORSaveHive**](orsavehive.md) function before calling **ORCloseHive**.
-     * @param {ORHKEY} Handle A handle to the root key of the offline registry hive to be closed.
+     * @param {ORHKEY} _Handle 
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orclosehive
      */
-    static ORCloseHive(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORCloseHive(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("OFFREG.dll\ORCloseHive", "ptr", Handle, "uint")
+        result := DllCall("OFFREG.dll\ORCloseHive", "ptr", _Handle, "uint")
         return result
     }
 
@@ -150,7 +150,7 @@ class OfflineRegistry {
      * Opens the specified registry key in an offline registry hive.
      * @remarks
      * The **OROpenKey** function cannot be used to open the root key in an offline registry hive. To obtain a handle to the root key of a hive, use the [**OROpenHive**](oropenhive.md) function to load the hive into memory.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpSubKey 
      * @param {Pointer<ORHKEY>} phkResult A pointer to a variable that receives a handle to the opened key. Use the [**ORCloseKey**](orclosekey.md) function to close the key after you have finished using the handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
@@ -162,11 +162,11 @@ class OfflineRegistry {
      * If the specified key has been marked as deleted, this function returns ERROR\_KEY\_DELETED.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/oropenkey
      */
-    static OROpenKey(Handle, lpSubKey, phkResult) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static OROpenKey(_Handle, lpSubKey, phkResult) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("OFFREG.dll\OROpenKey", "ptr", Handle, "ptr", lpSubKey, "ptr", phkResult, "uint")
+        result := DllCall("OFFREG.dll\OROpenKey", "ptr", _Handle, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
     }
 
@@ -257,7 +257,7 @@ class OfflineRegistry {
      * The key to be deleted must not have subkeys. To delete a key and all its subkeys, use the [**OREnumKey**](orenumkey.md) function to enumerate the subkeys and delete them individually.
      * 
      * Only the [**ORCloseKey**](orclosekey.md) function may be called on a deleted key; all other offline registry operations fail. If the deleted key was explicitly created by calling [**ORCreateKey**](orcreatekey.md), resources associated with the key are released when the last handle to the deleted key is closed.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive. This handle is returned by the [**ORCreateKey**](orcreatekey.md) or [**OROpenKey**](oropenkey.md) function.
+     * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpSubKey The name of the key to be deleted. It must be a subkey of the key that *Handle* identifies, but it cannot have subkeys.
      * 
      * If the subkey does not exist, the function returns ERROR\_NOT\_FOUND.
@@ -274,17 +274,17 @@ class OfflineRegistry {
      * -   If the specified subkey has subkeys, the function returns ERROR\_KEY\_HAS\_CHILDREN.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/ordeletekey
      */
-    static ORDeleteKey(Handle, lpSubKey) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORDeleteKey(_Handle, lpSubKey) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("OFFREG.dll\ORDeleteKey", "ptr", Handle, "ptr", lpSubKey, "uint")
+        result := DllCall("OFFREG.dll\ORDeleteKey", "ptr", _Handle, "ptr", lpSubKey, "uint")
         return result
     }
 
     /**
      * Retrieves information about the specified registry key in an offline registry hive.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpClass A pointer to a buffer that receives the key class. This parameter can be **NULL**.
      * @param {Pointer<Integer>} lpcClass A pointer to a variable that specifies the size of the buffer pointed to by the *lpClass* parameter, in characters.
      * 
@@ -310,8 +310,8 @@ class OfflineRegistry {
      * If the *lpClass* buffer is too small to receive the name of the class, the function returns ERROR\_MORE\_DATA.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orqueryinfokey
      */
-    static ORQueryInfoKey(Handle, lpClass, lpcClass, lpcSubKeys, lpcMaxSubKeyLen, lpcMaxClassLen, lpcValues, lpcMaxValueNameLen, lpcMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORQueryInfoKey(_Handle, lpClass, lpcClass, lpcSubKeys, lpcMaxSubKeyLen, lpcMaxClassLen, lpcValues, lpcMaxValueNameLen, lpcMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpcClassMarshal := lpcClass is VarRef ? "uint*" : "ptr"
@@ -323,7 +323,7 @@ class OfflineRegistry {
         lpcMaxValueLenMarshal := lpcMaxValueLen is VarRef ? "uint*" : "ptr"
         lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OFFREG.dll\ORQueryInfoKey", "ptr", Handle, "ptr", lpClass, lpcClassMarshal, lpcClass, lpcSubKeysMarshal, lpcSubKeys, lpcMaxSubKeyLenMarshal, lpcMaxSubKeyLen, lpcMaxClassLenMarshal, lpcMaxClassLen, lpcValuesMarshal, lpcValues, lpcMaxValueNameLenMarshal, lpcMaxValueNameLen, lpcMaxValueLenMarshal, lpcMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
+        result := DllCall("OFFREG.dll\ORQueryInfoKey", "ptr", _Handle, "ptr", lpClass, lpcClassMarshal, lpcClass, lpcSubKeysMarshal, lpcSubKeys, lpcMaxSubKeyLenMarshal, lpcMaxSubKeyLen, lpcMaxClassLenMarshal, lpcMaxClassLen, lpcValuesMarshal, lpcValues, lpcMaxValueNameLenMarshal, lpcMaxValueNameLen, lpcMaxValueLenMarshal, lpcMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
         return result
     }
 
@@ -335,7 +335,7 @@ class OfflineRegistry {
      * The application can also set *dwIndex* to the index of the last subkey on the first call to the function and decrement the index until the subkey with the index 0 is enumerated. To retrieve the index of the last subkey, use the [**ORQueryInfoKey**](/windows/win32/api/winreg/nf-winreg-regqueryinfokeya) function.
      * 
      * While an application is using the **OREnumKey** function, it should not make calls to any offline registry functions that might change the key being enumerated.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {Integer} dwIndex The index of the subkey to retrieve. This parameter should be zero for the first call to the function and then incremented for subsequent calls.
      * 
      * Because subkeys are not ordered, any new subkey will have an arbitrary index. This means that the function may return subkeys in any order.
@@ -354,21 +354,21 @@ class OfflineRegistry {
      * -   If there are no more subkeys available, the function returns ERROR\_NO\_MORE\_ITEMS.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orenumkey
      */
-    static OREnumKey(Handle, dwIndex, lpName, lpcName, lpClass, lpcClass, lpftLastWriteTime) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static OREnumKey(_Handle, dwIndex, lpName, lpcName, lpClass, lpcClass, lpftLastWriteTime) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpcNameMarshal := lpcName is VarRef ? "uint*" : "ptr"
         lpcClassMarshal := lpcClass is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OFFREG.dll\OREnumKey", "ptr", Handle, "uint", dwIndex, "ptr", lpName, lpcNameMarshal, lpcName, "ptr", lpClass, lpcClassMarshal, lpcClass, "ptr", lpftLastWriteTime, "uint")
+        result := DllCall("OFFREG.dll\OREnumKey", "ptr", _Handle, "uint", dwIndex, "ptr", lpName, lpcNameMarshal, lpcName, "ptr", lpClass, lpcClassMarshal, lpcClass, "ptr", lpftLastWriteTime, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor protecting the specified open registry key in an offline registry hive.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {Integer} SecurityInformation A [SECURITY\_INFORMATION](../secauthz/security-information.md) value that indicates the requested security information.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a buffer that receives a copy of the requested security descriptor. This parameter can be **NULL**.
      * @param {Pointer<Integer>} lpcbSecurityDescriptor A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the *pSecurityDescriptor* parameter. When the function returns, the variable contains the number of bytes written to the buffer.
@@ -379,19 +379,19 @@ class OfflineRegistry {
      * If the buffer specified by the *pSecurityDescriptor* parameter is too small, the function returns ERROR\_INSUFFICIENT\_BUFFER and the *lpcbSecurityDescriptor* parameter contains the number of bytes required for the requested security descriptor.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetkeysecurity
      */
-    static ORGetKeySecurity(Handle, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORGetKeySecurity(_Handle, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OFFREG.dll\ORGetKeySecurity", "ptr", Handle, "uint", SecurityInformation, "ptr", pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "uint")
+        result := DllCall("OFFREG.dll\ORGetKeySecurity", "ptr", _Handle, "uint", SecurityInformation, "ptr", pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets the security of an open registry key in an offline registry hive.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {Integer} SecurityInformation Bit flags that indicate the type of security information to set. This parameter can be a combination of the [SECURITY\_INFORMATION](../secauthz/security-information.md) bit flags.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a [SECURITY\_DESCRIPTOR](/windows/win32/api/winnt/ns-winnt-security_descriptor) structure that specifies the security attributes to set for the specified key.
      * @returns {Integer} If the function succeeds, the function returns ERROR\_SUCCESS.
@@ -399,11 +399,11 @@ class OfflineRegistry {
      * If the function fails, it returns a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orsetkeysecurity
      */
-    static ORSetKeySecurity(Handle, SecurityInformation, pSecurityDescriptor) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORSetKeySecurity(_Handle, SecurityInformation, pSecurityDescriptor) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("OFFREG.dll\ORSetKeySecurity", "ptr", Handle, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
+        result := DllCall("OFFREG.dll\ORSetKeySecurity", "ptr", _Handle, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
         return result
     }
 
@@ -421,7 +421,7 @@ class OfflineRegistry {
      * -   Keys that an administrator can write to
      * 
      * For more information, see [Registry Virtualization](../sysinfo/registry-virtualization.md).
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {Pointer<Integer>} pdwFlags A pointer to a variable to receive the virtualization flags set for the key. After the function returns, this parameter can be one or more of the following values.
      * 
      * 
@@ -436,12 +436,12 @@ class OfflineRegistry {
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetvirtualflags
      */
-    static ORGetVirtualFlags(Handle, pdwFlags) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORGetVirtualFlags(_Handle, pdwFlags) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OFFREG.dll\ORGetVirtualFlags", "ptr", Handle, pdwFlagsMarshal, pdwFlags, "uint")
+        result := DllCall("OFFREG.dll\ORGetVirtualFlags", "ptr", _Handle, pdwFlagsMarshal, pdwFlags, "uint")
         return result
     }
 
@@ -459,7 +459,7 @@ class OfflineRegistry {
      * -   Keys that an administrator can write to
      * 
      * For more information, see [Registry Virtualization](../sysinfo/registry-virtualization.md).
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {Integer} dwFlags This parameter controls the behavior of the registry when a Create or Open operation fails on a key in a virtualized hive. This parameter can be one or more of the following values.
      * 
      * 
@@ -474,16 +474,16 @@ class OfflineRegistry {
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orsetvirtualflags
      */
-    static ORSetVirtualFlags(Handle, dwFlags) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORSetVirtualFlags(_Handle, dwFlags) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("OFFREG.dll\ORSetVirtualFlags", "ptr", Handle, "uint", dwFlags, "uint")
+        result := DllCall("OFFREG.dll\ORSetVirtualFlags", "ptr", _Handle, "uint", dwFlags, "uint")
         return result
     }
 
     /**
      * Removes a named value from the specified registry key in an offline registry hive.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpValueName The registry value to be removed. If this parameter is **NULL** or an empty string, the default unnamed value set by the [**ORSetValue**](orsetvalue.md) function is removed.
      * 
      * Value names are not case sensitive.
@@ -492,11 +492,11 @@ class OfflineRegistry {
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/ordeletevalue
      */
-    static ORDeleteValue(Handle, lpValueName) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORDeleteValue(_Handle, lpValueName) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("OFFREG.dll\ORDeleteValue", "ptr", Handle, "ptr", lpValueName, "uint")
+        result := DllCall("OFFREG.dll\ORDeleteValue", "ptr", _Handle, "ptr", lpValueName, "uint")
         return result
     }
 
@@ -504,7 +504,7 @@ class OfflineRegistry {
      * Retrieves the type and data for the specified registry value in an offline registry hive.
      * @remarks
      * An application typically calls the [**OREnumValue**](orenumvalue.md) function to determine the value names and then calls the **ORGetValue** function to retrieve the data for the names.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpSubKey The name of the registry key. This key must be a subkey of the key specified by the *Handle* parameter. This parameter can be **NULL**.
      * 
      * Key names are not case sensitive.
@@ -531,15 +531,15 @@ class OfflineRegistry {
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetvalue
      */
-    static ORGetValue(Handle, lpSubKey, lpValue, pdwType, pvData, pcbData) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORGetValue(_Handle, lpSubKey, lpValue, pdwType, pvData, pcbData) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OFFREG.dll\ORGetValue", "ptr", Handle, "ptr", lpSubKey, "ptr", lpValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("OFFREG.dll\ORGetValue", "ptr", _Handle, "ptr", lpSubKey, "ptr", lpValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -547,7 +547,7 @@ class OfflineRegistry {
      * Sets the data for the value of a specified registry key in an offline registry hive.
      * @remarks
      * Value sizes are limited by available memory. Long values (more than 2048 bytes) should be stored as files with the file names stored in the registry. This helps the registry perform efficiently. Application elements such as icons, bitmaps, and executable files should be stored as files and not be placed in the registry.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpValueName The name of the value to be set. If a value with this name is not already present in the key, the function adds it to the key.
      * 
      * If *lpValueName* is **NULL** or an empty string, "", the function sets the type and data for the key's unnamed or default value.
@@ -565,11 +565,11 @@ class OfflineRegistry {
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) function with the FORMAT\_MESSAGE\_FROM\_SYSTEM flag to get a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orsetvalue
      */
-    static ORSetValue(Handle, lpValueName, dwType, lpData, cbData) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORSetValue(_Handle, lpValueName, dwType, lpData, cbData) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("OFFREG.dll\ORSetValue", "ptr", Handle, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("OFFREG.dll\ORSetValue", "ptr", _Handle, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
     }
 
@@ -585,7 +585,7 @@ class OfflineRegistry {
      * If the data has the REG\_SZ, REG\_MULTI\_SZ or REG\_EXPAND\_SZ type, the string may not have been stored with the proper null-terminating characters. Therefore, even if the function returns ERROR\_SUCCESS, the application should ensure that the string is properly terminated before using it; otherwise, it may overwrite a buffer. (Note that REG\_MULTI\_SZ strings should have two null-terminating characters.)
      * 
      * To determine the maximum size of the name and data buffers, use the [**ORQueryInfoKey**](orqueryinfokey.md) function.
-     * @param {ORHKEY} Handle A handle to an open registry key in an offline registry hive.
+     * @param {ORHKEY} _Handle 
      * @param {Integer} dwIndex The index of the value to be retrieved. This parameter should be zero for the first call to the function and then be incremented for subsequent calls.
      * 
      * Because values are not ordered, any new value will have an arbitrary index. This means that the function may return values in any order.
@@ -611,29 +611,29 @@ class OfflineRegistry {
      * If the *lpData* buffer is too small to receive the value, the function returns ERROR\_MORE\_DATA.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/orenumvalue
      */
-    static OREnumValue(Handle, dwIndex, lpValueName, lpcValueName, lpType, lpData, lpcbData) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static OREnumValue(_Handle, dwIndex, lpValueName, lpcValueName, lpType, lpData, lpcbData) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
         lpcValueNameMarshal := lpcValueName is VarRef ? "uint*" : "ptr"
         lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
         lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("OFFREG.dll\OREnumValue", "ptr", Handle, "uint", dwIndex, "ptr", lpValueName, lpcValueNameMarshal, lpcValueName, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("OFFREG.dll\OREnumValue", "ptr", _Handle, "uint", dwIndex, "ptr", lpValueName, lpcValueNameMarshal, lpcValueName, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
     /**
      * 
-     * @param {ORHKEY} Handle 
+     * @param {ORHKEY} _Handle 
      * @param {PWSTR} lpNewName 
      * @returns {Integer} 
      */
-    static ORRenameKey(Handle, lpNewName) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ORRenameKey(_Handle, lpNewName) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
         lpNewName := lpNewName is String ? StrPtr(lpNewName) : lpNewName
 
-        result := DllCall("OFFREG.dll\ORRenameKey", "ptr", Handle, "ptr", lpNewName, "uint")
+        result := DllCall("OFFREG.dll\ORRenameKey", "ptr", _Handle, "ptr", lpNewName, "uint")
         return result
     }
 

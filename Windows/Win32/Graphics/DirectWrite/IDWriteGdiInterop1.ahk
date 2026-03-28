@@ -38,17 +38,13 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop{
      * @param {Pointer<LOGFONTW>} logFont Type: <b>LOGFONTW</b>
      * 
      * Structure containing a GDI-compatible font description.
-     * @param {IDWriteFontCollection} fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>*</b>
-     * 
-     * The font collection to search. If NULL, the local system font collection is used.
-     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
-     * 
-     * Receives a newly created font object if successful, or NULL in case of error.
+     * @param {IDWriteFontCollection} _fontCollection 
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-createfontfromlogfont
      */
-    CreateFontFromLOGFONT(logFont, fontCollection) {
-        result := ComCall(8, this, "ptr", logFont, "ptr", fontCollection, "ptr*", &font := 0, "HRESULT")
-        return IDWriteFont(font)
+    CreateFontFromLOGFONT(logFont, _fontCollection) {
+        result := ComCall(8, this, "ptr", logFont, "ptr", _fontCollection, "ptr*", &_font := 0, "HRESULT")
+        return IDWriteFont(_font)
     }
 
     /**
@@ -56,29 +52,25 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop{
      * @param {IDWriteFontFace} fontFace Type: [in] <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
      * 
      * Font to read font signature from.
-     * @returns {FONTSIGNATURE} Type: [out] <b>FONTSIGNATURE*</b>
-     * 
-     * Font signature from the OS/2 table, ulUnicodeRange, and ulCodePageRange.
+     * @returns {FONTSIGNATURE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-getfontsignature(idwritefontface_fontsignature)
      */
     GetFontSignature(fontFace) {
-        fontSignature := FONTSIGNATURE()
-        result := ComCall(9, this, "ptr", fontFace, "ptr", fontSignature, "HRESULT")
-        return fontSignature
+        _fontSignature := FONTSIGNATURE()
+        result := ComCall(9, this, "ptr", fontFace, "ptr", _fontSignature, "HRESULT")
+        return _fontSignature
     }
 
     /**
      * Reads the font signature from the given font. (overload 1/2)
-     * @param {IDWriteFont} font 
-     * @returns {FONTSIGNATURE} Type: [out] <b>FONTSIGNATURE*</b>
-     * 
-     * Font signature from the OS/2 table, ulUnicodeRange, and ulCodePageRange.
+     * @param {IDWriteFont} _font 
+     * @returns {FONTSIGNATURE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-getfontsignature(idwritefontface_fontsignature)
      */
-    GetFontSignature1(font) {
-        fontSignature := FONTSIGNATURE()
-        result := ComCall(10, this, "ptr", font, "ptr", fontSignature, "HRESULT")
-        return fontSignature
+    GetFontSignature1(_font) {
+        _fontSignature := FONTSIGNATURE()
+        result := ComCall(10, this, "ptr", _font, "ptr", _fontSignature, "HRESULT")
+        return _fontSignature
     }
 
     /**

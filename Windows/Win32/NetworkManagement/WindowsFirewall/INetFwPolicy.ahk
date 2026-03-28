@@ -58,20 +58,18 @@ class INetFwPolicy extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy-get_currentprofile
      */
     get_CurrentProfile() {
-        result := ComCall(7, this, "ptr*", &profile := 0, "HRESULT")
-        return INetFwProfile(profile)
+        result := ComCall(7, this, "ptr*", &_profile := 0, "HRESULT")
+        return INetFwProfile(_profile)
     }
 
     /**
      * Retrieves the profile of the requested type.
      * @param {Integer} profileType Type of profile from <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_profile_type">NET_FW_PROFILE_TYPE</a>.
-     * @returns {INetFwProfile} Retrieved profile of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwprofile">INetFwProfile</a>.
-     * 
-     * Retrieved profile of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwprofile">INetFwProfile</a>.
+     * @returns {INetFwProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy-getprofilebytype
      */
     GetProfileByType(profileType) {
-        result := ComCall(8, this, "int", profileType, "ptr*", &profile := 0, "HRESULT")
-        return INetFwProfile(profile)
+        result := ComCall(8, this, "int", profileType, "ptr*", &_profile := 0, "HRESULT")
+        return INetFwProfile(_profile)
     }
 }

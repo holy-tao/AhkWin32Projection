@@ -1080,7 +1080,7 @@ class Console {
      * The handle created by this function must be closed with [ClosePseudoConsole](closepseudoconsole.md) when operations are complete.
      * 
      * If using `PSEUDOCONSOLE_INHERIT_CURSOR`, the calling application should be prepared to respond to the request for the cursor state in an asynchronous fashion on a background thread by forwarding or interpreting the request for cursor information that will be received on `hOutput` and replying on `hInput`. Failure to do so may cause the calling application to hang while making another request of the pseudoconsole system.
-     * @param {COORD} size The dimensions of the window/buffer in count of characters that will be used on initial creation of the pseudoconsole. This can be adjusted later with [ResizePseudoConsole](resizepseudoconsole.md).
+     * @param {COORD} _size 
      * @param {HANDLE} hInput An open handle to a stream of data that represents user input to the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
      * @param {HANDLE} hOutput An open handle to a stream of data that represents application output from the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
      * @param {Integer} dwFlags The value can be one of the following:
@@ -1092,12 +1092,12 @@ class Console {
      * @returns {HPCON} Pointer to a location that will receive a handle to the new pseudoconsole device.
      * @see https://learn.microsoft.com/windows/console/createpseudoconsole
      */
-    static CreatePseudoConsole(size, hInput, hOutput, dwFlags) {
+    static CreatePseudoConsole(_size, hInput, hOutput, dwFlags) {
         hInput := hInput is Win32Handle ? NumGet(hInput, "ptr") : hInput
         hOutput := hOutput is Win32Handle ? NumGet(hOutput, "ptr") : hOutput
 
         phPC := HPCON()
-        result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "HRESULT")
+        result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", _size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "HRESULT")
         return phPC
     }
 
@@ -1106,16 +1106,16 @@ class Console {
      * @remarks
      * This function can resize the internal buffers in the pseudoconsole session to match the window/buffer size being used for display on the terminal end. This ensures that attached Command-Line Interface (CUI) applications using the [Console Functions](console-functions.md) to communicate will have the correct dimensions returned in their calls.
      * @param {HPCON} hPC A handle to an active pseudoconsole as opened by [CreatePseudoConsole](createpseudoconsole.md).
-     * @param {COORD} size The dimensions of the window/buffer in count of characters that will be used for the internal buffer of this pseudoconsole.
+     * @param {COORD} _size 
      * @returns {HRESULT} Type: **HRESULT**
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/console/resizepseudoconsole
      */
-    static ResizePseudoConsole(hPC, size) {
+    static ResizePseudoConsole(hPC, _size) {
         hPC := hPC is Win32Handle ? NumGet(hPC, "ptr") : hPC
 
-        result := DllCall("KERNEL32.dll\ResizePseudoConsole", "ptr", hPC, "ptr", size, "HRESULT")
+        result := DllCall("KERNEL32.dll\ResizePseudoConsole", "ptr", hPC, "ptr", _size, "HRESULT")
         return result
     }
 
@@ -3009,27 +3009,27 @@ class Console {
 
     /**
      * 
-     * @param {Integer} Number_R 
+     * @param {Integer} _Number 
      * @param {PSTR} ExeName 
      * @returns {BOOL} 
      */
-    static SetConsoleNumberOfCommandsA(Number_R, ExeName) {
+    static SetConsoleNumberOfCommandsA(_Number, ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", Number_R, "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", _Number, "ptr", ExeName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Number_R 
+     * @param {Integer} _Number 
      * @param {PWSTR} ExeName 
      * @returns {BOOL} 
      */
-    static SetConsoleNumberOfCommandsW(Number_R, ExeName) {
+    static SetConsoleNumberOfCommandsW(_Number, ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", Number_R, "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", _Number, "ptr", ExeName, "int")
         return result
     }
 
@@ -3175,13 +3175,13 @@ class Console {
 
     /**
      * 
-     * @param {HICON} hIcon 
+     * @param {HICON} _hIcon 
      * @returns {BOOL} 
      */
-    static SetConsoleIcon(hIcon) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static SetConsoleIcon(_hIcon) {
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
-        result := DllCall("KERNEL32.dll\SetConsoleIcon", "ptr", hIcon, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleIcon", "ptr", _hIcon, "int")
         return result
     }
 
@@ -3230,17 +3230,17 @@ class Console {
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[cursor visibility](console-virtual-terminal-sequences.md#cursor-visibility)** section with the `^[[?25h` and `^[[?25l` sequences.
      * @param {HANDLE} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
-     * @param {HCURSOR} hCursor 
+     * @param {HCURSOR} _hCursor 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/console/setconsolecursorinfo
      */
-    static SetConsoleCursor(hConsoleOutput, hCursor) {
+    static SetConsoleCursor(hConsoleOutput, _hCursor) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+        _hCursor := _hCursor is Win32Handle ? NumGet(_hCursor, "ptr") : _hCursor
 
-        result := DllCall("KERNEL32.dll\SetConsoleCursor", "ptr", hConsoleOutput, "ptr", hCursor, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleCursor", "ptr", hConsoleOutput, "ptr", _hCursor, "int")
         return result
     }
 
@@ -3275,15 +3275,15 @@ class Console {
     /**
      * 
      * @param {HANDLE} hConsoleOutput 
-     * @param {HPALETTE} hPalette 
+     * @param {HPALETTE} _hPalette 
      * @param {Integer} dwUsage 
      * @returns {BOOL} 
      */
-    static SetConsolePalette(hConsoleOutput, hPalette, dwUsage) {
+    static SetConsolePalette(hConsoleOutput, _hPalette, dwUsage) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
-        hPalette := hPalette is Win32Handle ? NumGet(hPalette, "ptr") : hPalette
+        _hPalette := _hPalette is Win32Handle ? NumGet(_hPalette, "ptr") : _hPalette
 
-        result := DllCall("KERNEL32.dll\SetConsolePalette", "ptr", hConsoleOutput, "ptr", hPalette, "uint", dwUsage, "int")
+        result := DllCall("KERNEL32.dll\SetConsolePalette", "ptr", hConsoleOutput, "ptr", _hPalette, "uint", dwUsage, "int")
         return result
     }
 

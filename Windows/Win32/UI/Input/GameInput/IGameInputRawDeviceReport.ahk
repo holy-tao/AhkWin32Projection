@@ -106,26 +106,26 @@ class IGameInputRawDeviceReport extends IUnknown{
     /**
      * 
      * @param {Pointer} bufferSize 
-     * @param {Pointer<Void>} buffer_R 
+     * @param {Pointer<Void>} _buffer 
      * @returns {Pointer} 
      */
-    GetRawData(bufferSize, buffer_R) {
-        buffer_RMarshal := buffer_R is VarRef ? "ptr" : "ptr"
+    GetRawData(bufferSize, _buffer) {
+        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", bufferSize, buffer_RMarshal, buffer_R, "ptr")
+        result := ComCall(6, this, "ptr", bufferSize, _bufferMarshal, _buffer, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer} bufferSize 
-     * @param {Pointer<Void>} buffer_R 
+     * @param {Pointer<Void>} _buffer 
      * @returns {Boolean} 
      */
-    SetRawData(bufferSize, buffer_R) {
-        buffer_RMarshal := buffer_R is VarRef ? "ptr" : "ptr"
+    SetRawData(bufferSize, _buffer) {
+        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", bufferSize, buffer_RMarshal, buffer_R, "int")
+        result := ComCall(7, this, "ptr", bufferSize, _bufferMarshal, _buffer, "int")
         return result
     }
 

@@ -55,7 +55,7 @@ class IIndexableConcept extends IUnknown{
      * @param {IModelObject} contextObject 
      * @param {Integer} indexerCount 
      * @param {Pointer<IModelObject>} indexers 
-     * @param {Pointer<IModelObject>} object_R 
+     * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} Type: <b>UINT</b>
      * 
@@ -65,8 +65,8 @@ class IIndexableConcept extends IUnknown{
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getatomnamea
      */
-    GetAt(contextObject, indexerCount, indexers, object_R, metadata) {
-        result := ComCall(4, this, "ptr", contextObject, "uint", indexerCount, "ptr*", indexers, "ptr*", object_R, "ptr*", metadata, "HRESULT")
+    GetAt(contextObject, indexerCount, indexers, _object, metadata) {
+        result := ComCall(4, this, "ptr", contextObject, "uint", indexerCount, "ptr*", indexers, "ptr*", _object, "ptr*", metadata, "HRESULT")
         return result
     }
 

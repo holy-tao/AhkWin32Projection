@@ -101,27 +101,27 @@ class AsyncIIdentityStore extends IUnknown{
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<Guid>} ProviderGUID 
      * @param {Integer} cbSid 
-     * @param {Pointer<Integer>} pSid 
+     * @param {Pointer<Integer>} _pSid 
      * @returns {HRESULT} 
      */
-    Begin_ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid) {
+    Begin_ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, _pSid) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, "HRESULT")
+        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, _pSidMarshal, _pSid, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pSid 
+     * @param {Pointer<Integer>} _pSid 
      * @returns {Integer} 
      */
-    Finish_ConvertToSid(pSid) {
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+    Finish_ConvertToSid(_pSid) {
+        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, pSidMarshal, pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        result := ComCall(10, this, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
         return pcbRequiredSid
     }
 

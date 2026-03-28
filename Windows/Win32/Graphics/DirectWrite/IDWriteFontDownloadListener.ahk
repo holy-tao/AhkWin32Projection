@@ -36,18 +36,14 @@ class IDWriteFontDownloadListener extends IUnknown{
      * 
      * Pointer to the download queue interface on which     
      *           the BeginDownload method was called.
-     * @param {IUnknown} context Type: <b>IUnknown*</b>
-     * 
-     * Optional context object that was passed to BeginDownload.    
-     *           AddRef is called on the context object by BeginDownload and Release is called  
-     *           after the DownloadCompleted method returns.
+     * @param {IUnknown} _context 
      * @param {HRESULT} downloadResult Type: <b>HRESULT</b>
      * 
      * Result of the download operation.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadlistener-downloadcompleted
      */
-    DownloadCompleted(downloadQueue, context, downloadResult) {
-        ComCall(3, this, "ptr", downloadQueue, "ptr", context, "int", downloadResult)
+    DownloadCompleted(downloadQueue, _context, downloadResult) {
+        ComCall(3, this, "ptr", downloadQueue, "ptr", _context, "int", downloadResult)
     }
 }

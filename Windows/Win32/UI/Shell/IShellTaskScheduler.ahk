@@ -44,17 +44,15 @@ class IShellTaskScheduler extends IUnknown{
      * @param {Pointer<Guid>} rtoid Type: <b>REFTASKOWNERID</b>
      * 
      * A GUID identifying the owner of the task. This information can be used to group tasks for later <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks">counting</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks">removal</a> by owner.
-     * @param {Pointer} lParam Type: <b>DWORD_PTR</b>
-     * 
-     * A pointer to a user-defined <b>DWORD</b> value allowing the task to be identified within the tasks owned by <i>rtoid</i>. This is used to identify single tasks or to subgroup them, for instance associating the task with a particular item such as an item in a ListView. This parameter can be zero.
+     * @param {Pointer} _lParam 
      * @param {Integer} dwPriority Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-addtask
      */
-    AddTask(prt, rtoid, lParam, dwPriority) {
-        result := ComCall(3, this, "ptr", prt, "ptr", rtoid, "ptr", lParam, "uint", dwPriority, "HRESULT")
+    AddTask(prt, rtoid, _lParam, dwPriority) {
+        result := ComCall(3, this, "ptr", prt, "ptr", rtoid, "ptr", _lParam, "uint", dwPriority, "HRESULT")
         return result
     }
 
@@ -63,9 +61,7 @@ class IShellTaskScheduler extends IUnknown{
      * @param {Pointer<Guid>} rtoid Type: <b>REFTASKOWNERID</b>
      * 
      * A GUID identifying the owner of the tasks to remove.
-     * @param {Pointer} lParam Type: <b>DWORD_PTR</b>
-     * 
-     * A pointer to a user-defined <b>DWORD</b> value that allows the task to be identified within the tasks owned by <i>rtoid</i>. Set this value to 0 to remove all tasks for the owner specified by <i>rtoid</i>.
+     * @param {Pointer} _lParam 
      * @param {BOOL} bWaitIfRunning Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if you want a currently running task to complete before removing it, <b>FALSE</b> otherwise.
@@ -74,8 +70,8 @@ class IShellTaskScheduler extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks
      */
-    RemoveTasks(rtoid, lParam, bWaitIfRunning) {
-        result := ComCall(4, this, "ptr", rtoid, "ptr", lParam, "int", bWaitIfRunning, "HRESULT")
+    RemoveTasks(rtoid, _lParam, bWaitIfRunning) {
+        result := ComCall(4, this, "ptr", rtoid, "ptr", _lParam, "int", bWaitIfRunning, "HRESULT")
         return result
     }
 

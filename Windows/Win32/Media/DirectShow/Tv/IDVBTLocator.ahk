@@ -203,22 +203,22 @@ class IDVBTLocator extends IDigitalLocator{
 
     /**
      * The get_Mode method receives the transmission mode.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-get_mode
      */
     get_Mode() {
-        result := ComCall(32, this, "int*", &mode := 0, "HRESULT")
-        return mode
+        result := ComCall(32, this, "int*", &_mode := 0, "HRESULT")
+        return _mode
     }
 
     /**
      * The put_Mode method sets the transmission mode.
-     * @param {Integer} mode Specifies the transmission mode as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_mode
      */
-    put_Mode(mode) {
-        result := ComCall(33, this, "int", mode, "HRESULT")
+    put_Mode(_mode) {
+        result := ComCall(33, this, "int", _mode, "HRESULT")
         return result
     }
 

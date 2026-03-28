@@ -149,14 +149,14 @@ class IUIAutomationEventHandlerGroup extends IUnknown{
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
      * @param {Integer} scope 
-     * @param {Integer} textEditChangeType 
+     * @param {Integer} _textEditChangeType 
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationTextEditTextChangedEventHandler} handler A pointer to the object that handles the programmatic text-edit event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addtextedittextchangedeventhandler
      */
-    AddTextEditTextChangedEventHandler(scope, textEditChangeType, cacheRequest, handler) {
-        result := ComCall(9, this, "int", scope, "int", textEditChangeType, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+    AddTextEditTextChangedEventHandler(scope, _textEditChangeType, cacheRequest, handler) {
+        result := ComCall(9, this, "int", scope, "int", _textEditChangeType, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 }

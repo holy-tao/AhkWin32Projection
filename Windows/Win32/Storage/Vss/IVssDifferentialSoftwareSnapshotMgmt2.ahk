@@ -231,12 +231,12 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
     /**
      * This method is reserved for future use. (IVssDifferentialSoftwareSnapshotMgmt2.SetSnapshotPriority)
      * @param {Guid} idSnapshot 
-     * @param {Integer} priority 
+     * @param {Integer} _priority 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-setsnapshotpriority
      */
-    SetSnapshotPriority(idSnapshot, priority) {
-        result := ComCall(12, this, "ptr", idSnapshot, "char", priority, "HRESULT")
+    SetSnapshotPriority(idSnapshot, _priority) {
+        result := ComCall(12, this, "ptr", idSnapshot, "char", _priority, "HRESULT")
         return result
     }
 }

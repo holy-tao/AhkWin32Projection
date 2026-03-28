@@ -30,11 +30,11 @@ class ILaunchUIContextProvider extends IUnknown{
 
     /**
      * 
-     * @param {ILaunchUIContext} context 
+     * @param {ILaunchUIContext} _context 
      * @returns {HRESULT} 
      */
-    UpdateContext(context) {
-        result := ComCall(3, this, "ptr", context, "HRESULT")
+    UpdateContext(_context) {
+        result := ComCall(3, this, "ptr", _context, "HRESULT")
         return result
     }
 }

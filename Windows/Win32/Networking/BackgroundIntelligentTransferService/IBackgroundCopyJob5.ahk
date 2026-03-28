@@ -34,7 +34,7 @@ class IBackgroundCopyJob5 extends IBackgroundCopyJob4{
     /**
      * A generic method for setting BITS job properties.
      * @param {Integer} PropertyId The ID of the property that is being set specified as a <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ne-bits5_0-bits_job_property_id">BITS_JOB_PROPERTY_ID</a> enum value.
-     * @param {BITS_JOB_PROPERTY_VALUE} PropertyValue The value of the property that is being set. In order to hold a value whose type is appropriate to the property, this value is specified via the <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ns-bits5_0-bits_job_property_value">BITS_JOB_PROPERTY_VALUE</a> union that is composed of all the known property types.
+     * @param {BITS_JOB_PROPERTY_VALUE} _PropertyValue 
      * @returns {HRESULT} The method returns the following return values.
      * 
      * <table>
@@ -56,20 +56,20 @@ class IBackgroundCopyJob5 extends IBackgroundCopyJob4{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nf-bits5_0-ibackgroundcopyjob5-setproperty
      */
-    SetProperty(PropertyId, PropertyValue) {
-        result := ComCall(53, this, "int", PropertyId, "ptr", PropertyValue, "HRESULT")
+    SetProperty(PropertyId, _PropertyValue) {
+        result := ComCall(53, this, "int", PropertyId, "ptr", _PropertyValue, "HRESULT")
         return result
     }
 
     /**
      * A generic method for getting BITS job properties.
      * @param {Integer} PropertyId The ID of the property that is being obtained specified as a <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ne-bits5_0-bits_job_property_id">BITS_JOB_PROPERTY_ID</a> enum value.
-     * @returns {BITS_JOB_PROPERTY_VALUE} The property value returned as a BITS_JOB_PROPERTY_VALUE union.
+     * @returns {BITS_JOB_PROPERTY_VALUE} 
      * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nf-bits5_0-ibackgroundcopyjob5-getproperty
      */
     GetProperty(PropertyId) {
-        PropertyValue := BITS_JOB_PROPERTY_VALUE()
-        result := ComCall(54, this, "int", PropertyId, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        _PropertyValue := BITS_JOB_PROPERTY_VALUE()
+        result := ComCall(54, this, "int", PropertyId, "ptr", _PropertyValue, "HRESULT")
+        return _PropertyValue
     }
 }

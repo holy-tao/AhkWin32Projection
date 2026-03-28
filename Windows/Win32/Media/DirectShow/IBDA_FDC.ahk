@@ -131,16 +131,16 @@ class IBDA_FDC extends IUnknown{
      * @param {Pointer<Integer>} Pid Receives the packet identifier (PID) of the table.
      * @param {Integer} MaxBufferSize The size of the <i>SecBuffer</i> array, in bytes.
      * @param {Pointer<Integer>} ActualSize Receives the number of bytes that the method copies into the  <i>SecBuffer</i> array.
-     * @param {Pointer<Integer>} SecBuffer A byte array, allocated by the caller, that receives the table section.
+     * @param {Pointer<Integer>} _SecBuffer 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-gettablesection
      */
-    GetTableSection(Pid, MaxBufferSize, ActualSize, SecBuffer) {
+    GetTableSection(Pid, MaxBufferSize, ActualSize, _SecBuffer) {
         PidMarshal := Pid is VarRef ? "uint*" : "ptr"
         ActualSizeMarshal := ActualSize is VarRef ? "uint*" : "ptr"
-        SecBufferMarshal := SecBuffer is VarRef ? "char*" : "ptr"
+        _SecBufferMarshal := _SecBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, PidMarshal, Pid, "uint", MaxBufferSize, ActualSizeMarshal, ActualSize, SecBufferMarshal, SecBuffer, "HRESULT")
+        result := ComCall(9, this, PidMarshal, Pid, "uint", MaxBufferSize, ActualSizeMarshal, ActualSize, _SecBufferMarshal, _SecBuffer, "HRESULT")
         return result
     }
 }

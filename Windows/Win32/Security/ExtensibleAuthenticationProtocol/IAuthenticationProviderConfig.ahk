@@ -121,7 +121,7 @@ class IAuthenticationProviderConfig extends IUnknown{
      * 
      * The beginning of the [**EXPERTCONFIG**](expertconfig.md) data structure includes a Private section that stores the structure size information. The size of the **EXPERTCONFIG** structure should include the reserved **DWORD** length that appears at the beginning of the structure. For example, if your configuration data requires 20 bytes of storage space, allocate 24 bytes to store the data. If a *ppConfig* is **NULL**, the **Configure** function calls the [**ExpertAllocMemory**](expertallocmemory.md) function to allocate a new configuration that is the correct size. If the buffer is not enough to hold the expert data, the expert should call the [**ExpertReallocMemory**](expertreallocmemory.md) function.
      * @param {Pointer} uConnectionParam 
-     * @param {HWND} hWnd A handle to the parent window. Use the handle to open a dialog box.
+     * @param {HWND} _hWnd 
      * @param {Integer} dwFlags 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 
@@ -130,10 +130,10 @@ class IAuthenticationProviderConfig extends IUnknown{
      * If the function is unsuccessful, the return value is **FALSE**.
      * @see https://learn.microsoft.com/windows/win32/NetMon2/configure
      */
-    Configure(uConnectionParam, hWnd, dwFlags, uReserved1, uReserved2) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    Configure(uConnectionParam, _hWnd, dwFlags, uReserved1, uReserved2) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := ComCall(5, this, "ptr", uConnectionParam, "ptr", hWnd, "uint", dwFlags, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(5, this, "ptr", uConnectionParam, "ptr", _hWnd, "uint", dwFlags, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
         return result
     }
 

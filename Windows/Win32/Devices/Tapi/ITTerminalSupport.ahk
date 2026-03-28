@@ -131,15 +131,15 @@ class ITTerminalSupport extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/terminal-class">terminal class</a> (GUID) for the new terminal object.
      * @param {Integer} lMediaType Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> for the new terminal object.
-     * @param {Integer} Direction <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the terminal direction.
+     * @param {Integer} _Direction 
      * @returns {ITTerminal} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> object created.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-createterminal
      */
-    CreateTerminal(pTerminalClass, lMediaType, Direction) {
+    CreateTerminal(pTerminalClass, lMediaType, _Direction) {
         pTerminalClass := pTerminalClass is String ? BSTR.Alloc(pTerminalClass).Value : pTerminalClass
 
-        result := ComCall(11, this, "ptr", pTerminalClass, "int", lMediaType, "int", Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pTerminalClass, "int", lMediaType, "int", _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 
@@ -156,13 +156,13 @@ class ITTerminalSupport extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by <b>ITTerminalSupport::GetDefaultStaticTerminal</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
      * <b>ITTerminal</b> interface to free resources associated with it.
      * @param {Integer} lMediaType <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">Media type</a> of the required terminal.
-     * @param {Integer} Direction <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the terminal direction.
+     * @param {Integer} _Direction 
      * @returns {ITTerminal} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface. <b>NULL</b> if no terminal is available.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-getdefaultstaticterminal
      */
-    GetDefaultStaticTerminal(lMediaType, Direction) {
-        result := ComCall(12, this, "int", lMediaType, "int", Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+    GetDefaultStaticTerminal(lMediaType, _Direction) {
+        result := ComCall(12, this, "int", lMediaType, "int", _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 }

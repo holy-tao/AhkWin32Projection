@@ -75,14 +75,12 @@ class IAppxFile extends IUnknown{
 
     /**
      * Retrieves the uncompressed size of the file.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
-     * 
-     * The uncompressed size, in bytes.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getsize
      */
     GetSize() {
-        result := ComCall(6, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(6, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**

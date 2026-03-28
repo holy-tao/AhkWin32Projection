@@ -30,9 +30,7 @@ class SystemInformation {
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {Integer} SystemInformationClass One of the values enumerated in SYSTEM_INFORMATION_CLASS, which indicate the
      * kind of system information to be retrieved. These include the following values.
-     * @param {Pointer<Void>} SystemInformation A pointer to a buffer that receives the requested information. The
-     * size and structure of this information varies depending on the value of the
-     * <i>SystemInformationClass</i> parameter:
+     * @param {Pointer<Void>} _SystemInformation 
      * @param {Integer} SystemInformationLength The size of the buffer pointed to by the <i>SystemInformation</i> parameter, in bytes.
      * @param {Pointer<Integer>} ReturnLength An optional pointer to a location where the function  writes the actual size
      * of the information requested. If that size is less than or equal to the    
@@ -47,11 +45,11 @@ class SystemInformation {
      * Ntstatus.h header file available in the DDK, and are described in the DDK documentation.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntquerysysteminformation
      */
-    static NtQuerySystemInformation(SystemInformationClass, SystemInformation, SystemInformationLength, ReturnLength) {
-        SystemInformationMarshal := SystemInformation is VarRef ? "ptr" : "ptr"
+    static NtQuerySystemInformation(SystemInformationClass, _SystemInformation, SystemInformationLength, ReturnLength) {
+        _SystemInformationMarshal := _SystemInformation is VarRef ? "ptr" : "ptr"
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtQuerySystemInformation", "int", SystemInformationClass, SystemInformationMarshal, SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntdll.dll\NtQuerySystemInformation", "int", SystemInformationClass, _SystemInformationMarshal, _SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -148,114 +146,7 @@ class SystemInformation {
      * 
      * 
      * An opaque **SYSTEM\_LOOKASIDE\_INFORMATION** structure that can be used to generate an unpredictable seed for a random number generator. Use the [**CryptGenRandom**](/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenrandom) function instead.
-     * @param {Pointer<Void>} SystemInformation A pointer to a buffer that receives the requested information. The size and structure of this information varies depending on the value of the *SystemInformationClass* parameter, as indicated in the following table.
-     * 
-     * 
-     * <span id="SYSTEM_BASIC_INFORMATION"></span><span id="system_basic_information"></span>
-     * 
-     * <span id="SYSTEM_BASIC_INFORMATION"></span><span id="system_basic_information"></span>**SYSTEM\_BASIC\_INFORMATION**
-     * 
-     * 
-     * 
-     * When the *SystemInformationClass* parameter is **SystemBasicInformation**, the buffer pointed to by the *SystemInformation* parameter should be large enough to hold a single **SYSTEM\_BASIC\_INFORMATION** structure having the following layout:
-     * 
-     * ``` syntax
-     * typedef struct _SYSTEM_BASIC_INFORMATION {
-     *     BYTE Reserved1[24];
-     *     PVOID Reserved2[4];
-     *     CCHAR NumberOfProcessors;
-     * } SYSTEM_BASIC_INFORMATION;
-     * ```
-     * 
-     * The **NumberOfProcessors** member contains the number of processors present in the system. Use [**GetSystemInfo**](/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsysteminfo) instead to retrieve this information.
-     * 
-     * The other members of the structure are reserved for internal use by the operating system.
-     * 
-     * 
-     * <span id="SYSTEM_PERFORMANCE_INFORMATION"></span><span id="system_performance_information"></span>
-     * 
-     * <span id="SYSTEM_PERFORMANCE_INFORMATION"></span><span id="system_performance_information"></span>**SYSTEM\_PERFORMANCE\_INFORMATION**
-     * 
-     * 
-     * 
-     * When the *SystemInformationClass* parameter is **SystemPerformanceInformation**, the buffer pointed to by the *SystemInformation* parameter should be large enough to hold an opaque **SYSTEM\_PERFORMANCE\_INFORMATION** structure for use in generating an unpredictable seed for a random number generator. For this purpose, the structure has the following layout:
-     * 
-     * ``` syntax
-     * typedef struct _SYSTEM_PERFORMANCE_INFORMATION {
-     *     BYTE Reserved1[312];
-     * } SYSTEM_PERFORMANCE_INFORMATION;
-     * ```
-     * 
-     * Individual members of the structure are reserved for internal use by the operating system.
-     * 
-     * Use the [**CryptGenRandom**](/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenrandom) function instead to generate cryptographically random data.
-     * 
-     * 
-     * <span id="SYSTEM_TIMEOFDAY_INFORMATION"></span><span id="system_timeofday_information"></span>
-     * 
-     * <span id="SYSTEM_TIMEOFDAY_INFORMATION"></span><span id="system_timeofday_information"></span>**SYSTEM\_TIMEOFDAY\_INFORMATION**
-     * 
-     * 
-     * 
-     * When the *SystemInformationClass* parameter is **SystemTimeOfDayInformation**, the buffer pointed to by the *SystemInformation* parameter should be large enough to hold an opaque **SYSTEM\_TIMEOFDAY\_INFORMATION** structure for use in generating an unpredictable seed for a random number generator. For this purpose, the structure has the following layout:
-     * 
-     * ``` syntax
-     * typedef struct _SYSTEM_TIMEOFDAY_INFORMATION {
-     *     BYTE Reserved1[48];
-     * } SYSTEM_TIMEOFDAY_INFORMATION;
-     * ```
-     * 
-     * Individual members of the structure are reserved for internal use by the operating system.
-     * 
-     * Use the [**CryptGenRandom**](/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenrandom) function instead to generate cryptographically random data.
-     * 
-     * 
-     * <span id="SYSTEM_PROCESS_INFORMATION"></span><span id="system_process_information"></span>
-     * 
-     * <span id="SYSTEM_PROCESS_INFORMATION"></span><span id="system_process_information"></span>**SYSTEM\_PROCESS\_INFORMATION**
-     * 
-     * 
-     * 
-     * When the *SystemInformationClass* parameter is **SystemProcessInformation**, the buffer pointed to by the *SystemInformation* parameter should be large enough to hold an array that contains as many **SYSTEM\_PROCESS\_INFORMATION** structures as there are processes running in the system. Each structure has the following layout:
-     * 
-     * ``` syntax
-     * typedef struct _SYSTEM_PROCESS_INFORMATION {
-     *     ULONG NextEntryOffset;
-     *     ULONG NumberOfThreads;
-     *     BYTE Reserved1[48];
-     *     PVOID Reserved2[3];
-     *     HANDLE UniqueProcessId;
-     *     PVOID Reserved3;
-     *     ULONG HandleCount;
-     *     BYTE Reserved4[4];
-     *     PVOID Reserved5[11];
-     *     SIZE_T PeakPagefileUsage;
-     *     SIZE_T PrivatePageCount;
-     *     LARGE_INTEGER Reserved6[6];
-     * } SYSTEM_PROCESS_INFORMATION;
-     * ```
-     * 
-     * The **NumberOfThreads** member contains the total number of currently running threads in the process.
-     * 
-     * The **HandleCount** member contains the total number of handles being used by the process in question; use [**GetProcessHandleCount**](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getprocesshandlecount) to retrieve this information instead.
-     * 
-     * The **PeakPagefileUsage** member contains the maximum number of bytes of page-file storage used by the process, and the **PrivatePageCount** member contains the number of memory pages allocated for the use of this process.
-     * 
-     * You can also retrieve this information using either the [**GetProcessMemoryInfo**](/windows/desktop/api/psapi/nf-psapi-getprocessmemoryinfo) function or the [**Win32\_Process**](/windows/desktop/CIMWin32Prov/win32-process) class.
-     * 
-     * The other members of the structure are reserved for internal use by the operating system.
-     * 
-     * 
-     * <span id="SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION"></span><span id="system_processor_performance_information"></span>
-     * 
-     * <span id="SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION"></span><span id="system_processor_performance_information"></span>**SYSTEM\_PROCESSOR\_PERFORMANCE\_INFORMATION**
-     * 
-     * 
-     * 
-     * When the *SystemInformationClass* parameter is **SystemProcessorPerformanceInformation**, the buffer pointed to by the *SystemInformation* parameter should be large enough to hold an array that contains as many **SYSTEM\_PROCESS\_INFORMATION** structures as there are processors (CPUs) installed in the system. Each structure has the following layout:
-     * 
-     * ``` syntax
-     * typedef struct
+     * @param {Pointer<Void>} _SystemInformation 
      * @param {Integer} SystemInformationLength The size of the buffer pointed to by the *SystemInformation* parameter, in bytes.
      * @param {Pointer<Integer>} ReturnLength An optional pointer to a location where the function writes the actual size of the information requested. If that size is less than or equal to the *SystemInformationLength* parameter, the function copies the information into the *SystemInformation* buffer; otherwise, it returns an NTSTATUS error code and returns in *ReturnLength* the size of buffer required to receive the requested information.
      * @returns {NTSTATUS} Returns an NTSTATUS success or error code.
@@ -263,11 +154,11 @@ class SystemInformation {
      * The forms and significance of NTSTATUS error codes are listed in the Ntstatus.h header file available in the DDK, and are described in the DDK documentation.
      * @see https://learn.microsoft.com/windows/win32/SysInfo/zwquerysysteminformation
      */
-    static ZwQuerySystemInformation(SystemInformationClass, SystemInformation, SystemInformationLength, ReturnLength) {
-        SystemInformationMarshal := SystemInformation is VarRef ? "ptr" : "ptr"
+    static ZwQuerySystemInformation(SystemInformationClass, _SystemInformation, SystemInformationLength, ReturnLength) {
+        _SystemInformationMarshal := _SystemInformation is VarRef ? "ptr" : "ptr"
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQuerySystemInformation", "int", SystemInformationClass, SystemInformationMarshal, SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntdll.dll\ZwQuerySystemInformation", "int", SystemInformationClass, _SystemInformationMarshal, _SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -276,27 +167,27 @@ class SystemInformation {
      * Retrieves the current system time.
      * @remarks
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * @param {Pointer<Integer>} SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the system time. This is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (UTC).
+     * @param {Pointer<Integer>} _SystemTime 
      * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code, which will typically be STATUS_ACCESS_VIOLATION.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntquerysystemtime
      */
-    static NtQuerySystemTime(SystemTime) {
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+    static NtQuerySystemTime(_SystemTime) {
+        _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtQuerySystemTime", SystemTimeMarshal, SystemTime, "int")
+        result := DllCall("ntdll.dll\NtQuerySystemTime", _SystemTimeMarshal, _SystemTime, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} SystemTime 
+     * @param {Pointer<Integer>} _SystemTime 
      * @returns {NTSTATUS} 
      */
-    static ZwQuerySystemTime(SystemTime) {
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+    static ZwQuerySystemTime(_SystemTime) {
+        _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQuerySystemTime", SystemTimeMarshal, SystemTime, "int")
+        result := DllCall("ntdll.dll\ZwQuerySystemTime", _SystemTimeMarshal, _SystemTime, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }

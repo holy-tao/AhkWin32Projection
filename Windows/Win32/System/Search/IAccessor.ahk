@@ -30,13 +30,13 @@ class IAccessor extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @returns {Integer} 
      */
-    AddRefAccessor(hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    AddRefAccessor(_hAccessor) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
-        result := ComCall(3, this, "ptr", hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
         return pcRefCount
     }
 
@@ -59,32 +59,32 @@ class IAccessor extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Integer>} pdwAccessorFlags 
      * @param {Pointer<Pointer>} pcBindings 
      * @param {Pointer<Pointer<DBBINDING>>} prgBindings 
      * @returns {HRESULT} 
      */
-    GetBindings(hAccessor, pdwAccessorFlags, pcBindings, prgBindings) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetBindings(_hAccessor, pdwAccessorFlags, pcBindings, prgBindings) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pdwAccessorFlagsMarshal := pdwAccessorFlags is VarRef ? "uint*" : "ptr"
         pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
         prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hAccessor, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
+        result := ComCall(5, this, "ptr", _hAccessor, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @returns {Integer} 
      */
-    ReleaseAccessor(hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    ReleaseAccessor(_hAccessor) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
-        result := ComCall(6, this, "ptr", hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
         return pcRefCount
     }
 }

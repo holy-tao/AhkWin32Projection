@@ -94,16 +94,14 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {PWSTR} id Type: <b>PCWSTR</b>
      * 
      * ID of the element to retrieve.
-     * @returns {ID2D1SvgElement} Type: <b>ID2D1SvgElement**</b>
-     * 
-     * The element matching the specified ID. If the element cannot be found, the returned element will be null.
+     * @returns {ID2D1SvgElement} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-findelementbyid
      */
     FindElementById(id) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(8, this, "ptr", id, "ptr*", &svgElement := 0, "HRESULT")
-        return ID2D1SvgElement(svgElement)
+        result := ComCall(8, this, "ptr", id, "ptr*", &_svgElement := 0, "HRESULT")
+        return ID2D1SvgElement(_svgElement)
     }
 
     /**
@@ -142,15 +140,15 @@ class ID2D1SvgDocument extends ID2D1Resource{
     /**
      * Creates a paint object which can be used to set the 'fill' or 'stroke' properties.
      * @param {Integer} paintType 
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} _color 
      * @param {PWSTR} id 
      * @returns {ID2D1SvgPaint} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgdocument-createpaint-overload
      */
-    CreatePaint(paintType, color, id) {
+    CreatePaint(paintType, _color, id) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(11, this, "int", paintType, "ptr", color, "ptr", id, "ptr*", &paint := 0, "HRESULT")
+        result := ComCall(11, this, "int", paintType, "ptr", _color, "ptr", id, "ptr*", &paint := 0, "HRESULT")
         return ID2D1SvgPaint(paint)
     }
 
@@ -174,9 +172,7 @@ class ID2D1SvgDocument extends ID2D1Resource{
 
     /**
      * Creates a points object which can be used to set a points attribute on a polygon or polyline element.
-     * @param {Pointer<D2D_POINT_2F>} points Type: <b>const D2D1_POINT_2F*</b>
-     * 
-     * The points in the point collection.
+     * @param {Pointer<D2D_POINT_2F>} _points 
      * @param {Integer} pointsCount Type: <b>UINT32</b>
      * 
      * The number of points in the points argument.
@@ -185,8 +181,8 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * The created <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/nn-d2d1svg-id2d1svgpointcollection">ID2D1SvgPointCollection</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpointcollection
      */
-    CreatePointCollection(points, pointsCount) {
-        result := ComCall(13, this, "ptr", points, "uint", pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
+    CreatePointCollection(_points, pointsCount) {
+        result := ComCall(13, this, "ptr", _points, "uint", pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
         return ID2D1SvgPointCollection(pointCollection)
     }
 
@@ -204,16 +200,14 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {Integer} commandsCount Type: <b>UINT32</b>
      * 
      * The number of items in commands.
-     * @returns {ID2D1SvgPathData} Type: <b>ID2D1SvgPathData**</b>
-     * 
-     * When this method completes, this points to the created path data.
+     * @returns {ID2D1SvgPathData} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpathdata
      */
     CreatePathData(segmentData, segmentDataCount, commands, commandsCount) {
         segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
         commandsMarshal := commands is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, segmentDataMarshal, segmentData, "uint", segmentDataCount, commandsMarshal, commands, "uint", commandsCount, "ptr*", &pathData := 0, "HRESULT")
-        return ID2D1SvgPathData(pathData)
+        result := ComCall(14, this, segmentDataMarshal, segmentData, "uint", segmentDataCount, commandsMarshal, commands, "uint", commandsCount, "ptr*", &_pathData := 0, "HRESULT")
+        return ID2D1SvgPathData(_pathData)
     }
 }

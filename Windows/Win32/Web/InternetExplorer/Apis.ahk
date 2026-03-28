@@ -2339,7 +2339,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} lpwstrInitialFileName 
      * @param {PWSTR} lpwstrInitialDir 
      * @param {PWSTR} lpwstrFilter 
@@ -2350,8 +2350,8 @@ class InternetExplorer {
      * @param {Pointer<HANDLE>} phState 
      * @returns {HRESULT} 
      */
-    static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static IEShowSaveFileDialog(_hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpwstrInitialFileName := lpwstrInitialFileName is String ? StrPtr(lpwstrInitialFileName) : lpwstrInitialFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
@@ -2359,13 +2359,13 @@ class InternetExplorer {
 
         lppwstrDestinationFilePathMarshal := lppwstrDestinationFilePath is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, "ptr", phState, "HRESULT")
+        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", _hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, "ptr", phState, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} lpwstrFileName 
      * @param {Integer} cchMaxFileName 
      * @param {PWSTR} lpwstrInitialDir 
@@ -2375,15 +2375,15 @@ class InternetExplorer {
      * @param {Integer} dwFlags 
      * @returns {HANDLE} 
      */
-    static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static IEShowOpenFileDialog(_hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpwstrFileName := lpwstrFileName is String ? StrPtr(lpwstrFileName) : lpwstrFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
         phFile := HANDLE()
-        result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "HRESULT")
+        result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", _hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "HRESULT")
         return phFile
     }
 
@@ -3042,17 +3042,17 @@ class InternetExplorer {
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} cx 
-     * @param {Integer} cy 
+     * @param {Integer} _cy 
      * @param {Integer} lDestTrans 
      * @param {Integer} lSrcTrans 
      * @returns {HRESULT} 
      */
-    static DitherTo8(pDestBits, nDestPitch, pSrcBits, nSrcPitch, bfidSrc, prgbDestColors, prgbSrcColors, pbDestInvMap, x, y, cx, cy, lDestTrans, lSrcTrans) {
+    static DitherTo8(pDestBits, nDestPitch, pSrcBits, nSrcPitch, bfidSrc, prgbDestColors, prgbSrcColors, pbDestInvMap, x, y, cx, _cy, lDestTrans, lSrcTrans) {
         pDestBitsMarshal := pDestBits is VarRef ? "char*" : "ptr"
         pSrcBitsMarshal := pSrcBits is VarRef ? "char*" : "ptr"
         pbDestInvMapMarshal := pbDestInvMap is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ImgUtil.dll\DitherTo8", pDestBitsMarshal, pDestBits, "int", nDestPitch, pSrcBitsMarshal, pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, pbDestInvMapMarshal, pbDestInvMap, "int", x, "int", y, "int", cx, "int", cy, "int", lDestTrans, "int", lSrcTrans, "HRESULT")
+        result := DllCall("ImgUtil.dll\DitherTo8", pDestBitsMarshal, pDestBits, "int", nDestPitch, pSrcBitsMarshal, pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, pbDestInvMapMarshal, pbDestInvMap, "int", x, "int", y, "int", cx, "int", _cy, "int", lDestTrans, "int", lSrcTrans, "HRESULT")
         return result
     }
 

@@ -30,13 +30,13 @@ class ITridentTouchInput extends IUnknown{
 
     /**
      * 
-     * @param {Integer} msg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {Integer} _msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} 
      */
-    OnPointerMessage(msg, wParam, lParam) {
-        result := ComCall(3, this, "uint", msg, "ptr", wParam, "ptr", lParam, "int*", &pfAllowManipulations := 0, "HRESULT")
+    OnPointerMessage(_msg, _wParam, _lParam) {
+        result := ComCall(3, this, "uint", _msg, "ptr", _wParam, "ptr", _lParam, "int*", &pfAllowManipulations := 0, "HRESULT")
         return pfAllowManipulations
     }
 }

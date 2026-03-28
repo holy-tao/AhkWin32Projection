@@ -308,9 +308,9 @@ class IFeed extends IDispatch{
      * @returns {BSTR} 
      */
     get_Path() {
-        path := BSTR()
-        result := ComCall(13, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(13, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -480,9 +480,9 @@ class IFeed extends IDispatch{
      * @returns {BSTR} 
      */
     get_LocalEnclosurePath() {
-        path := BSTR()
-        result := ComCall(26, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(26, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -529,9 +529,9 @@ class IFeed extends IDispatch{
      * @returns {BSTR} 
      */
     get_Link() {
-        homePage := BSTR()
-        result := ComCall(31, this, "ptr", homePage, "HRESULT")
-        return homePage
+        _homePage := BSTR()
+        result := ComCall(31, this, "ptr", _homePage, "HRESULT")
+        return _homePage
     }
 
     /**
@@ -634,8 +634,8 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_DownloadStatus() {
-        result := ComCall(42, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(42, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**

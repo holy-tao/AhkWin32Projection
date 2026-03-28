@@ -45,21 +45,14 @@ class IExtendPropertySheet extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-mmcfreenotifyhandle">MMCFreeNotifyHandle</a>.
      * @param {IPropertySheetCallback} lpProvider A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-ipropertysheetcallback">IPropertySheetCallback</a> interface.
-     * @param {Pointer} handle A value that specifies the handle used to route the 
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-property-change">MMCN_PROPERTY_CHANGE</a> notification message to the appropriate 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-icomponent">IComponent</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-icomponentdata">IComponentData</a> interface.
-     * 
-     * For snap-ins that use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-ipropertysheetprovider">IPropertySheetProvider</a> interface directly, MMC creates the handle when the snap-in calls 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-ipropertysheetprovider-addprimarypages">IPropertySheetProvider::AddPrimaryPages</a> and specifies its bCreateHandle to be <b>TRUE</b>.
+     * @param {Pointer} _handle 
      * @param {IDataObject} lpIDataObject A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object that contains context information about the scope or result item.
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendpropertysheet-createpropertypages
      */
-    CreatePropertyPages(lpProvider, handle, lpIDataObject) {
-        result := ComCall(3, this, "ptr", lpProvider, "ptr", handle, "ptr", lpIDataObject, "HRESULT")
+    CreatePropertyPages(lpProvider, _handle, lpIDataObject) {
+        result := ComCall(3, this, "ptr", lpProvider, "ptr", _handle, "ptr", lpIDataObject, "HRESULT")
         return result
     }
 

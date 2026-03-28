@@ -45,11 +45,11 @@ class IMsmStrings extends IDispatch{
     /**
      * 
      * @param {Integer} Item 
-     * @param {Pointer<BSTR>} Return_R 
+     * @param {Pointer<BSTR>} _Return 
      * @returns {HRESULT} 
      */
-    get_Item(Item, Return_R) {
-        result := ComCall(7, this, "int", Item, "ptr", Return_R, "HRESULT")
+    get_Item(Item, _Return) {
+        result := ComCall(7, this, "int", Item, "ptr", _Return, "HRESULT")
         return result
     }
 

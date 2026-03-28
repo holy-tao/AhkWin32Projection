@@ -94,7 +94,7 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {Integer} 
      */
     get_MMHandle() {
-        result := ComCall(25, this, "int*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(25, this, "int*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 }

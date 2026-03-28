@@ -48,17 +48,17 @@ class INewShortcutHookW extends IUnknown{
      * @remarks
      * For Internet shortcut objects, this method is the same as <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/dd565676(v=vs.85)">IUniformResourceLocator::SetURL</a>.
      * @param {PWSTR} pcszReferent TBD
-     * @param {HWND} hwnd TBD
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthookw-setreferent
      */
-    SetReferent(pcszReferent, hwnd) {
+    SetReferent(pcszReferent, _hwnd) {
         pcszReferent := pcszReferent is String ? StrPtr(pcszReferent) : pcszReferent
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "ptr", pcszReferent, "ptr", hwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pcszReferent, "ptr", _hwnd, "HRESULT")
         return result
     }
 

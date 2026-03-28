@@ -245,7 +245,7 @@ class Threading {
      * Deprecated. Waits until the specified object attains a state of signaled. NtWaitForSingleObject is superseded by WaitForSingleObject.
      * @remarks
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HANDLE} Handle The handle to the wait object.
+     * @param {HANDLE} _Handle 
      * @param {BOOLEAN} Alertable Specifies whether an alert can be delivered when the object is waiting.
      * @param {Pointer<Integer>} Timeout A pointer to an absolute or relative time over
      *         which the wait is to occur. Can be null. If a timeout is specified, and
@@ -310,12 +310,12 @@ class Threading {
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntwaitforsingleobject
      */
-    static NtWaitForSingleObject(Handle, Alertable, Timeout) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static NtWaitForSingleObject(_Handle, Alertable, Timeout) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtWaitForSingleObject", "ptr", Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
+        result := DllCall("ntdll.dll\NtWaitForSingleObject", "ptr", _Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -431,17 +431,17 @@ class Threading {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {BOOLEAN} Alertable 
      * @param {Pointer<Integer>} Timeout 
      * @returns {NTSTATUS} 
      */
-    static ZwWaitForSingleObject(Handle, Alertable, Timeout) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ZwWaitForSingleObject(_Handle, Alertable, Timeout) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwWaitForSingleObject", "ptr", Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
+        result := DllCall("ntdll.dll\ZwWaitForSingleObject", "ptr", _Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }

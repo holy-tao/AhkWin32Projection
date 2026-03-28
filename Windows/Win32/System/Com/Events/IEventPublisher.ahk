@@ -197,15 +197,15 @@ class IEventPublisher extends IDispatch{
      * @remarks
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventpublisher">EventPublisher</a> object includes a property bag that can contain name and value pairs. Objects in the event system, including subscribers, can add, modify, and read these properties.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be retrieved.
-     * @returns {VARIANT} A pointer to the variable that receives the property.
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-getdefaultproperty
      */
     GetDefaultProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        propertyValue := VARIANT()
-        result := ComCall(17, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
-        return propertyValue
+        _propertyValue := VARIANT()
+        result := ComCall(17, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
+        return _propertyValue
     }
 
     /**
@@ -213,14 +213,14 @@ class IEventPublisher extends IDispatch{
      * @remarks
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventpublisher">EventPublisher</a> object includes a property bag that can contain name and value pairs. Objects in the event system, including subscribers, can add, modify, and read these properties.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be set.
-     * @param {Pointer<VARIANT>} propertyValue The new value for the property.
+     * @param {Pointer<VARIANT>} _propertyValue 
      * @returns {HRESULT} The possible return values include E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-putdefaultproperty
      */
-    PutDefaultProperty(bstrPropertyName, propertyValue) {
+    PutDefaultProperty(bstrPropertyName, _propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(18, this, "ptr", bstrPropertyName, "ptr", propertyValue, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
         return result
     }
 

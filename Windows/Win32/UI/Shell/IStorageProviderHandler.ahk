@@ -38,14 +38,14 @@ class IStorageProviderHandler extends IUnknown{
 
     /**
      * Gets an instance of IStorageProviderPropertyHandler associated with the provided path.
-     * @param {PWSTR} path The path for the relevant file.
+     * @param {PWSTR} _path 
      * @returns {IStorageProviderPropertyHandler} An <a href="https://docs.microsoft.com/windows/desktop/api/storageprovider/nn-storageprovider-istorageproviderpropertyhandler">IStorageProviderPropertyHandler</a> instance associated with the file specified by <i>path</i>.
      * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfrompath
      */
-    GetPropertyHandlerFromPath(path) {
-        path := path is String ? StrPtr(path) : path
+    GetPropertyHandlerFromPath(_path) {
+        _path := _path is String ? StrPtr(_path) : _path
 
-        result := ComCall(3, this, "ptr", path, "ptr*", &propertyHandler := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, "ptr*", &propertyHandler := 0, "HRESULT")
         return IStorageProviderPropertyHandler(propertyHandler)
     }
 

@@ -32,19 +32,14 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the matrix used by the effect to multiply the RGBA values of the image.
-     * @param {Pointer<D2D_MATRIX_5X4_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-5x4-f">D2D1_MATRIX_5X4_F</a></b>
-     * 
-     * The matrix used by the effect to multiply the RGBA values of the image. The matrix is column major and is applied as shown in the following equation:
-     *           
-     * 
-     * <img alt="Matrix equation" src="./images/color_matrix_formula.png"/>
+     * @param {Pointer<D2D_MATRIX_5X4_F>} _matrix 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrix
      */
-    SetMatrix(matrix) {
-        result := ComCall(4, this, "ptr", matrix, "HRESULT")
+    SetMatrix(_matrix) {
+        result := ComCall(4, this, "ptr", _matrix, "HRESULT")
         return result
     }
 
@@ -53,17 +48,15 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row of the element.
-     * @param {Integer} column Type: <b>int</b>
-     * 
-     * The column of the element.
+     * @param {Integer} _column 
      * @param {IDCompositionAnimation} animation 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrixelement(int_int_float)
      */
-    SetMatrixElement(row, column, animation) {
-        result := ComCall(5, this, "int", row, "int", column, "ptr", animation, "HRESULT")
+    SetMatrixElement(row, _column, animation) {
+        result := ComCall(5, this, "int", row, "int", _column, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -72,9 +65,7 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row of the element.
-     * @param {Integer} column Type: <b>int</b>
-     * 
-     * The column of the element.
+     * @param {Integer} _column 
      * @param {Float} value Type: <b>float</b>
      * 
      * The new value of the element.
@@ -83,23 +74,21 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrixelement(int_int_float)
      */
-    SetMatrixElement1(row, column, value) {
-        result := ComCall(6, this, "int", row, "int", column, "float", value, "HRESULT")
+    SetMatrixElement1(row, _column, value) {
+        result := ComCall(6, this, "int", row, "int", _column, "float", value, "HRESULT")
         return result
     }
 
     /**
      * Sets the alpha mode of the output for the color matrix effect.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/color-matrix">D2D1_COLORMATRIX_ALPHA_MODE</a></b>
-     * 
-     * The alpha mode of the output for the color matrix effect.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setalphamode
      */
-    SetAlphaMode(mode) {
-        result := ComCall(7, this, "int", mode, "HRESULT")
+    SetAlphaMode(_mode) {
+        result := ComCall(7, this, "int", _mode, "HRESULT")
         return result
     }
 

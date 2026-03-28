@@ -38,15 +38,15 @@ class IDirectManipulationUpdateManager extends IUnknown{
 
     /**
      * Registers a callback that is triggered by a handle.
-     * @param {HANDLE} handle The event handle that triggers the callback.
+     * @param {HANDLE} _handle 
      * @param {IDirectManipulationUpdateHandler} eventHandler The event handler to call when the event is fired.
      * @returns {Integer} The unique ID of the event callback instance.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-registerwaithandlecallback
      */
-    RegisterWaitHandleCallback(handle, eventHandler) {
-        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+    RegisterWaitHandleCallback(_handle, eventHandler) {
+        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
 
-        result := ComCall(3, this, "ptr", handle, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _handle, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
         return cookie
     }
 

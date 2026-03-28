@@ -814,13 +814,13 @@ class IMSVidWebDVD extends IMSVidPlayback{
      * The DVDTimeCode2bstr method retrieves a string indicating the current time on the disc.
      * @remarks
      * This method is read only.
-     * @param {Integer} timeCode 
+     * @param {Integer} _timeCode 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/DirectShow/dvdtimecode2bstr-method
      */
-    DVDTimeCode2bstr(timeCode) {
+    DVDTimeCode2bstr(_timeCode) {
         pTimeStr := BSTR()
-        result := ComCall(69, this, "int", timeCode, "ptr", pTimeStr, "HRESULT")
+        result := ComCall(69, this, "int", _timeCode, "ptr", pTimeStr, "HRESULT")
         return pTimeStr
     }
 

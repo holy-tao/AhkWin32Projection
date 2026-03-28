@@ -111,13 +111,13 @@ class ITfReadingInformationUIElement extends ITfUIElement{
 
     /**
      * This method returns the string on the reading information UI.
-     * @returns {BSTR} [out] A pointer to the BSTR of the reading information string.
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getstring
      */
     GetString() {
-        pstr := BSTR()
-        result := ComCall(9, this, "ptr", pstr, "HRESULT")
-        return pstr
+        _pstr := BSTR()
+        result := ComCall(9, this, "ptr", _pstr, "HRESULT")
+        return _pstr
     }
 
     /**

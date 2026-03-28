@@ -29,7 +29,7 @@ class IMAPITable extends IUnknown{
      * 
      * @remarks
      * The **IMAPITable::GetLastError** method returns detailed information, if available, about a prior method call that failed. This information can be displayed in a message or a dialog box.
-     * @param {HRESULT} hResult > [in] HRESULT containing the error generated in the previous method call.
+     * @param {HRESULT} _hResult 
      * @param {Integer} ulFlags > [in] Bitmask of flags that controls the type of the returned strings. The following flag can be set:
      *     
      * MAPI_UNICODE 
@@ -45,10 +45,10 @@ class IMAPITable extends IUnknown{
      * > Either the MAPI_UNICODE flag was set and the implementation does not support Unicode, or MAPI_UNICODE was not set and the implementation only supports Unicode.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getlasterror
      */
-    GetLastError(hResult, ulFlags, lppMAPIError) {
+    GetLastError(_hResult, ulFlags, lppMAPIError) {
         lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 

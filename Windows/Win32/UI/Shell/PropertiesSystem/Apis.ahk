@@ -3412,9 +3412,7 @@ class PropertiesSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-appusermodel-relaunchiconresource">System.AppUserModel.RelaunchIconResource</a>
      * </li>
      * </ul>
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window whose properties are being retrieved.
+     * @param {HWND} _hwnd 
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the property store object to retrieve through <i>ppv</i>. This is typically IID_IPropertyStore.
@@ -3424,10 +3422,10 @@ class PropertiesSystem {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetpropertystoreforwindow
      * @since windows6.1
      */
-    static SHGetPropertyStoreForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHGetPropertyStoreForWindow(_hwnd, riid) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", _hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

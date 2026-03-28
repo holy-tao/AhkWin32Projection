@@ -43,14 +43,12 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @param {Pointer<D2D1_INK_POINT>} startPoint Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_point">D2D1_INK_POINT</a></b>
      * 
      * The starting point of the first segment of the first stroke in the new ink object.
-     * @returns {ID2D1Ink} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to a new ink object.
+     * @returns {ID2D1Ink} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createink(constd2d1_ink_point__id2d1ink)
      */
     CreateInk(startPoint) {
-        result := ComCall(95, this, "ptr", startPoint, "ptr*", &ink := 0, "HRESULT")
-        return ID2D1Ink(ink)
+        result := ComCall(95, this, "ptr", startPoint, "ptr*", &_ink := 0, "HRESULT")
+        return ID2D1Ink(_ink)
     }
 
     /**
@@ -303,9 +301,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
 
     /**
      * Renders the given ink object using the given brush and ink style. (ID2D1DeviceContext2.DrawInk)
-     * @param {ID2D1Ink} ink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>*</b>
-     * 
-     * The ink object to be rendered.
+     * @param {ID2D1Ink} _ink 
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush with which to render the ink object.
@@ -315,8 +311,8 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawink
      */
-    DrawInk(ink, brush, inkStyle) {
-        ComCall(102, this, "ptr", ink, "ptr", brush, "ptr", inkStyle)
+    DrawInk(_ink, brush, inkStyle) {
+        ComCall(102, this, "ptr", _ink, "ptr", brush, "ptr", inkStyle)
     }
 
     /**
@@ -357,16 +353,14 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @param {ID2D1ImageSource} imageSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1imagesource">ID2D1ImageSource</a>*</b>
      * 
      * The original image.
-     * @param {Pointer<D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES>} properties Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_transformed_image_source_properties">D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES</a>*</b>
-     * 
-     * Properties for the source image.
+     * @param {Pointer<D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES>} _properties 
      * @returns {ID2D1TransformedImageSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1transformedimagesource">ID2D1TransformedImageSource</a>**</b>
      * 
      * Receives the new image source.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createtransformedimagesource
      */
-    CreateTransformedImageSource(imageSource, properties) {
-        result := ComCall(105, this, "ptr", imageSource, "ptr", properties, "ptr*", &transformedImageSource := 0, "HRESULT")
+    CreateTransformedImageSource(imageSource, _properties) {
+        result := ComCall(105, this, "ptr", imageSource, "ptr", _properties, "ptr*", &transformedImageSource := 0, "HRESULT")
         return ID2D1TransformedImageSource(transformedImageSource)
     }
 }

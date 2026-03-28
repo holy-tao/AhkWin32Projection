@@ -617,11 +617,11 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pSID 
+     * @param {Pointer<BSTR>} _pSID 
      * @returns {HRESULT} 
      */
-    get_SID(pSID) {
-        result := ComCall(30, this, "ptr", pSID, "HRESULT")
+    get_SID(_pSID) {
+        result := ComCall(30, this, "ptr", _pSID, "HRESULT")
         return result
     }
 

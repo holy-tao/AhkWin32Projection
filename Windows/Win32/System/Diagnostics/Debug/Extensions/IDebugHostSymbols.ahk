@@ -81,49 +81,49 @@ class IDebugHostSymbols extends IUnknown{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @returns {IDebugHostSymbolEnumerator} 
      */
-    EnumerateModules(context) {
-        result := ComCall(6, this, "ptr", context, "ptr*", &moduleEnum := 0, "HRESULT")
+    EnumerateModules(_context) {
+        result := ComCall(6, this, "ptr", _context, "ptr*", &moduleEnum := 0, "HRESULT")
         return IDebugHostSymbolEnumerator(moduleEnum)
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @param {PWSTR} moduleName 
      * @returns {IDebugHostModule} 
      */
-    FindModuleByName(context, moduleName) {
+    FindModuleByName(_context, moduleName) {
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        result := ComCall(7, this, "ptr", context, "ptr", moduleName, "ptr*", &module := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _context, "ptr", moduleName, "ptr*", &module := 0, "HRESULT")
         return IDebugHostModule(module)
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @param {Location} moduleLocation 
      * @returns {IDebugHostModule} 
      */
-    FindModuleByLocation(context, moduleLocation) {
-        result := ComCall(8, this, "ptr", context, "ptr", moduleLocation, "ptr*", &module := 0, "HRESULT")
+    FindModuleByLocation(_context, moduleLocation) {
+        result := ComCall(8, this, "ptr", _context, "ptr", moduleLocation, "ptr*", &module := 0, "HRESULT")
         return IDebugHostModule(module)
     }
 
     /**
      * 
      * @param {IDebugHostContext} pContext 
-     * @param {Location} location 
-     * @param {IDebugHostType} objectType 
+     * @param {Location} _location 
+     * @param {IDebugHostType} _objectType 
      * @param {Pointer<Location>} derivedLocation 
      * @param {Pointer<IDebugHostType>} derivedType 
      * @returns {HRESULT} 
      */
-    GetMostDerivedObject(pContext, location, objectType, derivedLocation, derivedType) {
-        result := ComCall(9, this, "ptr", pContext, "ptr", location, "ptr", objectType, "ptr", derivedLocation, "ptr*", derivedType, "HRESULT")
+    GetMostDerivedObject(pContext, _location, _objectType, derivedLocation, derivedType) {
+        result := ComCall(9, this, "ptr", pContext, "ptr", _location, "ptr", _objectType, "ptr", derivedLocation, "ptr*", derivedType, "HRESULT")
         return result
     }
 }

@@ -178,9 +178,7 @@ class IShellMenu extends IUnknown{
      * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The folder's fully qualified <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. This value can be <b>NULL</b>.
-     * @param {HKEY} hKey Type: <b>HKEY</b>
-     * 
-     * An HKEY with an "Order" value that is used to store the order of the menu. This value can be <b>NULL</b>.
+     * @param {HKEY} _hKey 
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify how the menu band operates.
@@ -189,10 +187,10 @@ class IShellMenu extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setshellfolder
      */
-    SetShellFolder(psf, pidlFolder, hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    SetShellFolder(psf, pidlFolder, _hKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := ComCall(5, this, "ptr", psf, "ptr", pidlFolder, "ptr", hKey, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", psf, "ptr", pidlFolder, "ptr", _hKey, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -311,12 +309,8 @@ class IShellMenu extends IUnknown{
 
     /**
      * Appends a static menu to the menu band.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * The handle of the static menu that is to be appended. This value can be <b>NULL</b>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The <b>HWND</b> of the owner window. This value can be <b>NULL</b>.
+     * @param {HMENU} _hmenu 
+     * @param {HWND} _hwnd 
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify how the menu operates.
@@ -325,11 +319,11 @@ class IShellMenu extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu
      */
-    SetMenu(hmenu, hwnd, dwFlags) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetMenu(_hmenu, _hwnd, dwFlags) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(7, this, "ptr", hmenu, "ptr", hwnd, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, "ptr", _hmenu, "ptr", _hwnd, "uint", dwFlags, "HRESULT")
         return result
     }
 

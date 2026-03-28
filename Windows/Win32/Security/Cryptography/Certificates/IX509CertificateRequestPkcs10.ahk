@@ -194,7 +194,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * 
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is <b>NULL</b>, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
-     * @param {Integer} Context An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509certificateenrollmentcontext">X509CertificateEnrollmentContext</a> enumeration value that specifies whether the requested certificate is intended for an end user, a computer, or administrator acting on behalf of the computer.
+     * @param {Integer} _Context 
      * @param {BSTR} strTemplateName A  <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -220,10 +220,10 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-initializefromtemplatename
      */
-    InitializeFromTemplateName(Context, strTemplateName) {
+    InitializeFromTemplateName(_Context, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(32, this, "int", Context, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(32, this, "int", _Context, "ptr", strTemplateName, "HRESULT")
         return result
     }
 
@@ -245,7 +245,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * Whether you specify a template or not, if the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is not specified, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
      * 
      * No private key is created at this point. If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object passed to the method does not represent an existing key, a key is created when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method is called. The key will be created by using the default provider if no template was specified and the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> property on the <b>IX509PrivateKey</b> is not set. When a private key exists, it is set on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_privatekey">PrivateKey</a> property.
-     * @param {Integer} Context 
+     * @param {Integer} _Context 
      * @param {IX509PrivateKey} pPrivateKey Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> interface that represents the private key.
      * @param {BSTR} strTemplateName A <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>. This is an optional parameter.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -271,10 +271,10 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-initializefromprivatekey
      */
-    InitializeFromPrivateKey(Context, pPrivateKey, strTemplateName) {
+    InitializeFromPrivateKey(_Context, pPrivateKey, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(33, this, "int", Context, "ptr", pPrivateKey, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(33, this, "int", _Context, "ptr", pPrivateKey, "ptr", strTemplateName, "HRESULT")
         return result
     }
 
@@ -295,7 +295,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * Whether you specify a template or not, if the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is not specified, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
      * 
      * The method does not create a private key. The use of this method implies that the request is null-signed. Therefore, the method sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509signatureinformation-get_nullsigned">NullSigned</a> property on the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509signatureinformation">IX509SignatureInformation</a> object.
-     * @param {Integer} Context An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509certificateenrollmentcontext">X509CertificateEnrollmentContext</a> enumeration value that specifies whether the requested certificate is intended for an end user, a computer, or an administrator acting on behalf of the computer.
+     * @param {Integer} _Context 
      * @param {IX509PublicKey} pPublicKey Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509publickey">IX509PublicKey</a> interface that represents the public key.
      * @param {BSTR} strTemplateName A  <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>. This is an optional parameter.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -322,10 +322,10 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-initializefrompublickey
      */
-    InitializeFromPublicKey(Context, pPublicKey, strTemplateName) {
+    InitializeFromPublicKey(_Context, pPublicKey, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(34, this, "int", Context, "ptr", pPublicKey, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(34, this, "int", _Context, "ptr", pPublicKey, "ptr", strTemplateName, "HRESULT")
         return result
     }
 
@@ -339,7 +339,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * <li>Copies the subject alternative name to the new request if you specify <b>InheritSubjectAltNameFlag</b>.</li>
      * <li>Copies the extensions to the new request if you specify <b>InheritExtensionsFlag</b>.</li>
      * </ul>
-     * @param {Integer} Context An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509certificateenrollmentcontext">X509CertificateEnrollmentContext</a> enumeration value that specifies whether the requested certificate is intended for an end user, a computer, or an administrator acting on behalf of the computer.
+     * @param {Integer} _Context 
      * @param {BSTR} strCertificate A <b>BSTR</b> variable that contains the DER-encoded certificate.
      * 
      * Beginning with Windows 7 and Windows Server 2008 R2, you can specify a certificate thumb print or serial number rather than an encoded certificate. Doing so causes the function to search the appropriate local stores for the matching certificate. Keep in mind the following points:
@@ -377,10 +377,10 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-initializefromcertificate
      */
-    InitializeFromCertificate(Context, strCertificate, Encoding, InheritOptions) {
+    InitializeFromCertificate(_Context, strCertificate, Encoding, InheritOptions) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(35, this, "int", Context, "ptr", strCertificate, "int", Encoding, "int", InheritOptions, "HRESULT")
+        result := ComCall(35, this, "int", _Context, "ptr", strCertificate, "int", Encoding, "int", InheritOptions, "HRESULT")
         return result
     }
 

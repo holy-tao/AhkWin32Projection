@@ -106,22 +106,22 @@ class IDVBTuneRequest extends ITuneRequest{
 
     /**
      * The get_SID method retrieves the service ID for the network.
-     * @returns {Integer} Receives the service ID.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_sid
      */
     get_SID() {
-        result := ComCall(16, this, "int*", &SID := 0, "HRESULT")
-        return SID
+        result := ComCall(16, this, "int*", &_SID := 0, "HRESULT")
+        return _SID
     }
 
     /**
      * The put_SID method sets the service ID.
-     * @param {Integer} SID The service ID.
+     * @param {Integer} _SID 
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_sid
      */
-    put_SID(SID) {
-        result := ComCall(17, this, "int", SID, "HRESULT")
+    put_SID(_SID) {
+        result := ComCall(17, this, "int", _SID, "HRESULT")
         return result
     }
 }

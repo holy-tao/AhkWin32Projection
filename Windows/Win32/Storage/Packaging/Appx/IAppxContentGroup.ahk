@@ -43,11 +43,11 @@ class IAppxContentGroup extends IUnknown{
 
     /**
      * Gets files from a content group.
-     * @returns {IAppxContentGroupFilesEnumerator} An enumerator for getting content group files.
+     * @returns {IAppxContentGroupFilesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroup-getfiles
      */
     GetFiles() {
-        result := ComCall(4, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IAppxContentGroupFilesEnumerator(enumerator)
+        result := ComCall(4, this, "ptr*", &_enumerator := 0, "HRESULT")
+        return IAppxContentGroupFilesEnumerator(_enumerator)
     }
 }

@@ -33,12 +33,12 @@ class ITsSbGenericNotifySink extends IUnknown{
 
     /**
      * Reports completion to Remote Desktop Connection Broker (RD Connection Broker).
-     * @param {HRESULT} Status The status to report.
+     * @param {HRESULT} _Status 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbgenericnotifysink-oncompleted
      */
-    OnCompleted(Status) {
-        result := ComCall(3, this, "int", Status, "HRESULT")
+    OnCompleted(_Status) {
+        result := ComCall(3, this, "int", _Status, "HRESULT")
         return result
     }
 

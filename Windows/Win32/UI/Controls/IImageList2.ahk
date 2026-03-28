@@ -112,16 +112,14 @@ class IImageList2 extends IImageList{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The x-axis count.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * The y-axis count.
+     * @param {Integer} _cy 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-setoriginalsize
      */
-    SetOriginalSize(iImage, cx, cy) {
-        result := ComCall(34, this, "int", iImage, "int", cx, "int", cy, "HRESULT")
+    SetOriginalSize(iImage, cx, _cy) {
+        result := ComCall(34, this, "int", iImage, "int", cx, "int", _cy, "HRESULT")
         return result
     }
 
@@ -309,9 +307,7 @@ class IImageList2 extends IImageList{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * Width, in pixels, of each image.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * Height, in pixels, of each image.
+     * @param {Integer} _cy 
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/Controls/ilc-constants">Image List Creation Flags</a>.
@@ -326,8 +322,8 @@ class IImageList2 extends IImageList{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize
      */
-    Initialize(cx, cy, flags, cInitial, cGrow) {
-        result := ComCall(41, this, "int", cx, "int", cy, "uint", flags, "int", cInitial, "int", cGrow, "HRESULT")
+    Initialize(cx, _cy, flags, cInitial, cGrow) {
+        result := ComCall(41, this, "int", cx, "int", _cy, "uint", flags, "int", cInitial, "int", cGrow, "HRESULT")
         return result
     }
 

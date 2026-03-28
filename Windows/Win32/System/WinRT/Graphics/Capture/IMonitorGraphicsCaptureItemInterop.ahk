@@ -38,12 +38,12 @@ class IMonitorGraphicsCaptureItemInterop extends IUnknown{
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {Pointer<HMONITOR>} monitor 
+     * @param {Pointer<HMONITOR>} _monitor 
      * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness
      */
-    GetMonitor(monitor) {
-        result := ComCall(3, this, "ptr", monitor, "HRESULT")
+    GetMonitor(_monitor) {
+        result := ComCall(3, this, "ptr", _monitor, "HRESULT")
         return result
     }
 }

@@ -127,24 +127,24 @@ class IComponent extends IDispatch{
      * The get_Status method retrieves the requested or actual status of the component.
      * @remarks
      * When the TIF adds a component to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponents">IComponents</a> collection, it can indicate whether the component is active or not. An application can attempt to set this status, and resubmit a tune request. The tuner will update the status from the enumeration: Active, Inactive, Unavailable. The Unavailable status is only set by a tuner in response to a request to activate, when the component is not really available.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentstatus">ComponentStatus</a> enumeration that receives the status value.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_status
      */
     get_Status() {
-        result := ComCall(11, this, "int*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(11, this, "int*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**
      * The put_Status method sets the requested or actual status of the component.
      * @remarks
      * Use this method to activate or inactivate a stream component.
-     * @param {Integer} Status A variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentstatus">ComponentStatus</a> that specifies the status value.
+     * @param {Integer} _Status 
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_status
      */
-    put_Status(Status) {
-        result := ComCall(12, this, "int", Status, "HRESULT")
+    put_Status(_Status) {
+        result := ComCall(12, this, "int", _Status, "HRESULT")
         return result
     }
 

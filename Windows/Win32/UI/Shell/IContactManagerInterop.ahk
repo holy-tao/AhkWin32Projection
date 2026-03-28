@@ -35,9 +35,7 @@ class IContactManagerInterop extends IUnknown{
      * @param {HWND} appWindow Type: <b>HWND</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a> of the foreground window of the app from which the contact card is launched and where focus is returned when the contact card is dismissed.
-     * @param {IUnknown} contact Type: <b>IUnknown*</b>
-     * 
-     * A pointer to the contact object. Use a <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.contacts.contact">Windows.ApplicationModel.Contacts.Contact</a> object but cast to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> here because classic COM IDL can't use Windows Runtime types.
+     * @param {IUnknown} _contact 
      * @param {Pointer<RECT>} selection Type: <b>RECT const*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/gdiplustypes/nl-gdiplustypes-rect">Rect</a> is the rectangular area of user selection (for example, pressing a button), around which the operating system displays the contact card, not within that rectangular area. For example, if an app uses a button to show the contact card, pass the <b>Rect</b> of the button so the contact card displays around the button, not overlapping it.
@@ -121,10 +119,10 @@ class IContactManagerInterop extends IUnknown{
      * Other <a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a> values are possible.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontactmanagerinterop-showcontactcardforwindow
      */
-    ShowContactCardForWindow(appWindow, contact, selection, preferredPlacement) {
+    ShowContactCardForWindow(appWindow, _contact, selection, preferredPlacement) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(3, this, "ptr", appWindow, "ptr", contact, "ptr", selection, "int", preferredPlacement, "HRESULT")
+        result := ComCall(3, this, "ptr", appWindow, "ptr", _contact, "ptr", selection, "int", preferredPlacement, "HRESULT")
         return result
     }
 }

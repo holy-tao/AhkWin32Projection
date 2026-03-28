@@ -67,15 +67,15 @@ class IMDDataset extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} ulStartCell 
      * @param {Pointer} ulEndCell 
      * @returns {Void} 
      */
-    GetCellData(hAccessor, ulStartCell, ulEndCell) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetCellData(_hAccessor, ulStartCell, ulEndCell) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
-        result := ComCall(6, this, "ptr", hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 

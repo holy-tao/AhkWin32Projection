@@ -295,25 +295,25 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} bstr 
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
-    replace(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    replace(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(24, this, "ptr", bstr, "HRESULT")
+        result := ComCall(24, this, "ptr", _bstr, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {BSTR} bstr 
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
-    assign(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    assign(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(25, this, "ptr", bstr, "HRESULT")
+        result := ComCall(25, this, "ptr", _bstr, "HRESULT")
         return result
     }
 
@@ -322,8 +322,8 @@ class IHTMLLocation extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        string_R := BSTR()
-        result := ComCall(26, this, "ptr", string_R, "HRESULT")
-        return string_R
+        _string := BSTR()
+        result := ComCall(26, this, "ptr", _string, "HRESULT")
+        return _string
     }
 }

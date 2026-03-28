@@ -68,8 +68,8 @@ class Extensions extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/SecCrypto/extensions-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &Extension := 0, "HRESULT")
-        return Extension(Extension)
+        result := ComCall(8, this, "int", Index, "ptr*", &_Extension := 0, "HRESULT")
+        return Extension(_Extension)
     }
 
     /**

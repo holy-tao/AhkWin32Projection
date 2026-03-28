@@ -70,11 +70,11 @@ class IDirectManipulationDragDropBehavior extends IUnknown{
      * Gets the status of the drag-drop interaction for the viewport this behavior is attached to.
      * @remarks
      * This method returns the drag-drop status at the time of the call and not at the time when the return value is read.
-     * @returns {Integer} One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_status">DIRECTMANIPULATION_DRAG_DROP_STATUS</a>.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdragdropbehavior-getstatus
      */
     GetStatus() {
-        result := ComCall(4, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(4, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 }

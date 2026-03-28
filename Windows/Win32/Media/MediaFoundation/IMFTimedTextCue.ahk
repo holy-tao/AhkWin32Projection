@@ -125,14 +125,12 @@ class IMFTimedTextCue extends IUnknown{
 
     /**
      * Gets info about the display region of the timed-text cue.
-     * @returns {IMFTimedTextRegion} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion">IMFTimedTextRegion</a>**</b>
-     * 
-     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion">IMFTimedTextRegion</a> interface for the timed-text region. This parameter can be <b>NULL</b>.
+     * @returns {IMFTimedTextRegion} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getregion
      */
     GetRegion() {
-        result := ComCall(10, this, "ptr*", &region := 0, "HRESULT")
-        return IMFTimedTextRegion(region)
+        result := ComCall(10, this, "ptr*", &_region := 0, "HRESULT")
+        return IMFTimedTextRegion(_region)
     }
 
     /**

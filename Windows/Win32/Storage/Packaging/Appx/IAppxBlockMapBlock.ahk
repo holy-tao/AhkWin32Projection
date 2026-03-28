@@ -51,8 +51,8 @@ class IAppxBlockMapBlock extends IUnknown{
     GetHash(bufferSize) {
         bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, bufferSizeMarshal, bufferSize, "ptr*", &buffer_R := 0, "HRESULT")
-        return buffer_R
+        result := ComCall(3, this, bufferSizeMarshal, bufferSize, "ptr*", &_buffer := 0, "HRESULT")
+        return _buffer
     }
 
     /**
@@ -61,13 +61,11 @@ class IAppxBlockMapBlock extends IUnknown{
      * This size corresponds to the compressed size of the block. 
      * 
      * The <i>size</i> value corresponds to the <b>Size</b> attribute of the <a href="https://docs.microsoft.com/uwp/schemas/blockmapschema/element-block">Block</a> element in the block map.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
-     * 
-     * The compressed size of the block, in bytes.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-getcompressedsize
      */
     GetCompressedSize() {
-        result := ComCall(4, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(4, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 }

@@ -65,18 +65,16 @@ class IDWriteStringList extends IUnknown{
      * @param {PWSTR} localeName Type: <b>WCHAR*</b>
      * 
      * Character array that receives the locale name.
-     * @param {Integer} size Type: <b>UINT32</b>
-     * 
-     * Size of the array in characters. The size must include space for the terminating null character.
+     * @param {Integer} _size 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getlocalename
      */
-    GetLocaleName(listIndex, localeName, size) {
+    GetLocaleName(listIndex, localeName, _size) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(5, this, "uint", listIndex, "ptr", localeName, "uint", size, "HRESULT")
+        result := ComCall(5, this, "uint", listIndex, "ptr", localeName, "uint", _size, "HRESULT")
         return result
     }
 

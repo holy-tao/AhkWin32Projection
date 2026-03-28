@@ -47,11 +47,11 @@ class ISpGrammarBuilder2 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} phoneticALphabet 
+     * @param {Integer} _phoneticALphabet 
      * @returns {HRESULT} 
      */
-    SetPhoneticAlphabet(phoneticALphabet) {
-        result := ComCall(4, this, "int", phoneticALphabet, "HRESULT")
+    SetPhoneticAlphabet(_phoneticALphabet) {
+        result := ComCall(4, this, "int", _phoneticALphabet, "HRESULT")
         return result
     }
 }

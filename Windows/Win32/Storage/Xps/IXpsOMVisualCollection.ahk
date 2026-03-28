@@ -54,8 +54,8 @@ class IXpsOMVisualCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualcollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &object_R := 0, "HRESULT")
-        return IXpsOMVisual(object_R)
+        result := ComCall(4, this, "uint", index, "ptr*", &_object := 0, "HRESULT")
+        return IXpsOMVisual(_object)
     }
 
     /**
@@ -65,12 +65,12 @@ class IXpsOMVisualCollection extends IUnknown{
      * 
      * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the collection where the interface pointer that is passed in <i>object</i>  is to be inserted.
-     * @param {IXpsOMVisual} object_R 
+     * @param {IXpsOMVisual} _object 
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualcollection-insertat
      */
-    InsertAt(index, object_R) {
-        result := ComCall(5, this, "uint", index, "ptr", object_R, "HRESULT")
+    InsertAt(index, _object) {
+        result := ComCall(5, this, "uint", index, "ptr", _object, "HRESULT")
         return result
     }
 
@@ -96,12 +96,12 @@ class IXpsOMVisualCollection extends IUnknown{
      * 
      * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index in the collection where an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a> interface pointer is to be replaced.
-     * @param {IXpsOMVisual} object_R 
+     * @param {IXpsOMVisual} _object 
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualcollection-setat
      */
-    SetAt(index, object_R) {
-        result := ComCall(7, this, "uint", index, "ptr", object_R, "HRESULT")
+    SetAt(index, _object) {
+        result := ComCall(7, this, "uint", index, "ptr", _object, "HRESULT")
         return result
     }
 
@@ -109,12 +109,12 @@ class IXpsOMVisualCollection extends IUnknown{
      * Appends an IXpsOMVisual interface to the end of the collection.
      * @remarks
      * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
-     * @param {IXpsOMVisual} object_R 
+     * @param {IXpsOMVisual} _object 
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualcollection-append
      */
-    Append(object_R) {
-        result := ComCall(8, this, "ptr", object_R, "HRESULT")
+    Append(_object) {
+        result := ComCall(8, this, "ptr", _object, "HRESULT")
         return result
     }
 }

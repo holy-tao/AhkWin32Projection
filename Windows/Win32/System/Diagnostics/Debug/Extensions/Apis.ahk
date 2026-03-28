@@ -4642,8 +4642,8 @@ class Extensions {
     static DebugConnect(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "HRESULT")
-        return Interface
+        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &_Interface := 0, "HRESULT")
+        return _Interface
     }
 
     /**
@@ -4655,8 +4655,8 @@ class Extensions {
     static DebugConnectWide(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "HRESULT")
-        return Interface
+        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &_Interface := 0, "HRESULT")
+        return _Interface
     }
 
     /**
@@ -4665,8 +4665,8 @@ class Extensions {
      * @returns {Pointer<Void>} 
      */
     static DebugCreate(InterfaceId) {
-        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &Interface := 0, "HRESULT")
-        return Interface
+        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &_Interface := 0, "HRESULT")
+        return _Interface
     }
 
     /**
@@ -4676,8 +4676,8 @@ class Extensions {
      * @returns {Pointer<Void>} 
      */
     static DebugCreateEx(InterfaceId, DbgEngOptions) {
-        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &Interface := 0, "HRESULT")
-        return Interface
+        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &_Interface := 0, "HRESULT")
+        return _Interface
     }
 
     /**

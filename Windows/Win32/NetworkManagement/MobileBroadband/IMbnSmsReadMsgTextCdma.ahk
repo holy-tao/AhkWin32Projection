@@ -107,8 +107,8 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_status
      */
     get_Status() {
-        result := ComCall(4, this, "int*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(4, this, "int*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**
@@ -127,9 +127,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_address
      */
     get_Address() {
-        Address := BSTR()
-        result := ComCall(5, this, "ptr", Address, "HRESULT")
-        return Address
+        _Address := BSTR()
+        result := ComCall(5, this, "ptr", _Address, "HRESULT")
+        return _Address
     }
 
     /**
@@ -194,9 +194,9 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_timestamp
      */
     get_Timestamp() {
-        Timestamp := BSTR()
-        result := ComCall(6, this, "ptr", Timestamp, "HRESULT")
-        return Timestamp
+        _Timestamp := BSTR()
+        result := ComCall(6, this, "ptr", _Timestamp, "HRESULT")
+        return _Timestamp
     }
 
     /**

@@ -56,38 +56,38 @@ class OLEDBSimpleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {Integer} 
      */
-    getRWStatus(iRow, iColumn) {
-        result := ComCall(5, this, "ptr", iRow, "ptr", iColumn, "int*", &prwStatus := 0, "HRESULT")
+    getRWStatus(_iRow, iColumn) {
+        result := ComCall(5, this, "ptr", _iRow, "ptr", iColumn, "int*", &prwStatus := 0, "HRESULT")
         return prwStatus
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @param {Integer} format 
      * @returns {VARIANT} 
      */
-    getVariant(iRow, iColumn, format) {
+    getVariant(_iRow, iColumn, format) {
         pVar := VARIANT()
-        result := ComCall(6, this, "ptr", iRow, "ptr", iColumn, "int", format, "ptr", pVar, "HRESULT")
+        result := ComCall(6, this, "ptr", _iRow, "ptr", iColumn, "int", format, "ptr", pVar, "HRESULT")
         return pVar
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @param {Integer} format 
      * @param {VARIANT} Var 
      * @returns {HRESULT} 
      */
-    setVariant(iRow, iColumn, format, Var) {
-        result := ComCall(7, this, "ptr", iRow, "ptr", iColumn, "int", format, "ptr", Var, "HRESULT")
+    setVariant(_iRow, iColumn, format, Var) {
+        result := ComCall(7, this, "ptr", _iRow, "ptr", iColumn, "int", format, "ptr", Var, "HRESULT")
         return result
     }
 
@@ -103,23 +103,23 @@ class OLEDBSimpleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
      */
-    deleteRows(iRow, cRows) {
-        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, "ptr*", &pcRowsDeleted := 0, "HRESULT")
+    deleteRows(_iRow, cRows) {
+        result := ComCall(9, this, "ptr", _iRow, "ptr", cRows, "ptr*", &pcRowsDeleted := 0, "HRESULT")
         return pcRowsDeleted
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
      */
-    insertRows(iRow, cRows) {
-        result := ComCall(10, this, "ptr", iRow, "ptr", cRows, "ptr*", &pcRowsInserted := 0, "HRESULT")
+    insertRows(_iRow, cRows) {
+        result := ComCall(10, this, "ptr", _iRow, "ptr", cRows, "ptr*", &pcRowsInserted := 0, "HRESULT")
         return pcRowsInserted
     }
 
@@ -127,13 +127,13 @@ class OLEDBSimpleProvider extends IUnknown{
      * 
      * @param {Pointer} iRowStart 
      * @param {Pointer} iColumn 
-     * @param {VARIANT} val 
+     * @param {VARIANT} _val 
      * @param {Integer} findFlags 
      * @param {Integer} compType 
      * @returns {Pointer} 
      */
-    find(iRowStart, iColumn, val, findFlags, compType) {
-        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", val, "int", findFlags, "int", compType, "ptr*", &piRowFound := 0, "HRESULT")
+    find(iRowStart, iColumn, _val, findFlags, compType) {
+        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", _val, "int", findFlags, "int", compType, "ptr*", &piRowFound := 0, "HRESULT")
         return piRowFound
     }
 

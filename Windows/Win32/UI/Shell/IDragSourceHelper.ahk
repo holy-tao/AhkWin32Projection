@@ -73,9 +73,7 @@ class IDragSourceHelper extends IUnknown{
      * Initializes the drag-image manager for a control with a window.
      * @remarks
      * The <b>DI_GETDRAGIMAGE</b> message allows you to source a drag image from a custom control. It is defined in Shlobj.h and must be registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerwindowmessagea">RegisterWindowMessage</a>. When the window specified by <i>hwnd</i> receives the <b>DI_GETDRAGIMAGE</b> message, the <i>lParam</i> value holds a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-shdragimage">SHDRAGIMAGE</a> structure. The handler should fill the structure with the drag image bitmap information.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that receives the <b>DI_GETDRAGIMAGE</b> message. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the location of the cursor within the drag image. The structure should contain the offset from the upper-left corner of the drag image to the location of the cursor. This value can be <b>NULL</b>.
@@ -87,10 +85,10 @@ class IDragSourceHelper extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefromwindow
      */
-    InitializeFromWindow(hwnd, ppt, pDataObject) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    InitializeFromWindow(_hwnd, ppt, pDataObject) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", ppt, "ptr", pDataObject, "HRESULT")
+        result := ComCall(4, this, "ptr", _hwnd, "ptr", ppt, "ptr", pDataObject, "HRESULT")
         return result
     }
 }

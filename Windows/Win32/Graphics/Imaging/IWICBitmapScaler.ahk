@@ -59,16 +59,14 @@ class IWICBitmapScaler extends IWICBitmapSource{
      * @param {Integer} uiHeight Type: <b>UINT</b>
      * 
      * The destination height.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapinterpolationmode">WICBitmapInterpolationMode</a></b>
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapinterpolationmode">WICBitmapInterpolationMode</a> to use when scaling.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapscaler-initialize
      */
-    Initialize(pISource, uiWidth, uiHeight, mode) {
-        result := ComCall(8, this, "ptr", pISource, "uint", uiWidth, "uint", uiHeight, "int", mode, "HRESULT")
+    Initialize(pISource, uiWidth, uiHeight, _mode) {
+        result := ComCall(8, this, "ptr", pISource, "uint", uiWidth, "uint", uiHeight, "int", _mode, "HRESULT")
         return result
     }
 }

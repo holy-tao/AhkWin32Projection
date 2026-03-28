@@ -83,19 +83,17 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
      * @param {Integer} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
      * Specifies which formats are supported in the font.
-     * @param {Pointer<DWRITE_GLYPH_IMAGE_DATA>} glyphData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_glyph_image_data">DWRITE_GLYPH_IMAGE_DATA</a>*</b>
-     * 
-     * On return contains data for a glyph.
+     * @param {Pointer<DWRITE_GLYPH_IMAGE_DATA>} _glyphData 
      * @param {Pointer<Pointer<Void>>} glyphDataContext Type: <b>void**</b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimagedata
      */
-    GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, glyphData, glyphDataContext) {
+    GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, _glyphData, glyphDataContext) {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(51, this, "ushort", glyphId, "uint", pixelsPerEm, "int", glyphImageFormat, "ptr", glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
+        result := ComCall(51, this, "ushort", glyphId, "uint", pixelsPerEm, "int", glyphImageFormat, "ptr", _glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
         return result
     }
 

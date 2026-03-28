@@ -138,13 +138,13 @@ class IUIAnimationManager extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>). An application can use tags to identify animation variables and storyboards. <b>NULL</b> is a valid object component of a tag; therefore, the <i>object</i> parameter can be <b>NULL</b>.
      * 
      * Tags are not necessarily unique; this method returns <b>UI_E_AMBIGUOUS_MATCH</b> if more than one animation variable exists with the specified tag.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The identifier portion of the tag.
      * @returns {IUIAnimationVariable} The animation variable that matches the specified tag, or <b>NULL</b> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getvariablefromtag
      */
-    GetVariableFromTag(object_R, id) {
-        result := ComCall(9, this, "ptr", object_R, "uint", id, "ptr*", &variable := 0, "HRESULT")
+    GetVariableFromTag(_object, id) {
+        result := ComCall(9, this, "ptr", _object, "uint", id, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable(variable)
     }
 
@@ -154,36 +154,36 @@ class IUIAnimationManager extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>). An application can use tags to identify animation variables and storyboards. <b>NULL</b> is a valid object component of a tag; therefore, the <i>object</i> parameter can be <b>NULL</b>.
      * 
      * Tags are not necessarily unique; this method returns UI_E_AMBIGUOUS_MATCH if more than one storyboard exists with the specified tag.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The identifier portion of the tag.
      * @returns {IUIAnimationStoryboard} The storyboard that matches the specified tag, or <b>NULL</b> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstoryboardfromtag
      */
-    GetStoryboardFromTag(object_R, id) {
-        result := ComCall(10, this, "ptr", object_R, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
+    GetStoryboardFromTag(_object, id) {
+        result := ComCall(10, this, "ptr", _object, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
         return IUIAnimationStoryboard(storyboard)
     }
 
     /**
      * Gets the status of the animation manager. (IUIAnimationManager.GetStatus)
-     * @returns {Integer} The status.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstatus
      */
     GetStatus() {
-        result := ComCall(11, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(11, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**
      * Sets the animation mode. (IUIAnimationManager.SetAnimationMode)
      * @remarks
      * This method is used to enable or disable animation globally. While animation is disabled, all storyboards finish immediately when they are scheduled. The default mode is <b>UI_ANIMATION_MODE_SYSTEM_DEFAULT</b>, which lets Windows decide when to enable or disable animation in the application.
-     * @param {Integer} mode The animation mode.
+     * @param {Integer} _mode 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setanimationmode
      */
-    SetAnimationMode(mode) {
-        result := ComCall(12, this, "int", mode, "HRESULT")
+    SetAnimationMode(_mode) {
+        result := ComCall(12, this, "int", _mode, "HRESULT")
         return result
     }
 

@@ -30,11 +30,11 @@ class IActiveScriptGarbageCollector extends IUnknown{
 
     /**
      * 
-     * @param {Integer} scriptgctype 
+     * @param {Integer} _scriptgctype 
      * @returns {HRESULT} 
      */
-    CollectGarbage(scriptgctype) {
-        result := ComCall(3, this, "int", scriptgctype, "HRESULT")
+    CollectGarbage(_scriptgctype) {
+        result := ComCall(3, this, "int", _scriptgctype, "HRESULT")
         return result
     }
 }

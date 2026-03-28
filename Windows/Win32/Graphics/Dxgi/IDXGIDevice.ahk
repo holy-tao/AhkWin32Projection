@@ -133,16 +133,14 @@ class IDXGIDevice extends IDXGIObject{
      * <li>The device is guaranteed to receive some GPU execution cycles at all settings.</li>
      * </ul>
      * To use the <b>SetGPUThreadPriority</b> method, you should have a comprehensive understanding of GPU scheduling. You should profile your application to ensure that it behaves as intended. If used inappropriately, the <b>SetGPUThreadPriority</b> method can impede rendering speed and result in a poor user experience.
-     * @param {Integer} Priority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
-     * 
-     * A value that specifies the required GPU thread priority. This value must be between -7 and 7, inclusive, where 0 represents normal priority.
+     * @param {Integer} _Priority 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Return S_OK if successful; otherwise, returns E_INVALIDARG if the <i>Priority</i> parameter is invalid.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-setgputhreadpriority
      */
-    SetGPUThreadPriority(Priority) {
-        result := ComCall(10, this, "int", Priority, "HRESULT")
+    SetGPUThreadPriority(_Priority) {
+        result := ComCall(10, this, "int", _Priority, "HRESULT")
         return result
     }
 

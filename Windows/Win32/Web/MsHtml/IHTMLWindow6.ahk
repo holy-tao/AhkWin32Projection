@@ -145,14 +145,14 @@ class IHTMLWindow6 extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} msg 
+     * @param {BSTR} _msg 
      * @param {VARIANT} targetOrigin 
      * @returns {HRESULT} 
      */
-    postMessage(msg, targetOrigin) {
-        msg := msg is String ? BSTR.Alloc(msg).Value : msg
+    postMessage(_msg, targetOrigin) {
+        _msg := _msg is String ? BSTR.Alloc(_msg).Value : _msg
 
-        result := ComCall(14, this, "ptr", msg, "ptr", targetOrigin, "HRESULT")
+        result := ComCall(14, this, "ptr", _msg, "ptr", targetOrigin, "HRESULT")
         return result
     }
 

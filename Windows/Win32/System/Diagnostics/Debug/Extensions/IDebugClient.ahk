@@ -47,14 +47,14 @@ class IDebugClient extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetKernelConnectionOptions(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetKernelConnectionOptions(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(4, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
         return OptionsSize
     }
 
@@ -531,30 +531,30 @@ class IDebugClient extends IUnknown{
      * @returns {Integer} 
      */
     GetOutputWidth() {
-        result := ComCall(39, this, "uint*", &Columns := 0, "HRESULT")
-        return Columns
+        result := ComCall(39, this, "uint*", &_Columns := 0, "HRESULT")
+        return _Columns
     }
 
     /**
      * 
-     * @param {Integer} Columns 
+     * @param {Integer} _Columns 
      * @returns {HRESULT} 
      */
-    SetOutputWidth(Columns) {
-        result := ComCall(40, this, "uint", Columns, "HRESULT")
+    SetOutputWidth(_Columns) {
+        result := ComCall(40, this, "uint", _Columns, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetOutputLinePrefix(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetOutputLinePrefix(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(41, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
         return PrefixSize
     }
 
@@ -572,14 +572,14 @@ class IDebugClient extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetIdentity(Buffer_R, BufferSize) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    GetIdentity(_Buffer, BufferSize) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(43, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
         return IdentitySize
     }
 

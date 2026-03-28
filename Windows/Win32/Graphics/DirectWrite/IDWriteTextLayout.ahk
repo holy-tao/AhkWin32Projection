@@ -139,9 +139,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Sets the font collection.
-     * @param {IDWriteFontCollection} fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>*</b>
-     * 
-     * The font collection to set.
+     * @param {IDWriteFontCollection} _fontCollection 
      * @param {DWRITE_TEXT_RANGE} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a></b>
      * 
      * Text range to which this change applies.
@@ -150,8 +148,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontcollection
      */
-    SetFontCollection(fontCollection, textRange) {
-        result := ComCall(30, this, "ptr", fontCollection, "ptr", textRange, "HRESULT")
+    SetFontCollection(_fontCollection, textRange) {
+        result := ComCall(30, this, "ptr", _fontCollection, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -205,9 +203,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The font style can be set to Normal, Italic or Oblique. The following illustration shows  three styles for the Palatino font.  For more information, see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a>.
      * 
      * <img alt="Illustration of normal, italic, and oblique font styles for the Palatino font" src="./images/FontStyle_for_Palatino.png"/>
-     * @param {Integer} fontStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
-     * 
-     * The  font style to be set   for text within a range specified by <i>textRange</i>.
+     * @param {Integer} _fontStyle 
      * @param {DWRITE_TEXT_RANGE} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a></b>
      * 
      * The text range to which this change applies.
@@ -216,8 +212,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontstyle
      */
-    SetFontStyle(fontStyle, textRange) {
-        result := ComCall(33, this, "int", fontStyle, "ptr", textRange, "HRESULT")
+    SetFontStyle(_fontStyle, textRange) {
+        result := ComCall(33, this, "int", _fontStyle, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -407,9 +403,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition Type: <b>UINT32</b>
      * 
      * The position of the text to inspect.
-     * @param {Pointer<IDWriteFontCollection>} fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
-     * 
-     * Contains an address of a  pointer to the current font collection.
+     * @param {Pointer<IDWriteFontCollection>} _fontCollection 
      * @param {Pointer<DWRITE_TEXT_RANGE>} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>
      * 
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the underline.
@@ -418,8 +412,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontcollection
      */
-    GetFontCollection(currentPosition, fontCollection, textRange) {
-        result := ComCall(44, this, "uint", currentPosition, "ptr*", fontCollection, "ptr", textRange, "HRESULT")
+    GetFontCollection(currentPosition, _fontCollection, textRange) {
+        result := ComCall(44, this, "uint", currentPosition, "ptr*", _fontCollection, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -498,9 +492,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition Type: <b>UINT32</b>
      * 
      * The position of the text to inspect.
-     * @param {Pointer<Integer>} fontStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a>*</b>
-     * 
-     * When this method returns, contains a value which indicates the type of font style (also known as slope or incline) being applied at the specified position.
+     * @param {Pointer<Integer>} _fontStyle 
      * @param {Pointer<DWRITE_TEXT_RANGE>} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>
      * 
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font style.
@@ -509,10 +501,10 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontstyle
      */
-    GetFontStyle(currentPosition, fontStyle, textRange) {
-        fontStyleMarshal := fontStyle is VarRef ? "int*" : "ptr"
+    GetFontStyle(currentPosition, _fontStyle, textRange) {
+        _fontStyleMarshal := _fontStyle is VarRef ? "int*" : "ptr"
 
-        result := ComCall(48, this, "uint", currentPosition, fontStyleMarshal, fontStyle, "ptr", textRange, "HRESULT")
+        result := ComCall(48, this, "uint", currentPosition, _fontStyleMarshal, _fontStyle, "ptr", textRange, "HRESULT")
         return result
     }
 

@@ -226,14 +226,14 @@ class IActionCollection extends IDispatch{
 
     /**
      * Gets or sets the identifier of the principal for the task. (Put)
-     * @param {BSTR} context 
+     * @param {BSTR} _context 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-put_context
      */
-    put_Context(context) {
-        context := context is String ? BSTR.Alloc(context).Value : context
+    put_Context(_context) {
+        _context := _context is String ? BSTR.Alloc(_context).Value : _context
 
-        result := ComCall(16, this, "ptr", context, "HRESULT")
+        result := ComCall(16, this, "ptr", _context, "HRESULT")
         return result
     }
 }

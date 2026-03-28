@@ -67,15 +67,15 @@ class IEventObjectCollection extends IDispatch{
 
     /**
      * An item in the collection.
-     * @param {BSTR} objectID 
+     * @param {BSTR} _objectID 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_item
      */
-    get_Item(objectID) {
-        objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
+    get_Item(_objectID) {
+        _objectID := _objectID is String ? BSTR.Alloc(_objectID).Value : _objectID
 
         pItem := VARIANT()
-        result := ComCall(8, this, "ptr", objectID, "ptr", pItem, "HRESULT")
+        result := ComCall(8, this, "ptr", _objectID, "ptr", pItem, "HRESULT")
         return pItem
     }
 
@@ -102,27 +102,27 @@ class IEventObjectCollection extends IDispatch{
     /**
      * Adds an event object to the collection.
      * @param {Pointer<VARIANT>} item A pointer to the event object to be added to the collection. This parameter cannot be <b>NULL</b>.
-     * @param {BSTR} objectID The ID property of the event object to be added. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be added to the collection.
+     * @param {BSTR} _objectID 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-add
      */
-    Add(item, objectID) {
-        objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
+    Add(item, _objectID) {
+        _objectID := _objectID is String ? BSTR.Alloc(_objectID).Value : _objectID
 
-        result := ComCall(11, this, "ptr", item, "ptr", objectID, "HRESULT")
+        result := ComCall(11, this, "ptr", item, "ptr", _objectID, "HRESULT")
         return result
     }
 
     /**
      * Removes an event object from the collection.
-     * @param {BSTR} objectID The ID property of the event object to be removed. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be removed from the collection.
+     * @param {BSTR} _objectID 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-remove
      */
-    Remove(objectID) {
-        objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
+    Remove(_objectID) {
+        _objectID := _objectID is String ? BSTR.Alloc(_objectID).Value : _objectID
 
-        result := ComCall(12, this, "ptr", objectID, "HRESULT")
+        result := ComCall(12, this, "ptr", _objectID, "HRESULT")
         return result
     }
 }

@@ -40,9 +40,7 @@ class IPreviewHandler extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  It is preferred that this information be stored prior to calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-dopreview">IPreviewHandler::DoPreview</a>. Doing so increases performance at setup time for any cases where the preview does not start.</div>
      * <div> </div>
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hwnd 
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a <b>RECT</b> defining the area for the previewer.
@@ -51,10 +49,10 @@ class IPreviewHandler extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-setwindow
      */
-    SetWindow(hwnd, prc) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetWindow(_hwnd, prc) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", prc, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", prc, "HRESULT")
         return result
     }
 

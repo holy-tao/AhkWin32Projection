@@ -82,14 +82,14 @@ class IBindStatusCallback extends IUnknown{
 
     /**
      * 
-     * @param {HRESULT} hresult 
+     * @param {HRESULT} _hresult 
      * @param {PWSTR} szError 
      * @returns {HRESULT} 
      */
-    OnStopBinding(hresult, szError) {
+    OnStopBinding(_hresult, szError) {
         szError := szError is String ? StrPtr(szError) : szError
 
-        result := ComCall(7, this, "int", hresult, "ptr", szError, "HRESULT")
+        result := ComCall(7, this, "int", _hresult, "ptr", szError, "HRESULT")
         return result
     }
 

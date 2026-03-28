@@ -1448,7 +1448,7 @@ class RemoteDesktop {
      * @param {PWSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
-     * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
+     * @param {Integer} _Version 
      * @param {Pointer<Pointer<WTS_SERVER_INFOW>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
@@ -1462,7 +1462,7 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateserversw
      * @since windows6.0.6000
      */
-    static WTSEnumerateServersW(pDomainName, Reserved, Version, ppServerInfo, pCount) {
+    static WTSEnumerateServersW(pDomainName, Reserved, _Version, ppServerInfo, pCount) {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
         ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
@@ -1470,7 +1470,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", _Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1492,7 +1492,7 @@ class RemoteDesktop {
      * @param {PSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
-     * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
+     * @param {Integer} _Version 
      * @param {Pointer<Pointer<WTS_SERVER_INFOA>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
@@ -1506,7 +1506,7 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateserversa
      * @since windows6.0.6000
      */
-    static WTSEnumerateServersA(pDomainName, Reserved, Version, ppServerInfo, pCount) {
+    static WTSEnumerateServersA(pDomainName, Reserved, _Version, ppServerInfo, pCount) {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
         ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
@@ -1514,7 +1514,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", _Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1672,7 +1672,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
-     * @param {Integer} Version The version of the enumeration request. This parameter must be 1.
+     * @param {Integer} _Version 
      * @param {Pointer<Pointer<WTS_SESSION_INFOW>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
@@ -1691,7 +1691,7 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsw
      * @since windows6.0.6000
      */
-    static WTSEnumerateSessionsW(hServer, Reserved, Version, ppSessionInfo, pCount) {
+    static WTSEnumerateSessionsW(hServer, Reserved, _Version, ppSessionInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
@@ -1699,7 +1699,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", _Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1718,7 +1718,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
-     * @param {Integer} Version The version of the enumeration request. This parameter must be 1.
+     * @param {Integer} _Version 
      * @param {Pointer<Pointer<WTS_SESSION_INFOA>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
@@ -1737,7 +1737,7 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa
      * @since windows6.0.6000
      */
-    static WTSEnumerateSessionsA(hServer, Reserved, Version, ppSessionInfo, pCount) {
+    static WTSEnumerateSessionsA(hServer, Reserved, _Version, ppSessionInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
@@ -1745,7 +1745,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", _Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1868,7 +1868,7 @@ class RemoteDesktop {
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
-     * @param {Integer} Version Specifies the version of the enumeration request. Must be 1.
+     * @param {Integer} _Version 
      * @param {Pointer<Pointer<WTS_PROCESS_INFOW>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
@@ -1882,7 +1882,7 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesw
      * @since windows6.0.6000
      */
-    static WTSEnumerateProcessesW(hServer, Reserved, Version, ppProcessInfo, pCount) {
+    static WTSEnumerateProcessesW(hServer, Reserved, _Version, ppProcessInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
@@ -1890,7 +1890,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", _Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1915,7 +1915,7 @@ class RemoteDesktop {
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
-     * @param {Integer} Version Specifies the version of the enumeration request. Must be 1.
+     * @param {Integer} _Version 
      * @param {Pointer<Pointer<WTS_PROCESS_INFOA>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
@@ -1929,7 +1929,7 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesa
      * @since windows6.0.6000
      */
-    static WTSEnumerateProcessesA(hServer, Reserved, Version, ppProcessInfo, pCount) {
+    static WTSEnumerateProcessesA(hServer, Reserved, _Version, ppProcessInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
@@ -1937,7 +1937,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", _Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2594,7 +2594,7 @@ class RemoteDesktop {
      * Waits for a Remote Desktop Services event before returning to the caller.
      * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
-     * @param {Integer} EventMask Bitmask that specifies the set of events to wait for. This mask can be WTS_EVENT_FLUSH to cause all pending
+     * @param {Integer} _EventMask 
      * @param {Pointer<Integer>} pEventFlags Pointer to a variable that receives a bitmask of the event or events that occurred. The returned mask can 
      *       be a combination of the values from the previous list, or it can be <b>WTS_EVENT_NONE</b> if 
      *       the wait terminated because of a <b>WTSWaitSystemEvent</b> call with 
@@ -2606,14 +2606,14 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtswaitsystemevent
      * @since windows6.0.6000
      */
-    static WTSWaitSystemEvent(hServer, EventMask, pEventFlags) {
+    static WTSWaitSystemEvent(hServer, _EventMask, pEventFlags) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         pEventFlagsMarshal := pEventFlags is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", EventMask, pEventFlagsMarshal, pEventFlags, "int")
+        result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", _EventMask, pEventFlagsMarshal, pEventFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2741,7 +2741,7 @@ class RemoteDesktop {
      *       <b>WTSVirtualChannelRead</b> returns immediately 
      *       if there is no data to read. If <i>TimeOut</i> is INFINITE (defined in Winbase.h), the 
      *       function waits indefinitely until there is data to read.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize Specifies the size, in bytes, of <i>Buffer</i>. If the chunk of data in <i>Buffer</i> will be preceded by a <b>CHANNEL_PDU_HEADER</b> structure, the value of this parameter should be at least 
      *       <b>CHANNEL_PDU_LENGTH</b>. Otherwise, the value of this parameter should be at least <b>CHANNEL_CHUNK_LENGTH</b>.
      * @param {Pointer<Integer>} pBytesRead Pointer to a variable that receives the number of bytes read.
@@ -2752,14 +2752,14 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelread
      * @since windows6.0.6000
      */
-    static WTSVirtualChannelRead(hChannelHandle, TimeOut, Buffer_R, BufferSize, pBytesRead) {
+    static WTSVirtualChannelRead(hChannelHandle, TimeOut, _Buffer, BufferSize, pBytesRead) {
         hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
 
         pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer_R, "uint", BufferSize, pBytesReadMarshal, pBytesRead, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", _Buffer, "uint", BufferSize, pBytesReadMarshal, pBytesRead, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2777,7 +2777,7 @@ class RemoteDesktop {
      * <div> </div>
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length Specifies the size, in bytes, of the data to write.
      * @param {Pointer<Integer>} pBytesWritten Pointer to a variable that receives the number of bytes written.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
@@ -2787,14 +2787,14 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelwrite
      * @since windows6.0.6000
      */
-    static WTSVirtualChannelWrite(hChannelHandle, Buffer_R, Length, pBytesWritten) {
+    static WTSVirtualChannelWrite(hChannelHandle, _Buffer, Length, pBytesWritten) {
         hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
 
         pBytesWrittenMarshal := pBytesWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer_R, "uint", Length, pBytesWrittenMarshal, pBytesWritten, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", _Buffer, "uint", Length, pBytesWrittenMarshal, pBytesWritten, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3012,7 +3012,7 @@ class RemoteDesktop {
      * 
      * To receive session change notifications from a service, use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> function.
-     * @param {HWND} hWnd Handle of the window to receive session change notifications.
+     * @param {HWND} _hWnd 
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can be one of the following 
      *       values.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
@@ -3021,12 +3021,12 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification
      * @since windows6.0.6000
      */
-    static WTSRegisterSessionNotification(hWnd, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static WTSRegisterSessionNotification(_hWnd, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotification", "ptr", hWnd, "uint", dwFlags, "int")
+        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotification", "ptr", _hWnd, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3040,18 +3040,18 @@ class RemoteDesktop {
      * This function must be called once for every call to the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a> 
      *     function.
-     * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
      * @since windows6.0.6000
      */
-    static WTSUnRegisterSessionNotification(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static WTSUnRegisterSessionNotification(_hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotification", "ptr", hWnd, "int")
+        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotification", "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3084,7 +3084,7 @@ class RemoteDesktop {
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {HWND} hWnd Handle of the window to receive session change notifications.
+     * @param {HWND} _hWnd 
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can only be 
      *       <b>NOTIFY_FOR_THIS_SESSION</b> if <i>hServer</i> is a remote server.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
@@ -3093,13 +3093,13 @@ class RemoteDesktop {
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex
      * @since windows6.0.6000
      */
-    static WTSRegisterSessionNotificationEx(hServer, hWnd, dwFlags) {
+    static WTSRegisterSessionNotificationEx(hServer, _hWnd, dwFlags) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "uint", dwFlags, "int")
+        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", "ptr", hServer, "ptr", _hWnd, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3116,19 +3116,19 @@ class RemoteDesktop {
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @param {HWND} _hWnd 
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
      * @since windows6.0.6000
      */
-    static WTSUnRegisterSessionNotificationEx(hServer, hWnd) {
+    static WTSUnRegisterSessionNotificationEx(hServer, _hWnd) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "int")
+        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", "ptr", hServer, "ptr", _hWnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

@@ -699,7 +699,7 @@ class ICreateTypeInfo extends IUnknown{
     /**
      * Sets the attributes for an implemented or inherited interface of a type.
      * @param {Integer} index The index of the interface for which to set type flags.
-     * @param {Integer} implTypeFlags IMPLTYPE flags to be set.
+     * @param {Integer} _implTypeFlags 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -770,8 +770,8 @@ class ICreateTypeInfo extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setimpltypeflags
      */
-    SetImplTypeFlags(index, implTypeFlags) {
-        result := ComCall(11, this, "uint", index, "int", implTypeFlags, "HRESULT")
+    SetImplTypeFlags(index, _implTypeFlags) {
+        result := ComCall(11, this, "uint", index, "int", _implTypeFlags, "HRESULT")
         return result
     }
 

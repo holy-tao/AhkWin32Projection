@@ -59,12 +59,12 @@ class IAMCollection extends IDispatch{
      * 
      * -   [Methods](#methods)
      * -   [Properties](#properties)
-     * @param {Integer} lItem 
+     * @param {Integer} _lItem 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
-    Item(lItem) {
-        result := ComCall(8, this, "int", lItem, "ptr*", &ppUnk := 0, "HRESULT")
+    Item(_lItem) {
+        result := ComCall(8, this, "int", _lItem, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
     }
 

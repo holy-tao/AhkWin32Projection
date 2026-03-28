@@ -109,9 +109,7 @@ class ITaskbarList3 extends ITaskbarList2{
      * 
      * 
      * If a window in the group has set <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setprogressstate">TBPF_ERROR</a> or <b>TBPF_PAUSED</b>, that state will be used for the button display. However, you can still make calls to <b>SetProgressValue</b> on other, unblocked windows in the group to update their progress in the background.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window whose associated taskbar button is being used as a progress indicator.
+     * @param {HWND} _hwnd 
      * @param {Integer} ullCompleted Type: <b>ULONGLONG</b>
      * 
      * An application-defined value that indicates the proportion of the operation that has been completed at the time the method is called.
@@ -123,10 +121,10 @@ class ITaskbarList3 extends ITaskbarList2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setprogressvalue
      */
-    SetProgressValue(hwnd, ullCompleted, ullTotal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetProgressValue(_hwnd, ullCompleted, ullTotal) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(9, this, "ptr", hwnd, "uint", ullCompleted, "uint", ullTotal, "HRESULT")
+        result := ComCall(9, this, "ptr", _hwnd, "uint", ullCompleted, "uint", ullTotal, "HRESULT")
         return result
     }
 
@@ -196,9 +194,7 @@ class ITaskbarList3 extends ITaskbarList2{
      * 
      * 
      * Note that a call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setprogressvalue">SetProgressValue</a> will switch a progress indicator currently in an indeterminate mode (<b>TBPF_INDETERMINATE</b>) to a normal (determinate) display and clear the <b>TBPF_INDETERMINATE</b> flag.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window in which the progress of an operation is being shown. This window's associated taskbar button will display the progress bar.
+     * @param {HWND} _hwnd 
      * @param {Integer} tbpFlags Type: <b>TBPFLAG</b>
      * 
      * Flags that control the current state of the progress button. Specify only one of the following flags; all states are mutually exclusive of all others.
@@ -207,10 +203,10 @@ class ITaskbarList3 extends ITaskbarList2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setprogressstate
      */
-    SetProgressState(hwnd, tbpFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetProgressState(_hwnd, tbpFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(10, this, "ptr", hwnd, "int", tbpFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", _hwnd, "int", tbpFlags, "HRESULT")
         return result
     }
 
@@ -317,9 +313,7 @@ class ITaskbarList3 extends ITaskbarList2{
      * Because there is a limited amount of space in which to display thumbnails, as well as a constantly changing number of thumbnails to display, applications are not guaranteed a specific toolbar size. If display space is low, buttons in the toolbar are truncated from right to left as needed. Therefore, an application should prioritize the commands associated with its buttons to ensure that those of highest priority are to the left and are therefore least likely to be truncated.
      * 
      * Thumbnail toolbars are displayed only when thumbnails are being displayed. For instance, if a taskbar button represents a group with more open windows than there is room to display thumbnails for, the UI reverts to a legacy menu rather than thumbnails.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window whose thumbnail representation will receive the toolbar. This handle must belong to the calling process.
+     * @param {HWND} _hwnd 
      * @param {Integer} cButtons Type: <b>UINT</b>
      * 
      * The number of buttons defined in the array pointed to by <i>pButton</i>. The maximum number of buttons allowed is 7.
@@ -349,10 +343,10 @@ class ITaskbarList3 extends ITaskbarList2{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbaraddbuttons
      */
-    ThumbBarAddButtons(hwnd, cButtons, pButton) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ThumbBarAddButtons(_hwnd, cButtons, pButton) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(15, this, "ptr", hwnd, "uint", cButtons, "ptr", pButton, "HRESULT")
+        result := ComCall(15, this, "ptr", _hwnd, "uint", cButtons, "ptr", pButton, "HRESULT")
         return result
     }
 
@@ -362,9 +356,7 @@ class ITaskbarList3 extends ITaskbarList2{
      * Because there is a limited amount of space in which to display thumbnails, as well as a constantly changing number of thumbnails to display, applications are not guaranteed a specific toolbar size. If display space is low, buttons in the toolbar are truncated from right to left as needed. Therefore, an application should prioritize the commands associated with its buttons to ensure that those of highest priority are to the left and are therefore least likely to be truncated.
      * 
      * Thumbnail toolbars are displayed only when thumbnails are being displayed on the taskbar. For instance, if a taskbar button represents a group with more open windows than there is room to display thumbnails for, the UI reverts to a legacy menu rather than thumbnails.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window whose thumbnail representation contains the toolbar.
+     * @param {HWND} _hwnd 
      * @param {Integer} cButtons Type: <b>UINT</b>
      * 
      * The number of buttons defined in the array pointed to by <i>pButton</i>. The maximum number of buttons allowed is 7. This array contains only structures that represent existing buttons that are being updated.
@@ -376,10 +368,10 @@ class ITaskbarList3 extends ITaskbarList2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbarupdatebuttons
      */
-    ThumbBarUpdateButtons(hwnd, cButtons, pButton) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ThumbBarUpdateButtons(_hwnd, cButtons, pButton) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(16, this, "ptr", hwnd, "uint", cButtons, "ptr", pButton, "HRESULT")
+        result := ComCall(16, this, "ptr", _hwnd, "uint", cButtons, "ptr", pButton, "HRESULT")
         return result
     }
 
@@ -398,9 +390,7 @@ class ITaskbarList3 extends ITaskbarList2{
      * 
      * 
      * Images must be 32-bit and of dimensions <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CXICON) x <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CYICON). The toolbar itself provides visuals for a button's clicked, disabled, and hover states.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window whose thumbnail representation contains the toolbar to be updated. This handle must belong to the calling process.
+     * @param {HWND} _hwnd 
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * The handle of the image list that contains all button images to be used in the toolbar.
@@ -409,11 +399,11 @@ class ITaskbarList3 extends ITaskbarList2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbarsetimagelist
      */
-    ThumbBarSetImageList(hwnd, himl) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ThumbBarSetImageList(_hwnd, himl) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := ComCall(17, this, "ptr", hwnd, "ptr", himl, "HRESULT")
+        result := ComCall(17, this, "ptr", _hwnd, "ptr", himl, "HRESULT")
         return result
     }
 
@@ -432,24 +422,8 @@ class ITaskbarList3 extends ITaskbarList2{
      * Because a single overlay is applied to the taskbar button instead of to the individual window thumbnails, this is a per-group feature rather than per-window. Requests for overlay icons can be received from individual windows in a taskbar group, but they do not queue. The last overlay received is the overlay shown. If the last overlay received is removed, the overlay that it replaced is restored so long as it is still active. As an example, windows 1, 2, and 3 set, in order, overlays A, B, and C. Because overlay C was received last, it is shown on the taskbar button. Window 2 calls <b>SetOverlayIcon</b> with a <b>NULL</b> value to remove overlay B. Window 3 then does the same to remove overlay C. Because window 1's overlay A is still active, that overlay is then displayed on the taskbar button.
      * 
      * If Windows Explorer shuts down unexpectedly, overlays are not restored when Windows Explorer is restored. The application should wait to receive the <b>TaskbarButtonCreated</b> message that indicates that Windows Explorer has restarted and the taskbar button has been re-created, and then call <b>SetOverlayIcon</b> again to reapply the overlay.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window whose associated taskbar button receives the overlay. This handle must belong to a calling process associated with the button's application and must be a valid <b>HWND</b> or the call is ignored.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * The handle of an icon to use as the overlay. This should be a small icon, measuring 16x16 pixels at 96 dpi. If an overlay icon is already applied to the taskbar button, that existing overlay is replaced.
-     * 
-     * 
-     * 
-     * This value can be <b>NULL</b>. How a <b>NULL</b> value is handled depends on whether the taskbar button represents a single window or a group of windows.
-     *                         
-     * <ul>
-     * <li>If the taskbar button represents a single window, the overlay icon is removed from the display.</li>
-     * <li>If the taskbar button represents a group of windows and a previous overlay is still available (received earlier than the current overlay, but not yet freed by a <b>NULL</b> value), then that previous overlay is displayed in place of the current overlay.</li>
-     * </ul>
-     * 
-     * 
-     * It is the responsibility of the calling application to free <i>hIcon</i> when it is no longer needed. This can generally be done after you call <b>SetOverlayIcon</b> because the taskbar makes and uses its own copy of the icon.
+     * @param {HWND} _hwnd 
+     * @param {HICON} _hIcon 
      * @param {PWSTR} pszDescription Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that provides an alt text version of the information conveyed by the overlay, for accessibility purposes.
@@ -458,20 +432,18 @@ class ITaskbarList3 extends ITaskbarList2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setoverlayicon
      */
-    SetOverlayIcon(hwnd, hIcon, pszDescription) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    SetOverlayIcon(_hwnd, _hIcon, pszDescription) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
 
-        result := ComCall(18, this, "ptr", hwnd, "ptr", hIcon, "ptr", pszDescription, "HRESULT")
+        result := ComCall(18, this, "ptr", _hwnd, "ptr", _hIcon, "ptr", pszDescription, "HRESULT")
         return result
     }
 
     /**
      * Specifies or updates the text of the tooltip that is displayed when the mouse pointer rests on an individual preview thumbnail in a taskbar button flyout.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle to the window whose thumbnail displays the tooltip. This handle must belong to the calling process.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszTip Type: <b>LPCWSTR</b>
      * 
      * The pointer to the text to be displayed in the tooltip. This value can be <b>NULL</b>, in which case the title of the window specified by <i>hwnd</i> is used as the tooltip.
@@ -480,19 +452,17 @@ class ITaskbarList3 extends ITaskbarList2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setthumbnailtooltip
      */
-    SetThumbnailTooltip(hwnd, pszTip) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetThumbnailTooltip(_hwnd, pszTip) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszTip := pszTip is String ? StrPtr(pszTip) : pszTip
 
-        result := ComCall(19, this, "ptr", hwnd, "ptr", pszTip, "HRESULT")
+        result := ComCall(19, this, "ptr", _hwnd, "ptr", pszTip, "HRESULT")
         return result
     }
 
     /**
      * Selects a portion of a window's client area to display as that window's thumbnail in the taskbar.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle to a window represented in the taskbar.
+     * @param {HWND} _hwnd 
      * @param {Pointer<RECT>} prcClip Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies a selection within the window's client area, relative to the upper-left corner of that client area. To clear a clip that is already in place and return to the default display of the thumbnail, set this parameter to <b>NULL</b>.
@@ -501,10 +471,10 @@ class ITaskbarList3 extends ITaskbarList2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setthumbnailclip
      */
-    SetThumbnailClip(hwnd, prcClip) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetThumbnailClip(_hwnd, prcClip) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(20, this, "ptr", hwnd, "ptr", prcClip, "HRESULT")
+        result := ComCall(20, this, "ptr", _hwnd, "ptr", prcClip, "HRESULT")
         return result
     }
 }

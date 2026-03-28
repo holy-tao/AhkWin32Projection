@@ -201,15 +201,15 @@ class ITfThreadMgr extends IUnknown{
      * }
      * 
      * ```
-     * @param {HWND} hwnd Handle of the window to associate the focus with.
+     * @param {HWND} _hwnd 
      * @param {ITfDocumentMgr} pdimNew Pointer to the document manager to associate the focus with. The TSF manager does not increment the object reference count. This value can be <b>NULL</b>.
      * @returns {ITfDocumentMgr} Receives the document manager previously associated with the window. Receives <b>NULL</b> if there is no previous association. This parameter cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-associatefocus
      */
-    AssociateFocus(hwnd, pdimNew) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    AssociateFocus(_hwnd, pdimNew) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(9, this, "ptr", hwnd, "ptr", pdimNew, "ptr*", &ppdimPrev := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", _hwnd, "ptr", pdimNew, "ptr*", &ppdimPrev := 0, "HRESULT")
         return ITfDocumentMgr(ppdimPrev)
     }
 

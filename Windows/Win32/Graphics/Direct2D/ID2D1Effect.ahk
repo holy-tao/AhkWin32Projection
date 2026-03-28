@@ -39,17 +39,15 @@ class ID2D1Effect extends ID2D1Properties{
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * The index of the image to set.
-     * @param {ID2D1Image} input Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
-     * 
-     * The input image to set.
+     * @param {ID2D1Image} _input 
      * @param {BOOL} invalidate Type: <b>BOOL</b>
      * 
      * Whether to invalidate the graph at the location of the effect input
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinput
      */
-    SetInput(index, input, invalidate) {
-        ComCall(14, this, "uint", index, "ptr", input, "int", invalidate)
+    SetInput(index, _input, invalidate) {
+        ComCall(14, this, "uint", index, "ptr", _input, "int", invalidate)
     }
 
     /**
@@ -103,14 +101,12 @@ class ID2D1Effect extends ID2D1Properties{
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * The index of the image to retrieve.
-     * @param {Pointer<ID2D1Image>} input Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the image that is identified by <i>Index</i>.
+     * @param {Pointer<ID2D1Image>} _input 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getinput
      */
-    GetInput(index, input) {
-        ComCall(16, this, "uint", index, "ptr*", input)
+    GetInput(index, _input) {
+        ComCall(16, this, "uint", index, "ptr*", _input)
     }
 
     /**

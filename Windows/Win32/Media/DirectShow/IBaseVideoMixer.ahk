@@ -30,11 +30,11 @@ class IBaseVideoMixer extends IUnknown{
 
     /**
      * 
-     * @param {Integer} iPin 
+     * @param {Integer} _iPin 
      * @returns {HRESULT} 
      */
-    SetLeadPin(iPin) {
-        result := ComCall(3, this, "int", iPin, "HRESULT")
+    SetLeadPin(_iPin) {
+        result := ComCall(3, this, "int", _iPin, "HRESULT")
         return result
     }
 

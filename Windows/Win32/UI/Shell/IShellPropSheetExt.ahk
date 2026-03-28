@@ -48,16 +48,14 @@ class IShellPropSheetExt extends IUnknown{
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfnAddPage Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to a function that the property sheet handler calls to add a page to the property sheet. The function takes a property sheet handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function and the <i>lParam</i> parameter passed to this method.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Handler-specific data to pass to the function pointed to by <i>pfnAddPage</i>.
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If successful, returns a one-based index to specify the page that should be initially displayed. See Remarks for more information.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages
      */
-    AddPages(pfnAddPage, lParam) {
-        result := ComCall(3, this, "ptr", pfnAddPage, "ptr", lParam, "HRESULT")
+    AddPages(pfnAddPage, _lParam) {
+        result := ComCall(3, this, "ptr", pfnAddPage, "ptr", _lParam, "HRESULT")
         return result
     }
 
@@ -73,16 +71,14 @@ class IShellPropSheetExt extends IUnknown{
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfnReplaceWith Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to a function that the property sheet handler calls to replace a page to the property sheet. The function takes a property sheet handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function and the <i>lParam</i> parameter passed to the <b>ReplacePage</b> method.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * The parameter to pass to the function specified by the <i>pfnReplacePage</i> parameter.
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-replacepage
      */
-    ReplacePage(uPageID, pfnReplaceWith, lParam) {
-        result := ComCall(4, this, "uint", uPageID, "ptr", pfnReplaceWith, "ptr", lParam, "HRESULT")
+    ReplacePage(uPageID, pfnReplaceWith, _lParam) {
+        result := ComCall(4, this, "uint", uPageID, "ptr", pfnReplaceWith, "ptr", _lParam, "HRESULT")
         return result
     }
 }

@@ -112,7 +112,7 @@ class IX509Enrollment extends IDispatch{
      * Initializes the enrollment object and creates a default PKCS
      * @remarks
      * The <b>Initialize</b> method creates a new key pair and initializes empty collections for the attributes, extensions and critical extensions associated with the request.
-     * @param {Integer} Context An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509certificateenrollmentcontext">X509CertificateEnrollmentContext</a> enumeration value that specifies whether the requested enrollment is for a user, a computer, or an administrator acting on behalf of a computer.
+     * @param {Integer} _Context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -137,8 +137,8 @@ class IX509Enrollment extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-initialize
      */
-    Initialize(Context) {
-        result := ComCall(7, this, "int", Context, "HRESULT")
+    Initialize(_Context) {
+        result := ComCall(7, this, "int", _Context, "HRESULT")
         return result
     }
 
@@ -165,7 +165,7 @@ class IX509Enrollment extends IDispatch{
      * <li>Initializes the request object by using the template.</li>
      * <li>Retrieves the signature count, issuance policies, and application policies from the template.</li>
      * </ul>
-     * @param {Integer} Context An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509certificateenrollmentcontext">X509CertificateEnrollmentContext</a> enumeration value that indicates whether the requested enrollment is for a user, a computer, or an administrator acting on behalf of a computer.
+     * @param {Integer} _Context 
      * @param {BSTR} strTemplateName A  <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -191,10 +191,10 @@ class IX509Enrollment extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-initializefromtemplatename
      */
-    InitializeFromTemplateName(Context, strTemplateName) {
+    InitializeFromTemplateName(_Context, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(8, this, "int", Context, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(8, this, "int", _Context, "ptr", strTemplateName, "HRESULT")
         return result
     }
 
@@ -345,7 +345,7 @@ class IX509Enrollment extends IDispatch{
      * 
      * 
      * If you call this method from the web, you can specify only <b>AllowNone</b> or <b>AllowUntrustedRoot</b> in the <i>Restrictions</i> parameter. If you specify <b>AllowNoOutstandingRequest</b> or <b>AllowUntrustedCertificate</b>, the method returns an <b>E_ACCESSDENIED</b> error.
-     * @param {Integer} Restrictions 
+     * @param {Integer} _Restrictions 
      * @param {BSTR} strResponse A <b>BSTR</b> variable that contains the DER-encoded response.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to  the string that contains the DER-encoded response.
      * @param {BSTR} strPassword An optional password for the certificate installation. This can be  <b>NULL</b> or an empty string to indicate that  no password is used.  If there is a password, clear it from memory when you have finished using it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
@@ -396,11 +396,11 @@ class IX509Enrollment extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-installresponse
      */
-    InstallResponse(Restrictions, strResponse, Encoding, strPassword) {
+    InstallResponse(_Restrictions, strResponse, Encoding, strPassword) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(12, this, "int", Restrictions, "ptr", strResponse, "int", Encoding, "ptr", strPassword, "HRESULT")
+        result := ComCall(12, this, "int", _Restrictions, "ptr", strResponse, "int", Encoding, "ptr", strPassword, "HRESULT")
         return result
     }
 

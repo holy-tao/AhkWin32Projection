@@ -125,18 +125,18 @@ class IPerformanceCounterDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_performancecounters
      */
     get_PerformanceCounters() {
-        result := ComCall(34, this, "ptr*", &counters := 0, "HRESULT")
-        return counters
+        result := ComCall(34, this, "ptr*", &_counters := 0, "HRESULT")
+        return _counters
     }
 
     /**
      * Retrieves or sets the performance counters to query. (Put)
-     * @param {Pointer<SAFEARRAY>} counters 
+     * @param {Pointer<SAFEARRAY>} _counters 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_performancecounters
      */
-    put_PerformanceCounters(counters) {
-        result := ComCall(35, this, "ptr", counters, "HRESULT")
+    put_PerformanceCounters(_counters) {
+        result := ComCall(35, this, "ptr", _counters, "HRESULT")
         return result
     }
 
@@ -167,18 +167,18 @@ class IPerformanceCounterDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_sampleinterval
      */
     get_SampleInterval() {
-        result := ComCall(38, this, "uint*", &interval := 0, "HRESULT")
-        return interval
+        result := ComCall(38, this, "uint*", &_interval := 0, "HRESULT")
+        return _interval
     }
 
     /**
      * Retrieves or sets the interval to wait between sampling counter data. (Put)
-     * @param {Integer} interval 
+     * @param {Integer} _interval 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_sampleinterval
      */
-    put_SampleInterval(interval) {
-        result := ComCall(39, this, "uint", interval, "HRESULT")
+    put_SampleInterval(_interval) {
+        result := ComCall(39, this, "uint", _interval, "HRESULT")
         return result
     }
 

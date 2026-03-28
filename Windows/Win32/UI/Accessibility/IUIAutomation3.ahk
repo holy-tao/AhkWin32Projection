@@ -38,7 +38,7 @@ class IUIAutomation3 extends IUIAutomation2{
      * 
      * A pointer to the UI Automation element associated with the event handler.
      * @param {Integer} scope 
-     * @param {Integer} textEditChangeType 
+     * @param {Integer} _textEditChangeType 
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -50,8 +50,8 @@ class IUIAutomation3 extends IUIAutomation2{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation3-addtextedittextchangedeventhandler
      */
-    AddTextEditTextChangedEventHandler(element, scope, textEditChangeType, cacheRequest, handler) {
-        result := ComCall(64, this, "ptr", element, "int", scope, "int", textEditChangeType, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+    AddTextEditTextChangedEventHandler(element, scope, _textEditChangeType, cacheRequest, handler) {
+        result := ComCall(64, this, "ptr", element, "int", scope, "int", _textEditChangeType, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 

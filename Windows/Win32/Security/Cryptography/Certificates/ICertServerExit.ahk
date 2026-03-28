@@ -34,15 +34,15 @@ class ICertServerExit extends IDispatch{
 
     /**
      * Causes the current instantiation of the interface to operate on the request referenced by Context.
-     * @param {Integer} Context Specifies the request and associated certificate under construction.
+     * @param {Integer} _Context 
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-setcontext
      */
-    SetContext(Context) {
-        result := ComCall(7, this, "int", Context, "HRESULT")
+    SetContext(_Context) {
+        result := ComCall(7, this, "int", _Context, "HRESULT")
         return result
     }
 

@@ -52,9 +52,7 @@ class IUIImageFromBitmap extends IUnknown{
      * 			
      * 
      * Specify <b>UI_OWNERSHIP_TRANSFER</b> as the value for <i>options</i> to minimize memory usage.
-     * @param {HBITMAP} bitmap Type: <b>HBITMAP</b>
-     * 
-     * A handle to the bitmap that contains the image.
+     * @param {HBITMAP} _bitmap 
      * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_ownership">UI_OWNERSHIP</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_ownership">ownership conditions</a> under which 
@@ -91,15 +89,13 @@ class IUIImageFromBitmap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {IUIImage} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a> object.
+     * @returns {IUIImage} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
      */
-    CreateImage(bitmap, options) {
-        bitmap := bitmap is Win32Handle ? NumGet(bitmap, "ptr") : bitmap
+    CreateImage(_bitmap, options) {
+        _bitmap := _bitmap is Win32Handle ? NumGet(_bitmap, "ptr") : _bitmap
 
-        result := ComCall(3, this, "ptr", bitmap, "int", options, "ptr*", &image := 0, "HRESULT")
-        return IUIImage(image)
+        result := ComCall(3, this, "ptr", _bitmap, "int", options, "ptr*", &_image := 0, "HRESULT")
+        return IUIImage(_image)
     }
 }

@@ -38,16 +38,16 @@ class IWbemEventProviderSecurity extends IUnknown{
      * @param {Pointer<Integer>} wszQueryLanguage Language of the following query filter, which is "WQL".
      * @param {Pointer<Integer>} wszQuery Text of the event query filter, which is registered by a logical consumer.
      * @param {Integer} lSidLength Integer that contains the security identifier (SID) length, or 0 (zero) if the subscription builder token is available.
-     * @param {Pointer<Integer>} pSid Pointer to the constant byte integer type that contains the SID, or <b>NULL</b> if the subscription builder's token is available.
+     * @param {Pointer<Integer>} _pSid 
      * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of the method call. The following list lists the value contained in an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventprovidersecurity-accesscheck
      */
-    AccessCheck(wszQueryLanguage, wszQuery, lSidLength, pSid) {
+    AccessCheck(wszQueryLanguage, wszQuery, lSidLength, _pSid) {
         wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"
         wszQueryMarshal := wszQuery is VarRef ? "ushort*" : "ptr"
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "int", lSidLength, pSidMarshal, pSid, "HRESULT")
+        result := ComCall(3, this, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "int", lSidLength, _pSidMarshal, _pSid, "HRESULT")
         return result
     }
 }

@@ -387,12 +387,12 @@ class ICallFrame extends IUnknown{
     /**
      * Retrieves an upper bound on the number of bytes needed to marshal the call frame.
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pmshlContext A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure containing context information about how marshalling is carried out.
-     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} _mshlflags 
      * @returns {Integer} A pointer to the size of the buffer, in bytes, that will be needed to marshal the call frame.
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getmarshalsizemax
      */
-    GetMarshalSizeMax(pmshlContext, mshlflags) {
-        result := ComCall(17, this, "ptr", pmshlContext, "int", mshlflags, "uint*", &pcbBufferNeeded := 0, "HRESULT")
+    GetMarshalSizeMax(pmshlContext, _mshlflags) {
+        result := ComCall(17, this, "ptr", pmshlContext, "int", _mshlflags, "uint*", &pcbBufferNeeded := 0, "HRESULT")
         return pcbBufferNeeded
     }
 
@@ -403,7 +403,7 @@ class ICallFrame extends IUnknown{
      * 
      * If this method returns an error, the caller will not be able to clean it up. Resources such as memory transiently allocated during the attempted marshalling have been freed.
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pmshlContext A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure containing context information about how marshalling is carried out.
-     * @param {Integer} mshlflags Flag indicating whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. The possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} _mshlflags 
      * @param {Pointer<Void>} pBuffer A pointer to the buffer into which the marshaled data is to be placed.
      * @param {Integer} cbBuffer The size of the buffer, in bytes.
      * @param {Pointer<Integer>} pcbBufferUsed Receives the size of the buffer that was actually used. This parameter is optional.
@@ -441,13 +441,13 @@ class ICallFrame extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-marshal
      */
-    Marshal(pmshlContext, mshlflags, pBuffer, cbBuffer, pcbBufferUsed, pdataRep, prpcFlags) {
+    Marshal(pmshlContext, _mshlflags, pBuffer, cbBuffer, pcbBufferUsed, pdataRep, prpcFlags) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbBufferUsedMarshal := pcbBufferUsed is VarRef ? "uint*" : "ptr"
         pdataRepMarshal := pdataRep is VarRef ? "uint*" : "ptr"
         prpcFlagsMarshal := prpcFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pmshlContext, "int", mshlflags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
+        result := ComCall(18, this, "ptr", pmshlContext, "int", _mshlflags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
         return result
     }
 

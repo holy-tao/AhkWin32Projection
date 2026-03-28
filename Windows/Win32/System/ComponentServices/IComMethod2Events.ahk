@@ -54,12 +54,12 @@ class IComMethod2Events extends IUnknown{
      * @param {Pointer<Guid>} guidRid The identifier of the method being called.
      * @param {Integer} dwThread The identifier of the thread executing the call.
      * @param {Integer} iMeth The v-table index of the method.
-     * @param {HRESULT} hresult The result of the method call.
+     * @param {HRESULT} _hresult 
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethod2events-onmethodreturn2
      */
-    OnMethodReturn2(pInfo, oid, guidCid, guidRid, dwThread, iMeth, hresult) {
-        result := ComCall(4, this, "ptr", pInfo, "uint", oid, "ptr", guidCid, "ptr", guidRid, "uint", dwThread, "uint", iMeth, "int", hresult, "HRESULT")
+    OnMethodReturn2(pInfo, oid, guidCid, guidRid, dwThread, iMeth, _hresult) {
+        result := ComCall(4, this, "ptr", pInfo, "uint", oid, "ptr", guidCid, "ptr", guidRid, "uint", dwThread, "uint", iMeth, "int", _hresult, "HRESULT")
         return result
     }
 

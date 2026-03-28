@@ -110,13 +110,13 @@ class IXMLElement2 extends IDispatch{
     /**
      * 
      * @param {BSTR} strPropertyName 
-     * @param {VARIANT} PropertyValue 
+     * @param {VARIANT} _PropertyValue 
      * @returns {HRESULT} 
      */
-    setAttribute(strPropertyName, PropertyValue) {
+    setAttribute(strPropertyName, _PropertyValue) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
-        result := ComCall(10, this, "ptr", strPropertyName, "ptr", PropertyValue, "HRESULT")
+        result := ComCall(10, this, "ptr", strPropertyName, "ptr", _PropertyValue, "HRESULT")
         return result
     }
 
@@ -128,9 +128,9 @@ class IXMLElement2 extends IDispatch{
     getAttribute(strPropertyName) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
-        PropertyValue := VARIANT()
-        result := ComCall(11, this, "ptr", strPropertyName, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        _PropertyValue := VARIANT()
+        result := ComCall(11, this, "ptr", strPropertyName, "ptr", _PropertyValue, "HRESULT")
+        return _PropertyValue
     }
 
     /**

@@ -324,7 +324,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * The SetVideoClippingWindow method specifies the container window that video should be clipped to.
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
-     * @param {HWND} hwnd Specifies the window to which the video should be clipped.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -368,10 +368,10 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setvideoclippingwindow
      */
-    SetVideoClippingWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetVideoClippingWindow(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(10, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(10, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -379,8 +379,8 @@ class IVMRWindowlessControl9 extends IUnknown{
      * The RepaintVideo method repaints the current video frame.
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
-     * @param {HWND} hwnd Specifies the handle of the window in which the repainting should occur.
-     * @param {HDC} hdc Specifies the handle to the device context for the window.
+     * @param {HWND} _hwnd 
+     * @param {HDC} _hdc 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -413,11 +413,11 @@ class IVMRWindowlessControl9 extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-repaintvideo
      */
-    RepaintVideo(hwnd, hdc) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    RepaintVideo(_hwnd, _hdc) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(11, this, "ptr", hwnd, "ptr", hdc, "HRESULT")
+        result := ComCall(11, this, "ptr", _hwnd, "ptr", _hdc, "HRESULT")
         return result
     }
 

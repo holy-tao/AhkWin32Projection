@@ -35,14 +35,12 @@ class IUIImage extends IUnknown{
      * Retrieves a bitmap to display as an icon in the ribbon and context popup UI of the Windows Ribbon framework.
      * @remarks
      * <b>IUIImage::GetBitmap</b> is called on image property callback triggered by <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand">InvalidateUICommand</a>.
-     * @returns {HBITMAP} Type: <b>HBITMAP*</b>
-     * 
-     * When this method returns, contains a pointer to the handle to the requested bitmap.
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimage-getbitmap
      */
     GetBitmap() {
-        bitmap := HBITMAP()
-        result := ComCall(3, this, "ptr", bitmap, "HRESULT")
-        return bitmap
+        _bitmap := HBITMAP()
+        result := ComCall(3, this, "ptr", _bitmap, "HRESULT")
+        return _bitmap
     }
 }

@@ -97,9 +97,9 @@ class MenuItem extends IDispatch{
      * @returns {BSTR} 
      */
     get_Path() {
-        Path := BSTR()
-        result := ComCall(9, this, "ptr", Path, "HRESULT")
-        return Path
+        _Path := BSTR()
+        result := ComCall(9, this, "ptr", _Path, "HRESULT")
+        return _Path
     }
 
     /**

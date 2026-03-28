@@ -35,14 +35,12 @@ class IDWriteFont extends IUnknown{
 
     /**
      * Gets the font family to which the specified font belongs.
-     * @returns {IDWriteFontFamily} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily">IDWriteFontFamily</a>**</b>
-     * 
-     * When this method returns, contains an address of a pointer to the font family object to which the specified font belongs.
+     * @returns {IDWriteFontFamily} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getfontfamily
      */
     GetFontFamily() {
-        result := ComCall(3, this, "ptr*", &fontFamily := 0, "HRESULT")
-        return IDWriteFontFamily(fontFamily)
+        result := ComCall(3, this, "ptr*", &_fontFamily := 0, "HRESULT")
+        return IDWriteFontFamily(_fontFamily)
     }
 
     /**

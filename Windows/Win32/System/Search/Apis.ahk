@@ -17943,18 +17943,18 @@ class Search {
      *  In ODBC 2*.x*, **SQLExtendedFetch** was called to fetch multiple rows and **SQLFetch** was called to fetch a single row. In ODBC 3*.x*, on the other hand, **SQLFetch** can be called to fetch multiple rows.
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} fFetchType 
-     * @param {Integer} irow 
+     * @param {Integer} _irow 
      * @param {Pointer<Integer>} pcrow 
      * @param {Pointer<Integer>} rgfRowStatus 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_NO_DATA, SQL_STILL_EXECUTING, SQL_ERROR, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlextendedfetch-function
      */
-    static SQLExtendedFetch(hstmt, fFetchType, irow, pcrow, rgfRowStatus) {
+    static SQLExtendedFetch(hstmt, fFetchType, _irow, pcrow, rgfRowStatus) {
         hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
         pcrowMarshal := pcrow is VarRef ? "uint*" : "ptr"
         rgfRowStatusMarshal := rgfRowStatus is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLExtendedFetch", hstmtMarshal, hstmt, "ushort", fFetchType, "int64", irow, pcrowMarshal, pcrow, rgfRowStatusMarshal, rgfRowStatus, "short")
+        result := DllCall("ODBC32.dll\SQLExtendedFetch", hstmtMarshal, hstmt, "ushort", fFetchType, "int64", _irow, pcrowMarshal, pcrow, rgfRowStatusMarshal, rgfRowStatus, "short")
         return result
     }
 
@@ -17982,16 +17982,16 @@ class Search {
      * > [!CAUTION]
      * >  For information on the statement states that **SQLSetPos** can be called in and what it needs to do for compatibility with ODBC *2.x* applications, see [Block Cursors, Scrollable Cursors, and Backward Compatibility](../../../odbc/reference/appendixes/block-cursors-scrollable-cursors-and-backward-compatibility.md).
      * @param {Pointer<Void>} hstmt 
-     * @param {Integer} irow 
+     * @param {Integer} _irow 
      * @param {Integer} fOption 
      * @param {Integer} fLock 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_NEED_DATA, SQL_STILL_EXECUTING, SQL_ERROR, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetpos-function
      */
-    static SQLSetPos(hstmt, irow, fOption, fLock) {
+    static SQLSetPos(hstmt, _irow, fOption, fLock) {
         hstmtMarshal := hstmt is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLSetPos", hstmtMarshal, hstmt, "uint", irow, "ushort", fOption, "ushort", fLock, "short")
+        result := DllCall("ODBC32.dll\SQLSetPos", hstmtMarshal, hstmt, "uint", _irow, "ushort", fOption, "ushort", fLock, "short")
         return result
     }
 
@@ -18312,19 +18312,7 @@ class Search {
      * -   **SQLAllocHandle and not SQLAllocHandleStd** to allocate an environment handle.  
      *   
      * -   **SQLSetEnvAttr** to set the SQL_ATTR_ODBC_VERSION environment attribute to SQL_OV_ODBC3_80.
-     * @param {Integer} HandleType [Input] The type of handle to be allocated by **SQLAllocHandle**. Must be one of the following values:  
-     *   
-     * -   SQL_HANDLE_DBC  
-     *   
-     * -   SQL_HANDLE_DBC_INFO_TOKEN  
-     *   
-     * -   SQL_HANDLE_DESC  
-     *   
-     * -   SQL_HANDLE_ENV  
-     *   
-     * -   SQL_HANDLE_STMT  
-     *   
-     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).
+     * @param {Integer} _HandleType 
      * @param {Pointer<Void>} InputHandle [Input] The input handle in whose context the new handle is to be allocated. If *HandleType* is SQL_HANDLE_ENV, this is SQL_NULL_HANDLE. If *HandleType* is SQL_HANDLE_DBC, this must be an environment handle, and if it is SQL_HANDLE_STMT or SQL_HANDLE_DESC, it must be a connection handle.
      * @param {Pointer<Pointer<Void>>} OutputHandle 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_INVALID_HANDLE, or SQL_ERROR.  
@@ -18332,11 +18320,11 @@ class Search {
      *  When allocating a handle other than an environment handle, if **SQLAllocHandle** returns SQL_ERROR, it sets *OutputHandlePtr* to SQL_NULL_HDBC, SQL_NULL_HSTMT, or SQL_NULL_HDESC, depending on the value of *HandleType*, unless the output argument is a null pointer. The application can then obtain additional information from the diagnostic data structure associated with the handle in the *InputHandle* argument.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallochandle-function
      */
-    static SQLAllocHandle(HandleType, InputHandle, OutputHandle) {
+    static SQLAllocHandle(_HandleType, InputHandle, OutputHandle) {
         InputHandleMarshal := InputHandle is VarRef ? "ptr" : "ptr"
         OutputHandleMarshal := OutputHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", HandleType, InputHandleMarshal, InputHandle, OutputHandleMarshal, OutputHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", _HandleType, InputHandleMarshal, InputHandle, OutputHandleMarshal, OutputHandle, "short")
         return result
     }
 
@@ -18401,15 +18389,15 @@ class Search {
      *   
      * > [!NOTE]  
      * >  For information about how to use **SQLCancelHandle** in an application that will be deployed on a Windows operating system older than Windows 7, see [Compatibility Matrix](../../../odbc/reference/develop-app/compatibility-matrix.md).
-     * @param {Integer} HandleType [Input] The type of the handle on which to cacel processing. Valid values are SQL_HANDLE_DBC or SQL_HANDLE_STMT.
+     * @param {Integer} _HandleType 
      * @param {Pointer<Void>} InputHandle 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcancelhandle-function
      */
-    static SQLCancelHandle(HandleType, InputHandle) {
+    static SQLCancelHandle(_HandleType, InputHandle) {
         InputHandleMarshal := InputHandle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLCancelHandle", "short", HandleType, InputHandleMarshal, InputHandle, "short")
+        result := DllCall("ODBC32.dll\SQLCancelHandle", "short", _HandleType, InputHandleMarshal, InputHandle, "short")
         return result
     }
 
@@ -18542,19 +18530,17 @@ class Search {
      * SQLCompleteAsync Function
      * @remarks
      * In polling based asynchronous processing mode, *AsyncRetCodePtr* might be SQL_STILL_EXECUTING when **SQLCompleteAsync** returns SQL_SUCCESS. Application should keep polling until *AsyncRetCodePtr* is not SQL_STILL_EXECUTING. In notification based asynchronous processing mode, *AsyncRetCodePtr* will never be SQL_STILL_EXECUTING.
-     * @param {Integer} HandleType [Input] The type of the handle on which to complete asynchronous processing. Valid values are SQL_HANDLE_DBC or SQL_HANDLE_STMT.
-     * @param {Pointer<Void>} Handle [Input] The handle on which to complete asynchronous processing. If *Handle* is not a valid handle of the type specified by *HandleType*, **SQLCompleteAsync** returns SQL_INVALID_HANDLE.  
-     *   
-     *  If *Handle* is not a valid handle of the type specified by *HandleType*, **SQLCompleteAsync** returns SQL_INVALID_HANDLE.
+     * @param {Integer} _HandleType 
+     * @param {Pointer<Void>} _Handle 
      * @param {Pointer<Integer>} AsyncRetCodePtr [Output] Pointer to a buffer that will contain the return code of the asynchronous API. If *AsyncRetCodePtr* is NULL, **SQLCompleteAsync** returns SQL_ERROR.
      * @returns {Integer} SQL_SUCCESS, SQL_ERROR, SQL_NO_DATA, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcompleteasync-function
      */
-    static SQLCompleteAsync(HandleType, Handle, AsyncRetCodePtr) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static SQLCompleteAsync(_HandleType, _Handle, AsyncRetCodePtr) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
         AsyncRetCodePtrMarshal := AsyncRetCodePtr is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLCompleteAsync", "short", HandleType, HandleMarshal, Handle, AsyncRetCodePtrMarshal, AsyncRetCodePtr, "short")
+        result := DllCall("ODBC32.dll\SQLCompleteAsync", "short", _HandleType, _HandleMarshal, _Handle, AsyncRetCodePtrMarshal, AsyncRetCodePtr, "short")
         return result
     }
 
@@ -18645,11 +18631,7 @@ class Search {
      *   
      *  The driver determines how data source names are mapped to actual data sources.
      * @param {Pointer<Void>} EnvironmentHandle [Input] Environment handle.
-     * @param {Integer} Direction [Input] Determines which data source the Driver Manager returns information about. Can be:  
-     *   
-     *  SQL_FETCH_NEXT (to fetch the next data source name in the list), SQL_FETCH_FIRST (to fetch from the beginning of the list), SQL_FETCH_FIRST_USER (to fetch the first user DSN), or SQL_FETCH_FIRST_SYSTEM (to fetch the first system DSN).  
-     *   
-     *  When *Direction* is set to SQL_FETCH_FIRST, subsequent calls to **SQLDataSources** with *Direction* set to SQL_FETCH_NEXT return both user and system DSNs. When *Direction* is set to SQL_FETCH_FIRST_USER, all subsequent calls to **SQLDataSources** with *Direction* set to SQL_FETCH_NEXT return only user DSNs. When *Direction* is set to SQL_FETCH_FIRST_SYSTEM, all subsequent calls to **SQLDataSources** with *Direction* set to SQL_FETCH_NEXT return only system DSNs.
+     * @param {Integer} _Direction 
      * @param {Pointer<Integer>} ServerName [Output] Pointer to a buffer in which to return the data source name.  
      *   
      *  If *ServerName* is NULL, *NameLength1Ptr* will still return the total number of characters (excluding the null-termination character for character data) available to return in the buffer pointed to by *ServerName*.
@@ -18663,14 +18645,14 @@ class Search {
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_NO_DATA, SQL_ERROR, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldatasources-function
      */
-    static SQLDataSources(EnvironmentHandle, Direction, ServerName, BufferLength1, NameLength1Ptr, Description, BufferLength2, NameLength2Ptr) {
+    static SQLDataSources(EnvironmentHandle, _Direction, ServerName, BufferLength1, NameLength1Ptr, Description, BufferLength2, NameLength2Ptr) {
         EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
         ServerNameMarshal := ServerName is VarRef ? "char*" : "ptr"
         NameLength1PtrMarshal := NameLength1Ptr is VarRef ? "short*" : "ptr"
         DescriptionMarshal := Description is VarRef ? "char*" : "ptr"
         NameLength2PtrMarshal := NameLength2Ptr is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLDataSources", EnvironmentHandleMarshal, EnvironmentHandle, "ushort", Direction, ServerNameMarshal, ServerName, "short", BufferLength1, NameLength1PtrMarshal, NameLength1Ptr, DescriptionMarshal, Description, "short", BufferLength2, NameLength2PtrMarshal, NameLength2Ptr, "short")
+        result := DllCall("ODBC32.dll\SQLDataSources", EnvironmentHandleMarshal, EnvironmentHandle, "ushort", _Direction, ServerNameMarshal, ServerName, "short", BufferLength1, NameLength1PtrMarshal, NameLength1Ptr, DescriptionMarshal, Description, "short", BufferLength2, NameLength2PtrMarshal, NameLength2Ptr, "short")
         return result
     }
 
@@ -18725,18 +18707,18 @@ class Search {
      *  When a driver is in autocommit mode, the Driver Manager does not call **SQLEndTran** in the driver. **SQLEndTran** always returns SQL_SUCCESS regardless of whether it is called with a *CompletionType* of SQL_COMMIT or SQL_ROLLBACK.  
      *   
      *  Drivers or data sources that do not support transactions (**SQLGetInfo** *option* SQL_TXN_CAPABLE is SQL_TC_NONE) are effectively always in autocommit mode and therefore always return SQL_SUCCESS for **SQLEndTran** whether or not they are called with a *CompletionType* of SQL_COMMIT or SQL_ROLLBACK. Such drivers and data sources do not actually roll back transactions when requested to do so.
-     * @param {Integer} HandleType [Input] Handle type identifier. Contains either SQL_HANDLE_ENV (if *Handle* is an environment handle) or SQL_HANDLE_DBC (if *Handle* is a connection handle).
-     * @param {Pointer<Void>} Handle [Input] The handle, of the type indicated by *HandleType*, indicating the scope of the transaction. See "Comments" for more information.
+     * @param {Integer} _HandleType 
+     * @param {Pointer<Void>} _Handle 
      * @param {Integer} CompletionType [Input] One of the following two values:  
      *   
      *  SQL_COMMIT SQL_ROLLBACK
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, SQL_INVALID_HANDLE, or SQL_STILL_EXECUTING.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlendtran-function
      */
-    static SQLEndTran(HandleType, Handle, CompletionType) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static SQLEndTran(_HandleType, _Handle, CompletionType) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLEndTran", "short", HandleType, HandleMarshal, Handle, "short", CompletionType, "short")
+        result := DllCall("ODBC32.dll\SQLEndTran", "short", _HandleType, _HandleMarshal, _Handle, "short", CompletionType, "short")
         return result
     }
 
@@ -18886,31 +18868,17 @@ class Search {
      * **SQLFreeHandle** is used to free handles for environments, connections, statements, and descriptors, as described in the following sections. For general information about handles, see [Handles](../../../odbc/reference/develop-app/handles.md).  
      *   
      *  An application should not use a handle after it has been freed; the Driver Manager does not check the validity of a handle in a function call.
-     * @param {Integer} HandleType [Input] The type of handle to be freed by **SQLFreeHandle**. Must be one of the following values:  
-     *   
-     * -   SQL_HANDLE_DBC  
-     *   
-     * -   SQL_HANDLE_DBC_INFO_TOKEN  
-     *   
-     * -   SQL_HANDLE_DESC  
-     *   
-     * -   SQL_HANDLE_ENV  
-     *   
-     * -   SQL_HANDLE_STMT  
-     *   
-     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).  
-     *   
-     *  If *HandleType* is not one of these values, **SQLFreeHandle** returns SQL_INVALID_HANDLE.
-     * @param {Pointer<Void>} Handle [Input] The handle to be freed.
+     * @param {Integer} _HandleType 
+     * @param {Pointer<Void>} _Handle 
      * @returns {Integer} SQL_SUCCESS, SQL_ERROR, or SQL_INVALID_HANDLE.  
      *   
      *  If **SQLFreeHandle** returns SQL_ERROR, the handle is still valid.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlfreehandle-function
      */
-    static SQLFreeHandle(HandleType, Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static SQLFreeHandle(_HandleType, _Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLFreeHandle", "short", HandleType, HandleMarshal, Handle, "short")
+        result := DllCall("ODBC32.dll\SQLFreeHandle", "short", _HandleType, _HandleMarshal, _Handle, "short")
         return result
     }
 
@@ -19094,20 +19062,8 @@ class Search {
      *  For more information, see [Using SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/using-sqlgetdiagrec-and-sqlgetdiagfield.md) and [Implementing SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/implementing-sqlgetdiagrec-and-sqlgetdiagfield.md).  
      *   
      *  Calling an API other than the one that's being executed asynchronously will generate HY010 "Function sequence error". However, the error record cannot be retrieved before the asynchronous operation completes.
-     * @param {Integer} HandleType [Input] A handle type identifier that describes the type of handle for which diagnostics are required. Must be one of the following:  
-     *   
-     * -   SQL_HANDLE_DBC  
-     *   
-     * -   SQL_HANDLE_DBC_INFO_TOKEN  
-     *   
-     * -   SQL_HANDLE_DESC  
-     *   
-     * -   SQL_HANDLE_ENV  
-     *   
-     * -   SQL_HANDLE_STMT  
-     *   
-     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).
-     * @param {Pointer<Void>} Handle [Input] A handle for the diagnostic data structure, of the type indicated by *HandleType*. If *HandleType* is SQL_HANDLE_ENV, *Handle* can be either a shared or an unshared environment handle.
+     * @param {Integer} _HandleType 
+     * @param {Pointer<Void>} _Handle 
      * @param {Integer} RecNumber [Input] Indicates the status record from which the application seeks information. Status records are numbered from 1. If the *DiagIdentifier* argument indicates any field of the diagnostics header, *RecNumber* is ignored. If not, it should be more than 0.
      * @param {Integer} DiagIdentifier [Input] Indicates the field of the diagnostic whose value is to be returned. For more information, see the "*DiagIdentifier* Argument" section in "Comments."
      * @param {Pointer<Void>} DiagInfo 
@@ -19126,12 +19082,12 @@ class Search {
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, SQL_INVALID_HANDLE, or SQL_NO_DATA.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagfield-function
      */
-    static SQLGetDiagField(HandleType, Handle, RecNumber, DiagIdentifier, DiagInfo, BufferLength, StringLength) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static SQLGetDiagField(_HandleType, _Handle, RecNumber, DiagIdentifier, DiagInfo, BufferLength, StringLength) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
         DiagInfoMarshal := DiagInfo is VarRef ? "ptr" : "ptr"
         StringLengthMarshal := StringLength is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLGetDiagField", "short", HandleType, HandleMarshal, Handle, "short", RecNumber, "short", DiagIdentifier, DiagInfoMarshal, DiagInfo, "short", BufferLength, StringLengthMarshal, StringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagField", "short", _HandleType, _HandleMarshal, _Handle, "short", RecNumber, "short", DiagIdentifier, DiagInfoMarshal, DiagInfo, "short", BufferLength, StringLengthMarshal, StringLength, "short")
         return result
     }
 
@@ -19149,20 +19105,8 @@ class Search {
      *  For a description of the fields of the diagnostic data structure, see [SQLGetDiagField](../../../odbc/reference/syntax/sqlgetdiagfield-function.md). For more information, see [Using SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/using-sqlgetdiagrec-and-sqlgetdiagfield.md) and [Implementing SQLGetDiagRec and SQLGetDiagField](../../../odbc/reference/develop-app/implementing-sqlgetdiagrec-and-sqlgetdiagfield.md).  
      *   
      *  Calling an API other than the one that's being executed asynchronously will generate HY010 "Function sequence error". However, the error record cannot be retrieved before the asynchronous operation completes.
-     * @param {Integer} HandleType [Input] A handle type identifier that describes the type of handle for which diagnostics are required. Must be one of the following:  
-     *   
-     * -   SQL_HANDLE_DBC  
-     *   
-     * -   SQL_HANDLE_DBC_INFO_TOKEN  
-     *   
-     * -   SQL_HANDLE_DESC  
-     *   
-     * -   SQL_HANDLE_ENV  
-     *   
-     * -   SQL_HANDLE_STMT  
-     *   
-     *  SQL_HANDLE_DBC_INFO_TOKEN handle is used only by the Driver Manager and driver. Applications should not use this handle type. For more information about SQL_HANDLE_DBC_INFO_TOKEN, see [Developing Connection-Pool Awareness in an ODBC Driver](../../../odbc/reference/develop-driver/developing-connection-pool-awareness-in-an-odbc-driver.md).
-     * @param {Pointer<Void>} Handle [Input] A handle for the diagnostic data structure, of the type indicated by *HandleType*. If *HandleType* is SQL_HANDLE_ENV, *Handle* can be either a shared or an unshared environment handle.
+     * @param {Integer} _HandleType 
+     * @param {Pointer<Void>} _Handle 
      * @param {Integer} RecNumber [Input] Indicates the status record from which the application seeks information. Status records are numbered from 1.
      * @param {Pointer<Integer>} Sqlstate 
      * @param {Pointer<Integer>} NativeError 
@@ -19174,14 +19118,14 @@ class Search {
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, SQL_NO_DATA, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagrec-function
      */
-    static SQLGetDiagRec(HandleType, Handle, RecNumber, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+    static SQLGetDiagRec(_HandleType, _Handle, RecNumber, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
         SqlstateMarshal := Sqlstate is VarRef ? "char*" : "ptr"
         NativeErrorMarshal := NativeError is VarRef ? "int*" : "ptr"
         MessageTextMarshal := MessageText is VarRef ? "char*" : "ptr"
         TextLengthMarshal := TextLength is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLGetDiagRec", "short", HandleType, HandleMarshal, Handle, "short", RecNumber, SqlstateMarshal, Sqlstate, NativeErrorMarshal, NativeError, MessageTextMarshal, MessageText, "short", BufferLength, TextLengthMarshal, TextLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagRec", "short", _HandleType, _HandleMarshal, _Handle, "short", RecNumber, SqlstateMarshal, Sqlstate, NativeErrorMarshal, NativeError, MessageTextMarshal, MessageText, "short", BufferLength, TextLengthMarshal, TextLength, "short")
         return result
     }
 
@@ -20723,7 +20667,7 @@ class Search {
      *   
      *  If the **SAVEFILE** keyword is used, the attribute values of keywords used in making the present, successful connection will be saved as a .dsn file with the name of the attribute value of the **SAVEFILE** keyword. The **SAVEFILE** keyword must be used in conjunction with the **DRIVER** keyword, the **FILEDSN** keyword, or both, or the function returns SQL_SUCCESS_WITH_INFO with SQLSTATE 01S09 (Invalid keyword). The **SAVEFILE** keyword must appear before the **DRIVER** keyword in the connection string, or the results will be undefined.
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer} hwnd 
+     * @param {Pointer} _hwnd 
      * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cchConnStrIn 
      * @param {Pointer<Integer>} szConnStrOut 
@@ -20733,13 +20677,13 @@ class Search {
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_NO_DATA, SQL_ERROR, SQL_INVALID_HANDLE, or SQL_STILL_EXECUTING.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldriverconnect-function
      */
-    static SQLDriverConnect(hdbc, hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
+    static SQLDriverConnect(hdbc, _hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
         hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
         szConnStrInMarshal := szConnStrIn is VarRef ? "char*" : "ptr"
         szConnStrOutMarshal := szConnStrOut is VarRef ? "char*" : "ptr"
         pcchConnStrOutMarshal := pcchConnStrOut is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLDriverConnect", hdbcMarshal, hdbc, "ptr", hwnd, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "ushort", fDriverCompletion, "short")
+        result := DllCall("ODBC32.dll\SQLDriverConnect", hdbcMarshal, hdbc, "ptr", _hwnd, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -21491,7 +21435,7 @@ class Search {
     /**
      * 
      * @param {Integer} fHandleType 
-     * @param {Pointer<Void>} handle 
+     * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
      * @param {Integer} fDiagField 
      * @param {Pointer<Void>} rgbDiagInfo 
@@ -21499,19 +21443,19 @@ class Search {
      * @param {Pointer<Integer>} pcbStringLength 
      * @returns {Integer} 
      */
-    static SQLGetDiagFieldW(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbBufferLength, pcbStringLength) {
-        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+    static SQLGetDiagFieldW(fHandleType, _handle, iRecord, fDiagField, rgbDiagInfo, cbBufferLength, pcbStringLength) {
+        _handleMarshal := _handle is VarRef ? "ptr" : "ptr"
         rgbDiagInfoMarshal := rgbDiagInfo is VarRef ? "ptr" : "ptr"
         pcbStringLengthMarshal := pcbStringLength is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLGetDiagFieldW", "short", fHandleType, handleMarshal, handle, "short", iRecord, "short", fDiagField, rgbDiagInfoMarshal, rgbDiagInfo, "short", cbBufferLength, pcbStringLengthMarshal, pcbStringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagFieldW", "short", fHandleType, _handleMarshal, _handle, "short", iRecord, "short", fDiagField, rgbDiagInfoMarshal, rgbDiagInfo, "short", cbBufferLength, pcbStringLengthMarshal, pcbStringLength, "short")
         return result
     }
 
     /**
      * 
      * @param {Integer} fHandleType 
-     * @param {Pointer<Void>} handle 
+     * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
      * @param {Pointer<Integer>} szSqlState 
      * @param {Pointer<Integer>} pfNativeError 
@@ -21520,14 +21464,14 @@ class Search {
      * @param {Pointer<Integer>} pcchErrorMsg 
      * @returns {Integer} 
      */
-    static SQLGetDiagRecW(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
-        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+    static SQLGetDiagRecW(fHandleType, _handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
+        _handleMarshal := _handle is VarRef ? "ptr" : "ptr"
         szSqlStateMarshal := szSqlState is VarRef ? "ushort*" : "ptr"
         pfNativeErrorMarshal := pfNativeError is VarRef ? "int*" : "ptr"
         szErrorMsgMarshal := szErrorMsg is VarRef ? "ushort*" : "ptr"
         pcchErrorMsgMarshal := pcchErrorMsg is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLGetDiagRecW", "short", fHandleType, handleMarshal, handle, "short", iRecord, szSqlStateMarshal, szSqlState, pfNativeErrorMarshal, pfNativeError, szErrorMsgMarshal, szErrorMsg, "short", cchErrorMsgMax, pcchErrorMsgMarshal, pcchErrorMsg, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagRecW", "short", fHandleType, _handleMarshal, _handle, "short", iRecord, szSqlStateMarshal, szSqlState, pfNativeErrorMarshal, pfNativeError, szErrorMsgMarshal, szErrorMsg, "short", cchErrorMsgMax, pcchErrorMsgMarshal, pcchErrorMsg, "short")
         return result
     }
 
@@ -21742,7 +21686,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer} hwnd 
+     * @param {Pointer} _hwnd 
      * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cchConnStrIn 
      * @param {Pointer<Integer>} szConnStrOut 
@@ -21751,13 +21695,13 @@ class Search {
      * @param {Integer} fDriverCompletion 
      * @returns {Integer} 
      */
-    static SQLDriverConnectW(hdbc, hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
+    static SQLDriverConnectW(hdbc, _hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
         hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
         szConnStrInMarshal := szConnStrIn is VarRef ? "ushort*" : "ptr"
         szConnStrOutMarshal := szConnStrOut is VarRef ? "ushort*" : "ptr"
         pcchConnStrOutMarshal := pcchConnStrOut is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLDriverConnectW", hdbcMarshal, hdbc, "ptr", hwnd, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "ushort", fDriverCompletion, "short")
+        result := DllCall("ODBC32.dll\SQLDriverConnectW", hdbcMarshal, hdbc, "ptr", _hwnd, szConnStrInMarshal, szConnStrIn, "short", cchConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cchConnStrOutMax, pcchConnStrOutMarshal, pcchConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -22117,7 +22061,7 @@ class Search {
     /**
      * 
      * @param {Integer} fHandleType 
-     * @param {Pointer<Void>} handle 
+     * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
      * @param {Integer} fDiagField 
      * @param {Pointer<Void>} rgbDiagInfo 
@@ -22125,19 +22069,19 @@ class Search {
      * @param {Pointer<Integer>} pcbDiagInfo 
      * @returns {Integer} 
      */
-    static SQLGetDiagFieldA(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbDiagInfoMax, pcbDiagInfo) {
-        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+    static SQLGetDiagFieldA(fHandleType, _handle, iRecord, fDiagField, rgbDiagInfo, cbDiagInfoMax, pcbDiagInfo) {
+        _handleMarshal := _handle is VarRef ? "ptr" : "ptr"
         rgbDiagInfoMarshal := rgbDiagInfo is VarRef ? "ptr" : "ptr"
         pcbDiagInfoMarshal := pcbDiagInfo is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLGetDiagFieldA", "short", fHandleType, handleMarshal, handle, "short", iRecord, "short", fDiagField, rgbDiagInfoMarshal, rgbDiagInfo, "short", cbDiagInfoMax, pcbDiagInfoMarshal, pcbDiagInfo, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagFieldA", "short", fHandleType, _handleMarshal, _handle, "short", iRecord, "short", fDiagField, rgbDiagInfoMarshal, rgbDiagInfo, "short", cbDiagInfoMax, pcbDiagInfoMarshal, pcbDiagInfo, "short")
         return result
     }
 
     /**
      * 
      * @param {Integer} fHandleType 
-     * @param {Pointer<Void>} handle 
+     * @param {Pointer<Void>} _handle 
      * @param {Integer} iRecord 
      * @param {Pointer<Integer>} szSqlState 
      * @param {Pointer<Integer>} pfNativeError 
@@ -22146,14 +22090,14 @@ class Search {
      * @param {Pointer<Integer>} pcbErrorMsg 
      * @returns {Integer} 
      */
-    static SQLGetDiagRecA(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
-        handleMarshal := handle is VarRef ? "ptr" : "ptr"
+    static SQLGetDiagRecA(fHandleType, _handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
+        _handleMarshal := _handle is VarRef ? "ptr" : "ptr"
         szSqlStateMarshal := szSqlState is VarRef ? "char*" : "ptr"
         pfNativeErrorMarshal := pfNativeError is VarRef ? "int*" : "ptr"
         szErrorMsgMarshal := szErrorMsg is VarRef ? "char*" : "ptr"
         pcbErrorMsgMarshal := pcbErrorMsg is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLGetDiagRecA", "short", fHandleType, handleMarshal, handle, "short", iRecord, szSqlStateMarshal, szSqlState, pfNativeErrorMarshal, pfNativeError, szErrorMsgMarshal, szErrorMsg, "short", cbErrorMsgMax, pcbErrorMsgMarshal, pcbErrorMsg, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagRecA", "short", fHandleType, _handleMarshal, _handle, "short", iRecord, szSqlStateMarshal, szSqlState, pfNativeErrorMarshal, pfNativeError, szErrorMsgMarshal, szErrorMsg, "short", cbErrorMsgMax, pcbErrorMsgMarshal, pcbErrorMsg, "short")
         return result
     }
 
@@ -22386,7 +22330,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} hdbc 
-     * @param {Pointer} hwnd 
+     * @param {Pointer} _hwnd 
      * @param {Pointer<Integer>} szConnStrIn 
      * @param {Integer} cbConnStrIn 
      * @param {Pointer<Integer>} szConnStrOut 
@@ -22395,13 +22339,13 @@ class Search {
      * @param {Integer} fDriverCompletion 
      * @returns {Integer} 
      */
-    static SQLDriverConnectA(hdbc, hwnd, szConnStrIn, cbConnStrIn, szConnStrOut, cbConnStrOutMax, pcbConnStrOut, fDriverCompletion) {
+    static SQLDriverConnectA(hdbc, _hwnd, szConnStrIn, cbConnStrIn, szConnStrOut, cbConnStrOutMax, pcbConnStrOut, fDriverCompletion) {
         hdbcMarshal := hdbc is VarRef ? "ptr" : "ptr"
         szConnStrInMarshal := szConnStrIn is VarRef ? "char*" : "ptr"
         szConnStrOutMarshal := szConnStrOut is VarRef ? "char*" : "ptr"
         pcbConnStrOutMarshal := pcbConnStrOut is VarRef ? "short*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLDriverConnectA", hdbcMarshal, hdbc, "ptr", hwnd, szConnStrInMarshal, szConnStrIn, "short", cbConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cbConnStrOutMax, pcbConnStrOutMarshal, pcbConnStrOut, "ushort", fDriverCompletion, "short")
+        result := DllCall("ODBC32.dll\SQLDriverConnectA", hdbcMarshal, hdbc, "ptr", _hwnd, szConnStrInMarshal, szConnStrIn, "short", cbConnStrIn, szConnStrOutMarshal, szConnStrOut, "short", cbConnStrOutMax, pcbConnStrOutMarshal, pcbConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 

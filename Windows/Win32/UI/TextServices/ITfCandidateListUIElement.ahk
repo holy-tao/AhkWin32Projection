@@ -142,13 +142,13 @@ class ITfCandidateListUIElement extends ITfUIElement{
     /**
      * The ITfCandidateListUIElement::GetString method returns the string of the index.
      * @param {Integer} uIndex [in] An index of the string to obtain.
-     * @returns {BSTR} [out] A pointer to BSTR for the candidate string of the index.
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getstring
      */
     GetString(uIndex) {
-        pstr := BSTR()
-        result := ComCall(11, this, "uint", uIndex, "ptr", pstr, "HRESULT")
-        return pstr
+        _pstr := BSTR()
+        result := ComCall(11, this, "uint", uIndex, "ptr", _pstr, "HRESULT")
+        return _pstr
     }
 
     /**

@@ -34,11 +34,11 @@ class IWICBitmapToneMapper extends IWICBitmapSource{
      * @param {Pointer<Guid>} guidDstFormat 
      * @param {Float} fLuminanceInNits 
      * @param {Float} fWhiteLevelInNits 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      */
-    InitializeForHdrTarget(pISource, guidDstFormat, fLuminanceInNits, fWhiteLevelInNits, mode) {
-        result := ComCall(8, this, "ptr", pISource, "ptr", guidDstFormat, "float", fLuminanceInNits, "float", fWhiteLevelInNits, "int", mode, "HRESULT")
+    InitializeForHdrTarget(pISource, guidDstFormat, fLuminanceInNits, fWhiteLevelInNits, _mode) {
+        result := ComCall(8, this, "ptr", pISource, "ptr", guidDstFormat, "float", fLuminanceInNits, "float", fWhiteLevelInNits, "int", _mode, "HRESULT")
         return result
     }
 
@@ -46,11 +46,11 @@ class IWICBitmapToneMapper extends IWICBitmapSource{
      * 
      * @param {IWICBitmapSource} pISource 
      * @param {Pointer<Guid>} guidDstFormat 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @returns {HRESULT} 
      */
-    InitializeForSdrTarget(pISource, guidDstFormat, mode) {
-        result := ComCall(9, this, "ptr", pISource, "ptr", guidDstFormat, "int", mode, "HRESULT")
+    InitializeForSdrTarget(pISource, guidDstFormat, _mode) {
+        result := ComCall(9, this, "ptr", pISource, "ptr", guidDstFormat, "int", _mode, "HRESULT")
         return result
     }
 }

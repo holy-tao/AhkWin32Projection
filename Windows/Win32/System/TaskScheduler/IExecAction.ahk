@@ -83,14 +83,14 @@ class IExecAction extends IAction{
      * When reading or writing XML, the command-line operation path is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-command-exectype-element">Command</a> element of the Task Scheduler schema.
      * 
      * The path is checked to make sure it is valid when the task is registered, not when this property is set.
-     * @param {BSTR} path 
+     * @param {BSTR} _path 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-put_path
      */
-    put_Path(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    put_Path(_path) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(11, this, "ptr", path, "HRESULT")
+        result := ComCall(11, this, "ptr", _path, "HRESULT")
         return result
     }
 

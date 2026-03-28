@@ -47,28 +47,24 @@ class IAppxBlockMapReader extends IUnknown{
      * @param {PWSTR} filename Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the file.
-     * @returns {IAppxBlockMapFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapfile">IAppxBlockMapFile</a>**</b>
-     * 
-     * The data about the file's attributes and blocks.
+     * @returns {IAppxBlockMapFile} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfile
      */
     GetFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(3, this, "ptr", filename, "ptr*", &file := 0, "HRESULT")
-        return IAppxBlockMapFile(file)
+        result := ComCall(3, this, "ptr", filename, "ptr*", &_file := 0, "HRESULT")
+        return IAppxBlockMapFile(_file)
     }
 
     /**
      * Retrieves an enumerator for traversing the files listed in the block map.
-     * @returns {IAppxBlockMapFilesEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxblockmapfilesenumerator">IAppxBlockMapFilesEnumerator</a>**</b>
-     * 
-     * The enumerator of all the files listed in the block map.
+     * @returns {IAppxBlockMapFilesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapreader-getfiles
      */
     GetFiles() {
-        result := ComCall(4, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IAppxBlockMapFilesEnumerator(enumerator)
+        result := ComCall(4, this, "ptr*", &_enumerator := 0, "HRESULT")
+        return IAppxBlockMapFilesEnumerator(_enumerator)
     }
 
     /**

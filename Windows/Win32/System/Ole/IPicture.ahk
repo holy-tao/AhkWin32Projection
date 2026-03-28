@@ -224,11 +224,11 @@ class IPicture extends IUnknown{
 
     /**
      * Renders (draws) a specified portion of the picture defined by the offset (xSrc,ySrc) of the source picture and the dimensions to copy (cxSrc,xySrc).
-     * @param {HDC} hDC A handle of the device context on which to render the image.
+     * @param {HDC} _hDC 
      * @param {Integer} x The horizontal coordinate in <i>hdc</i> at which to place the rendered image.
      * @param {Integer} y The vertical coordinate in <i>hdc</i> at which to place the rendered image.
      * @param {Integer} cx The horizontal dimension (width) of the destination rectangle.
-     * @param {Integer} cy The vertical dimension (height) of the destination rectangle
+     * @param {Integer} _cy 
      * @param {Integer} xSrc The horizontal offset in the source picture from which to start copying.
      * @param {Integer} ySrc The vertical offset in the source picture from which to start copying.
      * @param {Integer} cxSrc The horizontal extent to copy from the source picture.
@@ -277,10 +277,10 @@ class IPicture extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-render
      */
-    Render(hDC, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    Render(_hDC, x, y, cx, _cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
-        result := ComCall(8, this, "ptr", hDC, "int", x, "int", y, "int", cx, "int", cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, "ptr", pRcWBounds, "HRESULT")
+        result := ComCall(8, this, "ptr", _hDC, "int", x, "int", y, "int", cx, "int", _cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, "ptr", pRcWBounds, "HRESULT")
         return result
     }
 

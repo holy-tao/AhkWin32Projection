@@ -148,12 +148,12 @@ class IRealTimeStylus extends IUnknown{
      * If two or more windows exist, this property allows you to specify which window collects ink.
      * 
      * The HRESULT E_INVALIDOPERATION is returned when you attempt set this property on a child <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus</a> object.
-     * @param {HANDLE_PTR} hwnd 
+     * @param {HANDLE_PTR} _hwnd 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-put_hwnd
      */
-    put_HWND(hwnd) {
-        result := ComCall(6, this, "ptr", hwnd, "HRESULT")
+    put_HWND(_hwnd) {
+        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -515,12 +515,12 @@ class IRealTimeStylus extends IUnknown{
 
     /**
      * Retrieves a stylus for the specified stylus identifier.
-     * @param {Integer} sid Specifies security identifier (SID) for the collection.
+     * @param {Integer} _sid 
      * @returns {IInkCursor} When this method returns, contains a pointer to an IInkCursor that describes the stylus for the <i>sid</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusforid
      */
-    GetStylusForId(sid) {
-        result := ComCall(30, this, "uint", sid, "ptr*", &ppiInkCursor := 0, "HRESULT")
+    GetStylusForId(_sid) {
+        result := ComCall(30, this, "uint", _sid, "ptr*", &ppiInkCursor := 0, "HRESULT")
         return IInkCursor(ppiInkCursor)
     }
 

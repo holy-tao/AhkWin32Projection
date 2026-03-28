@@ -76,7 +76,7 @@ class IProxyProviderWinEventSink extends IUnknown{
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * A pointer to the provider of the element that is raising the event.
-     * @param {Integer} structureChangeType 
+     * @param {Integer} _structureChangeType 
      * @param {Pointer<SAFEARRAY>} runtimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * A pointer to the runtime identifiers of the elements that are affected. These IDs enable applications to identify elements that have been removed and are no longer represented by <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a> interfaces.
@@ -85,8 +85,8 @@ class IProxyProviderWinEventSink extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventsink-addstructurechangedevent
      */
-    AddStructureChangedEvent(pProvider, structureChangeType, runtimeId) {
-        result := ComCall(5, this, "ptr", pProvider, "int", structureChangeType, "ptr", runtimeId, "HRESULT")
+    AddStructureChangedEvent(pProvider, _structureChangeType, runtimeId) {
+        result := ComCall(5, this, "ptr", pProvider, "int", _structureChangeType, "ptr", runtimeId, "HRESULT")
         return result
     }
 }

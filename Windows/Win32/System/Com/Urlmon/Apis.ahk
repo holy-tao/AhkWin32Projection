@@ -1715,16 +1715,16 @@ class Urlmon {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {Pointer<uCLSSPEC>} pClassSpec 
      * @param {Pointer<QUERYCONTEXT>} pQuery 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static FaultInIEFeature(hWnd, pClassSpec, pQuery, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static FaultInIEFeature(_hWnd, pClassSpec, pQuery, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("urlmon.dll\FaultInIEFeature", "ptr", hWnd, "ptr", pClassSpec, "ptr", pQuery, "uint", dwFlags, "HRESULT")
+        result := DllCall("urlmon.dll\FaultInIEFeature", "ptr", _hWnd, "ptr", pClassSpec, "ptr", pQuery, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -1941,14 +1941,14 @@ class Urlmon {
     /**
      * 
      * @param {HANDLE} hObject 
-     * @param {Integer} ieObjectType 
+     * @param {Integer} _ieObjectType 
      * @param {Integer} dwAccessMask 
      * @returns {HRESULT} 
      */
-    static SetAccessForIEAppContainer(hObject, ieObjectType, dwAccessMask) {
+    static SetAccessForIEAppContainer(hObject, _ieObjectType, dwAccessMask) {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
-        result := DllCall("urlmon.dll\SetAccessForIEAppContainer", "ptr", hObject, "int", ieObjectType, "uint", dwAccessMask, "HRESULT")
+        result := DllCall("urlmon.dll\SetAccessForIEAppContainer", "ptr", hObject, "int", _ieObjectType, "uint", dwAccessMask, "HRESULT")
         return result
     }
 
@@ -2200,36 +2200,36 @@ class Urlmon {
     /**
      * 
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} ParseAction 
+     * @param {Integer} _ParseAction 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszResult 
      * @param {Integer} cchResult 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
      */
-    static CoInternetParseUrl(pwzUrl, ParseAction, dwFlags, pszResult, cchResult, dwReserved) {
+    static CoInternetParseUrl(pwzUrl, _ParseAction, dwFlags, pszResult, cchResult, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pszResult := pszResult is String ? StrPtr(pszResult) : pszResult
 
-        result := DllCall("urlmon.dll\CoInternetParseUrl", "ptr", pwzUrl, "int", ParseAction, "uint", dwFlags, "ptr", pszResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        result := DllCall("urlmon.dll\CoInternetParseUrl", "ptr", pwzUrl, "int", _ParseAction, "uint", dwFlags, "ptr", pszResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
         return pcchResult
     }
 
     /**
      * 
      * @param {IUri} pIUri 
-     * @param {Integer} ParseAction 
+     * @param {Integer} _ParseAction 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
      * @returns {Integer} 
      */
-    static CoInternetParseIUri(pIUri, ParseAction, dwFlags, pwzResult, cchResult) {
+    static CoInternetParseIUri(pIUri, _ParseAction, dwFlags, pwzResult, cchResult) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := DllCall("urlmon.dll\CoInternetParseIUri", "ptr", pIUri, "int", ParseAction, "uint", dwFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "ptr", dwReserved, "HRESULT")
+        result := DllCall("urlmon.dll\CoInternetParseIUri", "ptr", pIUri, "int", _ParseAction, "uint", dwFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "ptr", dwReserved, "HRESULT")
         return pcchResult
     }
 
@@ -2340,28 +2340,28 @@ class Urlmon {
     /**
      * 
      * @param {PWSTR} pwszUrl 
-     * @param {Integer} psuAction 
+     * @param {Integer} _psuAction 
      * @returns {PWSTR} 
      */
-    static CoInternetGetSecurityUrl(pwszUrl, psuAction) {
+    static CoInternetGetSecurityUrl(pwszUrl, _psuAction) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := DllCall("urlmon.dll\CoInternetGetSecurityUrl", "ptr", pwszUrl, "ptr*", &ppwszSecUrl := 0, "int", psuAction, "uint", dwReserved, "HRESULT")
+        result := DllCall("urlmon.dll\CoInternetGetSecurityUrl", "ptr", pwszUrl, "ptr*", &ppwszSecUrl := 0, "int", _psuAction, "uint", dwReserved, "HRESULT")
         return ppwszSecUrl
     }
 
     /**
      * 
      * @param {IUri} pUri 
-     * @param {Integer} psuAction 
+     * @param {Integer} _psuAction 
      * @returns {IUri} 
      */
-    static CoInternetGetSecurityUrlEx(pUri, psuAction) {
+    static CoInternetGetSecurityUrlEx(pUri, _psuAction) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("urlmon.dll\CoInternetGetSecurityUrlEx", "ptr", pUri, "ptr*", &ppSecUri := 0, "int", psuAction, "ptr", dwReserved, "HRESULT")
+        result := DllCall("urlmon.dll\CoInternetGetSecurityUrlEx", "ptr", pUri, "ptr*", &ppSecUri := 0, "int", _psuAction, "ptr", dwReserved, "HRESULT")
         return IUri(ppSecUri)
     }
 

@@ -962,16 +962,16 @@ class ID3D11DeviceContext1 extends ID3D11DeviceContext{
      * </ul>
      * For video views with YUV or YCbBr formats, <b>ClearView</b> doesn't convert color values. In situations where the format name doesn’t indicate _UNORM,  _UINT, and so on, <b>ClearView</b> assumes _UINT. Therefore, 235.0f maps to 235 (rounds to zero, out of range/INF values clamp to target range, and NaN to 0).
      * @param {ID3D11View} pView A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11view">ID3D11View</a> interface that represents the resource view to clear.
-     * @param {Pointer<Float>} Color A 4-component array that represents the color to use to clear the resource view.
+     * @param {Pointer<Float>} _Color 
      * @param {Pointer<RECT>} pRect An array of <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-rect">D3D11_RECT</a> structures for the rectangles in the resource view to clear. If <b>NULL</b>, <b>ClearView</b> clears the entire surface.
      * @param {Integer} NumRects Number of rectangles in the array that the  <i>pRect</i> parameter specifies.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-clearview
      */
-    ClearView(pView, Color, pRect, NumRects) {
-        ColorMarshal := Color is VarRef ? "float*" : "ptr"
+    ClearView(pView, _Color, pRect, NumRects) {
+        _ColorMarshal := _Color is VarRef ? "float*" : "ptr"
 
-        ComCall(132, this, "ptr", pView, ColorMarshal, Color, "ptr", pRect, "uint", NumRects)
+        ComCall(132, this, "ptr", pView, _ColorMarshal, _Color, "ptr", pRect, "uint", NumRects)
     }
 
     /**

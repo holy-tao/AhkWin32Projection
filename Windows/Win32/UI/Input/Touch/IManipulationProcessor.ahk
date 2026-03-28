@@ -247,12 +247,12 @@ class IManipulationProcessor extends IUnknown{
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} timestamp The time of the data event.
+     * @param {Integer} _timestamp 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processdownwithtime
      */
-    ProcessDownWithTime(manipulatorId, x, y, timestamp) {
-        result := ComCall(15, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp, "HRESULT")
+    ProcessDownWithTime(manipulatorId, x, y, _timestamp) {
+        result := ComCall(15, this, "uint", manipulatorId, "float", x, "float", y, "uint", _timestamp, "HRESULT")
         return result
     }
 
@@ -264,12 +264,12 @@ class IManipulationProcessor extends IUnknown{
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} timestamp The time of the data event.
+     * @param {Integer} _timestamp 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processmovewithtime
      */
-    ProcessMoveWithTime(manipulatorId, x, y, timestamp) {
-        result := ComCall(16, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp, "HRESULT")
+    ProcessMoveWithTime(manipulatorId, x, y, _timestamp) {
+        result := ComCall(16, this, "uint", manipulatorId, "float", x, "float", y, "uint", _timestamp, "HRESULT")
         return result
     }
 
@@ -281,12 +281,12 @@ class IManipulationProcessor extends IUnknown{
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} timestamp The time of the data event.
+     * @param {Integer} _timestamp 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processupwithtime
      */
-    ProcessUpWithTime(manipulatorId, x, y, timestamp) {
-        result := ComCall(17, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp, "HRESULT")
+    ProcessUpWithTime(manipulatorId, x, y, _timestamp) {
+        result := ComCall(17, this, "uint", manipulatorId, "float", x, "float", y, "uint", _timestamp, "HRESULT")
         return result
     }
 

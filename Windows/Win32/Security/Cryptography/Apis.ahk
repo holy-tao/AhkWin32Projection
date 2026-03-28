@@ -18465,7 +18465,7 @@ class Cryptography {
      * Keys take up both operating system's memory space and the CSP's memory space. Some CSPs are implemented in hardware with limited memory resources. Applications must destroy all keys with the <b>CryptDestroyKey</b> function when they are finished with them.
      * 
      * All key handles that have been created or imported by using a specific CSP must be destroyed before that CSP handle is released with the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptreleasecontext">CryptReleaseContext</a> function.
-     * @param {Pointer} hKey The handle of the key to be destroyed.
+     * @param {Pointer} _hKey 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. For extended error information, call 
@@ -18537,10 +18537,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdestroykey
      * @since windows5.1.2600
      */
-    static CryptDestroyKey(hKey) {
+    static CryptDestroyKey(_hKey) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDestroyKey", "ptr", hKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDestroyKey", "ptr", _hKey, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18552,7 +18552,7 @@ class Cryptography {
      * Customizes various aspects of a session key's operations.
      * @remarks
      * If the KP_Q, KP_P, or KP_X parameters are set on a PREGEN Diffie-Hellman or DSS key, the key lengths must be compatible with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key length</a> set using the upper 16 bits of the <i>dwFlags</i> parameter when the key was created using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a>. If no key length was set in <b>CryptGenKey</b>, the default key length was used. This will create an error if a nondefault key length is used to set P, Q, or X.
-     * @param {Pointer} hKey A handle to the key for which values are to be set.
+     * @param {Pointer} _hKey 
      * @param {Integer} dwParam The following tables contain predefined values that can be used.
      * @param {Pointer<Integer>} pbData A pointer to a buffer initialized with the value to be set before calling <b>CryptSetKeyParam</b>. The form of this data varies depending on the value of <i>dwParam</i>.
      * @param {Integer} dwFlags Used only when <i>dwParam</i> is KP_ALGID. The <i>dwFlags</i> parameter is used to pass in flag values for the enabled key. The <i>dwFlags</i> parameter can hold values such as the key size and the other flag values allowed when generating the same type of key with <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a>. For information about allowable flag values, see 
@@ -18661,12 +18661,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetkeyparam
      * @since windows5.1.2600
      */
-    static CryptSetKeyParam(hKey, dwParam, pbData, dwFlags) {
+    static CryptSetKeyParam(_hKey, dwParam, pbData, dwFlags) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", _hKey, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18676,7 +18676,7 @@ class Cryptography {
 
     /**
      * Retrieves data that governs the operations of a key.
-     * @param {Pointer} hKey The handle of the key being queried.
+     * @param {Pointer} _hKey 
      * @param {Integer} dwParam Specifies the type of query being made.
      * @param {Pointer} pbData A pointer to a buffer that receives the data. The form of this data depends on the value of <i>dwParam</i>.
      * 
@@ -18780,12 +18780,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetkeyparam
      * @since windows5.1.2600
      */
-    static CryptGetKeyParam(hKey, dwParam, pbData, pdwDataLen, dwFlags) {
+    static CryptGetKeyParam(_hKey, dwParam, pbData, pdwDataLen, dwFlags) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", _hKey, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20226,7 +20226,7 @@ class Cryptography {
      * <td>192 bits</td>
      * </tr>
      * </table>
-     * @param {Pointer} hKey A handle to the key to be exported.
+     * @param {Pointer} _hKey 
      * @param {Pointer} hExpKey A handle to a cryptographic key of the destination user. The key data within the exported <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> is encrypted using this key. This ensures that only the destination user is able to make use of the key BLOB.  Both <i>hExpKey</i> and <i>hKey</i> must come from the same CSP.
      * 
      * 
@@ -20458,12 +20458,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptexportkey
      * @since windows5.1.2600
      */
-    static CryptExportKey(hKey, hExpKey, dwBlobType, dwFlags, pbData, pdwDataLen) {
+    static CryptExportKey(_hKey, hExpKey, dwBlobType, dwFlags, pbData, pdwDataLen) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", _hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20707,11 +20707,7 @@ class Cryptography {
      * ```
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-enhanced-cryptographic-provider">Microsoft Enhanced Cryptographic Provider</a> supports direct encryption with <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public keys</a> and decryption with RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private keys</a>. The encryption uses PKCS #1 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a>. On decryption, this padding is verified. The length of plaintext data that can be encrypted with a call to <b>CryptEncrypt</b> with an RSA key is the length of the key modulus minus eleven bytes. The eleven bytes is the chosen minimum for PKCS #1 padding. The ciphertext is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">little-endian</a> format.
-     * @param {Pointer} hKey A handle to the encryption key. An application obtains this handle by using either the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a> or the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptimportkey">CryptImportKey</a> function.
-     * 
-     * The key specifies the encryption algorithm used.
+     * @param {Pointer} _hKey 
      * @param {Pointer} hHash A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash object</a>. If data is to be hashed and encrypted simultaneously, a handle to a hash object can be passed in the <i>hHash</i> parameter. The hash value is updated with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a> passed in. This option is useful when generating signed and encrypted text.
      * 
      * Before calling <b>CryptEncrypt</b>, the application must obtain a handle to the hash object by calling the 
@@ -20917,12 +20913,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptencrypt
      * @since windows5.1.2600
      */
-    static CryptEncrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen) {
+    static CryptEncrypt(_hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwBufLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", _hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwBufLen, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -20971,14 +20967,7 @@ class Cryptography {
      * ```
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-enhanced-cryptographic-provider">Microsoft Enhanced Cryptographic Provider</a> supports direct encryption with <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public keys</a> and decryption with RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private keys</a>. The encryption uses PKCS #1 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a>. On decryption, this padding is verified. The length of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> data to be decrypted must be the same length as the modulus of the RSA key used to decrypt the data. If the ciphertext has zeros in the most significant bytes, these bytes must be included in the input data buffer and in the input buffer length. The ciphertext must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">little-endian</a> format.
-     * @param {Pointer} hKey A handle to the key to use for the decryption. An application obtains this handle by using either the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptimportkey">CryptImportKey</a> function. 
-     * 
-     * 
-     * 
-     * 
-     * This key specifies the decryption algorithm to be used.
+     * @param {Pointer} _hKey 
      * @param {Pointer} hHash A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash object</a>. If data is to be decrypted and hashed simultaneously, a handle to a hash object is passed in this parameter. The hash value is updated with the decrypted <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a>. This option is useful when simultaneously decrypting and verifying a signature. 
      * 
      * 
@@ -21172,12 +21161,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdecrypt
      * @since windows5.1.2600
      */
-    static CryptDecrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen) {
+    static CryptDecrypt(_hKey, hHash, Final, dwFlags, pbData, pdwDataLen) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", _hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21212,9 +21201,7 @@ class Cryptography {
      * @param {Integer} Algid An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that identifies  the hash algorithm to use.
      * 
      * Valid values for this parameter vary, depending on the CSP that is used. For a list of default algorithms, see  Remarks.
-     * @param {Pointer} hKey If the type of hash algorithm is a keyed hash, such as the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">Hash-Based Message Authentication Code</a> (HMAC) or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> (MAC) algorithm, the key for the hash is passed in this parameter. For nonkeyed algorithms, this parameter must be set to zero.
-     * 
-     * For keyed algorithms, the key must be to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">block cipher</a> key, such as RC2, that has a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher mode</a> of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Cipher Block Chaining</a> (CBC).
+     * @param {Pointer} _hKey 
      * @param {Integer} dwFlags The following flag value is defined.
      * 
      * <table>
@@ -21328,12 +21315,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcreatehash
      * @since windows5.1.2600
      */
-    static CryptCreateHash(hProv, Algid, hKey, dwFlags, phHash) {
+    static CryptCreateHash(hProv, Algid, _hKey, dwFlags, phHash) {
         phHashMarshal := phHash is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey, "uint", dwFlags, phHashMarshal, phHash, "int")
+        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", _hKey, "uint", dwFlags, phHashMarshal, phHash, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21527,7 +21514,7 @@ class Cryptography {
     /**
      * Computes the cryptographic hash of a session key object.
      * @param {Pointer} hHash A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash object</a>.
-     * @param {Pointer} hKey A handle to the key object to be hashed.
+     * @param {Pointer} _hKey 
      * @param {Integer} dwFlags The following flag value is defined. 
      * 
      * 
@@ -21667,10 +21654,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashsessionkey
      * @since windows5.1.2600
      */
-    static CryptHashSessionKey(hHash, hKey, dwFlags) {
+    static CryptHashSessionKey(hHash, _hKey, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptHashSessionKey", "ptr", hHash, "ptr", hKey, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptHashSessionKey", "ptr", hHash, "ptr", _hKey, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -23748,7 +23735,7 @@ class Cryptography {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> must be called to destroy any keys that are created by using <b>CryptDuplicateKey</b>. Destroying the original key does not cause the duplicate key to be destroyed. After a duplicate key is made, it is separate from the original key. There is no shared state between the two keys.
-     * @param {Pointer} hKey A handle to the key to be duplicated.
+     * @param {Pointer} _hKey 
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Pointer>} phKey Address of the handle to the duplicated key. When you have finished using the key, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE).
@@ -23800,14 +23787,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptduplicatekey
      * @since windows5.1.2600
      */
-    static CryptDuplicateKey(hKey, dwFlags, phKey) {
+    static CryptDuplicateKey(_hKey, dwFlags, phKey) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
         phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey, "uint*", pdwReserved, "uint", dwFlags, phKeyMarshal, phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", _hKey, "uint*", pdwReserved, "uint", dwFlags, phKeyMarshal, phKey, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -24670,7 +24657,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptEncrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptEncrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbInput The address of a buffer that contains the plaintext to be encrypted. The <i>cbInput</i> parameter contains the size of the plaintext to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
@@ -24796,13 +24783,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptencrypt
      * @since windows6.0.6000
      */
-    static BCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptEncrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -24815,7 +24802,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDecrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDecrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbInput The address of a buffer that contains the ciphertext to be decrypted. The <i>cbInput</i> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
@@ -24948,13 +24935,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptdecrypt
      * @since windows6.0.6000
      */
-    static BCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptDecrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -24965,7 +24952,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptExportKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptExportKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to export.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {BCRYPT_KEY_HANDLE} hExportKey The handle of the key with which to wrap the exported key. Use this parameter when exporting BLOBs of type <b>BCRYPT_AES_WRAP_KEY_BLOB</b>; otherwise, set it to <b>NULL</b>.<div class="alert"><b>Note</b>  The <i>hExportKey</i> handle must be supplied by the same provider that supplied the <i>hKey</i> handle, and <i>hExportKey</i> must be a handle to a symmetric key that can be used in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Advanced Encryption Standard</a> (AES) key wrap algorithm. When the <i>hKey</i> handle is from the Microsoft provider, <i>hExportKey</i> must be an AES key handle.</div>
      * <div> </div>
      * 
@@ -25047,14 +25034,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptexportkey
      * @since windows6.0.6000
      */
-    static BCryptExportKey(hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptExportKey(_hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         hExportKey := hExportKey is Win32Handle ? NumGet(hExportKey, "ptr") : hExportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", _hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -25267,7 +25254,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDuplicateKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDuplicateKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to duplicate. This must be a handle to a symmetric key.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phNewKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the duplicate key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
      * @param {Pointer} pbKeyObject A pointer to a buffer that receives the duplicate key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
@@ -25334,10 +25321,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptduplicatekey
      * @since windows6.0.6000
      */
-    static BCryptDuplicateKey(hKey, phNewKey, pbKeyObject, cbKeyObject, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptDuplicateKey(_hKey, phNewKey, pbKeyObject, cbKeyObject, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("bcrypt.dll\BCryptDuplicateKey", "ptr", hKey, "ptr", phNewKey, "ptr", pbKeyObject, "uint", cbKeyObject, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptDuplicateKey", "ptr", _hKey, "ptr", phNewKey, "ptr", pbKeyObject, "uint", cbKeyObject, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -25348,7 +25335,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptFinalizeKeyPair</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a> function.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
@@ -25410,10 +25397,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptfinalizekeypair
      * @since windows6.0.6000
      */
-    static BCryptFinalizeKeyPair(hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptFinalizeKeyPair(_hKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", "ptr", hKey, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", "ptr", _hKey, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -25424,7 +25411,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDestroyKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to destroy.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -25463,10 +25450,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptdestroykey
      * @since windows6.0.6000
      */
-    static BCryptDestroyKey(hKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptDestroyKey(_hKey) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("bcrypt.dll\BCryptDestroyKey", "ptr", hKey, "int")
+        result := DllCall("bcrypt.dll\BCryptDestroyKey", "ptr", _hKey, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -25534,7 +25521,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptSignHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptSignHash</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to sign the hash.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbInput A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to sign.
@@ -25617,13 +25604,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptsignhash
      * @since windows6.0.6000
      */
-    static BCryptSignHash(hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptSignHash(_hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput, pcbResult, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -25638,7 +25625,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptVerifySignature</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptVerifySignature</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbHash The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHash The size, in bytes, of the <i>pbHash</i> buffer.
@@ -25729,12 +25716,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptverifysignature
      * @since windows6.0.6000
      */
-    static BCryptVerifySignature(hKey, pPaddingInfo, pbHash, cbHash, pbSignature, cbSignature, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptVerifySignature(_hKey, pPaddingInfo, pbHash, cbHash, pbSignature, cbSignature, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -25972,7 +25959,7 @@ class Cryptography {
      * <li><b>BCRYPT_PBKDF2_ALGORITHM</b></li>
      * </ul>
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey Handle of the input key.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList Pointer to a  <b>BCryptBufferDesc</b> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed. 
      * The parameters can be specific to a key derivation function (KDF) or generic. The following table shows the required and optional parameters for specific KDFs implemented by the Microsoft Primitive provider.
      * 
@@ -26100,12 +26087,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptkeyderivation
      * @since windows8.0
      */
-    static BCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptKeyDerivation(_hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", _hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -26890,7 +26877,7 @@ class Cryptography {
 
     /**
      * 
-     * @param {BCRYPT_KEY_HANDLE} hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbSecretKey 
      * @param {Integer} cbSecretKey 
      * @param {Pointer<Integer>} pcbSecretKey 
@@ -26900,20 +26887,20 @@ class Cryptography {
      * @param {Integer} dwFlags 
      * @returns {NTSTATUS} 
      */
-    static BCryptEncapsulate(hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipherText, cbCipherText, pcbCipherText, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptEncapsulate(_hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipherText, cbCipherText, pcbCipherText, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
         pcbCipherTextMarshal := pcbCipherText is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptEncapsulate", "ptr", hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptEncapsulate", "ptr", _hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {BCRYPT_KEY_HANDLE} hKey 
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbCipherText 
      * @param {Integer} cbCipherText 
      * @param {Pointer} pbSecretKey 
@@ -26922,12 +26909,12 @@ class Cryptography {
      * @param {Integer} dwFlags 
      * @returns {NTSTATUS} 
      */
-    static BCryptDecapsulate(hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, pcbSecretKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptDecapsulate(_hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, pcbSecretKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptDecapsulate", "ptr", hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptDecapsulate", "ptr", _hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "uint", dwFlags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -28561,7 +28548,7 @@ class Cryptography {
      * Obtains the names of the algorithms that are supported by the specified key storage provider.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to enumerate the algorithms for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {Integer} dwAlgOperations 
      * @param {Pointer<Integer>} pdwAlgCount The address of a <b>DWORD</b> that receives the number of elements in the <i>ppAlgList</i> array.
      * @param {Pointer<Pointer<NCryptAlgorithmName>>} ppAlgList The address of an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncryptalgorithmname">NCryptAlgorithmName</a> structure pointer that receives an array of the registered algorithm names. The variable pointed to by the <i>pdwAlgCount</i> parameter receives the number of elements in this array.
@@ -28656,13 +28643,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptenumalgorithms
      * @since windows6.0.6000
      */
-    static NCryptEnumAlgorithms(hProvider, dwAlgOperations, pdwAlgCount, ppAlgList, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptEnumAlgorithms(_hProvider, dwAlgOperations, pdwAlgCount, ppAlgList, dwFlags) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
         pdwAlgCountMarshal := pdwAlgCount is VarRef ? "uint*" : "ptr"
         ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", hProvider, "uint", dwAlgOperations, pdwAlgCountMarshal, pdwAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", _hProvider, "uint", dwAlgOperations, pdwAlgCountMarshal, pdwAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -28672,7 +28659,7 @@ class Cryptography {
      * If the provider supports the algorithm, this function returns <b>ERROR_SUCCESS</b>. If the provider does not support the algorithm, and no other errors occurred, this function returns <b>NTE_NOT_SUPPORTED</b>.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that identifies the cryptographic algorithm in question. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {Integer} dwFlags Flags that modify function behavior. This can be zero (0) or the following value.
      * 
@@ -28763,11 +28750,11 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptisalgsupported
      * @since windows6.0.6000
      */
-    static NCryptIsAlgSupported(hProvider, pszAlgId, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptIsAlgSupported(_hProvider, pszAlgId, dwFlags) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-        result := DllCall("ncrypt.dll\NCryptIsAlgSupported", "ptr", hProvider, "ptr", pszAlgId, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptIsAlgSupported", "ptr", _hProvider, "ptr", pszAlgId, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -28777,7 +28764,7 @@ class Cryptography {
      * This function retrieves only one item each time it is called. The state of the enumeration is stored in the variable pointed to by the <i>ppEnumState</i> parameter, so this must be preserved between calls to this function. When the last key stored by the provider has been retrieved, this function will return <b>NTE_NO_MORE_ITEMS</b> the next time it is called. To start the enumeration over, set the variable pointed to by the <i>ppEnumState</i> parameter to <b>NULL</b>, free the memory pointed to by the <i>ppKeyName</i> parameter, if it is not <b>NULL</b>, and call this function again.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to enumerate the keys for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszScope This parameter is not currently used and must be <b>NULL</b>.
      * @param {Pointer<Pointer<Void>>} ppEnumState The address of a <b>VOID</b> pointer that receives enumeration state information that is used in subsequent calls to this function. This information only has meaning to the key storage provider and is opaque to the caller. The key storage provider uses this information to determine which item is next in the enumeration. If the variable pointed to by this parameter contains <b>NULL</b>, the enumeration is started from the beginning.
      * 
@@ -28787,13 +28774,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptenumkeys
      * @since windows6.0.6000
      */
-    static NCryptEnumKeys(hProvider, pszScope, ppEnumState, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptEnumKeys(_hProvider, pszScope, ppEnumState, dwFlags) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszScope := pszScope is String ? StrPtr(pszScope) : pszScope
 
         ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptEnumKeys", "ptr", hProvider, "ptr", pszScope, "ptr*", &ppKeyName := 0, ppEnumStateMarshal, ppEnumState, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptEnumKeys", "ptr", _hProvider, "ptr", pszScope, "ptr*", &ppKeyName := 0, ppEnumStateMarshal, ppEnumState, "uint", dwFlags, "HRESULT")
         return ppKeyName
     }
 
@@ -28947,7 +28934,7 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * 
      * For performance reasons, Microsoft software-based KSPs cache private key material in the Local Security Authority (LSA) for as long as a handle to the key is open. The LSA is a privileged system process. Therefore, other users cannot access this cached copy of the key unless the user possesses administrator privileges on the system. This behavior cannot be altered through configuration.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to open the key from.
+     * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.
      * @param {Integer} dwLegacyKeySpec 
      * @param {Integer} dwFlags 
@@ -28955,12 +28942,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptopenkey
      * @since windows6.0.6000
      */
-    static NCryptOpenKey(hProvider, pszKeyName, dwLegacyKeySpec, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptOpenKey(_hProvider, pszKeyName, dwLegacyKeySpec, dwFlags) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
         phKey := NCRYPT_KEY_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", hProvider, "ptr", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", _hProvider, "ptr", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "HRESULT")
         return phKey
     }
 
@@ -28970,7 +28957,7 @@ class Cryptography {
      * If you are creating an RSA key pair, you can also have the key stored in legacy storage so that it can be used with the CryptoAPI by passing the <b>NCRYPT_WRITE_KEY_TO_LEGACY_STORE_FLAG</b> flag to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfinalizekey">NCryptFinalizeKey</a> function when the key is finalized.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to create the key in. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is <b>NULL</b>, this function will create an ephemeral key that is not persisted.
      * @param {Integer} dwLegacyKeySpec 
@@ -28979,13 +28966,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey
      * @since windows6.0.6000
      */
-    static NCryptCreatePersistedKey(hProvider, pszAlgId, pszKeyName, dwLegacyKeySpec, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptCreatePersistedKey(_hProvider, pszAlgId, pszKeyName, dwLegacyKeySpec, dwFlags) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
         phKey := NCRYPT_KEY_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", hProvider, "ptr", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", _hProvider, "ptr", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "HRESULT")
         return phKey
     }
 
@@ -29142,7 +29129,7 @@ class Cryptography {
      * Completes a CNG key storage key.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey">NCryptCreatePersistedKey</a> function.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * 
@@ -29193,10 +29180,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptfinalizekey
      * @since windows6.0.6000
      */
-    static NCryptFinalizeKey(hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptFinalizeKey(_hKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("ncrypt.dll\NCryptFinalizeKey", "ptr", hKey, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptFinalizeKey", "ptr", _hKey, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -29206,7 +29193,7 @@ class Cryptography {
      * The <i>pbInput</i> and <i>pbOutput</i> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to encrypt the data.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbInput The address of a buffer that contains the data to be encrypted. The <i>cbInput</i> parameter contains the size of the data to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
@@ -29219,12 +29206,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptencrypt
      * @since windows6.0.6000
      */
-    static NCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptEncrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
@@ -29234,7 +29221,7 @@ class Cryptography {
      * The <i>pbInput</i> and <i>pbOutput</i> parameters can point to the same buffer. In this case, this function will perform the decryption in place.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the data.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbInput The address of a buffer that contains the data to be decrypted. The <i>cbInput</i> parameter contains the size of the data to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
@@ -29247,18 +29234,18 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptdecrypt
      * @since windows6.0.6000
      */
-    static NCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptDecrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
     /**
      * 
-     * @param {NCRYPT_KEY_HANDLE} hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbSecretKey 
      * @param {Integer} cbSecretKey 
      * @param {Pointer<Integer>} pcbSecretKey 
@@ -29268,19 +29255,19 @@ class Cryptography {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static NCryptEncapsulate(hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipherText, cbCipherText, pcbCipherText, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptEncapsulate(_hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipherText, cbCipherText, pcbCipherText, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
         pcbCipherTextMarshal := pcbCipherText is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptEncapsulate", "ptr", hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptEncapsulate", "ptr", _hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {NCRYPT_KEY_HANDLE} hKey 
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbCipherText 
      * @param {Integer} cbCipherText 
      * @param {Pointer} pbSecretKey 
@@ -29288,10 +29275,10 @@ class Cryptography {
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
-    static NCryptDecapsulate(hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptDecapsulate(_hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("ncrypt.dll\NCryptDecapsulate", "ptr", hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, "uint*", &pcbSecretKey := 0, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptDecapsulate", "ptr", _hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, "uint*", &pcbSecretKey := 0, "uint", dwFlags, "HRESULT")
         return pcbSecretKey
     }
 
@@ -29304,7 +29291,7 @@ class Cryptography {
      * 
      * - **Microsoft Software KSP**
      * - **Microsoft Smart Card KSP**
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider.
+     * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} hImportKey The handle of the [cryptographic key](/windows/win32/SecGloss/c-gly) with which the key data within the imported [key BLOB](/windows/win32/SecGloss/k-gly) was encrypted. This must be a handle to the same key that was passed in the _hExportKey_ parameter of the [NCryptExportKey](/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey) function. If this parameter is **NULL**, the key BLOB is assumed to not be encrypted.
      * @param {PWSTR} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. For the BLOB formats supported by Microsoft providers, see Remarks.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that points to an array of buffers that contain parameter information for the key.
@@ -29315,13 +29302,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptimportkey
      * @since windows6.0.6000
      */
-    static NCryptImportKey(hProvider, hImportKey, pszBlobType, pParameterList, pbData, cbData, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptImportKey(_hProvider, hImportKey, pszBlobType, pParameterList, pbData, cbData, dwFlags) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         hImportKey := hImportKey is Win32Handle ? NumGet(hImportKey, "ptr") : hImportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         phKey := NCRYPT_KEY_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", hProvider, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", _hProvider, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "HRESULT")
         return phKey
     }
 
@@ -29329,7 +29316,7 @@ class Cryptography {
      * Exports a CNG key to a memory BLOB.
      * @remarks
      * A service must not call this function from its [StartService Function](/windows/win32/api/winsvc/nf-winsvc-startservicea). If a service calls this function from its **StartService** function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey A handle of the key to export.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {NCRYPT_KEY_HANDLE} hExportKey A handle to a cryptographic key of the destination user. The key data within the exported key BLOB is encrypted by using this key. This ensures that only the destination user is able to make use of the key BLOB.
      * @param {PWSTR} pszBlobType 
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that receives parameter information for the key. This parameter can be **NULL** if this information is not needed.
@@ -29340,12 +29327,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey
      * @since windows6.0.6000
      */
-    static NCryptExportKey(hKey, hExportKey, pszBlobType, pParameterList, pbOutput, cbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptExportKey(_hKey, hExportKey, pszBlobType, pParameterList, pbOutput, cbOutput, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         hExportKey := hExportKey is Win32Handle ? NumGet(hExportKey, "ptr") : hExportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", _hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
@@ -29353,7 +29340,7 @@ class Cryptography {
      * Creates a signature of a hash value. (NCryptSignHash)
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to sign the hash.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The number of bytes in the <i>pbHashValue</i> buffer to sign.
@@ -29370,12 +29357,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptsignhash
      * @since windows6.0.6000
      */
-    static NCryptSignHash(hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptSignHash(_hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
@@ -29383,7 +29370,7 @@ class Cryptography {
      * Verifies that the specified signature matches the specified hash. (NCryptVerifySignature)
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbHashValue The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The size, in bytes, of the <i>pbHash</i> buffer.
@@ -29463,12 +29450,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptverifysignature
      * @since windows6.0.6000
      */
-    static NCryptVerifySignature(hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptVerifySignature(_hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptVerifySignature", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptVerifySignature", "ptr", _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -29476,10 +29463,7 @@ class Cryptography {
      * Deletes a CNG key.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to delete. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
-     * 
-     * <div class="alert"><b>Note</b>  The <b>NCryptDeleteKey</b> function frees the handle. Applications must not use the handle or attempt to call the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function on it after calling the <b>NCryptDeleteKey</b> function.</div>
-     * <div> </div>
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} dwFlags Flags that modify function behavior. This can be zero or a combination of values that is specific to each key storage provider.
      * 
      * <table>
@@ -29547,10 +29531,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptdeletekey
      * @since windows6.0.6000
      */
-    static NCryptDeleteKey(hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptDeleteKey(_hKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("ncrypt.dll\NCryptDeleteKey", "ptr", hKey, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptDeleteKey", "ptr", _hKey, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -29608,15 +29592,15 @@ class Cryptography {
      * Determines if the specified handle is a CNG key handle.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to test.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @returns {BOOL} Returns a nonzero value if the handle is a key handle or zero otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptiskeyhandle
      * @since windows6.0.6000
      */
-    static NCryptIsKeyHandle(hKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptIsKeyHandle(_hKey) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("ncrypt.dll\NCryptIsKeyHandle", "ptr", hKey, "int")
+        result := DllCall("ncrypt.dll\NCryptIsKeyHandle", "ptr", _hKey, "int")
         return result
     }
 
@@ -29713,7 +29697,7 @@ class Cryptography {
      * Creates or removes a key change notification.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {Pointer<HANDLE>} phEvent The address of a <b>HANDLE</b> variable that either receives or contains the key change notification event handle. This is the same handle that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</a> function. For more information, see the <i>dwFlags</i> parameter description.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
@@ -29776,10 +29760,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptnotifychangekey
      * @since windows6.0.6000
      */
-    static NCryptNotifyChangeKey(hProvider, phEvent, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptNotifyChangeKey(_hProvider, phEvent, dwFlags) {
+        _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
 
-        result := DllCall("ncrypt.dll\NCryptNotifyChangeKey", "ptr", hProvider, "ptr", phEvent, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptNotifyChangeKey", "ptr", _hProvider, "ptr", phEvent, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -29890,7 +29874,7 @@ class Cryptography {
      * <li><b>BCRYPT_SP80056A_CONCAT_ALGORITHM</b></li>
      * <li><b>BCRYPT_PBKDF2_ALGORITHM</b></li>
      * </ul>
-     * @param {NCRYPT_KEY_HANDLE} hKey Handle of the key derivation function (KDF) key.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc">NCryptBufferDesc</a> structure that contains the KDF parameters. The parameters can be specific to a KDF or generic. The following table shows the required and optional parameters for specific KDFs implemented by the Microsoft software key storage provider.
      * 
      * <table>
@@ -30025,10 +30009,10 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptkeyderivation
      * @since windows8.0
      */
-    static NCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptKeyDerivation(_hKey, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", _hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
@@ -31048,10 +31032,7 @@ class Cryptography {
 
     /**
      * The CryptInstallOIDFunctionAddress function installs a set of callable object identifier (OID) function addresses.
-     * @param {HMODULE} hModule This parameter is updated with the <i>hModule</i> parameter passed to <b>DllMain</b> to prevent the DLL that contains the function addresses from being unloaded by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetoidfunctionaddress">CryptGetOIDFunctionAddress</a> or
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfreeoidfunctionaddress">CryptFreeOIDFunctionAddress</a>. This would be the case when the DLL has also registered OID functions through 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>.
+     * @param {HMODULE} _hModule 
      * @param {Integer} dwEncodingType Specifies the encoding type to be matched. Currently, only X509_ASN_ENCODING and PKCS_7_ASN_ENCODING are being used; however, additional encoding types may be added in the future. To match both current encoding types, use:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
@@ -31068,11 +31049,11 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress
      * @since windows5.1.2600
      */
-    static CryptInstallOIDFunctionAddress(hModule, dwEncodingType, pszFuncName, cFuncEntry, rgFuncEntry, dwFlags) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static CryptInstallOIDFunctionAddress(_hModule, dwEncodingType, pszFuncName, cFuncEntry, rgFuncEntry, dwFlags) {
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
 
-        result := DllCall("CRYPT32.dll\CryptInstallOIDFunctionAddress", "ptr", hModule, "uint", dwEncodingType, "ptr", pszFuncName, "uint", cFuncEntry, "ptr", rgFuncEntry, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptInstallOIDFunctionAddress", "ptr", _hModule, "uint", dwEncodingType, "ptr", pszFuncName, "uint", cFuncEntry, "ptr", rgFuncEntry, "uint", dwFlags, "int")
         return result
     }
 
@@ -34696,22 +34677,22 @@ class Cryptography {
 
     /**
      * Duplicates a store handle by incrementing the store's reference count.
-     * @param {HCERTSTORE} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
+     * @param {HCERTSTORE} _hCertStore 
      * @returns {HCERTSTORE} Currently, a copy is not made of the handle, and the returned handle is the same as the handle that was input. If <b>NULL</b> is passed in, the called function will raise an access violation exception.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatestore
      * @since windows5.1.2600
      */
-    static CertDuplicateStore(hCertStore) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertDuplicateStore(_hCertStore) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
-        result := DllCall("CRYPT32.dll\CertDuplicateStore", "ptr", hCertStore, "ptr")
+        result := DllCall("CRYPT32.dll\CertDuplicateStore", "ptr", _hCertStore, "ptr")
         resultHandle := HCERTSTORE({Value: result}, True)
         return resultHandle
     }
 
     /**
      * Saves the certificate store to a file or to a memory BLOB.
-     * @param {HCERTSTORE} hCertStore The handle of the certificate store to be saved.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a>. Encoding is used only when <i>dwSaveAs</i> contains <b>CERT_STORE_SAVE_AS_PKCS7</b>. Otherwise, the <i>dwMsgAndCertEncodingType</i> parameter is not used.
      * @param {Integer} dwSaveAs Specifies how to save the certificate store.
      * @param {Integer} dwSaveTo Specifies where and how to save the certificate store. The contents of this parameter determines the format of the <i>pvSaveToPara</i> parameter.
@@ -34726,14 +34707,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsavestore
      * @since windows5.1.2600
      */
-    static CertSaveStore(hCertStore, dwEncodingType, dwSaveAs, dwSaveTo, pvSaveToPara, dwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertSaveStore(_hCertStore, dwEncodingType, dwSaveAs, dwSaveTo, pvSaveToPara, dwFlags) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pvSaveToParaMarshal := pvSaveToPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSaveStore", "ptr", hCertStore, "uint", dwEncodingType, "uint", dwSaveAs, "uint", dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CertSaveStore", "ptr", _hCertStore, "uint", dwEncodingType, "uint", dwSaveAs, "uint", dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -34757,7 +34738,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_PENDING_CLOSE. Note that the store is still closed when <b>FALSE</b> is returned and the memory for any active contexts is not freed.
      * 
      * If CERT_STORE_NO_CRYPT_RELEASE_FLAG was not set when the store was opened, closing a store releases its CSP handle.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store to be closed.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwFlags Typically, this parameter uses the default value zero. The default is to close the store with memory remaining allocated for contexts that have not been freed. In this case, no check is made to determine whether memory for contexts remains allocated. 
      * 
      * 
@@ -34805,12 +34786,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certclosestore
      * @since windows5.1.2600
      */
-    static CertCloseStore(hCertStore, dwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertCloseStore(_hCertStore, dwFlags) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertCloseStore", "ptr", hCertStore, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CertCloseStore", "ptr", _hCertStore, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -34822,7 +34803,7 @@ class Cryptography {
      * Returns from a certificate store a subject certificate context uniquely identified by its issuer and serial number.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate certificate.
-     * @param {HCERTSTORE} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwCertEncodingType The type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -34862,12 +34843,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetsubjectcertificatefromstore
      * @since windows5.1.2600
      */
-    static CertGetSubjectCertificateFromStore(hCertStore, dwCertEncodingType, pCertId) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetSubjectCertificateFromStore(_hCertStore, dwCertEncodingType, pCertId) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetSubjectCertificateFromStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pCertId, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetSubjectCertificateFromStore", "ptr", _hCertStore, "uint", dwCertEncodingType, "ptr", pCertId, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -34883,7 +34864,7 @@ class Cryptography {
      * 
      * A duplicate of the currently enumerated certificate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a>.
-     * @param {HCERTSTORE} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CERT_CONTEXT>} pPrevCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> of the previous <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context</a> found.
      * 
@@ -34939,12 +34920,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumcertificatesinstore
      * @since windows5.1.2600
      */
-    static CertEnumCertificatesInStore(hCertStore, pPrevCertContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertEnumCertificatesInStore(_hCertStore, pPrevCertContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertEnumCertificatesInStore", "ptr", hCertStore, "ptr", pPrevCertContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertEnumCertificatesInStore", "ptr", _hCertStore, "ptr", pPrevCertContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -34970,7 +34951,7 @@ class Cryptography {
      * 
      * The returned pointer is freed when passed as the <i>pPrevCertContext</i> parameter on a subsequent call to the function. Otherwise, the pointer must be explicitly freed by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>. A <i>pPrevCertContext</i> that is not <b>NULL</b> is always freed by <b>CertFindCertificateInStore</b> using a call to <b>CertFreeCertificateContext</b>, even if there is an error in the function.
-     * @param {HCERTSTORE} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> to be searched.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -35025,14 +35006,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindcertificateinstore
      * @since windows5.1.2600
      */
-    static CertFindCertificateInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCertContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindCertificateInStore(_hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCertContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCertificateInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCertContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCertificateInStore", "ptr", _hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCertContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -35050,7 +35031,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate of the issuer certificate.
      * 
      * The hexadecimal values for <i>dwFlags</i> can be combined using a bitwise-<b>OR</b> operation to enable multiple verifications. For example, to enable both signature and time validity, the value 0x00000003 is passed in <i>dwFlags</i> on input. In this case, if CERT_STORE_SIGNATURE_FLAG verification succeeds but CERT_STORE_TIME_VALIDITY_FLAG verification fails, <i>dwFlags</i> returns as 0x00000002 on output.
-     * @param {HCERTSTORE} hCertStore Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CERT_CONTEXT>} pSubjectContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the subject information. This parameter can be obtained from any certificate store or can be created by the calling application using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a> function.
@@ -35184,14 +35165,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetissuercertificatefromstore
      * @since windows5.1.2600
      */
-    static CertGetIssuerCertificateFromStore(hCertStore, pSubjectContext, pPrevIssuerContext, pdwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetIssuerCertificateFromStore(_hCertStore, pSubjectContext, pPrevIssuerContext, pdwFlags) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", hCertStore, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, pdwFlagsMarshal, pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", _hCertStore, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, pdwFlagsMarshal, pdwFlags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -35669,7 +35650,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate CRL.
      * 
      * The hexadecimal values of the flags can be combined using a bitwise-<b>OR</b> operation to enable both verifications. For example, to enable both verifications, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to value CERT_STORE_SIGNATURE_FLAG | CERT_STORE_TIME_VALIDITY_FLAG. If the CERT_STORE_SIGNATURE_FLAG verification succeeded, but CERT_STORE_TIME_VALIDITY_FLAG verification failed, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to CERT_STORE_TIME_VALIDITY_FLAG when the function returns.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CERT_CONTEXT>} pIssuerContext A pointer to an issuer 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a>. The <i>pIssuerContext</i> pointer can come from this store or another store, or could have been created by the calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a>. If <b>NULL</b> is passed for this parameter, all the CRLs in the store are found.
@@ -35781,14 +35762,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetcrlfromstore
      * @since windows5.1.2600
      */
-    static CertGetCRLFromStore(hCertStore, pIssuerContext, pPrevCrlContext, pdwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetCRLFromStore(_hCertStore, pIssuerContext, pPrevCrlContext, pdwFlags) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", hCertStore, "ptr", pIssuerContext, "ptr", pPrevCrlContext, pdwFlagsMarshal, pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", _hCertStore, "ptr", pIssuerContext, "ptr", pPrevCrlContext, pdwFlagsMarshal, pdwFlags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -35804,7 +35785,7 @@ class Cryptography {
      * 
      * A duplicate of the CRL <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a> returned by this function can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CRL_CONTEXT>} pPrevCrlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure found. The <i>pPrevCrlContext</i> parameter must be <b>NULL</b> to get the first CRL in the store. Successive CRLs are enumerated by setting <i>pPrevCrlContext</i> to the pointer returned by a previous call to the function.  This function frees the <b>CRL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CRLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a>.
@@ -35845,12 +35826,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumcrlsinstore
      * @since windows5.1.2600
      */
-    static CertEnumCRLsInStore(hCertStore, pPrevCrlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertEnumCRLsInStore(_hCertStore, pPrevCrlContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertEnumCRLsInStore", "ptr", hCertStore, "ptr", pPrevCrlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertEnumCRLsInStore", "ptr", _hCertStore, "ptr", pPrevCrlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -35868,7 +35849,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate of the returned context. The returned CRL context can be added to a different certificate store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrlcontexttostore">CertAddCRLContextToStore</a>, or a link to that CRL context can be added to a noncollection store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrllinktostore">CertAddCRLLinkToStore</a>.
-     * @param {HCERTSTORE} hCertStore A handle of the certificate store to be searched.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwCertEncodingType This parameter is not currently used. It must be set to zero.
      * @param {Integer} dwFindFlags If <i>dwFindType</i> is CRL_FIND_ISSUED_BY, by default, only issuer name matching is done. The following flags can be used to do additional filtering.
      * 
@@ -36040,14 +36021,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindcrlinstore
      * @since windows5.1.2600
      */
-    static CertFindCRLInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCrlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindCRLInStore(_hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCrlContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCRLInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCrlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCRLInStore", "ptr", _hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCrlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -37039,7 +37020,7 @@ class Cryptography {
 
     /**
      * Creates a certificate context from an encoded certificate and adds it to the certificate store.
-     * @param {HCERTSTORE} hCertStore A handle to the certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -37153,14 +37134,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedcertificatetostore
      * @since windows5.1.2600
      */
-    static CertAddEncodedCertificateToStore(hCertStore, dwCertEncodingType, pbCertEncoded, cbCertEncoded, dwAddDisposition, ppCertContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddEncodedCertificateToStore(_hCertStore, dwCertEncodingType, pbCertEncoded, cbCertEncoded, dwAddDisposition, ppCertContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pbCertEncoded, "uint", cbCertEncoded, "uint", dwAddDisposition, ppCertContextMarshal, ppCertContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToStore", "ptr", _hCertStore, "uint", dwCertEncodingType, "ptr", pbCertEncoded, "uint", cbCertEncoded, "uint", dwAddDisposition, ppCertContextMarshal, ppCertContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -37180,7 +37161,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  The order of the certificate context may not be preserved within the store. 
      * To access a specific certificate you must iterate across the certificates in the store.</div>
      * <div> </div>
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -37336,14 +37317,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcertificatecontexttostore
      * @since windows5.1.2600
      */
-    static CertAddCertificateContextToStore(hCertStore, pCertContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCertificateContextToStore(_hCertStore, pCertContext, dwAddDisposition, ppStoreContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCertificateContextToStore", "ptr", hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCertificateContextToStore", "ptr", _hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -37353,7 +37334,7 @@ class Cryptography {
 
     /**
      * Adds a serialized certificate, certificate revocation list (CRL), or certificate trust list (CTL) element to the store.
-     * @param {HCERTSTORE} hCertStore The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the created certificate will be stored. If <i>hCertStore</i> is <b>NULL</b>, the function creates a copy of a certificate, CRL, or CTL context with its extended properties, but the certificate, CRL, or CTL is not persisted in any store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer} pbElement A pointer to a buffer that contains the certificate, CRL, or CTL information to be serialized and added to the certificate store.
      * @param {Integer} cbElement The size, in bytes, of the <i>pbElement</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if the certificate, CRL, or CTL already exists in the store. Currently defined disposition values are shown in the following table.
@@ -37580,15 +37561,15 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddserializedelementtostore
      * @since windows5.1.2600
      */
-    static CertAddSerializedElementToStore(hCertStore, pbElement, cbElement, dwAddDisposition, dwFlags, dwContextTypeFlags, pdwContextType, ppvContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddSerializedElementToStore(_hCertStore, pbElement, cbElement, dwAddDisposition, dwFlags, dwContextTypeFlags, pdwContextType, ppvContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pdwContextTypeMarshal := pdwContextType is VarRef ? "uint*" : "ptr"
         ppvContextMarshal := ppvContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, ppvContextMarshal, ppvContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", _hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, ppvContextMarshal, ppvContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -37643,7 +37624,7 @@ class Cryptography {
 
     /**
      * Creates a certificate revocation list (CRL) context from an encoded CRL and adds it to the certificate store.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -37784,14 +37765,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedcrltostore
      * @since windows5.1.2600
      */
-    static CertAddEncodedCRLToStore(hCertStore, dwCertEncodingType, pbCrlEncoded, cbCrlEncoded, dwAddDisposition, ppCrlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddEncodedCRLToStore(_hCertStore, dwCertEncodingType, pbCrlEncoded, cbCrlEncoded, dwAddDisposition, ppCrlContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppCrlContextMarshal := ppCrlContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddEncodedCRLToStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pbCrlEncoded, "uint", cbCrlEncoded, "uint", dwAddDisposition, ppCrlContextMarshal, ppCrlContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddEncodedCRLToStore", "ptr", _hCertStore, "uint", dwCertEncodingType, "ptr", pbCrlEncoded, "uint", cbCrlEncoded, "uint", dwAddDisposition, ppCrlContextMarshal, ppCrlContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -37806,7 +37787,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>. Instead, a new copy is created and added to the store. In addition to copying the encoded CRL, the function copies the context's properties.
      * 
      * To remove the CRL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be added.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -37938,14 +37919,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcrlcontexttostore
      * @since windows5.1.2600
      */
-    static CertAddCRLContextToStore(hCertStore, pCrlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCRLContextToStore(_hCertStore, pCrlContext, dwAddDisposition, ppStoreContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCRLContextToStore", "ptr", hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCRLContextToStore", "ptr", _hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -38821,7 +38802,7 @@ class Cryptography {
      * 
      * A duplicate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CTL_CONTEXT>} pPrevCtlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure found. It must be <b>NULL</b> to get the first CTL in the store. Successive CTLs are enumerated by setting <i>pPrevCtlContext</i> to the pointer returned by a previous call. This function frees the <b>CTL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CTLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a>.
@@ -38864,12 +38845,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumctlsinstore
      * @since windows5.1.2600
      */
-    static CertEnumCTLsInStore(hCertStore, pPrevCtlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertEnumCTLsInStore(_hCertStore, pPrevCtlContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertEnumCTLsInStore", "ptr", hCertStore, "ptr", pPrevCtlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertEnumCTLsInStore", "ptr", _hCertStore, "ptr", pPrevCtlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -38997,7 +38978,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a> can be called to make a duplicate of the returned context. The returned CTL context can be added to a different certificate store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctlcontexttostore">CertAddCTLContextToStore</a>, or a link to that CTL context can be added to a noncollection store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctllinktostore">CertAddCTLLinkToStore</a>. If a CTL matching the search criteria is not found, <b>NULL</b> is returned.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store to be searched.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used on the CTL. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -39051,14 +39032,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindctlinstore
      * @since windows5.1.2600
      */
-    static CertFindCTLInStore(hCertStore, dwMsgAndCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCtlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindCTLInStore(_hCertStore, dwMsgAndCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCtlContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCTLInStore", "ptr", hCertStore, "uint", dwMsgAndCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCtlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCTLInStore", "ptr", _hCertStore, "uint", dwMsgAndCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCtlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -39068,7 +39049,7 @@ class Cryptography {
 
     /**
      * Creates a certificate trust list (CTL) context from an encoded CTL and adds it to the certificate store.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
@@ -39221,14 +39202,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedctltostore
      * @since windows5.1.2600
      */
-    static CertAddEncodedCTLToStore(hCertStore, dwMsgAndCertEncodingType, pbCtlEncoded, cbCtlEncoded, dwAddDisposition, ppCtlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddEncodedCTLToStore(_hCertStore, dwMsgAndCertEncodingType, pbCtlEncoded, cbCtlEncoded, dwAddDisposition, ppCtlContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppCtlContextMarshal := ppCtlContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddEncodedCTLToStore", "ptr", hCertStore, "uint", dwMsgAndCertEncodingType, "ptr", pbCtlEncoded, "uint", cbCtlEncoded, "uint", dwAddDisposition, ppCtlContextMarshal, ppCtlContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddEncodedCTLToStore", "ptr", _hCertStore, "uint", dwMsgAndCertEncodingType, "ptr", pbCtlEncoded, "uint", cbCtlEncoded, "uint", dwAddDisposition, ppCtlContextMarshal, ppCtlContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -39243,7 +39224,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>. Instead, a new copy is created and added to the store. In addition to the encoded CTL, the context's properties are copied.
      * 
      * To remove the CTL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39372,14 +39353,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddctlcontexttostore
      * @since windows5.1.2600
      */
-    static CertAddCTLContextToStore(hCertStore, pCtlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCTLContextToStore(_hCertStore, pCtlContext, dwAddDisposition, ppStoreContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCTLContextToStore", "ptr", hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCTLContextToStore", "ptr", _hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -39485,7 +39466,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store that uses links must be closed before the store that contains the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the certificate context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecertificatefromstore">CertDeleteCertificateFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the link is to be added.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -39580,14 +39561,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcertificatelinktostore
      * @since windows5.1.2600
      */
-    static CertAddCertificateLinkToStore(hCertStore, pCertContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCertificateLinkToStore(_hCertStore, pCertContext, dwAddDisposition, ppStoreContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCertificateLinkToStore", "ptr", hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCertificateLinkToStore", "ptr", _hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -39609,7 +39590,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts can be closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CRL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store where the link is to be added.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39715,14 +39696,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcrllinktostore
      * @since windows5.1.2600
      */
-    static CertAddCRLLinkToStore(hCertStore, pCrlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCRLLinkToStore(_hCertStore, pCrlContext, dwAddDisposition, ppStoreContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCRLLinkToStore", "ptr", hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCRLLinkToStore", "ptr", _hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -39744,7 +39725,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CTL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store where the link is to be added.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39872,14 +39853,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddctllinktostore
      * @since windows5.1.2600
      */
-    static CertAddCTLLinkToStore(hCertStore, pCtlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCTLLinkToStore(_hCertStore, pCtlContext, dwAddDisposition, ppStoreContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCTLLinkToStore", "ptr", hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCTLLinkToStore", "ptr", _hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -39938,7 +39919,7 @@ class Cryptography {
      * CERT_STORE_CTRL_NOTIFY_CHANGE is supported on registry-based store providers by using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regnotifychangekeyvalue">RegNotifyChangeKeyValue</a> function.
      * 
      * <b>CertControlStore</b> using CERT_STORE_CTRL_NOTIFY_CHANGE is called once for each event handle to be passed with CERT_STORE_CTRL_RESYNC. These calls using CERT_STORE_CTRL_NOTIFY_CHANGE must be made after each event is created and not after an event has been signaled.
-     * @param {HCERTSTORE} hCertStore Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwFlags 
      * @param {Integer} dwCtrlType Control action to be taken by <b>CertControlStore</b>. The interpretations of <i>pvCtrlPara</i> and <i>dwFlags</i> depend on the value of <i>dwCtrlType</i>. Currently, the following  actions are defined.
      * 
@@ -40024,14 +40005,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcontrolstore
      * @since windows5.1.2600
      */
-    static CertControlStore(hCertStore, dwFlags, dwCtrlType, pvCtrlPara) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertControlStore(_hCertStore, dwFlags, dwCtrlType, pvCtrlPara) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pvCtrlParaMarshal := pvCtrlPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertControlStore", "ptr", hCertStore, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
+        result := DllCall("CRYPT32.dll\CertControlStore", "ptr", _hCertStore, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -40043,7 +40024,7 @@ class Cryptography {
      * The CertSetStoreProperty function sets a store property.
      * @remarks
      * Store property identifiers are properties applicable to an entire store. They are not properties for an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a>, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CTL</a> context. Currently, no store properties are persisted.
-     * @param {HCERTSTORE} hCertStore Handle for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwPropId Indicates one of a range of store properties. Values for user-defined properties must be outside the current range of predefined context property values. Currently, user-defined <i>dwPropId</i> values begin at 4,096. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} pvData The type definition for <i>pvData</i> depends on the <i>dwPropId</i> value. If <i>dwPropId</i> is CERT_STORE_LOCALIZED_NAME_PROP_ID, <i>pvData</i> points to a 
@@ -40063,12 +40044,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsetstoreproperty
      * @since windows5.1.2600
      */
-    static CertSetStoreProperty(hCertStore, dwPropId, dwFlags, pvData) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertSetStoreProperty(_hCertStore, dwPropId, dwFlags, pvData) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPT32.dll\CertSetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
+        result := DllCall("CRYPT32.dll\CertSetStoreProperty", "ptr", _hCertStore, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
         return result
     }
 
@@ -40078,7 +40059,7 @@ class Cryptography {
      * Store property identifiers are properties applicable to an entire store. They are not properties on an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL), or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) context. Currently, no store properties are persisted.
      * 
      * To find the localized name of a store, you can also use the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfindlocalizedname">CryptFindLocalizedName</a> function.
-     * @param {HCERTSTORE} hCertStore A handle of an open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwPropId Indicates one of a range of store properties. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * 
      * User defined properties must be outside the current range of values for predefined context properties. Currently, user defined <i>dwPropId</i> values begin at 4,096.
@@ -40096,14 +40077,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetstoreproperty
      * @since windows5.1.2600
      */
-    static CertGetStoreProperty(hCertStore, dwPropId, pvData, pcbData) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetStoreProperty(_hCertStore, dwPropId, pvData, pcbData) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", _hCertStore, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -47146,17 +47127,17 @@ class Cryptography {
      * @param {HCRYPTASYNC} hAsync An async handle.
      * @param {PSTR} pszParamOid The parameter ID.
      * @param {Pointer<Void>} pvParam The parameter value.
-     * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} pfnFree A callback function called when the parameter is freed.
+     * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} _pfnFree 
      * @returns {BOOL} S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetasyncparam
      */
-    static CryptSetAsyncParam(hAsync, pszParamOid, pvParam, pfnFree) {
+    static CryptSetAsyncParam(hAsync, pszParamOid, pvParam, _pfnFree) {
         hAsync := hAsync is Win32Handle ? NumGet(hAsync, "ptr") : hAsync
         pszParamOid := pszParamOid is String ? StrPtr(pszParamOid) : pszParamOid
 
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPT32.dll\CryptSetAsyncParam", "ptr", hAsync, "ptr", pszParamOid, pvParamMarshal, pvParam, "ptr", pfnFree, "int")
+        result := DllCall("CRYPT32.dll\CryptSetAsyncParam", "ptr", hAsync, "ptr", pszParamOid, pvParamMarshal, pvParam, "ptr", _pfnFree, "int")
         return result
     }
 
@@ -48454,8 +48435,7 @@ class Cryptography {
      * Finds the first or next certificate in a store that meets the specified criteria.
      * @remarks
      * The <i>pPrevChainContext</i> parameter must be <b>NULL</b> on the first call to build the chain context. To build the next chain context, the <i>pPrevChainContext</i> is set to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure returned by a previous call. If <i>pPrevChainContext</i> is not <b>NULL</b>, the structure is always freed by this function by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function, even if an error occurs.
-     * @param {HCERTSTORE} hCertStore The handle of the store to be searched for a certificate upon which a chain is built. This handle is passed as an additional store to 
-     * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatechain">CertGetCertificateChain</a> function as the chain is built.
+     * @param {HCERTSTORE} _hCertStore 
      * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the store. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
@@ -48493,12 +48473,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindchaininstore
      * @since windows5.1.2600
      */
-    static CertFindChainInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevChainContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindChainInStore(_hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevChainContext) {
+        _hCertStore := _hCertStore is Win32Handle ? NumGet(_hCertStore, "ptr") : _hCertStore
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPT32.dll\CertFindChainInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevChainContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindChainInStore", "ptr", _hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevChainContext, "ptr")
         return result
     }
 
@@ -50612,7 +50592,7 @@ class Cryptography {
      * @param {Pointer} pbData Pointer to the byte array to be protected.
      * @param {Integer} cbData Number of bytes in the binary array specified by the <i>pbData</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbProtectedBlob</i> parameter.
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} _hWnd 
      * @param {Pointer<Pointer<Integer>>} ppbProtectedBlob Address of a variable that receives a pointer to the encrypted data.
      * @param {Pointer<Integer>} pcbProtectedBlob Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the encrypted data pointed to by the <i>ppbProtectedBlob</i> variable.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -50672,14 +50652,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptprotectsecret
      * @since windows8.0
      */
-    static NCryptProtectSecret(hDescriptor, dwFlags, pbData, cbData, pMemPara, hWnd, ppbProtectedBlob, pcbProtectedBlob) {
+    static NCryptProtectSecret(hDescriptor, dwFlags, pbData, cbData, pMemPara, _hWnd, ppbProtectedBlob, pcbProtectedBlob) {
         hDescriptor := hDescriptor is Win32Handle ? NumGet(hDescriptor, "ptr") : hDescriptor
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         ppbProtectedBlobMarshal := ppbProtectedBlob is VarRef ? "ptr*" : "ptr"
         pcbProtectedBlobMarshal := pcbProtectedBlob is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", hWnd, ppbProtectedBlobMarshal, ppbProtectedBlob, pcbProtectedBlobMarshal, pcbProtectedBlob, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", _hWnd, ppbProtectedBlobMarshal, ppbProtectedBlob, pcbProtectedBlobMarshal, pcbProtectedBlob, "HRESULT")
         return result
     }
 
@@ -50692,7 +50672,7 @@ class Cryptography {
      * @param {Pointer} pbProtectedBlob Pointer to an array of bytes that contains the data to decrypt.
      * @param {Integer} cbProtectedBlob The number of bytes in the array pointed to by the <i>pbProtectedBlob</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbData</i> parameter.
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} _hWnd 
      * @param {Pointer<Pointer<Integer>>} ppbData Address of a variable that receives a pointer to the decrypted data.
      * @param {Pointer<Integer>} pcbData Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the decrypted data pointed to by the <i>ppbData</i> variable.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -50741,13 +50721,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptunprotectsecret
      * @since windows8.0
      */
-    static NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtectedBlob, pMemPara, hWnd, ppbData, pcbData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtectedBlob, pMemPara, _hWnd, ppbData, pcbData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", hWnd, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", _hWnd, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 
@@ -50778,18 +50758,18 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} _hWnd 
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO>} pStreamInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure that contains the address of a user defined callback function to receive the encrypted data and a pointer to user-defined context data.
      * @returns {NCRYPT_STREAM_HANDLE} Pointer to the stream object handle.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect
      * @since windows8.0
      */
-    static NCryptStreamOpenToProtect(hDescriptor, dwFlags, hWnd, pStreamInfo) {
+    static NCryptStreamOpenToProtect(hDescriptor, dwFlags, _hWnd, pStreamInfo) {
         hDescriptor := hDescriptor is Win32Handle ? NumGet(hDescriptor, "ptr") : hDescriptor
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         phStream := NCRYPT_STREAM_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptStreamOpenToProtect", "ptr", hDescriptor, "uint", dwFlags, "ptr", hWnd, "ptr", pStreamInfo, "ptr", phStream, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptStreamOpenToProtect", "ptr", hDescriptor, "uint", dwFlags, "ptr", _hWnd, "ptr", pStreamInfo, "ptr", phStream, "HRESULT")
         return phStream
     }
 
@@ -50820,16 +50800,16 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} _hWnd 
      * @returns {NCRYPT_STREAM_HANDLE} Pointer to the handle of the decrypted stream of data.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect
      * @since windows8.0
      */
-    static NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, _hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         phStream := NCRYPT_STREAM_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotect", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd, "ptr", phStream, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotect", "ptr", pStreamInfo, "uint", dwFlags, "ptr", _hWnd, "ptr", phStream, "HRESULT")
         return phStream
     }
 
@@ -50837,16 +50817,15 @@ class Cryptography {
      * Opens a stream object that can be used to decrypt large amounts of data to the same protection descriptor used for encryption. (NCryptStreamOpenToUnprotectEx)
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO_EX>} pStreamInfo A pointer to NCRYPT_PROTECT_STREAM_INFO_EX.
      * @param {Integer} dwFlags Only the NCRYPT_SILENT_FLAG is supported.
-     * @param {HWND} hWnd A window handle to be used as the parent of any user
-     *         interface that is displayed.
+     * @param {HWND} _hWnd 
      * @returns {NCRYPT_STREAM_HANDLE} Receives a pointer to a stream handle.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotectex
      */
-    static NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, _hWnd) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         phStream := NCRYPT_STREAM_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotectEx", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd, "ptr", phStream, "HRESULT")
+        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotectEx", "ptr", pStreamInfo, "uint", dwFlags, "ptr", _hWnd, "ptr", phStream, "HRESULT")
         return phStream
     }
 
@@ -51366,16 +51345,16 @@ class Cryptography {
      * @param {PWSTR} wszId A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute of the <b>Signature</b> element.
      * If this parameter is <b>NULL</b>, then a new GUID is generated. If this parameter is an empty string, then no <b>Id</b> attribute is produced.
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that specify additional properties.
-     * @param {Integer} cProperty The number of elements in the array pointed to by the <i>rgProperty</i> parameter.
+     * @param {Integer} _cProperty 
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the signature to encode.
      * @returns {Pointer<Void>} The handle to the <b>Signature</b> element.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlopentoencode
      * @since windows6.1
      */
-    static CryptXmlOpenToEncode(pConfig, dwFlags, wszId, rgProperty, cProperty, pEncoded) {
+    static CryptXmlOpenToEncode(pConfig, dwFlags, wszId, rgProperty, _cProperty, pEncoded) {
         wszId := wszId is String ? StrPtr(wszId) : wszId
 
-        result := DllCall("CRYPTXML.dll\CryptXmlOpenToEncode", "ptr", pConfig, "uint", dwFlags, "ptr", wszId, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", &phSignature := 0, "HRESULT")
+        result := DllCall("CRYPTXML.dll\CryptXmlOpenToEncode", "ptr", pConfig, "uint", dwFlags, "ptr", wszId, "ptr", rgProperty, "uint", _cProperty, "ptr", pEncoded, "ptr*", &phSignature := 0, "HRESULT")
         return phSignature
     }
 
@@ -51386,14 +51365,14 @@ class Cryptography {
      *     used to apply transforms.
      * @param {Integer} dwFlags 
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that contain additional properties.
-     * @param {Integer} cProperty The number of items in the array pointed to by the <i>rgProperty</i> parameter.
+     * @param {Integer} _cProperty 
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the signature to decode.
      * @returns {Pointer<Void>} The handle of a Document Context object.  When you have finished using the handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlclose">CryptXmlClose</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlopentodecode
      * @since windows6.1
      */
-    static CryptXmlOpenToDecode(pConfig, dwFlags, rgProperty, cProperty, pEncoded) {
-        result := DllCall("CRYPTXML.dll\CryptXmlOpenToDecode", "ptr", pConfig, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", &phCryptXml := 0, "HRESULT")
+    static CryptXmlOpenToDecode(pConfig, dwFlags, rgProperty, _cProperty, pEncoded) {
+        result := DllCall("CRYPTXML.dll\CryptXmlOpenToDecode", "ptr", pConfig, "uint", dwFlags, "ptr", rgProperty, "uint", _cProperty, "ptr", pEncoded, "ptr*", &phCryptXml := 0, "HRESULT")
         return phCryptXml
     }
 
@@ -51431,17 +51410,17 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to  a  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structure that specifies additional properties used to decode the <b>Object</b> element.
-     * @param {Integer} cProperty The number of elements in the array pointed to by the <i>rgProperty</i> property.
+     * @param {Integer} _cProperty 
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the <b>Object</b> element.
      * @returns {Pointer<CRYPT_XML_OBJECT>} A pointer to  a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_object">CRYPT_XML_OBJECT</a> structure to receive the decoded structure.
      *     This parameter must be <b>NULL</b> when the <i>hSignatureOrObject</i> parameter contains a handle to the Object.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmladdobject
      * @since windows6.1
      */
-    static CryptXmlAddObject(hSignatureOrObject, dwFlags, rgProperty, cProperty, pEncoded) {
+    static CryptXmlAddObject(hSignatureOrObject, dwFlags, rgProperty, _cProperty, pEncoded) {
         hSignatureOrObjectMarshal := hSignatureOrObject is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlAddObject", hSignatureOrObjectMarshal, hSignatureOrObject, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", &ppObject := 0, "HRESULT")
+        result := DllCall("CRYPTXML.dll\CryptXmlAddObject", hSignatureOrObjectMarshal, hSignatureOrObject, "uint", dwFlags, "ptr", rgProperty, "uint", _cProperty, "ptr", pEncoded, "ptr*", &ppObject := 0, "HRESULT")
         return ppObject
     }
 
@@ -51575,8 +51554,7 @@ class Cryptography {
      * @remarks
      * If a certificate cannot be found CryptXmlSign will create a UI for certificate selection. If this window is generated from a process running in [session 0](https://techcommunity.microsoft.com/t5/ask-the-performance-team/application-compatibility-session-0-isolation/ba-p/372361), the application may unexpectedly terminate.
      * @param {Pointer<Void>} hSignature The handle to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_signature">CRYPT_XML_SIGNATURE</a> structure.
-     * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hKey The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> used to sign the <b>SignedInfo</b> element.
-     *     This parameter must be <b>NULL</b> for HMAC-based signature algorithms.
+     * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} dwKeySpec 
      * @param {Integer} dwFlags 
      * @param {Integer} dwKeyInfoSpec The type of data structure pointed to by the <i>pvKeyInfoSpec</i> parameter. Here are some possible combinations.
@@ -51626,13 +51604,13 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlsign
      * @since windows6.1
      */
-    static CryptXmlSign(hSignature, hKey, dwKeySpec, dwFlags, dwKeyInfoSpec, pvKeyInfoSpec, pSignatureMethod, pCanonicalization) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static CryptXmlSign(hSignature, _hKey, dwKeySpec, dwFlags, dwKeyInfoSpec, pvKeyInfoSpec, pSignatureMethod, pCanonicalization) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
         pvKeyInfoSpecMarshal := pvKeyInfoSpec is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlSign", hSignatureMarshal, hSignature, "ptr", hKey, "uint", dwKeySpec, "uint", dwFlags, "int", dwKeyInfoSpec, pvKeyInfoSpecMarshal, pvKeyInfoSpec, "ptr", pSignatureMethod, "ptr", pCanonicalization, "HRESULT")
+        result := DllCall("CRYPTXML.dll\CryptXmlSign", hSignatureMarshal, hSignature, "ptr", _hKey, "uint", dwKeySpec, "uint", dwFlags, "int", dwKeyInfoSpec, pvKeyInfoSpecMarshal, pvKeyInfoSpec, "ptr", pSignatureMethod, "ptr", pCanonicalization, "HRESULT")
         return result
     }
 
@@ -51653,9 +51631,7 @@ class Cryptography {
     /**
      * Performs a cryptographic signature validation of a SignedInfo element.
      * @param {Pointer<Void>} hSignature The handle of a <b>Signature</b> element.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to verify the signature value on 
-     *     the <b>SignedInfo</b> element.
-     *     This parameter must be <b>NULL</b> for HMAC-based signature algorithms.
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
@@ -51663,12 +51639,12 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlverifysignature
      * @since windows6.1
      */
-    static CryptXmlVerifySignature(hSignature, hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static CryptXmlVerifySignature(hSignature, _hKey, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
         hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlVerifySignature", hSignatureMarshal, hSignature, "ptr", hKey, "uint", dwFlags, "HRESULT")
+        result := DllCall("CRYPTXML.dll\CryptXmlVerifySignature", hSignatureMarshal, hSignature, "ptr", _hKey, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -51737,20 +51713,20 @@ class Cryptography {
      * @param {Pointer<Void>} hCryptXml The handle of the object to be serialized. The handle can be of <b>Signature</b>, <b>Object</b>, or <b>Reference</b> types.
      * @param {Integer} dwCharset A value of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ne-cryptxml-crypt_xml_charset">CRYPT_XML_CHARSET</a> enumeration that specifies the character set of the encoded XML.
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that contain additional properties.
-     * @param {Integer} cProperty A <b>ULONG</b> value that specifies the number of entries in the array pointed to by the <i>rgProperty</i> parameter.
+     * @param {Integer} _cProperty 
      * @param {Pointer<Void>} pvCallbackState A pointer to an application defined argument that is passed to the XML writer callback function pointed to by the <i>pfnWrite</i> parameter.
-     * @param {Pointer<PFN_CRYPT_XML_WRITE_CALLBACK>} pfnWrite An XML writer callback function to receive the application defined argument pointed to by the <i>pvCallbackState</i> parameter.
+     * @param {Pointer<PFN_CRYPT_XML_WRITE_CALLBACK>} _pfnWrite 
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlencode
      * @since windows6.1
      */
-    static CryptXmlEncode(hCryptXml, dwCharset, rgProperty, cProperty, pvCallbackState, pfnWrite) {
+    static CryptXmlEncode(hCryptXml, dwCharset, rgProperty, _cProperty, pvCallbackState, _pfnWrite) {
         hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
         pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlEncode", hCryptXmlMarshal, hCryptXml, "int", dwCharset, "ptr", rgProperty, "uint", cProperty, pvCallbackStateMarshal, pvCallbackState, "ptr", pfnWrite, "HRESULT")
+        result := DllCall("CRYPTXML.dll\CryptXmlEncode", hCryptXmlMarshal, hCryptXml, "int", dwCharset, "ptr", rgProperty, "uint", _cProperty, pvCallbackStateMarshal, pvCallbackState, "ptr", _pfnWrite, "HRESULT")
         return result
     }
 
@@ -51920,16 +51896,16 @@ class Cryptography {
     /**
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hSymmetricCrypto 
-     * @param {Integer} mode 
+     * @param {Integer} _mode 
      * @param {Integer} padding 
      * @param {Integer} feedbackSize 
-     * @param {Integer} direction 
+     * @param {Integer} _direction 
      * @param {Integer} cbIV 
      * @param {Pointer} pIV 
      * @returns {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} 
      */
-    static GetCryptoTransform(hSymmetricCrypto, mode, padding, feedbackSize, direction, cbIV, pIV) {
-        result := DllCall("infocardapi.dll\GetCryptoTransform", "ptr", hSymmetricCrypto, "uint", mode, "int", padding, "uint", feedbackSize, "int", direction, "uint", cbIV, "ptr", pIV, "ptr*", &pphTransform := 0, "HRESULT")
+    static GetCryptoTransform(hSymmetricCrypto, _mode, padding, feedbackSize, _direction, cbIV, pIV) {
+        result := DllCall("infocardapi.dll\GetCryptoTransform", "ptr", hSymmetricCrypto, "uint", _mode, "int", padding, "uint", feedbackSize, "int", _direction, "uint", cbIV, "ptr", pIV, "ptr*", &pphTransform := 0, "HRESULT")
         return pphTransform
     }
 
@@ -52429,7 +52405,7 @@ class Cryptography {
      * @remarks
      * The length of the packet can be zero, such as when a "HelloRequest" message is decrypted.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle to the key that is used to decrypt the packet.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be decrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
      * @param {Pointer} pbOutput A pointer to a buffer to contain the decrypted packet.
@@ -52439,18 +52415,18 @@ class Cryptography {
      * @returns {Integer} The number of bytes written to the *pbOutput* buffer.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/ssldecryptpacket
      */
-    static SslDecryptPacket(hSslProvider, hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwFlags) {
+    static SslDecryptPacket(hSslProvider, _hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", _hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
     /**
      * Encrypts a single Secure Sockets Layer protocol (SSL) packet.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle to the key that is used to encrypt the packet.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be encrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
      * @param {Pointer} pbOutput A pointer to a buffer to receive the encrypted packet.
@@ -52470,11 +52446,11 @@ class Cryptography {
      * @returns {Integer} The number of bytes written to the *pbOutput* buffer.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslencryptpacket
      */
-    static SslEncryptPacket(hSslProvider, hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwContentType, dwFlags) {
+    static SslEncryptPacket(hSslProvider, _hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwContentType, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
 
-        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", _hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
@@ -52583,12 +52559,7 @@ class Cryptography {
      * 
      * When exporting the public portion of an ephemeral key the BLOB type must be the appropriate type, such as **NCRYPT\_DH\_PUBLIC\_BLOB** or **NCRYPT\_ECCPUBLIC\_BLOB**.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to export.
-     * 
-     * When you are not specifying a key, set this parameter to **NULL**.
-     * 
-     * > [!Note]  
-     * > A *hKey* handle is obtained by calling the [**SslOpenPrivateKey**](sslopenprivatekey.md) function. Handles obtained from the [**NCryptOpenKey**](/windows/desktop/api/Ncrypt/nf-ncrypt-ncryptopenkey) function are not supported.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {PWSTR} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the type of BLOB to export. This can be one of the following values.
      * 
      * 
@@ -52605,12 +52576,12 @@ class Cryptography {
      * @returns {Integer} The address of a **DWORD** variable that receives the number of bytes copied to the *pbOutput* buffer. If the *pbOutput* parameter is set to **NULL** when the function is called, the required size for the *pbOutput* buffer, in bytes, is returned in the **DWORD** pointed to by this parameter.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslexportkey
      */
-    static SslExportKey(hSslProvider, hKey, pszBlobType, pbOutput, cbOutput, dwFlags) {
+    static SslExportKey(hSslProvider, _hKey, pszBlobType, pbOutput, cbOutput, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", _hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
         return pcbResult
     }
 
@@ -52744,7 +52715,7 @@ class Cryptography {
 
     /**
      * Retrieves the value of a named property for a Secure Sockets Layer protocol (SSL) provider key object.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the SSL provider.
+     * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [**Key Storage Property Identifiers**](key-storage-property-identifiers.md) or a custom property identifier.
      * @param {Pointer<Pointer<Integer>>} ppbOutput A pointer to a buffer that receives the property value. The caller of the function must free this buffer by calling the [**SslFreeBuffer**](sslfreebuffer.md) function.
      * @param {Pointer<Integer>} pcbOutput The size, in bytes, of the *pbOutput* buffer.
@@ -52763,14 +52734,14 @@ class Cryptography {
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | One of the supplied parameters is not valid.<br/> |
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgetkeyproperty
      */
-    static SslGetKeyProperty(hKey, pszProperty, ppbOutput, pcbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SslGetKeyProperty(_hKey, pszProperty, ppbOutput, pcbOutput, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : "ptr"
         pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", hKey, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, "uint", dwFlags, "HRESULT")
+        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", _hKey, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, "uint", dwFlags, "HRESULT")
         return result
     }
 

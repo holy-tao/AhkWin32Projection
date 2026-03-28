@@ -62,19 +62,19 @@ class IActiveXUIHandlerSite3 extends IUnknown{
      * When you use a system-modal message box to indicate that the system is low on memory, the strings pointed to by the <i>lpText</i> and <i>lpCaption</i> parameters should not be taken from a resource file because an attempt to load the resource may fail.
      * 
      * If you create a message box while a dialog box is present, use a handle to the dialog box as the <i>hWnd</i> parameter. The <i>hWnd</i> parameter should not identify a child window, such as a control in a dialog box.
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} text 
      * @param {PWSTR} caption 
      * @param {Integer} type 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-messageboxw
      */
-    MessageBoxW(hwnd, text, caption, type) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    MessageBoxW(_hwnd, text, caption, type) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         text := text is String ? StrPtr(text) : text
         caption := caption is String ? StrPtr(caption) : caption
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", text, "ptr", caption, "uint", type, "int*", &result := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", text, "ptr", caption, "uint", type, "int*", &result := 0, "HRESULT")
         return result
     }
 }

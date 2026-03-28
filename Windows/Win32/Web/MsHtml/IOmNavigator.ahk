@@ -250,9 +250,9 @@ class IOmNavigator extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        string_R := BSTR()
-        result := ComCall(17, this, "ptr", string_R, "HRESULT")
-        return string_R
+        _string := BSTR()
+        result := ComCall(17, this, "ptr", _string, "HRESULT")
+        return _string
     }
 
     /**

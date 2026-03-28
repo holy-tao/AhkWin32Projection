@@ -88,7 +88,7 @@ class IDrawVideoImage extends IUnknown{
 
     /**
      * Note  This interface has been deprecated. New applications should not use it. The DrawVideoImageDraw method draws the specified source rectangle to the specified destination rectangle in the specified GDI device context.
-     * @param {HDC} hdc Specifies the device context.
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} lprcSrc Pointer to a <b>RECT</b> structure that specifies the source rectangle, as a subrectangle of the current video frame.
      * @param {Pointer<RECT>} lprcDst Pointer to a <b>RECT</b> structure that specifies the destination rectangle in the device context.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -112,10 +112,10 @@ class IDrawVideoImage extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idrawvideoimage-drawvideoimagedraw
      */
-    DrawVideoImageDraw(hdc, lprcSrc, lprcDst) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    DrawVideoImageDraw(_hdc, lprcSrc, lprcDst) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := ComCall(5, this, "ptr", hdc, "ptr", lprcSrc, "ptr", lprcDst, "HRESULT")
+        result := ComCall(5, this, "ptr", _hdc, "ptr", lprcSrc, "ptr", lprcDst, "HRESULT")
         return result
     }
 }

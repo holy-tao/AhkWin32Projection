@@ -2921,26 +2921,26 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} _String 
      * @returns {Integer} 
      */
-    static uaw_lstrlenW(String_R) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_lstrlenW(_String) {
+        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_lstrlenW", String_RMarshal, String_R, "int")
+        result := DllCall("KERNEL32.dll\uaw_lstrlenW", _StringMarshal, _String, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} _String 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
      */
-    static uaw_wcschr(String_R, Character) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_wcschr(_String, Character) {
+        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcschr", String_RMarshal, String_R, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcschr", _StringMarshal, _String, "char", Character, "ptr")
         return result
     }
 
@@ -2976,27 +2976,27 @@ class WindowsProgramming {
      * Retrieves the number of characters in a null-terminated Unicode string.
      * @remarks
      * This function is available only on 64-bit Windows.
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} _String 
      * @returns {Pointer} The return value is the number of characters in <i>String</i>, not including the terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
      */
-    static uaw_wcslen(String_R) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_wcslen(_String) {
+        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcslen", String_RMarshal, String_R, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcslen", _StringMarshal, _String, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} _String 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
      */
-    static uaw_wcsrchr(String_R, Character) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_wcsrchr(_String, Character) {
+        _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcsrchr", String_RMarshal, String_R, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcsrchr", _StringMarshal, _String, "char", Character, "ptr")
         return result
     }
 
@@ -6949,15 +6949,15 @@ class WindowsProgramming {
      * @remarks
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {Pointer<Integer>} LocalTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the local time.
-     * @param {Pointer<Integer>} SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
+     * @param {Pointer<Integer>} _SystemTime 
      * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtllocaltimetosystemtime
      */
-    static RtlLocalTimeToSystemTime(LocalTime, SystemTime) {
+    static RtlLocalTimeToSystemTime(LocalTime, _SystemTime) {
         LocalTimeMarshal := LocalTime is VarRef ? "int64*" : "ptr"
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+        _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, SystemTimeMarshal, SystemTime, "int")
+        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -7275,18 +7275,18 @@ class WindowsProgramming {
      * When converting strings to integers the preferred function to use is <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2010/w4z2wdyc(v=vs.100)">strtol, wcstol</a>.
      * 
      * There is no import library for this function. Use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> rather than linking to the function directly.
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} _String 
      * @param {Integer} Base <b>ULONG</b> that contains the number base to use for the conversion, such as base 10. Only base 2, 8, 10, and 16 are supported.
      * @param {Pointer<Integer>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
      * @returns {NTSTATUS} If the function succeeds, the function returns <b>STATUS_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlchartointeger
      * @since windows5.0
      */
-    static RtlCharToInteger(String_R, Base, Value) {
-        String_RMarshal := String_R is VarRef ? "char*" : "ptr"
+    static RtlCharToInteger(_String, Base, Value) {
+        _StringMarshal := _String is VarRef ? "char*" : "ptr"
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlCharToInteger", String_RMarshal, String_R, "uint", Base, ValueMarshal, Value, "int")
+        result := DllCall("ntdll.dll\RtlCharToInteger", _StringMarshal, _String, "uint", Base, ValueMarshal, Value, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -7348,14 +7348,14 @@ class WindowsProgramming {
      * This function is intended for infrastructure use only. (SubscribeFeatureStateChangeNotification)
      * @param {Pointer<FEATURE_STATE_CHANGE_SUBSCRIPTION>} subscription Infrastructure use only.
      * @param {Pointer<PFEATURE_STATE_CHANGE_CALLBACK>} callback Infrastructure use only.
-     * @param {Pointer<Void>} context Infrastructure use only.
+     * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
      */
-    static SubscribeFeatureStateChangeNotification(subscription, callback, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static SubscribeFeatureStateChangeNotification(subscription, callback, _context) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, contextMarshal, context)
+        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, _contextMarshal, _context)
     }
 
     /**
@@ -7401,37 +7401,37 @@ class WindowsProgramming {
 
     /**
      * Closes a device context of a display.
-     * @param {HDC} hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
+     * @param {HDC} _hdc 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicloseprovider
      * @since windows5.0
      */
-    static DCICloseProvider(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICloseProvider(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", hdc)
+        DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", _hdc)
     }
 
     /**
      * Creates a primary surface and obtains surface information.
-     * @param {HDC} hdc The device context handle of the device for the primary surface to be created.
+     * @param {HDC} _hdc 
      * @param {Pointer<Pointer<DCISURFACEINFO>>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
      * @returns {Integer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicreateprimary
      * @since windows5.0
      */
-    static DCICreatePrimary(hdc, lplpSurface) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICreatePrimary(_hdc, lplpSurface) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, lplpSurfaceMarshal, lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", _hdc, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Integer} dwCompression 
      * @param {Integer} dwRedMask 
      * @param {Integer} dwGreenMask 
@@ -7443,48 +7443,48 @@ class WindowsProgramming {
      * @param {Pointer<Pointer<DCIOFFSCREEN>>} lplpSurface 
      * @returns {Integer} 
      */
-    static DCICreateOffscreen(hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICreateOffscreen(_hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, lplpSurfaceMarshal, lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", _hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Pointer<Void>} lpOffscreenSurf 
      * @param {Pointer<Pointer<DCIOVERLAY>>} lplpSurface 
      * @returns {Integer} 
      */
-    static DCICreateOverlay(hdc, lpOffscreenSurf, lplpSurface) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICreateOverlay(_hdc, lpOffscreenSurf, lplpSurface) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         lpOffscreenSurfMarshal := lpOffscreenSurf is VarRef ? "ptr" : "ptr"
         lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", _hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} _hdc 
      * @param {Pointer<RECT>} lprDst 
      * @param {Pointer<RECT>} lprSrc 
      * @param {Pointer<Void>} lpFnCallback 
      * @param {Pointer<Void>} lpContext 
      * @returns {Integer} 
      */
-    static DCIEnum(hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCIEnum(_hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         lpFnCallbackMarshal := lpFnCallback is VarRef ? "ptr" : "ptr"
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", hdc, "ptr", lprDst, "ptr", lprSrc, lpFnCallbackMarshal, lpFnCallback, lpContextMarshal, lpContext, "int")
+        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", _hdc, "ptr", lprDst, "ptr", lprSrc, lpFnCallbackMarshal, lpFnCallback, lpContextMarshal, lpContext, "int")
         return result
     }
 
@@ -7503,13 +7503,13 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HWINWATCH} 
      */
-    static WinWatchOpen(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WinWatchOpen(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd, "ptr")
+        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", _hwnd, "ptr")
         resultHandle := HWINWATCH({Value: result}, True)
         return resultHandle
     }
@@ -7529,14 +7529,14 @@ class WindowsProgramming {
      * 
      * @param {HWINWATCH} hWW 
      * @param {Pointer<RECT>} prc 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
      */
-    static WinWatchGetClipList(hWW, prc, size, prd) {
+    static WinWatchGetClipList(hWW, prc, _size, prd) {
         hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
 
-        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", size, "ptr", prd, "uint")
+        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", _size, "ptr", prd, "uint")
         return result
     }
 
@@ -7554,29 +7554,29 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {Integer} size 
+     * @param {HWND} _hwnd 
+     * @param {Integer} _size 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
      */
-    static GetWindowRegionData(hwnd, size, prd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetWindowRegionData(_hwnd, _size, prd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("DCIMAN32.dll\GetWindowRegionData", "ptr", hwnd, "uint", size, "ptr", prd, "uint")
+        result := DllCall("DCIMAN32.dll\GetWindowRegionData", "ptr", _hwnd, "uint", _size, "ptr", prd, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
-     * @param {Integer} size 
+     * @param {HDC} _hdc 
+     * @param {Integer} _size 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
      */
-    static GetDCRegionData(hdc, size, prd) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDCRegionData(_hdc, _size, prd) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("DCIMAN32.dll\GetDCRegionData", "ptr", hdc, "uint", size, "ptr", prd, "uint")
+        result := DllCall("DCIMAN32.dll\GetDCRegionData", "ptr", _hdc, "uint", _size, "ptr", prd, "uint")
         return result
     }
 
@@ -7677,7 +7677,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PSTR} szCmdName 
      * @param {PSTR} szInfSection 
      * @param {PSTR} szDir 
@@ -7687,8 +7687,8 @@ class WindowsProgramming {
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
      */
-    static RunSetupCommandA(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RunSetupCommandA(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
         szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
         szDir := szDir is String ? StrPtr(szDir) : szDir
@@ -7696,13 +7696,13 @@ class WindowsProgramming {
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PWSTR} szCmdName 
      * @param {PWSTR} szInfSection 
      * @param {PWSTR} szDir 
@@ -7712,8 +7712,8 @@ class WindowsProgramming {
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
      */
-    static RunSetupCommandW(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RunSetupCommandW(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
         szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
         szDir := szDir is String ? StrPtr(szDir) : szDir
@@ -7721,7 +7721,7 @@ class WindowsProgramming {
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
         return result
     }
 
@@ -7746,35 +7746,35 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PSTR} pszINF 
      * @param {PSTR} pszSec 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static RebootCheckOnInstallA(hwnd, pszINF, pszSec, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RebootCheckOnInstallA(_hwnd, pszINF, pszSec, dwReserved) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
 
-        result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", _hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszINF 
      * @param {PWSTR} pszSec 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static RebootCheckOnInstallW(hwnd, pszINF, pszSec, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RebootCheckOnInstallW(_hwnd, pszINF, pszSec, dwReserved) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
 
-        result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", _hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -7866,56 +7866,56 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} _hwnd 
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static LaunchINFSectionExW(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LaunchINFSectionExW(_hwnd, _hInstance, pszParms, nShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+        result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {Pointer<CABINFOA>} pCab 
      * @param {Pointer<Void>} pReserved 
      * @returns {HRESULT} 
      */
-    static ExecuteCabA(hwnd, pCab, pReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ExecuteCabA(_hwnd, pCab, pReserved) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\ExecuteCabA", "ptr", hwnd, "ptr", pCab, pReservedMarshal, pReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\ExecuteCabA", "ptr", _hwnd, "ptr", pCab, pReservedMarshal, pReserved, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {Pointer<CABINFOW>} pCab 
      * @param {Pointer<Void>} pReserved 
      * @returns {HRESULT} 
      */
-    static ExecuteCabW(hwnd, pCab, pReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ExecuteCabW(_hwnd, pCab, pReserved) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\ExecuteCabW", "ptr", hwnd, "ptr", pCab, pReservedMarshal, pReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\ExecuteCabW", "ptr", _hwnd, "ptr", pCab, pReservedMarshal, pReserved, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PSTR} lpszSourceDir 
      * @param {PSTR} lpszSourceFile 
      * @param {PSTR} lpszDestDir 
@@ -7924,20 +7924,20 @@ class WindowsProgramming {
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static AdvInstallFileA(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static AdvInstallFileA(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
         lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
         lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
 
-        result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", _hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} lpszSourceDir 
      * @param {PWSTR} lpszSourceFile 
      * @param {PWSTR} lpszDestDir 
@@ -7946,20 +7946,20 @@ class WindowsProgramming {
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static AdvInstallFileW(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static AdvInstallFileW(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
         lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
         lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
 
-        result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", _hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @param {PSTR} pcszRootKey 
@@ -7968,21 +7968,21 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreA(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreA(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
         pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @param {PWSTR} pcszRootKey 
@@ -7991,21 +7991,21 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreW(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreW(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
         pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PSTR} pszTitle 
      * @param {PSTR} pszINF 
      * @param {PSTR} pszSection 
@@ -8014,21 +8014,21 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
         hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "HRESULT")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszINF 
      * @param {PWSTR} pszSection 
@@ -8037,47 +8037,47 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
         hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "HRESULT")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @returns {HRESULT} 
      */
-    static RegRestoreAllA(hWnd, pszTitleString, hkBckupKey) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegRestoreAllA(_hWnd, pszTitleString, hkBckupKey) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
-        result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "HRESULT")
+        result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @returns {HRESULT} 
      */
-    static RegRestoreAllW(hWnd, pszTitleString, hkBckupKey) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegRestoreAllW(_hWnd, pszTitleString, hkBckupKey) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
-        result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "HRESULT")
+        result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", _hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "HRESULT")
         return result
     }
 
@@ -8102,7 +8102,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PSTR} pszTitle 
      * @param {PSTR} pszINF 
      * @param {PSTR} pszSection 
@@ -8111,21 +8111,21 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static FileSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static FileSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
         pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
 
-        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
+        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszINF 
      * @param {PWSTR} pszSection 
@@ -8134,15 +8134,15 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static FileSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static FileSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
         pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
 
-        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
+        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", _hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -8325,18 +8325,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} _hwnd 
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static DelNodeRunDLL32W(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static DelNodeRunDLL32W(_hwnd, _hInstance, pszParms, nShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+        result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
         return result
     }
 
@@ -8485,85 +8485,85 @@ class WindowsProgramming {
     /**
      * 
      * @param {HWND} hwndOwner 
-     * @param {HINSTANCE} hInstance 
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParams 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
-    static LaunchINFSectionW(hwndOwner, hInstance, pszParams, nShow) {
+    static LaunchINFSectionW(hwndOwner, _hInstance, pszParams, nShow) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
 
-        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", _hInstance, "ptr", pszParams, "int", nShow, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} _hwnd 
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+        result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} _hwnd 
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+        result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} _hwnd 
+     * @param {HINSTANCE} _hInstance 
      * @param {PSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserUnInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserUnInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} _hwnd 
+     * @param {HINSTANCE} _hInstance 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserUnInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserUnInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
+        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", _hwnd, "ptr", _hInstance, "ptr", pszParms, "int", nShow, "HRESULT")
         return result
     }
 
@@ -9048,15 +9048,15 @@ class WindowsProgramming {
      * 
      * @param {Pointer<UNICODE_STRING>} providerName 
      * @param {Pointer<UNICODE_STRING>} keyName 
-     * @param {Pointer<UNICODE_STRING>} valueName 
+     * @param {Pointer<UNICODE_STRING>} _valueName 
      * @param {Pointer} valueAddress 
      * @param {Pointer<Integer>} valueSize 
      * @returns {Integer} 
      */
-    static WldpQuerySecurityPolicy(providerName, keyName, valueName, valueAddress, valueSize) {
+    static WldpQuerySecurityPolicy(providerName, keyName, _valueName, valueAddress, valueSize) {
         valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", valueName, "int*", &valueType := 0, "ptr", valueAddress, valueSizeMarshal, valueSize, "HRESULT")
+        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", _valueName, "int*", &valueType := 0, "ptr", valueAddress, valueSizeMarshal, valueSize, "HRESULT")
         return valueType
     }
 
@@ -9251,18 +9251,18 @@ class WindowsProgramming {
      * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
      * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
      * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferSize The size of *buffer*, in bytes.
      * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
      * @returns {Integer} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
      */
-    static WldpCanExecuteBuffer(host, options, buffer_R, bufferSize, auditInfo) {
+    static WldpCanExecuteBuffer(host, options, _buffer, bufferSize, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
 
-        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, buffer_RMarshal, buffer_R, "uint", bufferSize, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, _bufferMarshal, _buffer, "uint", bufferSize, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
         return result
     }
 

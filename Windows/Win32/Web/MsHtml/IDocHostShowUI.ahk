@@ -36,7 +36,7 @@ class IDocHostShowUI extends IUnknown{
      * For C++ development, a message box action is specified using the [**IShowMessageAction**](/windows/desktop/api/taskschd/nn-taskschd-ishowmessageaction) interface.
      * 
      * **Windows 8 and Windows Server 2012:** This element has been removed. You can use IExecAction with the Windows scripting [**MsgBox function**](/previous-versions/sfw6660x(v=vs.80)) to show a message in the user session.
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} lpstrText 
      * @param {PWSTR} lpstrCaption 
      * @param {Integer} dwType 
@@ -45,19 +45,19 @@ class IDocHostShowUI extends IUnknown{
      * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-showmessage-actiongroup-element
      */
-    ShowMessage(hwnd, lpstrText, lpstrCaption, dwType, lpstrHelpFile, dwHelpContext) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ShowMessage(_hwnd, lpstrText, lpstrCaption, dwType, lpstrHelpFile, dwHelpContext) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpstrText := lpstrText is String ? StrPtr(lpstrText) : lpstrText
         lpstrCaption := lpstrCaption is String ? StrPtr(lpstrCaption) : lpstrCaption
         lpstrHelpFile := lpstrHelpFile is String ? StrPtr(lpstrHelpFile) : lpstrHelpFile
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", lpstrText, "ptr", lpstrCaption, "uint", dwType, "ptr", lpstrHelpFile, "uint", dwHelpContext, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", lpstrText, "ptr", lpstrCaption, "uint", dwType, "ptr", lpstrHelpFile, "uint", dwHelpContext, "ptr*", &plResult := 0, "HRESULT")
         return plResult
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszHelpFile 
      * @param {Integer} uCommand 
      * @param {Integer} dwData 
@@ -65,11 +65,11 @@ class IDocHostShowUI extends IUnknown{
      * @param {IDispatch} pDispatchObjectHit 
      * @returns {HRESULT} 
      */
-    ShowHelp(hwnd, pszHelpFile, uCommand, dwData, ptMouse, pDispatchObjectHit) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ShowHelp(_hwnd, pszHelpFile, uCommand, dwData, ptMouse, pDispatchObjectHit) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszHelpFile := pszHelpFile is String ? StrPtr(pszHelpFile) : pszHelpFile
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", pszHelpFile, "uint", uCommand, "uint", dwData, "ptr", ptMouse, "ptr", pDispatchObjectHit, "HRESULT")
+        result := ComCall(4, this, "ptr", _hwnd, "ptr", pszHelpFile, "uint", uCommand, "uint", dwData, "ptr", ptMouse, "ptr", pDispatchObjectHit, "HRESULT")
         return result
     }
 }

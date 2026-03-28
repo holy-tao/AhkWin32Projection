@@ -119,21 +119,17 @@ class IContextMenuCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Data specific to the notification specified in <i>uMsg</i>. See the individual notification page for specific requirements.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Data specific to the notification specified in <i>uMsg</i>. See the individual notification page for specific requirements.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenucb-callback
      */
-    CallBack(psf, hwndOwner, pdtobj, uMsg, wParam, lParam) {
+    CallBack(psf, hwndOwner, pdtobj, uMsg, _wParam, _lParam) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(3, this, "ptr", psf, "ptr", hwndOwner, "ptr", pdtobj, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(3, this, "ptr", psf, "ptr", hwndOwner, "ptr", pdtobj, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 }

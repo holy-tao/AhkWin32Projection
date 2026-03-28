@@ -136,8 +136,8 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_LastHResult() {
-        result := ComCall(9, this, "int*", &HResult := 0, "HRESULT")
-        return HResult
+        result := ComCall(9, this, "int*", &_HResult := 0, "HRESULT")
+        return _HResult
     }
 
     /**

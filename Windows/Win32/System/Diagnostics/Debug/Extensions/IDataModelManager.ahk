@@ -51,8 +51,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateNoValue() {
-        result := ComCall(4, this, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+        result := ComCall(4, this, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**
@@ -64,42 +64,42 @@ class IDataModelManager extends IUnknown{
     CreateErrorObject(hrError, pwszMessage) {
         pwszMessage := pwszMessage is String ? StrPtr(pwszMessage) : pwszMessage
 
-        result := ComCall(5, this, "int", hrError, "ptr", pwszMessage, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+        result := ComCall(5, this, "int", hrError, "ptr", pwszMessage, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @param {Location} objectLocation 
-     * @param {IDebugHostType} objectType 
+     * @param {IDebugHostType} _objectType 
      * @returns {IModelObject} 
      */
-    CreateTypedObject(context, objectLocation, objectType) {
-        result := ComCall(6, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+    CreateTypedObject(_context, objectLocation, _objectType) {
+        result := ComCall(6, this, "ptr", _context, "ptr", objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @param {Location} objectLocation 
-     * @param {IDebugHostType} objectType 
+     * @param {IDebugHostType} _objectType 
      * @returns {IModelObject} 
      */
-    CreateTypedObjectReference(context, objectLocation, objectType) {
-        result := ComCall(7, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+    CreateTypedObjectReference(_context, objectLocation, _objectType) {
+        result := ComCall(7, this, "ptr", _context, "ptr", objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} _context 
      * @returns {IModelObject} 
      */
-    CreateSyntheticObject(context) {
-        result := ComCall(8, this, "ptr", context, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+    CreateSyntheticObject(_context) {
+        result := ComCall(8, this, "ptr", _context, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**
@@ -108,8 +108,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateDataModelObject(dataModel) {
-        result := ComCall(9, this, "ptr", dataModel, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+        result := ComCall(9, this, "ptr", dataModel, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**
@@ -119,8 +119,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateIntrinsicObject(objectKind, intrinsicData) {
-        result := ComCall(10, this, "int", objectKind, "ptr", intrinsicData, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+        result := ComCall(10, this, "int", objectKind, "ptr", intrinsicData, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**
@@ -130,8 +130,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateTypedIntrinsicObject(intrinsicData, type) {
-        result := ComCall(11, this, "ptr", intrinsicData, "ptr", type, "ptr*", &object_R := 0, "HRESULT")
-        return IModelObject(object_R)
+        result := ComCall(11, this, "ptr", intrinsicData, "ptr", type, "ptr*", &_object := 0, "HRESULT")
+        return IModelObject(_object)
     }
 
     /**

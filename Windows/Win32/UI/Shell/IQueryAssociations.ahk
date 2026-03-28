@@ -72,18 +72,18 @@ class IQueryAssociations extends IUnknown{
      * @param {HKEY} hkProgid Type: <b>HKEY</b>
      * 
      * The HKEY value of the subkey that is used as a root key. The search looks only below this key. If a value is specified for <i>pwszAssoc</i>, set this parameter to <b>NULL</b>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-init
      */
-    Init(flags, pszAssoc, hkProgid, hwnd) {
+    Init(flags, pszAssoc, hkProgid, _hwnd) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
         hkProgid := hkProgid is Win32Handle ? NumGet(hkProgid, "ptr") : hkProgid
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "uint", flags, "ptr", pszAssoc, "ptr", hkProgid, "ptr", hwnd, "HRESULT")
+        result := ComCall(3, this, "uint", flags, "ptr", pszAssoc, "ptr", hkProgid, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -225,16 +225,16 @@ class IQueryAssociations extends IUnknown{
     /**
      * This method is not implemented. (IQueryAssociations.GetEnum)
      * @param {Integer} flags TBD
-     * @param {Integer} assocenum TBD
+     * @param {Integer} _assocenum 
      * @param {PWSTR} pszExtra TBD
      * @param {Pointer<Guid>} riid TBD
      * @returns {Pointer<Void>} TBD
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getenum
      */
-    GetEnum(flags, assocenum, pszExtra, riid) {
+    GetEnum(flags, _assocenum, pszExtra, riid) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        result := ComCall(7, this, "uint", flags, "int", assocenum, "ptr", pszExtra, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        result := ComCall(7, this, "uint", flags, "int", _assocenum, "ptr", pszExtra, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
         return ppvOut
     }
 }

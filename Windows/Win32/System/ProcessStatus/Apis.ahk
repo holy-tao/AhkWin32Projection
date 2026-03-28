@@ -222,7 +222,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} _hModule 
      * @param {PSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -232,14 +232,14 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamea
      * @since windows5.1.2600
      */
-    static GetModuleBaseNameA(hProcess, hModule, lpBaseName, nSize) {
+    static GetModuleBaseNameA(hProcess, _hModule, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleBaseNameA", "ptr", hProcess, "ptr", _hModule, "ptr", lpBaseName, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -282,7 +282,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} _hModule 
      * @param {PWSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -292,14 +292,14 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
      * @since windows5.1.2600
      */
-    static GetModuleBaseNameW(hProcess, hModule, lpBaseName, nSize) {
+    static GetModuleBaseNameW(hProcess, _hModule, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleBaseNameW", "ptr", hProcess, "ptr", _hModule, "ptr", lpBaseName, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -339,7 +339,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} _hModule 
      * @param {PSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -349,14 +349,14 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexa
      * @since windows5.1.2600
      */
-    static GetModuleFileNameExA(hProcess, hModule, lpFilename, nSize) {
+    static GetModuleFileNameExA(hProcess, _hModule, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleFileNameExA", "ptr", hProcess, "ptr", _hModule, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -396,7 +396,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} _hModule 
      * @param {PWSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -406,14 +406,14 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
      * @since windows5.1.2600
      */
-    static GetModuleFileNameExW(hProcess, hModule, lpFilename, nSize) {
+    static GetModuleFileNameExW(hProcess, _hModule, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleFileNameExW", "ptr", hProcess, "ptr", _hModule, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -447,7 +447,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module.
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module.
+     * @param {HMODULE} _hModule 
      * @param {Pointer<MODULEINFO>} lpmodinfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-moduleinfo">MODULEINFO</a> structure that receives information about the module.
      * @param {Integer} cb The size of the 
@@ -459,13 +459,13 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmoduleinformation
      * @since windows5.1.2600
      */
-    static GetModuleInformation(hProcess, hModule, lpmodinfo, cb) {
+    static GetModuleInformation(hProcess, _hModule, lpmodinfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "int")
+        result := DllCall("PSAPI.dll\GetModuleInformation", "ptr", hProcess, "ptr", _hModule, "ptr", lpmodinfo, "uint", cb, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1654,7 +1654,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} _hModule 
      * @param {PSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -1663,12 +1663,12 @@ class ProcessStatus {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
      */
-    static K32GetModuleBaseNameA(hProcess, hModule, lpBaseName, nSize) {
+    static K32GetModuleBaseNameA(hProcess, _hModule, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameA", "ptr", hProcess, "ptr", _hModule, "ptr", lpBaseName, "uint", nSize, "uint")
         return result
     }
 
@@ -1707,7 +1707,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} _hModule 
      * @param {PWSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
@@ -1716,12 +1716,12 @@ class ProcessStatus {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
      */
-    static K32GetModuleBaseNameW(hProcess, hModule, lpBaseName, nSize) {
+    static K32GetModuleBaseNameW(hProcess, _hModule, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameW", "ptr", hProcess, "ptr", _hModule, "ptr", lpBaseName, "uint", nSize, "uint")
         return result
     }
 
@@ -1757,7 +1757,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} _hModule 
      * @param {PSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -1766,12 +1766,12 @@ class ProcessStatus {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
      */
-    static K32GetModuleFileNameExA(hProcess, hModule, lpFilename, nSize) {
+    static K32GetModuleFileNameExA(hProcess, _hModule, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExA", "ptr", hProcess, "ptr", _hModule, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -1807,7 +1807,7 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} _hModule 
      * @param {PWSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
@@ -1816,12 +1816,12 @@ class ProcessStatus {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
      */
-    static K32GetModuleFileNameExW(hProcess, hModule, lpFilename, nSize) {
+    static K32GetModuleFileNameExW(hProcess, _hModule, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExW", "ptr", hProcess, "ptr", _hModule, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -1851,7 +1851,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module.
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module.
+     * @param {HMODULE} _hModule 
      * @param {Pointer<MODULEINFO>} lpmodinfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-moduleinfo">MODULEINFO</a> structure that receives information about the module.
      * @param {Integer} cb The size of the 
@@ -1862,11 +1862,11 @@ class ProcessStatus {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmoduleinformation
      */
-    static K32GetModuleInformation(hProcess, hModule, lpmodinfo, cb) {
+    static K32GetModuleInformation(hProcess, _hModule, lpmodinfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
 
-        result := DllCall("KERNEL32.dll\K32GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "int")
+        result := DllCall("KERNEL32.dll\K32GetModuleInformation", "ptr", hProcess, "ptr", _hModule, "ptr", lpmodinfo, "uint", cb, "int")
         return result
     }
 

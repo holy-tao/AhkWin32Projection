@@ -33,17 +33,17 @@ class ICorThreadpool extends IUnknown{
      * @param {Pointer<HANDLE>} phNewWaitObject 
      * @param {HANDLE} hWaitObject 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Integer} timeout 
      * @param {BOOL} executeOnlyOnce 
      * @returns {BOOL} 
      */
-    CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, Context, timeout, executeOnlyOnce) {
+    CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, _Context, timeout, executeOnlyOnce) {
         hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, ContextMarshal, Context, "uint", timeout, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, _ContextMarshal, _Context, "uint", timeout, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -64,14 +64,14 @@ class ICorThreadpool extends IUnknown{
     /**
      * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {BOOL} executeOnlyOnce 
      * @returns {BOOL} 
      */
-    CorQueueUserWorkItem(Function, Context, executeOnlyOnce) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    CorQueueUserWorkItem(Function, _Context, executeOnlyOnce) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", Function, ContextMarshal, Context, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", Function, _ContextMarshal, _Context, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -135,13 +135,13 @@ class ICorThreadpool extends IUnknown{
     /**
      * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {BOOL} 
      */
-    CorCallOrQueueUserWorkItem(Function, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    CorCallOrQueueUserWorkItem(Function, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", Function, ContextMarshal, Context, "int*", &result := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", Function, _ContextMarshal, _Context, "int*", &result := 0, "HRESULT")
         return result
     }
 

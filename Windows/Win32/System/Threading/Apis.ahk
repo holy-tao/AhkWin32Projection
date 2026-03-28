@@ -1525,88 +1525,88 @@ class Threading {
      * An SRW lock cannot be moved or copied while in use. The process must not modify the object, and must instead treat it as logically opaque. Only use the SRW functions to manage SRW locks. 
      * 
      * An unlocked SRW lock with no waiting threads is in its initial state and can be copied, moved, and forgotten without being explicitly destroyed.
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-initializesrwlock
      * @since windows6.0.6000
      */
-    static InitializeSRWLock(SRWLock) {
-        DllCall("KERNEL32.dll\InitializeSRWLock", "ptr", SRWLock)
+    static InitializeSRWLock(_SRWLock) {
+        DllCall("KERNEL32.dll\InitializeSRWLock", "ptr", _SRWLock)
     }
 
     /**
      * Releases a slim reader/writer (SRW) lock that was acquired in exclusive mode.
      * @remarks
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-releasesrwlockexclusive
      * @since windows6.0.6000
      */
-    static ReleaseSRWLockExclusive(SRWLock) {
-        DllCall("KERNEL32.dll\ReleaseSRWLockExclusive", "ptr", SRWLock)
+    static ReleaseSRWLockExclusive(_SRWLock) {
+        DllCall("KERNEL32.dll\ReleaseSRWLockExclusive", "ptr", _SRWLock)
     }
 
     /**
      * Releases a slim reader/writer (SRW) lock that was acquired in shared mode.
      * @remarks
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-releasesrwlockshared
      * @since windows6.0.6000
      */
-    static ReleaseSRWLockShared(SRWLock) {
-        DllCall("KERNEL32.dll\ReleaseSRWLockShared", "ptr", SRWLock)
+    static ReleaseSRWLockShared(_SRWLock) {
+        DllCall("KERNEL32.dll\ReleaseSRWLockShared", "ptr", _SRWLock)
     }
 
     /**
      * Acquires a slim reader/writer (SRW) lock in exclusive mode.
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-acquiresrwlockexclusive
      * @since windows6.0.6000
      */
-    static AcquireSRWLockExclusive(SRWLock) {
-        DllCall("KERNEL32.dll\AcquireSRWLockExclusive", "ptr", SRWLock)
+    static AcquireSRWLockExclusive(_SRWLock) {
+        DllCall("KERNEL32.dll\AcquireSRWLockExclusive", "ptr", _SRWLock)
     }
 
     /**
      * Acquires a slim reader/writer (SRW) lock in shared mode.
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-acquiresrwlockshared
      * @since windows6.0.6000
      */
-    static AcquireSRWLockShared(SRWLock) {
-        DllCall("KERNEL32.dll\AcquireSRWLockShared", "ptr", SRWLock)
+    static AcquireSRWLockShared(_SRWLock) {
+        DllCall("KERNEL32.dll\AcquireSRWLockShared", "ptr", _SRWLock)
     }
 
     /**
      * Attempts to acquire a slim reader/writer (SRW) lock in exclusive mode. If the call is successful, the calling thread takes ownership of the lock.
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @returns {BOOLEAN} If the lock is successfully acquired, the return value is nonzero.
      * 
      * if the current thread could not acquire the lock, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-tryacquiresrwlockexclusive
      * @since windows6.1
      */
-    static TryAcquireSRWLockExclusive(SRWLock) {
-        result := DllCall("KERNEL32.dll\TryAcquireSRWLockExclusive", "ptr", SRWLock, "char")
+    static TryAcquireSRWLockExclusive(_SRWLock) {
+        result := DllCall("KERNEL32.dll\TryAcquireSRWLockExclusive", "ptr", _SRWLock, "char")
         return result
     }
 
     /**
      * Attempts to acquire a slim reader/writer (SRW) lock in shared mode. If the call is successful, the calling thread takes ownership of the lock.
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @returns {BOOLEAN} If the lock is successfully acquired, the return value is nonzero.
      * 
      * if the current thread could not acquire the lock, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-tryacquiresrwlockshared
      * @since windows6.1
      */
-    static TryAcquireSRWLockShared(SRWLock) {
-        result := DllCall("KERNEL32.dll\TryAcquireSRWLockShared", "ptr", SRWLock, "char")
+    static TryAcquireSRWLockShared(_SRWLock) {
+        result := DllCall("KERNEL32.dll\TryAcquireSRWLockShared", "ptr", _SRWLock, "char")
         return result
     }
 
@@ -1909,7 +1909,7 @@ class Threading {
      * @param {Pointer<INIT_ONCE>} InitOnce A pointer to the one-time initialization structure.
      * @param {Pointer<PINIT_ONCE_FN>} InitFn A pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nc-synchapi-pinit_once_fn">InitOnceCallback</a> function.
      * @param {Pointer<Void>} Parameter A parameter to be passed to the callback function.
-     * @param {Pointer<Pointer<Void>>} Context A parameter that receives data stored with the one-time initialization structure upon success. The low-order <b>INIT_ONCE_CTX_RESERVED_BITS</b> bits of the data are always zero. If <i>Context</i> points to a data structure, the data structure must be <b>DWORD</b>-aligned. <i>Context</i> must not be a code pointer on Arm32, because Arm32 code pointers always have the least significant bit set, see the <a href="https://docs.microsoft.com/cpp/build/overview-of-arm-abi-conventions?view=msvc-170#instruction-set">Arm32 ABI</a> for details.
+     * @param {Pointer<Pointer<Void>>} _Context 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1917,13 +1917,13 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-initonceexecuteonce
      * @since windows6.0.6000
      */
-    static InitOnceExecuteOnce(InitOnce, InitFn, Parameter, Context) {
+    static InitOnceExecuteOnce(InitOnce, InitFn, Parameter, _Context) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, ParameterMarshal, Parameter, ContextMarshal, Context, "int")
+        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, ParameterMarshal, Parameter, _ContextMarshal, _Context, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2146,7 +2146,7 @@ class Threading {
      * 
      * Condition variables are subject to spurious wakeups (those not associated with an explicit wake) and stolen wakeups (another thread manages to run before the woken thread). Therefore, you should recheck a predicate (typically in a <b>while</b> loop) after a sleep operation returns.
      * @param {Pointer<CONDITION_VARIABLE>} ConditionVariable A pointer to the condition variable. This variable must be initialized using the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializeconditionvariable">InitializeConditionVariable</a> function.
-     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the lock. This lock must be held in the manner specified by the <i>Flags</i> parameter.
+     * @param {Pointer<SRWLOCK>} _SRWLock 
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. The function returns if the interval elapses. If <i>dwMilliseconds</i> is zero, the function tests the states of the specified objects and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses.
      * @param {Integer} Flags If this parameter is <b>CONDITION_VARIABLE_LOCKMODE_SHARED</b>, the SRW lock is in shared mode. Otherwise, the lock is in exclusive mode.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2158,10 +2158,10 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-sleepconditionvariablesrw
      * @since windows6.0.6000
      */
-    static SleepConditionVariableSRW(ConditionVariable, SRWLock, dwMilliseconds, Flags) {
+    static SleepConditionVariableSRW(ConditionVariable, _SRWLock, dwMilliseconds, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SleepConditionVariableSRW", "ptr", ConditionVariable, "ptr", SRWLock, "uint", dwMilliseconds, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\SleepConditionVariableSRW", "ptr", ConditionVariable, "ptr", _SRWLock, "uint", dwMilliseconds, "uint", Flags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2270,12 +2270,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitforsingleobject">WaitForSingleObject</a> function with a time-out interval of zero until the semaphore count has been reduced sufficiently. (Note that other threads can reduce the count while this loop is being executed.) To restore access, call 
      * <b>ReleaseSemaphore</b> with the release count equal to the number of times 
      * <b>WaitForSingleObject</b> was called in the loop.
-     * @param {HANDLE} hSemaphore A handle to the semaphore object. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createsemaphorea">CreateSemaphore</a> or 
-     * <a href="https://docs.microsoft.com/windows/win32/api/synchapi/nf-synchapi-opensemaphorew">OpenSemaphore</a> function returns this handle.
-     * 
-     * This handle must have the <b>SEMAPHORE_MODIFY_STATE</b> access right. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
+     * @param {HANDLE} _hSemaphore 
      * @param {Integer} lReleaseCount The amount by which the semaphore object's current count is to be increased. The value must be greater than zero. If the specified amount would cause the semaphore's count to exceed the maximum count that was specified when the semaphore was created, the count is not changed and the function returns <b>FALSE</b>.
      * @param {Pointer<Integer>} lpPreviousCount A pointer to a variable to receive the previous count for the semaphore. This parameter can be <b>NULL</b> if the previous count is not required.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2284,14 +2279,14 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-releasesemaphore
      * @since windows5.1.2600
      */
-    static ReleaseSemaphore(hSemaphore, lReleaseCount, lpPreviousCount) {
-        hSemaphore := hSemaphore is Win32Handle ? NumGet(hSemaphore, "ptr") : hSemaphore
+    static ReleaseSemaphore(_hSemaphore, lReleaseCount, lpPreviousCount) {
+        _hSemaphore := _hSemaphore is Win32Handle ? NumGet(_hSemaphore, "ptr") : _hSemaphore
 
         lpPreviousCountMarshal := lpPreviousCount is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReleaseSemaphore", "ptr", hSemaphore, "int", lReleaseCount, lpPreviousCountMarshal, lpPreviousCount, "int")
+        result := DllCall("KERNEL32.dll\ReleaseSemaphore", "ptr", _hSemaphore, "int", lReleaseCount, lpPreviousCountMarshal, lpPreviousCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4280,7 +4275,7 @@ class Threading {
      * </ul>
      * </div>
      * <div> </div>
-     * @param {Pointer} Address The address on which to wait. If the value at <i>Address</i> differs from the value at <i>CompareAddress</i>, the function returns immediately. If the values are the same, the function does not return until another thread in the same process signals that the value at Address has changed by calling <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-wakebyaddresssingle">WakeByAddressSingle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-wakebyaddressall">WakeByAddressAll</a> or the timeout elapses, whichever comes first.
+     * @param {Pointer} _Address 
      * @param {Pointer} CompareAddress A pointer to the location of the previously observed value at <i>Address</i>. The function returns when the value at <i>Address</i> differs from the value at <i>CompareAddress</i>.
      * @param {Pointer} AddressSize The size of the value, in bytes. This parameter can be 1, 2, 4, or 8.
      * @param {Integer} dwMilliseconds The number of milliseconds to wait before the operation times out. If this parameter is <b>INFINITE</b>, the thread waits indefinitely.
@@ -4288,10 +4283,10 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-waitonaddress
      * @since windows8.0
      */
-    static WaitOnAddress(Address, CompareAddress, AddressSize, dwMilliseconds) {
+    static WaitOnAddress(_Address, CompareAddress, AddressSize, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", "ptr", Address, "ptr", CompareAddress, "ptr", AddressSize, "uint", dwMilliseconds, "int")
+        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", "ptr", _Address, "ptr", CompareAddress, "ptr", AddressSize, "uint", dwMilliseconds, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4305,18 +4300,15 @@ class Threading {
      * Windows Store apps developers may need to obtain synchronization.lib by installing the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-8-sdk">Windows Software Development Kit (SDK) for Windows 8</a>.
      * 
      * Only a thread within the same process can be woken.
-     * @param {Pointer<Void>} Address The address to signal. If another thread has previously called 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitonaddress">WaitOnAddress</a> for this address, the system wakes the 
-     *       waiting thread. If multiple threads are waiting for this address, the system wakes the first thread to 
-     *       wait.
+     * @param {Pointer<Void>} _Address 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakebyaddresssingle
      * @since windows8.0
      */
-    static WakeByAddressSingle(Address) {
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+    static WakeByAddressSingle(_Address) {
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressSingle", AddressMarshal, Address)
+        DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressSingle", _AddressMarshal, _Address)
     }
 
     /**
@@ -4325,17 +4317,15 @@ class Threading {
      * Windows Store apps developers may need to obtain synchronization.lib by installing the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-8-sdk">Windows Software Development Kit (SDK) for Windows 8</a>.
      * 
      * Only threads within the same process can be woken.
-     * @param {Pointer<Void>} Address The address to signal. If any threads have previously called 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitonaddress">WaitOnAddress</a> for this address, the system wakes all 
-     *       of the waiting threads.
+     * @param {Pointer<Void>} _Address 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakebyaddressall
      * @since windows8.0
      */
-    static WakeByAddressAll(Address) {
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+    static WakeByAddressAll(_Address) {
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressAll", AddressMarshal, Address)
+        DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressAll", _AddressMarshal, _Address)
     }
 
     /**
@@ -9208,7 +9198,7 @@ class Threading {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>.
-     * @param {Pointer<Void>} Context A single parameter value to be passed to the thread function.
+     * @param {Pointer<Void>} _Context 
      * @param {Integer} Flags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -9217,12 +9207,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
      * @since windows5.1.2600
      */
-    static QueueUserWorkItem(Function, Context, Flags) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static QueueUserWorkItem(Function, _Context, Flags) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueueUserWorkItem", "ptr", Function, ContextMarshal, Context, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\QueueUserWorkItem", "ptr", Function, _ContextMarshal, _Context, "uint", Flags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10613,7 +10603,7 @@ class Threading {
      * Closes an open namespace handle.
      * @remarks
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0600 or later.
-     * @param {HANDLE} Handle The namespace handle. This handle is created by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createprivatenamespacea">CreatePrivateNamespace</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openprivatenamespacea">OpenPrivateNamespace</a>.
+     * @param {HANDLE} _Handle 
      * @param {Integer} Flags If this parameter is <b>PRIVATE_NAMESPACE_FLAG_DESTROY</b> (0x00000001), the namespace is destroyed.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
@@ -10622,12 +10612,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/namespaceapi/nf-namespaceapi-closeprivatenamespace
      * @since windows6.0.6000
      */
-    static ClosePrivateNamespace(Handle, Flags) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ClosePrivateNamespace(_Handle, Flags) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ClosePrivateNamespace", "ptr", Handle, "uint", Flags, "char")
+        result := DllCall("KERNEL32.dll\ClosePrivateNamespace", "ptr", _Handle, "uint", Flags, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -10746,7 +10736,7 @@ class Threading {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Integer} Node The node number.
+     * @param {Integer} _Node 
      * @param {Pointer<GROUP_AFFINITY>} ProcessorMask A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-group_affinity">GROUP_AFFINITY</a> structure that receives the processor mask for the specified node. A processor mask is a bit vector in which each bit represents a processor and whether it is in the node.
      * 
      * If the specified node has no processors configured, the <b>Mask</b> member is zero and the <b>Group</b> member is undefined.
@@ -10756,8 +10746,8 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/systemtopologyapi/nf-systemtopologyapi-getnumanodeprocessormaskex
      * @since windows6.1
      */
-    static GetNumaNodeProcessorMaskEx(Node, ProcessorMask) {
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMaskEx", "ushort", Node, "ptr", ProcessorMask, "int")
+    static GetNumaNodeProcessorMaskEx(_Node, ProcessorMask) {
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMaskEx", "ushort", _Node, "ptr", ProcessorMask, "int")
         return result
     }
 
@@ -11252,7 +11242,7 @@ class Threading {
     /**
      * Adjusts the thread priority of the calling thread relative to other threads performing the same task.
      * @param {AVRT_TASK_HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11260,12 +11250,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avsetmmthreadpriority
      * @since windows6.0.6000
      */
-    static AvSetMmThreadPriority(AvrtHandle, Priority) {
+    static AvSetMmThreadPriority(AvrtHandle, _Priority) {
         AvrtHandle := AvrtHandle is Win32Handle ? NumGet(AvrtHandle, "ptr") : AvrtHandle
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvSetMmThreadPriority", "ptr", AvrtHandle, "int", Priority, "int")
+        result := DllCall("AVRT.dll\AvSetMmThreadPriority", "ptr", AvrtHandle, "int", _Priority, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11283,7 +11273,7 @@ class Threading {
      * To delete the thread ordering group, call the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtdeletethreadorderinggroup">AvRtDeleteThreadOrderingGroup</a> function.
      * 
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11308,13 +11298,13 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avrtcreatethreadorderinggroup
      * @since windows6.0.6000
      */
-    static AvRtCreateThreadOrderingGroup(Context, Period, ThreadOrderingGuid, Timeout) {
+    static AvRtCreateThreadOrderingGroup(_Context, Period, ThreadOrderingGuid, Timeout) {
         PeriodMarshal := Period is VarRef ? "int64*" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroup", "ptr", Context, PeriodMarshal, Period, "ptr", ThreadOrderingGuid, TimeoutMarshal, Timeout, "int")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroup", "ptr", _Context, PeriodMarshal, Period, "ptr", ThreadOrderingGuid, TimeoutMarshal, Timeout, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11334,7 +11324,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The parent and client threads of a thread ordering group run at high priorities. However, the server thread that manages the thread ordering group runs at normal priority. Therefore, there can be a delay switching from one client thread to another if there are other high-priority threads running. The <i>TaskName</i> parameter of this function specifies the task to be associated with the server thread.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11360,7 +11350,7 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avrtcreatethreadorderinggroupexa
      * @since windows6.0.6000
      */
-    static AvRtCreateThreadOrderingGroupExA(Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
+    static AvRtCreateThreadOrderingGroupExA(_Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
         TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
         PeriodMarshal := Period is VarRef ? "int64*" : "ptr"
@@ -11368,7 +11358,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExA", "ptr", Context, PeriodMarshal, Period, "ptr", ThreadOrderingGuid, TimeoutMarshal, Timeout, "ptr", TaskName, "int")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExA", "ptr", _Context, PeriodMarshal, Period, "ptr", ThreadOrderingGuid, TimeoutMarshal, Timeout, "ptr", TaskName, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11388,7 +11378,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The parent and client threads of a thread ordering group run at high priorities. However, the server thread that manages the thread ordering group runs at normal priority. Therefore, there can be a delay switching from one client thread to another if there are other high-priority threads running. The <i>TaskName</i> parameter of this function specifies the task to be associated with the server thread.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11414,7 +11404,7 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avrtcreatethreadorderinggroupexw
      * @since windows6.0.6000
      */
-    static AvRtCreateThreadOrderingGroupExW(Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
+    static AvRtCreateThreadOrderingGroupExW(_Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
         TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
         PeriodMarshal := Period is VarRef ? "int64*" : "ptr"
@@ -11422,7 +11412,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExW", "ptr", Context, PeriodMarshal, Period, "ptr", ThreadOrderingGuid, TimeoutMarshal, Timeout, "ptr", TaskName, "int")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExW", "ptr", _Context, PeriodMarshal, Period, "ptr", ThreadOrderingGuid, TimeoutMarshal, Timeout, "ptr", TaskName, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11438,7 +11428,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The number of threads that can join a group is limited only by available system resources.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} Context A pointer to a context handle.
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
      * @param {Pointer<Guid>} ThreadOrderingGuid A pointer to the unique identifier for the thread ordering group.
      * @param {BOOL} Before The thread order. If this parameter is <b>TRUE</b>, the thread is a predecessor thread that is scheduled to run before the parent thread. If this parameter is <b>FALSE</b>, the thread is a successor thread that is scheduled to run after the parent thread.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11448,10 +11438,10 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avrtjointhreadorderinggroup
      * @since windows6.0.6000
      */
-    static AvRtJoinThreadOrderingGroup(Context, ThreadOrderingGuid, Before) {
+    static AvRtJoinThreadOrderingGroup(_Context, ThreadOrderingGuid, Before) {
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtJoinThreadOrderingGroup", "ptr", Context, "ptr", ThreadOrderingGuid, "int", Before, "int")
+        result := DllCall("AVRT.dll\AvRtJoinThreadOrderingGroup", "ptr", _Context, "ptr", ThreadOrderingGuid, "int", Before, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11467,7 +11457,7 @@ class Threading {
      * If the thread fails to complete its processing during the time-out interval specified by the parent thread when creating the group, it is deleted from the thread ordering group. Therefore, when the thread finishes its processing loop, the next call to <b>AvRtWaitOnThreadOrderingGroup</b> fails and the last error code is set to ERROR_ACCESS_DENIED.
      * 
      * If the thread ordering group is deleted during the wait, this function eventually times out and return ERROR_ACCESS_DENIED.
-     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11475,12 +11465,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avrtwaitonthreadorderinggroup
      * @since windows6.0.6000
      */
-    static AvRtWaitOnThreadOrderingGroup(Context) {
-        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+    static AvRtWaitOnThreadOrderingGroup(_Context) {
+        _Context := _Context is Win32Handle ? NumGet(_Context, "ptr") : _Context
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtWaitOnThreadOrderingGroup", "ptr", Context, "int")
+        result := DllCall("AVRT.dll\AvRtWaitOnThreadOrderingGroup", "ptr", _Context, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11494,7 +11484,7 @@ class Threading {
      * The parent thread for a thread ordering group should not remove itself from the group.
      * 
      * If a thread times out and attempts to call this function, the function fails with a last error code of ERROR_INVALID_PARAMETER.
-     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11502,12 +11492,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avrtleavethreadorderinggroup
      * @since windows6.0.6000
      */
-    static AvRtLeaveThreadOrderingGroup(Context) {
-        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+    static AvRtLeaveThreadOrderingGroup(_Context) {
+        _Context := _Context is Win32Handle ? NumGet(_Context, "ptr") : _Context
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtLeaveThreadOrderingGroup", "ptr", Context, "int")
+        result := DllCall("AVRT.dll\AvRtLeaveThreadOrderingGroup", "ptr", _Context, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11521,7 +11511,7 @@ class Threading {
      * This function can only be called successfully by the parent thread for the thread ordering group. If a thread other than the parent thread calls this function, the function fails with a last error code of ERROR_INVALID_FUNCTION.
      * 
      * If the parent thread times out and attempts to call this function, the function fails with a last error code of ERROR_INVALID_PARAMETER.
-     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> function when creating the group.
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11529,12 +11519,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/avrt/nf-avrt-avrtdeletethreadorderinggroup
      * @since windows6.0.6000
      */
-    static AvRtDeleteThreadOrderingGroup(Context) {
-        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+    static AvRtDeleteThreadOrderingGroup(_Context) {
+        _Context := _Context is Win32Handle ? NumGet(_Context, "ptr") : _Context
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtDeleteThreadOrderingGroup", "ptr", Context, "int")
+        result := DllCall("AVRT.dll\AvRtDeleteThreadOrderingGroup", "ptr", _Context, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -11671,13 +11661,13 @@ class Threading {
      * To invoke the callback specified in <i>pCallback</i>, call the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqinvokecallback">RtwqInvokeCallback</a> function.
      * @param {IUnknown} appObject Pointer to the object stored in the asynchronous result. This pointer is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasyncresult-getobject">IRtwqAsyncResult::GetObject</a> method. This parameter can be <b>NULL</b>.
      * @param {IRtwqAsyncCallback} callback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface. This interface is implemented by the caller of the asynchronous method.
-     * @param {IUnknown} appState Pointer to the <b>IUnknown</b> interface of a state object. This value is provided by the caller of the asynchronous method. This parameter can be <b>NULL</b>.
+     * @param {IUnknown} _appState 
      * @returns {IRtwqAsyncResult} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult
      * @since windows8.1
      */
-    static RtwqCreateAsyncResult(appObject, callback, appState) {
-        result := DllCall("RTWorkQ.dll\RtwqCreateAsyncResult", "ptr", appObject, "ptr", callback, "ptr", appState, "ptr*", &asyncResult := 0, "HRESULT")
+    static RtwqCreateAsyncResult(appObject, callback, _appState) {
+        result := DllCall("RTWorkQ.dll\RtwqCreateAsyncResult", "ptr", appObject, "ptr", callback, "ptr", _appState, "ptr*", &asyncResult := 0, "HRESULT")
         return IRtwqAsyncResult(asyncResult)
     }
 
@@ -11813,13 +11803,13 @@ class Threading {
     /**
      * Sets a callback function to be called at a fixed interval. (RtwqAddPeriodicCallback)
      * @param {Pointer<RTWQPERIODICCALLBACK>} Callback Pointer to the callback function.
-     * @param {IUnknown} context Pointer to a caller-provided object that implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, or <b>NULL</b>. This parameter is passed to the callback function.
+     * @param {IUnknown} _context 
      * @returns {Integer} Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback">RtwqRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqaddperiodiccallback
      * @since windows8.1
      */
-    static RtwqAddPeriodicCallback(Callback, context) {
-        result := DllCall("RTWorkQ.dll\RtwqAddPeriodicCallback", "ptr", Callback, "ptr", context, "uint*", &key := 0, "HRESULT")
+    static RtwqAddPeriodicCallback(Callback, _context) {
+        result := DllCall("RTWorkQ.dll\RtwqAddPeriodicCallback", "ptr", Callback, "ptr", _context, "uint*", &key := 0, "HRESULT")
         return key
     }
 
@@ -11984,13 +11974,13 @@ class Threading {
      * @remarks
      * This function returns the relative thread priority set by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqbeginregisterworkqueuewithmmcss">RtwqBeginRegisterWorkQueueWithMMCSS</a> function.
      * @param {Integer} workQueueId The identifier of the work queue. For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @returns {Integer} Receives the relative thread priority.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsspriority
      * @since windows8.1
      */
     static RtwqGetWorkQueueMMCSSPriority(workQueueId) {
-        result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSPriority", "uint", workQueueId, "int*", &priority := 0, "HRESULT")
-        return priority
+        result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSPriority", "uint", workQueueId, "int*", &_priority := 0, "HRESULT")
+        return _priority
     }
 
     /**
@@ -12090,9 +12080,7 @@ class Threading {
      * On Windows Vista, however, [**OpenProcess**](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess) fails in the scenario where the caller has UIAccess, and the target process is elevated. In this case, the owner of the target process is in the Administrators group, but the calling process is running with the restricted token, so does not have membership in this group, and is denied access to the elevated process. If the caller has UIAccess, however, they can use a windows hook to inject code into the target process, and from within the target process, send a handle back to the caller.
      * 
      * **GetProcessHandleFromHwnd** is a convenience function that uses this technique to obtain the handle of the process that owns the specified HWND. Note that it only succeeds in cases where the caller and target process are running as the same user. The returned handle has the following privileges: PROCESS\_DUP\_HANDLE \| PROCESS\_VM\_OPERATION \| PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| SYNCHRONIZE. If other privileges are required, it may be necessary to implement the hooking technique explicitly instead of using this function.
-     * @param {HWND} hwnd Type: **[**HWND**](/windows/desktop/WinProg/windows-data-types)**
-     * 
-     * The window handle.
+     * @param {HWND} _hwnd 
      * @returns {HANDLE} Type: **[**HANDLE**](/windows/desktop/WinProg/windows-data-types)**
      * 
      * If successful, returns the handle of the process that owns the window.
@@ -12100,10 +12088,10 @@ class Threading {
      * If not successful, returns **NULL**.
      * @see https://learn.microsoft.com/windows/win32/WinAuto/getprocesshandlefromhwnd
      */
-    static GetProcessHandleFromHwnd(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetProcessHandleFromHwnd(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("OLEACC.dll\GetProcessHandleFromHwnd", "ptr", hwnd, "ptr")
+        result := DllCall("OLEACC.dll\GetProcessHandleFromHwnd", "ptr", _hwnd, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -14582,7 +14570,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback A pointer to the application-defined function of type <b>WAITORTIMERCALLBACK</b> to be executed when <i>hObject</i> is in the signaled state, or <i>dwMilliseconds</i> elapses. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms687066(v=vs.85)">WaitOrTimerCallback</a>.
-     * @param {Pointer<Void>} Context A single value that is passed to the callback function.
+     * @param {Pointer<Void>} _Context 
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. The function returns if the interval elapses, even if the object's state is nonsignaled. If <i>dwMilliseconds</i> is zero, the function tests the object's state and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses.
      * @param {Integer} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -14592,14 +14580,14 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-registerwaitforsingleobject
      * @since windows5.1.2600
      */
-    static RegisterWaitForSingleObject(phNewWaitObject, hObject, Callback, Context, dwMilliseconds, dwFlags) {
+    static RegisterWaitForSingleObject(phNewWaitObject, hObject, Callback, _Context, dwMilliseconds, dwFlags) {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", "ptr", phNewWaitObject, "ptr", hObject, "ptr", Callback, ContextMarshal, Context, "uint", dwMilliseconds, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", "ptr", phNewWaitObject, "ptr", hObject, "ptr", Callback, _ContextMarshal, _Context, "uint", dwMilliseconds, "uint", dwFlags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14967,7 +14955,7 @@ class Threading {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Integer} Node The number of the node.
+     * @param {Integer} _Node 
      * @param {Pointer<Integer>} ProcessorMask The processor mask for the node. A processor mask is a bit vector in which each bit represents a processor and whether it is in the node.
      * 
      * If the node has no processors configured, the processor mask is zero.
@@ -14980,12 +14968,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnumanodeprocessormask
      * @since windows6.0.6000
      */
-    static GetNumaNodeProcessorMask(Node, ProcessorMask) {
+    static GetNumaNodeProcessorMask(_Node, ProcessorMask) {
         ProcessorMaskMarshal := ProcessorMask is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask", "char", Node, ProcessorMaskMarshal, ProcessorMask, "int")
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask", "char", _Node, ProcessorMaskMarshal, ProcessorMask, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -14997,7 +14985,7 @@ class Threading {
      * Retrieves the amount of memory available in the specified node.
      * @remarks
      * The <b>GetNumaAvailableMemoryNode</b> function returns the amount of memory consumed by free and zeroed pages on the specified node. On systems with more than one node, this memory does not include standby pages. Therefore, the sum of the available memory values for all nodes in the system is equal to the value of the Free &amp; Zero Page List Bytes memory performance counter. On systems with only one node, the value returned by <b>GetNumaAvailableMemoryNode</b>  includes standby pages and  is equal to the value of the Available Bytes memory performance counter. For more information about performance counters, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa965225(v=vs.85)">Memory Performance Information</a>.
-     * @param {Integer} Node The number of the node.
+     * @param {Integer} _Node 
      * @param {Pointer<Integer>} AvailableBytes The amount of available memory for the node, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -15006,12 +14994,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnumaavailablememorynode
      * @since windows6.0.6000
      */
-    static GetNumaAvailableMemoryNode(Node, AvailableBytes) {
+    static GetNumaAvailableMemoryNode(_Node, AvailableBytes) {
         AvailableBytesMarshal := AvailableBytes is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNode", "char", Node, AvailableBytesMarshal, AvailableBytes, "int")
+        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNode", "char", _Node, AvailableBytesMarshal, AvailableBytes, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -15027,7 +15015,7 @@ class Threading {
      * The only difference between the <b>GetNumaAvailableMemoryNodeEx</b> function and the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getnumaavailablememorynode">GetNumaAvailableMemoryNode</a> function is the data type of the <i>Node</i> parameter. 
      * 
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0601. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} Node The number of the node.
+     * @param {Integer} _Node 
      * @param {Pointer<Integer>} AvailableBytes The amount of available memory for the node, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -15035,12 +15023,12 @@ class Threading {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnumaavailablememorynodeex
      * @since windows6.1
      */
-    static GetNumaAvailableMemoryNodeEx(Node, AvailableBytes) {
+    static GetNumaAvailableMemoryNodeEx(_Node, AvailableBytes) {
         AvailableBytesMarshal := AvailableBytes is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNodeEx", "ushort", Node, AvailableBytesMarshal, AvailableBytes, "int")
+        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNodeEx", "ushort", _Node, AvailableBytesMarshal, AvailableBytes, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

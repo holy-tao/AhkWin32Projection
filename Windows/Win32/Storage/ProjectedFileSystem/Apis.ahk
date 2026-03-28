@@ -286,17 +286,17 @@ class ProjectedFileSystem {
      * 
      * 
      * If the provider is servicing a <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_get_file_data_cb">PRJ_GET_FILE_DATA_CB</a> callback, this must be the value from the DataStreamId member of the callbackData passed to the provider in the callback.
-     * @param {Pointer} buffer_R 
+     * @param {Pointer} _buffer 
      * @param {Integer} byteOffset Byte offset from the beginning of the file at which to write the data.
      * @param {Integer} length The number of bytes to write to the file.
      * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_OFFSET_ALIGNMENT_VIOLATION) indicates that the user's handle was opened for unbuffered I/O and byteOffset is not aligned to the sector size of the storage device.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjwritefiledata
      * @since windows10.0.17763
      */
-    static PrjWriteFileData(namespaceVirtualizationContext, dataStreamId, buffer_R, byteOffset, length) {
+    static PrjWriteFileData(namespaceVirtualizationContext, dataStreamId, _buffer, byteOffset, length) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", "ptr", namespaceVirtualizationContext, "ptr", dataStreamId, "ptr", buffer_R, "uint", byteOffset, "uint", length, "HRESULT")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", "ptr", namespaceVirtualizationContext, "ptr", dataStreamId, "ptr", _buffer, "uint", byteOffset, "uint", length, "HRESULT")
         return result
     }
 
@@ -322,29 +322,29 @@ class ProjectedFileSystem {
     /**
      * Allocates a buffer that meets the memory alignment requirements of the virtualization instance's storage device.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext Opaque handle for the virtualization instance.
-     * @param {Pointer} size The size of the buffer required, in bytes.
+     * @param {Pointer} _size 
      * @returns {Pointer<Void>} Returns NULL if the buffer could not be allocated.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjallocatealignedbuffer
      * @since windows10.0.17763
      */
-    static PrjAllocateAlignedBuffer(namespaceVirtualizationContext, size) {
+    static PrjAllocateAlignedBuffer(namespaceVirtualizationContext, _size) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjAllocateAlignedBuffer", "ptr", namespaceVirtualizationContext, "ptr", size, "ptr")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjAllocateAlignedBuffer", "ptr", namespaceVirtualizationContext, "ptr", _size, "ptr")
         return result
     }
 
     /**
      * Frees an allocated buffer.
-     * @param {Pointer<Void>} buffer_R 
+     * @param {Pointer<Void>} _buffer 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjfreealignedbuffer
      * @since windows10.0.17763
      */
-    static PrjFreeAlignedBuffer(buffer_R) {
-        buffer_RMarshal := buffer_R is VarRef ? "ptr" : "ptr"
+    static PrjFreeAlignedBuffer(_buffer) {
+        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
 
-        DllCall("PROJECTEDFSLIB.dll\PrjFreeAlignedBuffer", buffer_RMarshal, buffer_R)
+        DllCall("PROJECTEDFSLIB.dll\PrjFreeAlignedBuffer", _bufferMarshal, _buffer)
     }
 
     /**

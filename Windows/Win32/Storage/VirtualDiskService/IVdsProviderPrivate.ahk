@@ -34,13 +34,13 @@ class IVdsProviderPrivate extends IUnknown{
      * Returns the specified object.
      * @remarks
      * The object can be a  subsystem, controller, LUN, LUN plex, drive, pack, disk, volume, or volume plex object. Each object represents a physical device (such as a subsystem, drive, or controllers) or a virtual device (such as a LUN or LUN plex). The hardware provider should create one COM object for each physical or virtual device.
-     * @param {Guid} ObjectId The GUID of the object.
+     * @param {Guid} _ObjectId 
      * @param {Integer} type The object type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a>.
      * @returns {IUnknown} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer for the object. When the pointer is no longer needed, the caller should release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsproviderprivate-getobject
      */
-    GetObject(ObjectId, type) {
-        result := ComCall(3, this, "ptr", ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
+    GetObject(_ObjectId, type) {
+        result := ComCall(3, this, "ptr", _ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
         return IUnknown(ppObjectUnk)
     }
 

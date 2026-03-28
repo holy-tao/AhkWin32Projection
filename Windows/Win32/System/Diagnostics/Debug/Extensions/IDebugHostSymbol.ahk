@@ -39,8 +39,8 @@ class IDebugHostSymbol extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext() {
-        result := ComCall(3, this, "ptr*", &context := 0, "HRESULT")
-        return IDebugHostContext(context)
+        result := ComCall(3, this, "ptr*", &_context := 0, "HRESULT")
+        return IDebugHostContext(_context)
     }
 
     /**

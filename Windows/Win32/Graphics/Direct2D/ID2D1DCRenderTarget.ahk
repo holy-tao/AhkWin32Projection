@@ -61,9 +61,7 @@ class ID2D1DCRenderTarget extends ID2D1RenderTarget{
      * Binds the render target to the device context to which it issues drawing commands.
      * @remarks
      * Before you can render with the DC render target, you must use its <b>BindDC</b> method to associate it with a GDI DC.  You do this each time you  use a different DC, or the size of the area you want to draw to changes.
-     * @param {HDC} hDC Type: <b>const HDC</b>
-     * 
-     * The device context to which the render target issues drawing commands.
+     * @param {HDC} _hDC 
      * @param {Pointer<RECT>} pSubRect Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * The dimensions of the handle to a device context (HDC) to which the render target is bound.
@@ -72,10 +70,10 @@ class ID2D1DCRenderTarget extends ID2D1RenderTarget{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1dcrendertarget-binddc
      */
-    BindDC(hDC, pSubRect) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    BindDC(_hDC, pSubRect) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
 
-        result := ComCall(57, this, "ptr", hDC, "ptr", pSubRect, "HRESULT")
+        result := ComCall(57, this, "ptr", _hDC, "ptr", pSubRect, "HRESULT")
         return result
     }
 }

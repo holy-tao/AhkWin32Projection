@@ -71,8 +71,8 @@ class Nodes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &Node := 0, "HRESULT")
-        return Node(Node)
+        result := ComCall(8, this, "int", Index, "ptr*", &_Node := 0, "HRESULT")
+        return Node(_Node)
     }
 
     /**

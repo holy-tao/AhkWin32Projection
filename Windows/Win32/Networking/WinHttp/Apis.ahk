@@ -8092,9 +8092,7 @@ class WinHttp {
      * @param {Integer} ullFlags Type: \_In\_ **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
      * 
      * The flag to pass to the callback (for example, **WINHTTP_PROXY_NOTIFY_CHANGE**).
-     * @param {Pointer<WINHTTP_PROXY_CHANGE_CALLBACK>} pfnCallback Type: \_In\_ **[WINHTTP_PROXY_CHANGE_CALLBACK](nc-winhttp-winhttp_proxy_change_callback.md)**
-     * 
-     * A pointer to the callback function that should be called when the effective proxy settings change.
+     * @param {Pointer<WINHTTP_PROXY_CHANGE_CALLBACK>} _pfnCallback 
      * @param {Pointer<Void>} pvContext Type: \_In\_ **[PVOID](/windows/win32/winprog/windows-data-types)**
      * 
      * A pointer to a context object to pass to the callback.
@@ -8108,11 +8106,11 @@ class WinHttp {
      * |ERROR_SUCCESS|The operation succeeded.|
      * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpregisterproxychangenotification
      */
-    static WinHttpRegisterProxyChangeNotification(ullFlags, pfnCallback, pvContext, hRegistration) {
+    static WinHttpRegisterProxyChangeNotification(ullFlags, _pfnCallback, pvContext, hRegistration) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
         hRegistrationMarshal := hRegistration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", _pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, "uint")
         return result
     }
 

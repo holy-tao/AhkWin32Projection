@@ -315,9 +315,9 @@ class IFsrmReportJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_lastgeneratedindirectory
      */
     get_LastGeneratedInDirectory() {
-        path := BSTR()
-        result := ComCall(23, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(23, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**
@@ -351,12 +351,12 @@ class IFsrmReportJob extends IFsrmObject{
      * Note that reports that run in the scheduled context remain in the queue for five minutes before they are run; reports that run in the other contexts remain in the queue for 30 seconds.
      * 
      * If you call this method and the report job is already queued or running, the method returns an error. To determine the status of the job, access the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus">IFsrmReportJob::RunningStatus</a> property.
-     * @param {Integer} context Specifies to which subdirectory the reports are written. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration.
+     * @param {Integer} _context 
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-run
      */
-    Run(context) {
-        result := ComCall(26, this, "int", context, "HRESULT")
+    Run(_context) {
+        result := ComCall(26, this, "int", _context, "HRESULT")
         return result
     }
 

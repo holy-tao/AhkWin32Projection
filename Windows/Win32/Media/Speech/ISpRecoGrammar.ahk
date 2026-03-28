@@ -79,19 +79,19 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
     /**
      * 
-     * @param {HMODULE} hModule 
+     * @param {HMODULE} _hModule 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceType 
      * @param {Integer} wLanguage 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
-    LoadCmdFromResource(hModule, pszResourceName, pszResourceType, wLanguage, Options) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    LoadCmdFromResource(_hModule, pszResourceName, pszResourceType, wLanguage, Options) {
+        _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
         pszResourceType := pszResourceType is String ? StrPtr(pszResourceType) : pszResourceType
 
-        result := ComCall(15, this, "ptr", hModule, "ptr", pszResourceName, "ptr", pszResourceType, "ushort", wLanguage, "int", Options, "HRESULT")
+        result := ComCall(15, this, "ptr", _hModule, "ptr", pszResourceName, "ptr", pszResourceType, "ushort", wLanguage, "int", Options, "HRESULT")
         return result
     }
 

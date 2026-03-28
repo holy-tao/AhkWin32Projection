@@ -537,12 +537,12 @@ class IFaxDocument extends IDispatch{
      * The IFaxDocument::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority. (Put)
      * @remarks
      * By default, <b>IFaxDocument::get_Priority</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_priority_type_enum">fptLow</a>, which indicates low priority.
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_priority
      */
-    put_Priority(Priority) {
-        result := ComCall(34, this, "int", Priority, "HRESULT")
+    put_Priority(_Priority) {
+        result := ComCall(34, this, "int", _Priority, "HRESULT")
         return result
     }
 

@@ -411,9 +411,7 @@ class ITextRange2 extends ITextSelection{
      * </ul>
      * </li>
      * </ul>The text range be adjusted to different character positions after calling <b>SetURL</b>.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The text to use as a URL for the selected friendly name.
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -459,10 +457,10 @@ class ITextRange2 extends ITextSelection{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-seturl
      */
-    SetURL(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SetURL(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(85, this, "ptr", bstr, "HRESULT")
+        result := ComCall(85, this, "ptr", _bstr, "HRESULT")
         return result
     }
 
@@ -1327,9 +1325,7 @@ class ITextRange2 extends ITextSelection{
      * 
      * This method is similar to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">ITextRange:: SetText</a>, but lets the client specify flags that control various insertion options, including the special flag <b>tomLanguageTag</b> to get the BCP-47 language tag for the range. This is an industry standard language tag that may be preferable to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-setlanguageid">ITextFont::SetLanguageID</a>, which uses a language code identifier (LCID).
      * @param {Integer} Flags Type: <b>long</b>
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The new text.
+     * @param {BSTR} _bstr 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -1375,10 +1371,10 @@ class ITextRange2 extends ITextSelection{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-settext2
      */
-    SetText2(Flags, bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SetText2(Flags, _bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(103, this, "int", Flags, "ptr", bstr, "HRESULT")
+        result := ComCall(103, this, "int", Flags, "ptr", _bstr, "HRESULT")
         return result
     }
 
@@ -1421,9 +1417,7 @@ class ITextRange2 extends ITextSelection{
      * @param {Integer} Align Type: <b>long</b>
      * 
      * The object alignment as defined in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a>.
-     * @param {Integer} Char Type: <b>long</b>
-     * 
-     * The object character as defined in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a>.
+     * @param {Integer} _Char 
      * @param {Integer} Char1 Type: <b>long</b>
      * 
      * The closing bracket (<a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-objecttype">tomBrackets</a>) character. See <a href="https://www.unicode.org/notes/tn28/">Unicode Technical Note 28</a> for a list of characters.
@@ -1442,23 +1436,21 @@ class ITextRange2 extends ITextSelection{
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setinlineobject
      */
-    SetInlineObject(Type, Align, Char, Char1, Char2, Count, TeXStyle, cCol) {
-        result := ComCall(105, this, "int", Type, "int", Align, "int", Char, "int", Char1, "int", Char2, "int", Count, "int", TeXStyle, "int", cCol, "HRESULT")
+    SetInlineObject(Type, Align, _Char, Char1, Char2, Count, TeXStyle, cCol) {
+        result := ComCall(105, this, "int", Type, "int", Align, "int", _Char, "int", Char1, "int", Char2, "int", Count, "int", TeXStyle, "int", cCol, "HRESULT")
         return result
     }
 
     /**
      * Retrieves the math function type associated with the specified math function name.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
-     * 
-     * The math function name that is checked to determine the math function type.
+     * @param {BSTR} _bstr 
      * @returns {Integer} Type: <b>long*</b>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getmathfunctiontype
      */
-    GetMathFunctionType(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    GetMathFunctionType(_bstr) {
+        _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(106, this, "ptr", bstr, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(106, this, "ptr", _bstr, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 

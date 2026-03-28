@@ -44,9 +44,7 @@ class IRowsetPrioritization extends IUnknown{
      * Sets the current indexer prioritization level for the scope specified by this query.
      * @remarks
      * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
-     * @param {Integer} priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a></b>
-     * 
-     * Specifies the new indexer prioritization level to be set as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
+     * @param {Integer} _priority 
      * @param {Integer} scopeStatisticsEventFrequency Type: <b>DWORD</b>
      * 
      * Specifies the occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.
@@ -55,8 +53,8 @@ class IRowsetPrioritization extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-setscopepriority
      */
-    SetScopePriority(priority, scopeStatisticsEventFrequency) {
-        result := ComCall(3, this, "int", priority, "uint", scopeStatisticsEventFrequency, "HRESULT")
+    SetScopePriority(_priority, scopeStatisticsEventFrequency) {
+        result := ComCall(3, this, "int", _priority, "uint", scopeStatisticsEventFrequency, "HRESULT")
         return result
     }
 
@@ -64,9 +62,7 @@ class IRowsetPrioritization extends IUnknown{
      * Retrieves the current indexer prioritization level for the scope specified by this query.
      * @remarks
      * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
-     * @param {Pointer<Integer>} priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a>*</b>
-     * 
-     * The current indexer prioritization level as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
+     * @param {Pointer<Integer>} _priority 
      * @param {Pointer<Integer>} scopeStatisticsEventFrequency Type: <b>DWORD*</b>
      * 
      * The occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.
@@ -75,11 +71,11 @@ class IRowsetPrioritization extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-getscopepriority
      */
-    GetScopePriority(priority, scopeStatisticsEventFrequency) {
-        priorityMarshal := priority is VarRef ? "int*" : "ptr"
+    GetScopePriority(_priority, scopeStatisticsEventFrequency) {
+        _priorityMarshal := _priority is VarRef ? "int*" : "ptr"
         scopeStatisticsEventFrequencyMarshal := scopeStatisticsEventFrequency is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, priorityMarshal, priority, scopeStatisticsEventFrequencyMarshal, scopeStatisticsEventFrequency, "HRESULT")
+        result := ComCall(4, this, _priorityMarshal, _priority, scopeStatisticsEventFrequencyMarshal, scopeStatisticsEventFrequency, "HRESULT")
         return result
     }
 

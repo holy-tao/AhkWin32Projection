@@ -32,15 +32,15 @@ class IOplockStorage extends IUnknown{
      * 
      * @param {PWSTR} pwcsName 
      * @param {Integer} grfMode 
-     * @param {Integer} stgfmt 
+     * @param {Integer} _stgfmt 
      * @param {Integer} grfAttrs 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
-    CreateStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, riid) {
+    CreateStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, riid) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(3, this, "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", riid, "ptr*", &ppstgOpen := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwcsName, "uint", grfMode, "uint", _stgfmt, "uint", grfAttrs, "ptr", riid, "ptr*", &ppstgOpen := 0, "HRESULT")
         return ppstgOpen
     }
 
@@ -48,15 +48,15 @@ class IOplockStorage extends IUnknown{
      * 
      * @param {PWSTR} pwcsName 
      * @param {Integer} grfMode 
-     * @param {Integer} stgfmt 
+     * @param {Integer} _stgfmt 
      * @param {Integer} grfAttrs 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
-    OpenStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, riid) {
+    OpenStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, riid) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(4, this, "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", riid, "ptr*", &ppstgOpen := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwcsName, "uint", grfMode, "uint", _stgfmt, "uint", grfAttrs, "ptr", riid, "ptr*", &ppstgOpen := 0, "HRESULT")
         return ppstgOpen
     }
 }

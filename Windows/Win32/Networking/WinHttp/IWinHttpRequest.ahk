@@ -259,8 +259,8 @@ class IWinHttpRequest extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-status
      */
     get_Status() {
-        result := ComCall(14, this, "int*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(14, this, "int*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**
@@ -274,9 +274,9 @@ class IWinHttpRequest extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-statustext
      */
     get_StatusText() {
-        Status := BSTR()
-        result := ComCall(15, this, "ptr", Status, "HRESULT")
-        return Status
+        _Status := BSTR()
+        result := ComCall(15, this, "ptr", _Status, "HRESULT")
+        return _Status
     }
 
     /**

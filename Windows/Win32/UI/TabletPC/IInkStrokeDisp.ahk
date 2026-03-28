@@ -146,9 +146,9 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_bezierpoints
      */
     get_BezierPoints() {
-        Points := VARIANT()
-        result := ComCall(8, this, "ptr", Points, "HRESULT")
-        return Points
+        _Points := VARIANT()
+        result := ComCall(8, this, "ptr", _Points, "HRESULT")
+        return _Points
     }
 
     /**
@@ -188,8 +188,8 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_ink
      */
     get_Ink() {
-        result := ComCall(11, this, "ptr*", &Ink := 0, "HRESULT")
-        return IInkDisp(Ink)
+        result := ComCall(11, this, "ptr*", &_Ink := 0, "HRESULT")
+        return IInkDisp(_Ink)
     }
 
     /**
@@ -200,8 +200,8 @@ class IInkStrokeDisp extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_extendedproperties
      */
     get_ExtendedProperties() {
-        result := ComCall(12, this, "ptr*", &Properties := 0, "HRESULT")
-        return IInkExtendedProperties(Properties)
+        result := ComCall(12, this, "ptr*", &_Properties := 0, "HRESULT")
+        return IInkExtendedProperties(_Properties)
     }
 
     /**
@@ -473,16 +473,14 @@ class IInkStrokeDisp extends IDispatch{
      * @param {Integer} X The x-position in ink space of the point to test.
      * @param {Integer} Y The y-position in ink space of the point to test.
      * @param {Pointer<Float>} Distance Optional. The distance from the point to the stroke. This parameter can be <b>NULL</b>. The default value is 0.
-     * @returns {Float} When this method returns, contains the floating point index value that represents the closest location on the stroke.
-     * 
-     * A floating point index is a float value that represents a location somewhere between two points in the stroke. As examples, if 0.0 is the first point in the stroke and 1.0 is the second point in the stroke, 0.5 is halfway between the first and second points. Similarly, a floating point index value of 37.25 represents a location that is 25 percent along the line between points 37 and 38 of the stroke.
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-nearestpoint
      */
     NearestPoint(X, Y, Distance) {
         DistanceMarshal := Distance is VarRef ? "float*" : "ptr"
 
-        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, "float*", &Point := 0, "HRESULT")
-        return Point
+        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, "float*", &_Point := 0, "HRESULT")
+        return _Point
     }
 
     /**
@@ -604,15 +602,13 @@ class IInkStrokeDisp extends IDispatch{
      * Retrieves the points that make up a stroke.
      * @param {Integer} Index Optional. The starting index within the array of points that make up the stroke. The default value ISC_FirstElement, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies the first point.
      * @param {Integer} Count Optional. The number of points to return. The default value ISC_AllElements, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies all of the points that make up the stroke data.
-     * @returns {VARIANT} When this method returns, contains the array of points from the stroke.
-     * 
-     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getpoints
      */
     GetPoints(Index, Count) {
-        Points := VARIANT()
-        result := ComCall(28, this, "int", Index, "int", Count, "ptr", Points, "HRESULT")
-        return Points
+        _Points := VARIANT()
+        result := ComCall(28, this, "int", Index, "int", Count, "ptr", _Points, "HRESULT")
+        return _Points
     }
 
     /**
@@ -625,16 +621,14 @@ class IInkStrokeDisp extends IDispatch{
      * This method does not provide for extending the stroke. If the points array contains more points than the stroke, the extra points are not used. If the count exceeds the number of points in the array, only the number of points in the array are modified.
      * 
      * In order to draw the stroke after calling <b>SetPoints</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-invalidaterect">InvalidateRect</a> function.
-     * @param {VARIANT} Points The array of new points to replace the points in the stroke beginning at <i>index</i>. This is a VARIANT containing an array of Long with the points represented by alternating values of the form x0, y0, x1, y1, x2, y2, and so on.
-     * 
-     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
+     * @param {VARIANT} _Points 
      * @param {Integer} Index Optional. The zero-based index of the first point in the stroke to be modified. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_FirstElement</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies that the first point in the stroke is modified.
      * @param {Integer} Count Optional. The count of points in the stroke to be modified. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_AllElements</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies that all points in the stroke are modified.
      * @returns {Integer} When this method returns, contains the actual number of packets set.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-setpoints
      */
-    SetPoints(Points, Index, Count) {
-        result := ComCall(29, this, "ptr", Points, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
+    SetPoints(_Points, Index, Count) {
+        result := ComCall(29, this, "ptr", _Points, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
         return NumberOfPointsSet
     }
 

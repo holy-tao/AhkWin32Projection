@@ -64,8 +64,8 @@ class IGameInputDevice extends IUnknown{
      * @returns {IGameInputForceFeedbackEffect} 
      */
     CreateForceFeedbackEffect(motorIndex, params) {
-        result := ComCall(6, this, "uint", motorIndex, "ptr", params, "ptr*", &effect := 0, "HRESULT")
-        return IGameInputForceFeedbackEffect(effect)
+        result := ComCall(6, this, "uint", motorIndex, "ptr", params, "ptr*", &_effect := 0, "HRESULT")
+        return IGameInputForceFeedbackEffect(_effect)
     }
 
     /**

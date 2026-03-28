@@ -76,9 +76,7 @@ class IShellFolder extends IUnknown{
      * Since <i>pdwAttributes</i> is an in/out parameter, it should always be initialized. If you pass in an uninitialized value, some of the bits may be inadvertently set. <b>IShellFolder::ParseDisplayName</b> will then query for the corresponding attributes, which may lead to undesirable delays or memory demands. If you do not wish to query for attributes, set <i>pdwAttributes</i> to <b>NULL</b> to avoid unpredictable behavior.
      * 
      * This method is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iparsedisplayname-parsedisplayname">IParseDisplayName::ParseDisplayName</a> method.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A window handle. The client should provide a window handle if it displays a dialog or message box. Otherwise set <i>hwnd</i> to <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * Optional. A pointer to a bind context used to pass parameters as inputs and outputs to the parsing function. These passed parameters are often specific to the data source and are documented by the data source owners. For example, the file system data source accepts the name being parsed (as a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure), using the <a href="https://docs.microsoft.com/windows/desktop/shell/str-constants">STR_FILE_SYS_BIND_DATA</a> bind context parameter. <a href="https://docs.microsoft.com/windows/desktop/shell/str-constants">STR_PARSE_PREFER_FOLDER_BROWSING</a> can be passed to indicate that URLs are parsed using the file system data source when possible. Construct a bind context object using <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-createbindctx">CreateBindCtx</a> and populate the values using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ibindctx-registerobjectparam">IBindCtx::RegisterObjectParam</a>. See <b>Bind Context String Keys</b> for a complete list of these.
@@ -108,15 +106,15 @@ class IShellFolder extends IUnknown{
      * When it is no longer needed, it is the responsibility of the caller to free this resource by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname
      */
-    ParseDisplayName(hwnd, pbc, pszDisplayName, pdwAttributes) {
+    ParseDisplayName(_hwnd, pbc, pszDisplayName, pdwAttributes) {
         static pchEaten := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", &ppidl := 0, pdwAttributesMarshal, pdwAttributes, "HRESULT")
+        result := ComCall(3, this, "ptr", _hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", &ppidl := 0, pdwAttributesMarshal, pdwAttributes, "HRESULT")
         return ppidl
     }
 
@@ -130,9 +128,7 @@ class IShellFolder extends IUnknown{
      * If the method fails, an error value is returned and the pointer specified in <i>ppenumIDList</i> is set to <b>NULL</b>.
      * 
      * If the folder contains no suitable subobjects, then the <b>IShellFolder::EnumObjects</b> method is permitted either to set *<i>ppenumIDList</i> to <b>NULL</b> and return S_FALSE, or to set *<i>ppenumIDList</i> to an enumerator that produces no objects and return S_OK. Calling applications must be prepared for both success cases.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * If user input is required to perform the enumeration, this window handle should be used by the enumeration object as the parent window to take user input. An example would be a dialog box to ask for a password or prompt the user to insert a CD or floppy disk. If <i>hwndOwner</i> is set to <b>NULL</b>, the enumerator should not post any messages, and if user input is required, it should silently fail.
+     * @param {HWND} _hwnd 
      * @param {Integer} grfFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf">SHCONTF</a></b>
      * 
      * Flags indicating which items to include in the enumeration. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf">SHCONTF</a> enumerated type.
@@ -141,10 +137,10 @@ class IShellFolder extends IUnknown{
      * The address that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumidlist">IEnumIDList</a> interface of the enumeration object created by this method. If an error occurs or no suitable subobjects are found, <i>ppenumIDList</i> is set to <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-enumobjects
      */
-    EnumObjects(hwnd, grfFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    EnumObjects(_hwnd, grfFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(4, this, "ptr", hwnd, "uint", grfFlags, "ptr*", &ppenumIDList := 0, "int")
+        result := ComCall(4, this, "ptr", _hwnd, "uint", grfFlags, "ptr*", &ppenumIDList := 0, "int")
         return IEnumIDList(ppenumIDList)
     }
 
@@ -252,17 +248,7 @@ class IShellFolder extends IUnknown{
      * }
      * 
      * ```
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * A value that specifies how the comparison should be performed. 
-     * 
-     * 					
-     * 
-     * The lower sixteen bits of <i>lParam</i> define the sorting rule. Most applications set the sorting rule to the default value of zero, indicating that the two items should be compared by name. The system does not define any other sorting rules. Some folder objects might allow calling applications to use the lower sixteen bits of <i>lParam</i> to specify folder-specific sorting rules. The rules and their associated <i>lParam</i> values are defined by the folder.
-     * 
-     * When the system folder view object calls <b>IShellFolder::CompareIDs</b>, the lower sixteen bits of <i>lParam</i> are used to specify the column to be used for the comparison.
-     * 
-     * The upper sixteen bits of <i>lParam</i> are used for flags that modify the sorting rule. The system currently defines these modifier flags.
+     * @param {LPARAM} _lParam 
      * @param {Pointer<ITEMIDLIST>} pidl1 Type: <b>PCUIDLIST_RELATIVE</b>
      * 
      * A pointer to the first item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. It will be relative to the folder. This <b>ITEMIDLIST</b> structure can contain more than one element; therefore, the entire structure must be compared, not just the first element.
@@ -314,8 +300,8 @@ class IShellFolder extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-compareids
      */
-    CompareIDs(lParam, pidl1, pidl2) {
-        result := ComCall(7, this, "ptr", lParam, "ptr", pidl1, "ptr", pidl2, "int")
+    CompareIDs(_lParam, pidl1, pidl2) {
+        result := ComCall(7, this, "ptr", _lParam, "ptr", pidl1, "ptr", pidl2, "int")
         return result
     }
 
@@ -553,9 +539,7 @@ class IShellFolder extends IUnknown{
      * 
      * 
      * This call prevents both the old and new names being displayed in the view.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window of any dialog or message box that the client displays.
+     * @param {HWND} _hwnd 
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that uniquely identifies the file object or subfolder relative to the parent folder. The structure must contain exactly one <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure followed by a terminating zero.
@@ -570,11 +554,11 @@ class IShellFolder extends IUnknown{
      * Optional. If specified, the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that receives the <b>ITEMIDLIST</b> of the renamed item. The caller requests this value by passing a non-null <i>ppidlOut</i>. Implementations of <b>IShellFolder::SetNameOf</b> must return a pointer to the new <b>ITEMIDLIST</b> in the <i>ppidlOut</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-setnameof
      */
-    SetNameOf(hwnd, pidl, pszName, uFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetNameOf(_hwnd, pidl, pszName, uFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(12, this, "ptr", hwnd, "ptr", pidl, "ptr", pszName, "uint", uFlags, "ptr*", &ppidlOut := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", _hwnd, "ptr", pidl, "ptr", pszName, "uint", uFlags, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
     }
 }

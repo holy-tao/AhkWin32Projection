@@ -33,24 +33,24 @@ class IComResourceEvents extends IUnknown{
     /**
      * Generated when a new resource is created and allocated.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} ObjectID The just-in-time activated object.
+     * @param {Integer} _ObjectID 
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcecreate
      */
-    OnResourceCreate(pInfo, ObjectID, pszType, resId, enlisted) {
+    OnResourceCreate(pInfo, _ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(3, this, "ptr", pInfo, "uint", ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "HRESULT")
         return result
     }
 
     /**
      * Generated when an existing resource is allocated.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} ObjectID The just-in-time activated object.
+     * @param {Integer} _ObjectID 
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier for the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.
@@ -59,60 +59,60 @@ class IComResourceEvents extends IUnknown{
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourceallocate
      */
-    OnResourceAllocate(pInfo, ObjectID, pszType, resId, enlisted, NumRated, Rating) {
+    OnResourceAllocate(pInfo, _ObjectID, pszType, resId, enlisted, NumRated, Rating) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(4, this, "ptr", pInfo, "uint", ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "uint", NumRated, "uint", Rating, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "uint", NumRated, "uint", Rating, "HRESULT")
         return result
     }
 
     /**
      * Generated when an object is finished with a resource.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} ObjectID The just-in-time activated object.
+     * @param {Integer} _ObjectID 
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcerecycle
      */
-    OnResourceRecycle(pInfo, ObjectID, pszType, resId) {
+    OnResourceRecycle(pInfo, _ObjectID, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(5, this, "ptr", pInfo, "uint", ObjectID, "ptr", pszType, "uint", resId, "HRESULT")
+        result := ComCall(5, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "HRESULT")
         return result
     }
 
     /**
      * Generated when a resource is destroyed.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} ObjectID The just-in-time activated object.
+     * @param {Integer} _ObjectID 
      * @param {HRESULT} hr The result from resource dispensers destroy call.
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcedestroy
      */
-    OnResourceDestroy(pInfo, ObjectID, hr, pszType, resId) {
+    OnResourceDestroy(pInfo, _ObjectID, hr, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(6, this, "ptr", pInfo, "uint", ObjectID, "int", hr, "ptr", pszType, "uint", resId, "HRESULT")
+        result := ComCall(6, this, "ptr", pInfo, "uint", _ObjectID, "int", hr, "ptr", pszType, "uint", resId, "HRESULT")
         return result
     }
 
     /**
      * Generated when a resource is tracked.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
-     * @param {Integer} ObjectID The just-in-time activated object.
+     * @param {Integer} _ObjectID 
      * @param {PWSTR} pszType A description of the resource.
      * @param {Integer} resId The unique identifier of the resource.
      * @param {BOOL} enlisted Indicates whether the resource is enlisted in a transaction.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomresourceevents-onresourcetrack
      */
-    OnResourceTrack(pInfo, ObjectID, pszType, resId, enlisted) {
+    OnResourceTrack(pInfo, _ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(7, this, "ptr", pInfo, "uint", ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "HRESULT")
+        result := ComCall(7, this, "ptr", pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "int", enlisted, "HRESULT")
         return result
     }
 }

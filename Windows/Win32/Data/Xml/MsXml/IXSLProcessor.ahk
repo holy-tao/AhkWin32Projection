@@ -114,15 +114,15 @@ class IXSLProcessor extends IDispatch{
 
     /**
      * 
-     * @param {BSTR} mode 
+     * @param {BSTR} _mode 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
      */
-    setStartMode(mode, namespaceURI) {
-        mode := mode is String ? BSTR.Alloc(mode).Value : mode
+    setStartMode(_mode, namespaceURI) {
+        _mode := _mode is String ? BSTR.Alloc(_mode).Value : _mode
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(10, this, "ptr", mode, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(10, this, "ptr", _mode, "ptr", namespaceURI, "HRESULT")
         return result
     }
 
@@ -131,9 +131,9 @@ class IXSLProcessor extends IDispatch{
      * @returns {BSTR} 
      */
     get_startMode() {
-        mode := BSTR()
-        result := ComCall(11, this, "ptr", mode, "HRESULT")
-        return mode
+        _mode := BSTR()
+        result := ComCall(11, this, "ptr", _mode, "HRESULT")
+        return _mode
     }
 
     /**

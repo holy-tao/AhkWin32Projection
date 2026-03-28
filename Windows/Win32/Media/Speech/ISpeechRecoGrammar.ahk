@@ -164,15 +164,15 @@ class ISpeechRecoGrammar extends IDispatch{
 
     /**
      * 
-     * @param {Integer} hModule 
+     * @param {Integer} _hModule 
      * @param {VARIANT} ResourceName 
-     * @param {VARIANT} ResourceType 
+     * @param {VARIANT} _ResourceType 
      * @param {Integer} LanguageId 
      * @param {Integer} LoadOption 
      * @returns {HRESULT} 
      */
-    CmdLoadFromResource(hModule, ResourceName, ResourceType, LanguageId, LoadOption) {
-        result := ComCall(15, this, "int", hModule, "ptr", ResourceName, "ptr", ResourceType, "int", LanguageId, "int", LoadOption, "HRESULT")
+    CmdLoadFromResource(_hModule, ResourceName, _ResourceType, LanguageId, LoadOption) {
+        result := ComCall(15, this, "int", _hModule, "ptr", ResourceName, "ptr", _ResourceType, "int", LanguageId, "int", LoadOption, "HRESULT")
         return result
     }
 

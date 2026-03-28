@@ -93,15 +93,15 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
      * @param {PWSTR} messageText 
      * @param {PWSTR} fileUrl 
      * @param {Integer} line 
-     * @param {Integer} column 
+     * @param {Integer} _column 
      * @returns {HRESULT} 
      */
-    WriteWithUrlLineAndColumn(source, level, messageId, messageText, fileUrl, line, column) {
+    WriteWithUrlLineAndColumn(source, level, messageId, messageText, fileUrl, line, _column) {
         source := source is String ? StrPtr(source) : source
         messageText := messageText is String ? StrPtr(messageText) : messageText
         fileUrl := fileUrl is String ? StrPtr(fileUrl) : fileUrl
 
-        result := ComCall(6, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "uint", column, "HRESULT")
+        result := ComCall(6, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "uint", _column, "HRESULT")
         return result
     }
 }

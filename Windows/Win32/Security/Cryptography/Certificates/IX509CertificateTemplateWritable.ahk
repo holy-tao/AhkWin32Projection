@@ -206,13 +206,13 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object. (Get)
      * @remarks
      * Currently, TemplatePropSecurityDescriptor is the only property that you can set. The property value must be a <b>VARIANT</b> of type <b>VT_BSTR</b> or <b>VT_BYREF|VT_BSTR</b> and must be a valid SDDL string.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-get_property
      */
-    get_Property(property) {
+    get_Property(_property) {
         pValue := VARIANT()
-        result := ComCall(9, this, "int", property, "ptr", pValue, "HRESULT")
+        result := ComCall(9, this, "int", _property, "ptr", pValue, "HRESULT")
         return pValue
     }
 
@@ -220,13 +220,13 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object. (Put)
      * @remarks
      * Currently, TemplatePropSecurityDescriptor is the only property that you can set. The property value must be a <b>VARIANT</b> of type <b>VT_BSTR</b> or <b>VT_BYREF|VT_BSTR</b> and must be a valid SDDL string.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-put_property
      */
-    put_Property(property, value) {
-        result := ComCall(10, this, "int", property, "ptr", value, "HRESULT")
+    put_Property(_property, value) {
+        result := ComCall(10, this, "int", _property, "ptr", value, "HRESULT")
         return result
     }
 

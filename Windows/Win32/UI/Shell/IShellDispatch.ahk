@@ -83,19 +83,17 @@ class IShellDispatch extends IDispatch{
      * IShellDispatch.BrowseForFolder method - Creates a dialog box that enables the user to select a folder and then returns the selected folder's Folder object.
      * @remarks
      * This method is implemented and accessed through the [**Shell.BrowseForFolder**](shell-browseforfolder.md) method.
-     * @param {Integer} Hwnd Type: **Integer**
-     * 
-     * The handle to the parent window of the dialog box. This value can be zero.
+     * @param {Integer} _Hwnd 
      * @param {BSTR} Title 
      * @param {Integer} Options 
      * @param {VARIANT} RootFolder 
      * @returns {Folder} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-browseforfolder
      */
-    BrowseForFolder(Hwnd, Title, Options, RootFolder) {
+    BrowseForFolder(_Hwnd, Title, Options, RootFolder) {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
 
-        result := ComCall(10, this, "int", Hwnd, "ptr", Title, "int", Options, "ptr", RootFolder, "ptr*", &ppsdf := 0, "HRESULT")
+        result := ComCall(10, this, "int", _Hwnd, "ptr", Title, "int", Options, "ptr", RootFolder, "ptr*", &ppsdf := 0, "HRESULT")
         return Folder(ppsdf)
     }
 

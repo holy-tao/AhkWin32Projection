@@ -50,7 +50,7 @@ class IAMVfwCaptureDialogs extends IUnknown{
      * 
      * The Video Format dialog (VfwCaptureDialog_Format) may change the video format. If so, the method tries to reconnect the capture filter. If the downstream filter rejects the new format, the method returns VFW_E_CANNOT_CONNECT.
      * @param {Integer} iDialog Dialog box to display. This is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vfwcapturedialogs">VfwCaptureDialogs</a> enumeration.
-     * @param {HWND} hwnd Handle of the dialog box's parent window.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -105,10 +105,10 @@ class IAMVfwCaptureDialogs extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcapturedialogs-showdialog
      */
-    ShowDialog(iDialog, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ShowDialog(iDialog, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(4, this, "int", iDialog, "ptr", hwnd, "HRESULT")
+        result := ComCall(4, this, "int", iDialog, "ptr", _hwnd, "HRESULT")
         return result
     }
 

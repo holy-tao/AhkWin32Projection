@@ -36,14 +36,14 @@ class IVisualTreeServiceCallback2 extends IVisualTreeServiceCallback{
      * When any XAML diagnostics API results in a resource reference becoming invalid, this callback will be notified of the invalid reference. An instance handle will be given that corresponds to an element in the tree, and a string representation of the path to the invalid reference. The grammar for the syntax is: PropertyName:Full.Dotted.TypeName[Indexer] and paths can be separated with a forward slash ("/") to be chained together.
      * @param {Integer} element The XAML element in the visual tree.
      * @param {Integer} elementState The state of the element.
-     * @param {PWSTR} context The path to the element.
+     * @param {PWSTR} _context 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservicecallback2-onelementstatechanged
      */
-    OnElementStateChanged(element, elementState, context) {
-        context := context is String ? StrPtr(context) : context
+    OnElementStateChanged(element, elementState, _context) {
+        _context := _context is String ? StrPtr(_context) : _context
 
-        result := ComCall(4, this, "uint", element, "int", elementState, "ptr", context, "HRESULT")
+        result := ComCall(4, this, "uint", element, "int", elementState, "ptr", _context, "HRESULT")
         return result
     }
 }

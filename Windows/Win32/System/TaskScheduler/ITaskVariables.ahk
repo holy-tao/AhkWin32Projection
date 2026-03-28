@@ -44,14 +44,14 @@ class ITaskVariables extends IUnknown{
 
     /**
      * Sets the output variables for a task.
-     * @param {BSTR} input The output variables for a task.
+     * @param {BSTR} _input 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskvariables-setoutput
      */
-    SetOutput(input) {
-        input := input is String ? BSTR.Alloc(input).Value : input
+    SetOutput(_input) {
+        _input := _input is String ? BSTR.Alloc(_input).Value : _input
 
-        result := ComCall(4, this, "ptr", input, "HRESULT")
+        result := ComCall(4, this, "ptr", _input, "HRESULT")
         return result
     }
 

@@ -7182,7 +7182,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7199,14 +7199,14 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_resultw
      * @since windows6.0.6000
      */
-    static ldap_parse_resultW(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+    static ldap_parse_resultW(_Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
         MatchedDNsMarshal := MatchedDNs is VarRef ? "ptr*" : "ptr"
         ErrorMessageMarshal := ErrorMessage is VarRef ? "ptr*" : "ptr"
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", _Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7219,7 +7219,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a>. Free the <i>Referrals</i> array by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>. Free the <i>ServerControls</i> by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_controls_free">ldap_controls_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7236,14 +7236,14 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_resulta
      * @since windows6.0.6000
      */
-    static ldap_parse_resultA(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+    static ldap_parse_resultA(_Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
         MatchedDNsMarshal := MatchedDNs is VarRef ? "ptr*" : "ptr"
         ErrorMessageMarshal := ErrorMessage is VarRef ? "ptr*" : "ptr"
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", _Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7260,7 +7260,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_extended_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
@@ -7276,11 +7276,11 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_extended_resulta
      * @since windows6.0.6000
      */
-    static ldap_parse_extended_resultA(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
+    static ldap_parse_extended_resultA(_Connection, ResultMessage, ResultOID, ResultData, Freeit) {
         ResultOIDMarshal := ResultOID is VarRef ? "ptr*" : "ptr"
         ResultDataMarshal := ResultData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", _Connection, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7299,7 +7299,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_extended_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
@@ -7315,11 +7315,11 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_extended_resultw
      * @since windows6.0.6000
      */
-    static ldap_parse_extended_resultW(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
+    static ldap_parse_extended_resultW(_Connection, ResultMessage, ResultOID, ResultData, Freeit) {
         ResultOIDMarshal := ResultOID is VarRef ? "ptr*" : "ptr"
         ResultDataMarshal := ResultData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", _Connection, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7479,7 +7479,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a>. Free the <i>Referrals</i> array by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>. Free the <i>ServerControls</i> by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_controls_free">ldap_controls_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7496,14 +7496,14 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_result
      * @since windows6.0.6000
      */
-    static ldap_parse_result(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+    static ldap_parse_result(_Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
         MatchedDNsMarshal := MatchedDNs is VarRef ? "ptr*" : "ptr"
         ErrorMessageMarshal := ErrorMessage is VarRef ? "ptr*" : "ptr"
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", _Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7637,15 +7637,15 @@ class Ldap {
     /**
      * Obsolete function. It exists only for compatibility.
      * @param {Pointer<LDAP>} ld Session handle.
-     * @param {PSTR} msg A message.
+     * @param {PSTR} _msg 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_perror
      * @since windows6.0.6000
      */
-    static ldap_perror(ld, msg) {
-        msg := msg is String ? StrPtr(msg) : msg
+    static ldap_perror(ld, _msg) {
+        _msg := _msg is String ? StrPtr(_msg) : _msg
 
-        DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", msg, "CDecl ")
+        DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", _msg, "CDecl ")
     }
 
     /**
@@ -8681,12 +8681,12 @@ class Ldap {
 
     /**
      * 
-     * @param {Pointer<LDAP_VERSION_INFO>} version 
+     * @param {Pointer<LDAP_VERSION_INFO>} _version 
      * @param {Pointer<HANDLE>} Instance 
      * @returns {Integer} 
      */
-    static ldap_startup(version, Instance) {
-        result := DllCall("WLDAP32.dll\ldap_startup", "ptr", version, "ptr", Instance, "CDecl uint")
+    static ldap_startup(_version, Instance) {
+        result := DllCall("WLDAP32.dll\ldap_startup", "ptr", _version, "ptr", Instance, "CDecl uint")
         return result
     }
 
@@ -8696,7 +8696,7 @@ class Ldap {
      * <div class="alert"><b>Warning</b>  The <b>ldap_cleanup</b> function may cause 
      *     unpredictable behavior at the DLL unload time.  Use is not recommended and is at your own risk.</div>
      * <div> </div>
-     * @param {HANDLE} hInstance This parameter is ignored.
+     * @param {HANDLE} _hInstance 
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -8704,10 +8704,10 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_cleanup
      * @since windows6.0.6000
      */
-    static ldap_cleanup(hInstance) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static ldap_cleanup(_hInstance) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
-        result := DllCall("WLDAP32.dll\ldap_cleanup", "ptr", hInstance, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_cleanup", "ptr", _hInstance, "CDecl uint")
         return result
     }
 
@@ -9642,7 +9642,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
      * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
      * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} _Context 
      * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
@@ -9667,14 +9667,14 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_vlv_controlw
      * @since windows6.0.6000
      */
-    static ldap_parse_vlv_controlW(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
+    static ldap_parse_vlv_controlW(ExternalHandle, Control, TargetPos, ListCount, _Context, ErrCode) {
         ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         TargetPosMarshal := TargetPos is VarRef ? "uint*" : "ptr"
         ListCountMarshal := ListCount is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
         ErrCodeMarshal := ErrCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, ContextMarshal, Context, ErrCodeMarshal, ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, _ContextMarshal, _Context, ErrCodeMarshal, ErrCode, "CDecl int")
         return result
     }
 
@@ -9698,7 +9698,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
      * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
      * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} _Context 
      * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
@@ -9723,14 +9723,14 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_vlv_controla
      * @since windows6.0.6000
      */
-    static ldap_parse_vlv_controlA(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
+    static ldap_parse_vlv_controlA(ExternalHandle, Control, TargetPos, ListCount, _Context, ErrCode) {
         ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         TargetPosMarshal := TargetPos is VarRef ? "uint*" : "ptr"
         ListCountMarshal := ListCount is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
         ErrCodeMarshal := ErrCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, ContextMarshal, Context, ErrCodeMarshal, ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, _ContextMarshal, _Context, ErrCodeMarshal, ErrCode, "CDecl int")
         return result
     }
 
@@ -9902,7 +9902,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_reference as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
      * @param {Pointer<Pointer<PWSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
@@ -9913,10 +9913,10 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_referencew
      * @since windows6.0.6000
      */
-    static ldap_parse_referenceW(Connection, ResultMessage, Referrals) {
+    static ldap_parse_referenceW(_Connection, ResultMessage, Referrals) {
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", _Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -9928,7 +9928,7 @@ class Ldap {
      * 
      * When it is no longer needed, free the <i>Referrals</i> pointer by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
@@ -9941,10 +9941,10 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_referencea
      * @since windows6.0.6000
      */
-    static ldap_parse_referenceA(Connection, ResultMessage, Referrals) {
+    static ldap_parse_referenceA(_Connection, ResultMessage, Referrals) {
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", _Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -9956,7 +9956,7 @@ class Ldap {
      * 
      * When it is no longer needed, free the <i>Referrals</i> pointer by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} _Connection 
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
      * @param {Pointer<Pointer<PSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
@@ -9967,10 +9967,10 @@ class Ldap {
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_reference
      * @since windows6.0.6000
      */
-    static ldap_parse_reference(Connection, ResultMessage, Referrals) {
+    static ldap_parse_reference(_Connection, ResultMessage, Referrals) {
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", _Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 

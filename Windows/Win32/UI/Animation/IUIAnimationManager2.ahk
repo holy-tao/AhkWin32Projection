@@ -149,13 +149,13 @@ class IUIAnimationManager2 extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>). An application can use tags to identify animation variables and storyboards. NULL is a valid object component of a tag; therefore, the <i>object</i> parameter can be NULL.
      * 
      * Tags are not necessarily unique; this method returns <b>UI_E_AMBIGUOUS_MATCH</b> if more than one animation variable exists with the specified tag.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The identifier portion of the tag.
      * @returns {IUIAnimationVariable2} The animation variable that matches the specified tag, or <b>NULL</b> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getvariablefromtag
      */
-    GetVariableFromTag(object_R, id) {
-        result := ComCall(10, this, "ptr", object_R, "uint", id, "ptr*", &variable := 0, "HRESULT")
+    GetVariableFromTag(_object, id) {
+        result := ComCall(10, this, "ptr", _object, "uint", id, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable2(variable)
     }
 
@@ -165,13 +165,13 @@ class IUIAnimationManager2 extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>). An application can use tags to identify animation variables and storyboards. NULL is a valid object component of a tag; therefore, the <i>object</i> parameter can be NULL.
      * 
      * Tags are not necessarily unique; this method returns UI_E_AMBIGUOUS_MATCH if more than one storyboard exists with the specified tag.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The identifier portion of the tag.
      * @returns {IUIAnimationStoryboard2} The storyboard that matches the specified tag, or <b>NULL</b> if no match is found.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getstoryboardfromtag
      */
-    GetStoryboardFromTag(object_R, id) {
-        result := ComCall(11, this, "ptr", object_R, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
+    GetStoryboardFromTag(_object, id) {
+        result := ComCall(11, this, "ptr", _object, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
         return IUIAnimationStoryboard2(storyboard)
     }
 
@@ -187,24 +187,24 @@ class IUIAnimationManager2 extends IUnknown{
 
     /**
      * Gets the status of the animation manager. (IUIAnimationManager2.GetStatus)
-     * @returns {Integer} The status of the animation manager.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getstatus
      */
     GetStatus() {
-        result := ComCall(13, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(13, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**
      * Sets the animation mode. (IUIAnimationManager2.SetAnimationMode)
      * @remarks
      * Use this method to enable or disable animation globally. While animation is disabled, all storyboards finish immediately when they are scheduled. The default mode is <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_mode">UI_ANIMATION_MODE_SYSTEM_DEFAULT</a>, which lets Windows decide when to enable or disable animation in the application.
-     * @param {Integer} mode The animation mode.
+     * @param {Integer} _mode 
      * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-setanimationmode
      */
-    SetAnimationMode(mode) {
-        result := ComCall(14, this, "int", mode, "HRESULT")
+    SetAnimationMode(_mode) {
+        result := ComCall(14, this, "int", _mode, "HRESULT")
         return result
     }
 

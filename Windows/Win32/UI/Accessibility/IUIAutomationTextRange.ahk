@@ -115,14 +115,14 @@ class IUIAutomationTextRange extends IUnknown{
      * - Document
      * 
      * ExpandToEnclosingUnit respects both visible and hidden text.
-     * @param {Integer} textUnit 
+     * @param {Integer} _textUnit 
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/WinProg/windows-data-types)**
      * 
      * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-expandtoenclosingunit
      */
-    ExpandToEnclosingUnit(textUnit) {
-        result := ComCall(6, this, "int", textUnit, "HRESULT")
+    ExpandToEnclosingUnit(_textUnit) {
+        result := ComCall(6, this, "int", _textUnit, "HRESULT")
         return result
     }
 
@@ -133,9 +133,7 @@ class IUIAutomationTextRange extends IUnknown{
      * @param {Integer} attr Type: <b>TEXTATTRIBUTEID</b>
      * 
      * The identifier of the text attribute for the text range subset being retrieved. For a list of text attribute IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>.
-     * @param {VARIANT} val Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>
-     * 
-     * The value of the attribute. This value must match the type specified for the attribute.
+     * @param {VARIANT} _val 
      * @param {BOOL} backward Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the last occurring text range should be returned instead of the first; otherwise <b>FALSE</b>.
@@ -144,8 +142,8 @@ class IUIAutomationTextRange extends IUnknown{
      * Receives a pointer to the text range having a matching attribute and attribute value; otherwise <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-findattribute
      */
-    FindAttribute(attr, val, backward) {
-        result := ComCall(7, this, "int", attr, "ptr", val, "int", backward, "ptr*", &found := 0, "HRESULT")
+    FindAttribute(attr, _val, backward) {
+        result := ComCall(7, this, "int", attr, "ptr", _val, "int", backward, "ptr*", &found := 0, "HRESULT")
         return IUIAutomationTextRange(found)
     }
 
@@ -294,7 +292,7 @@ class IUIAutomationTextRange extends IUnknown{
      * </ul>
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit will not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-ui-automation-textpattern-overview">UI Automation Support for Textual Content</a>.
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of text units to move. A positive value moves the text range forward. A negative value moves the text range backward. Zero has no effect.
@@ -303,8 +301,8 @@ class IUIAutomationTextRange extends IUnknown{
      * Receives the number of text units actually moved. This can be less than the number requested if either of the new text range endpoints is greater than or less than the endpoints retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-itextprovider-get_documentrange">IUIAutomationTextPattern::DocumentRange</a> method. This value can be negative if navigation is happening in the backward direction.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-move
      */
-    Move(unit, count) {
-        result := ComCall(13, this, "int", unit, "int", count, "int*", &moved := 0, "HRESULT")
+    Move(_unit, count) {
+        result := ComCall(13, this, "int", _unit, "int", count, "int*", &moved := 0, "HRESULT")
         return moved
     }
 
@@ -335,7 +333,7 @@ class IUIAutomationTextRange extends IUnknown{
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit will not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-ui-automation-textpattern-overview">UI Automation Support for Textual Content</a>.
      * @param {Integer} endpoint 
-     * @param {Integer} unit 
+     * @param {Integer} _unit 
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of units to move. A positive count moves the endpoint forward. A negative count moves backward. A count of 0 has no effect.
@@ -344,8 +342,8 @@ class IUIAutomationTextRange extends IUnknown{
      * Receives the count of units actually moved. This value can be less than the number requested if moving the endpoint runs into the beginning or end of the document.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-moveendpointbyunit
      */
-    MoveEndpointByUnit(endpoint, unit, count) {
-        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, "int*", &moved := 0, "HRESULT")
+    MoveEndpointByUnit(endpoint, _unit, count) {
+        result := ComCall(14, this, "int", endpoint, "int", _unit, "int", count, "int*", &moved := 0, "HRESULT")
         return moved
     }
 

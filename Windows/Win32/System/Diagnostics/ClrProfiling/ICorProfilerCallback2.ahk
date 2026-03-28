@@ -83,11 +83,11 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
     /**
      * 
      * @param {Integer} finalizerFlags 
-     * @param {Pointer} objectID 
+     * @param {Pointer} _objectID 
      * @returns {HRESULT} 
      */
-    FinalizeableObjectQueued(finalizerFlags, objectID) {
-        result := ComCall(76, this, "uint", finalizerFlags, "ptr", objectID, "HRESULT")
+    FinalizeableObjectQueued(finalizerFlags, _objectID) {
+        result := ComCall(76, this, "uint", finalizerFlags, "ptr", _objectID, "HRESULT")
         return result
     }
 

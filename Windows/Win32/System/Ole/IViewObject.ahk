@@ -233,38 +233,7 @@ class IViewObject extends IUnknown{
      * 
      * At any time, a given view object can support only one advisory connection. Therefore, when <b>IViewObject::SetAdvise</b> is called and the view object is already holding on to an advise sink pointer, OLE releases the existing pointer before the new one is registered.
      * @param {Integer} aspects View for which the advisory connection is being set up. Valid values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a>. See the <b>DVASPECT</b> enumeration for more information.
-     * @param {Integer} advf Contains a group of flags for controlling the advisory connection. Valid values are from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a>. However, only some of the possible <b>ADVF</b> values are relevant for this method. The following table briefly describes the relevant values. See the <b>ADVF</b> enumeration for a more detailed description.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ADVF_ONLYONCE"></a><a id="advf_onlyonce"></a><dl>
-     * <dt><b>ADVF_ONLYONCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Causes the advisory connection to be destroyed after the first notification is sent.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="ADVF_PRIMEFIRST"></a><a id="advf_primefirst"></a><dl>
-     * <dt><b>ADVF_PRIMEFIRST</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Causes an initial notification to be sent regardless of whether data has changed from its current state.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  The ADVF_ONLYONCE and ADVF_PRIMEFIRST can be combined to provide an asynchronous call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a>. </div>
-     * <div> </div>
+     * @param {Integer} _advf 
      * @param {IAdviseSink} pAdvSink Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface on the advisory sink that is to be informed of changes. A <b>NULL</b> value deletes any existing advisory connection.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
@@ -320,8 +289,8 @@ class IViewObject extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-setadvise
      */
-    SetAdvise(aspects, advf, pAdvSink) {
-        result := ComCall(7, this, "uint", aspects, "uint", advf, "ptr", pAdvSink, "HRESULT")
+    SetAdvise(aspects, _advf, pAdvSink) {
+        result := ComCall(7, this, "uint", aspects, "uint", _advf, "ptr", pAdvSink, "HRESULT")
         return result
     }
 

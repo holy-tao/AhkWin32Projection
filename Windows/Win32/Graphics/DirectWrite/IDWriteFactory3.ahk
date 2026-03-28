@@ -39,9 +39,7 @@ class IDWriteFactory3 extends IDWriteFactory2{
 
     /**
      * Creates a glyph-run-analysis object that encapsulates info that DirectWrite uses to render a glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
-     * 
-     * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a> structure that contains the properties of the glyph run.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_MATRIX>} transform Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a> structure that describes the optional transform to be applied to glyphs and their positions.
@@ -68,8 +66,8 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteglyphrunanalysis">IDWriteGlyphRunAnalysis</a> interface for the newly created glyph-run-analysis object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createglyphrunanalysis
      */
-    CreateGlyphRunAnalysis(glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(31, this, "ptr", glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+    CreateGlyphRunAnalysis(_glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
+        result := ComCall(31, this, "ptr", _glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
@@ -185,14 +183,12 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {IDWriteFontSet} fontSet Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>*</b>
      * 
      * A set of fonts to use to build the collection.
-     * @returns {IDWriteFontCollection1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection1">IDWriteFontCollection1</a>**</b>
-     * 
-     * Holds the newly created font collection object, or NULL in case of failure.
+     * @returns {IDWriteFontCollection1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontcollectionfromfontset
      */
     CreateFontCollectionFromFontSet(fontSet) {
-        result := ComCall(37, this, "ptr", fontSet, "ptr*", &fontCollection := 0, "HRESULT")
-        return IDWriteFontCollection1(fontCollection)
+        result := ComCall(37, this, "ptr", fontSet, "ptr*", &_fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection1(_fontCollection)
     }
 
     /**
@@ -206,14 +202,12 @@ class IDWriteFactory3 extends IDWriteFactory2{
      *            to the set of system fonts. If this parameter is FALSE, the function will still detect changes if the font      
      *            cache service is running, but there may be some latency. For example, an application might specify TRUE if      
      *            it has just installed a font and wants to be sure the font collection contains that font.
-     * @returns {IDWriteFontCollection1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection1">IDWriteFontCollection1</a>**</b>
-     * 
-     * Holds the newly created font collection object, or NULL in case of failure.
+     * @returns {IDWriteFontCollection1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, checkForUpdates) {
-        result := ComCall(38, this, "int", includeDownloadableFonts, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
-        return IDWriteFontCollection1(fontCollection)
+        result := ComCall(38, this, "int", includeDownloadableFonts, "ptr*", &_fontCollection := 0, "int", checkForUpdates, "HRESULT")
+        return IDWriteFontCollection1(_fontCollection)
     }
 
     /**

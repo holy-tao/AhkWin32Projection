@@ -35,24 +35,24 @@ class IWorkspaceRegistration2 extends IWorkspaceRegistration{
      * 
      * @param {IWorkspaceClientExt} pUnk 
      * @param {BSTR} bstrEventLogUploadAddress 
-     * @param {Guid} correlationId 
+     * @param {Guid} _correlationId 
      * @returns {Integer} 
      */
-    AddResourceEx(pUnk, bstrEventLogUploadAddress, correlationId) {
+    AddResourceEx(pUnk, bstrEventLogUploadAddress, _correlationId) {
         bstrEventLogUploadAddress := bstrEventLogUploadAddress is String ? BSTR.Alloc(bstrEventLogUploadAddress).Value : bstrEventLogUploadAddress
 
-        result := ComCall(5, this, "ptr", pUnk, "ptr", bstrEventLogUploadAddress, "uint*", &pdwCookie := 0, "ptr", correlationId, "HRESULT")
+        result := ComCall(5, this, "ptr", pUnk, "ptr", bstrEventLogUploadAddress, "uint*", &pdwCookie := 0, "ptr", _correlationId, "HRESULT")
         return pdwCookie
     }
 
     /**
      * 
      * @param {Integer} dwCookieConnection 
-     * @param {Guid} correlationId 
+     * @param {Guid} _correlationId 
      * @returns {HRESULT} 
      */
-    RemoveResourceEx(dwCookieConnection, correlationId) {
-        result := ComCall(6, this, "uint", dwCookieConnection, "ptr", correlationId, "HRESULT")
+    RemoveResourceEx(dwCookieConnection, _correlationId) {
+        result := ComCall(6, this, "uint", dwCookieConnection, "ptr", _correlationId, "HRESULT")
         return result
     }
 }

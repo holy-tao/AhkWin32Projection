@@ -34,8 +34,8 @@ class IDWriteBitmapRenderTarget2 extends IDWriteBitmapRenderTarget1{
      * @returns {DWRITE_BITMAP_DATA_BGRA32} 
      */
     GetBitmapData() {
-        bitmapData := DWRITE_BITMAP_DATA_BGRA32()
-        result := ComCall(13, this, "ptr", bitmapData, "HRESULT")
-        return bitmapData
+        _bitmapData := DWRITE_BITMAP_DATA_BGRA32()
+        result := ComCall(13, this, "ptr", _bitmapData, "HRESULT")
+        return _bitmapData
     }
 }

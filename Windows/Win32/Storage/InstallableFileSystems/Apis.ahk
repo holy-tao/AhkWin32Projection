@@ -566,15 +566,15 @@ class InstallableFileSystems {
      * 
      * To close a filter handle returned by <b>FilterCreate</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterclose">FilterClose</a>.
      * @param {PWSTR} lpFilterName Pointer to a null-terminated wide-character string containing the name of the minifilter. This parameter is required and cannot be <b>NULL</b>.
-     * @returns {HFILTER} Pointer to a caller-allocated variable that receives a handle for the minifilter if the call to <b>FilterCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @returns {HFILTER} 
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtercreate
      */
     static FilterCreate(lpFilterName) {
         lpFilterName := lpFilterName is String ? StrPtr(lpFilterName) : lpFilterName
 
-        hFilter := HFILTER()
-        result := DllCall("FLTLIB.dll\FilterCreate", "ptr", lpFilterName, "ptr", hFilter, "HRESULT")
-        return hFilter
+        _hFilter := HFILTER()
+        result := DllCall("FLTLIB.dll\FilterCreate", "ptr", lpFilterName, "ptr", _hFilter, "HRESULT")
+        return _hFilter
     }
 
     /**
@@ -585,14 +585,14 @@ class InstallableFileSystems {
      * Use <b>FilterClose</b> to close open minifilter handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtercreate">FilterCreate</a>. Use <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindclose">FilterFindClose</a> to close handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindfirst">FilterFindFirst</a>. 
      * 
      * To close a connection port handle that was opened by calling <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterconnectcommunicationport">FilterConnectCommunicationPort</a>, use <a href="https://docs.microsoft.com/windows/win32/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
-     * @param {HFILTER} hFilter Minifilter handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtercreate">FilterCreate</a>.
+     * @param {HFILTER} _hFilter 
      * @returns {HRESULT} <b>FilterClose</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterclose
      */
-    static FilterClose(hFilter) {
-        hFilter := hFilter is Win32Handle ? NumGet(hFilter, "ptr") : hFilter
+    static FilterClose(_hFilter) {
+        _hFilter := _hFilter is Win32Handle ? NumGet(_hFilter, "ptr") : _hFilter
 
-        result := DllCall("FLTLIB.dll\FilterClose", "ptr", hFilter, "HRESULT")
+        result := DllCall("FLTLIB.dll\FilterClose", "ptr", _hFilter, "HRESULT")
         return result
     }
 
@@ -626,7 +626,7 @@ class InstallableFileSystems {
      * </li>
      * </ul>
      * @param {PWSTR} lpInstanceName Pointer to a null-terminated wide-character string containing the instance name for the instance. This parameter is optional and can be <b>NULL</b>. If it is <b>NULL</b>, the first instance found for this minifilter on this volume is returned.
-     * @returns {HFILTER_INSTANCE} Pointer to a caller-allocated variable that receives an opaque handle for the minifilter instance if the call to <b>FilterInstanceCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @returns {HFILTER_INSTANCE} 
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancecreate
      */
     static FilterInstanceCreate(lpFilterName, lpVolumeName, lpInstanceName) {
@@ -634,9 +634,9 @@ class InstallableFileSystems {
         lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
         lpInstanceName := lpInstanceName is String ? StrPtr(lpInstanceName) : lpInstanceName
 
-        hInstance := HFILTER_INSTANCE()
-        result := DllCall("FLTLIB.dll\FilterInstanceCreate", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "ptr", hInstance, "HRESULT")
-        return hInstance
+        _hInstance := HFILTER_INSTANCE()
+        result := DllCall("FLTLIB.dll\FilterInstanceCreate", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "ptr", _hInstance, "HRESULT")
+        return _hInstance
     }
 
     /**
@@ -645,14 +645,14 @@ class InstallableFileSystems {
      * After the <b>FilterInstanceClose</b> function is called, the minifilter instance handle specified by the <i>hFilterInstanceFind</i> parameter is no longer valid and cannot safely be used. 
      * 
      * Use <b>FilterInstanceClose</b> to close handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancecreate">FilterInstanceCreate</a>. Use <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindclose">FilterInstanceFindClose</a> to close handles returned by calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindfirst">FilterInstanceFindFirst</a>.
-     * @param {HFILTER_INSTANCE} hInstance Minifilter instance handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancecreate">FilterInstanceCreate</a>.
+     * @param {HFILTER_INSTANCE} _hInstance 
      * @returns {HRESULT} <b>FilterInstanceClose</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstanceclose
      */
-    static FilterInstanceClose(hInstance) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static FilterInstanceClose(_hInstance) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
-        result := DllCall("FLTLIB.dll\FilterInstanceClose", "ptr", hInstance, "HRESULT")
+        result := DllCall("FLTLIB.dll\FilterInstanceClose", "ptr", _hInstance, "HRESULT")
         return result
     }
 
@@ -1307,17 +1307,17 @@ class InstallableFileSystems {
      * The FilterGetInformation function returns various kinds of information about a minifilter.
      * @remarks
      * <b>FilterGetInformation</b> is the Win32 equivalent of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetfilterinformation">FltGetFilterInformation</a>.
-     * @param {HFILTER} hFilter Handle returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtercreate">FilterCreate</a> function.
+     * @param {HFILTER} _hFilter 
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtergetinformation
      */
-    static FilterGetInformation(hFilter, dwInformationClass, lpBuffer, dwBufferSize) {
-        hFilter := hFilter is Win32Handle ? NumGet(hFilter, "ptr") : hFilter
+    static FilterGetInformation(_hFilter, dwInformationClass, lpBuffer, dwBufferSize) {
+        _hFilter := _hFilter is Win32Handle ? NumGet(_hFilter, "ptr") : _hFilter
 
-        result := DllCall("FLTLIB.dll\FilterGetInformation", "ptr", hFilter, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+        result := DllCall("FLTLIB.dll\FilterGetInformation", "ptr", _hFilter, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
         return lpBytesReturned
     }
 
@@ -1327,17 +1327,17 @@ class InstallableFileSystems {
      * Given a handle to a minifilter instance, this routine returns information about the minifilter instance.  The type of instance information returned is determined by the <i>dwInformationClass</i> parameter.
      * 
      * <b>FilterInstanceGetInformation</b> is the Win32 equivalent of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetinstanceinformation">FltGetInstanceInformation</a>.
-     * @param {HFILTER_INSTANCE} hInstance Handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancecreate">FilterInstanceCreate</a>.
+     * @param {HFILTER_INSTANCE} _hInstance 
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
      * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterInstanceGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancegetinformation
      */
-    static FilterInstanceGetInformation(hInstance, dwInformationClass, lpBuffer, dwBufferSize) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static FilterInstanceGetInformation(_hInstance, dwInformationClass, lpBuffer, dwBufferSize) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
 
-        result := DllCall("FLTLIB.dll\FilterInstanceGetInformation", "ptr", hInstance, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+        result := DllCall("FLTLIB.dll\FilterInstanceGetInformation", "ptr", _hInstance, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
         return lpBytesReturned
     }
 

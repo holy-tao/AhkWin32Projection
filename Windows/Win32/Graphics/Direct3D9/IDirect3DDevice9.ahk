@@ -575,10 +575,7 @@ class IDirect3DDevice9 extends IUnknown{
      * 
      * Height of the top-level of the texture, in pixels. The pixel dimensions of subsequent levels will be the truncated value of half of the previous level's 
      *         pixel dimension (independently). Each dimension clamps at a size of 1 pixel. Thus, if the division by 2 results in 0, 1 will be taken instead.
-     * @param {Integer} Levels Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Number of levels in the texture. If this is zero, Direct3D will generate all texture sublevels down to 1 by 1 pixels for hardware that supports 
-     *         mipmapped textures. Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3dbasetexture9-getlevelcount">IDirect3DBaseTexture9::GetLevelCount</a> to see the number of levels generated.
+     * @param {Integer} _Levels 
      * @param {Integer} Usage Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Usage can be 0, which indicates no usage value. However, if usage is desired, use a combination of one or more <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dusage">D3DUSAGE</a> constants. It is 
@@ -598,8 +595,8 @@ class IDirect3DDevice9 extends IUnknown{
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dtexture9">IDirect3DTexture9</a> interface, representing the created texture resource.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createtexture
      */
-    CreateTexture(Width, Height, Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(23, this, "uint", Width, "uint", Height, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppTexture := 0, "ptr", pSharedHandle, "HRESULT")
+    CreateTexture(Width, Height, _Levels, Usage, Format, Pool, pSharedHandle) {
+        result := ComCall(23, this, "uint", Width, "uint", Height, "uint", _Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppTexture := 0, "ptr", pSharedHandle, "HRESULT")
         return IDirect3DTexture9(ppTexture)
     }
 
@@ -614,9 +611,7 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Depth Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Depth of the top-level of the volume texture, in pixels. This value must be a power of two if the D3DPTEXTURECAPS_VOLUMEMAP_POW2 member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dcaps9">D3DCAPS9</a> is set. The pixel dimensions of subsequent levels will be the truncated value of half of the previous level's pixel dimension (independently). Each dimension clamps at a size of 1 pixel. Thus, if the division by 2 results in 0 (zero), 1 will be taken instead. The maximum dimension that a driver supports (for width, height, and depth) can be found in MaxVolumeExtent in <b>D3DCAPS9</b>.
-     * @param {Integer} Levels Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Number of levels in the texture. If this is zero, Direct3D will generate all texture sublevels down to 1x1 pixels for hardware that supports mipmapped volume textures. Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3dbasetexture9-getlevelcount">IDirect3DBaseTexture9::GetLevelCount</a> to see the number of levels generated.
+     * @param {Integer} _Levels 
      * @param {Integer} Usage Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Usage can be 0, which indicates no usage value. If usage is desired, use D3DUSAGE_DYNAMIC or D3DUSAGE_SOFTWAREPROCESSING. For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dusage">D3DUSAGE</a>.
@@ -634,8 +629,8 @@ class IDirect3DDevice9 extends IUnknown{
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dvolumetexture9">IDirect3DVolumeTexture9</a> interface, representing the created volume texture resource.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvolumetexture
      */
-    CreateVolumeTexture(Width, Height, Depth, Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(24, this, "uint", Width, "uint", Height, "uint", Depth, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppVolumeTexture := 0, "ptr", pSharedHandle, "HRESULT")
+    CreateVolumeTexture(Width, Height, Depth, _Levels, Usage, Format, Pool, pSharedHandle) {
+        result := ComCall(24, this, "uint", Width, "uint", Height, "uint", Depth, "uint", _Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppVolumeTexture := 0, "ptr", pSharedHandle, "HRESULT")
         return IDirect3DVolumeTexture9(ppVolumeTexture)
     }
 
@@ -648,9 +643,7 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} EdgeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the edges of all the top-level faces of the cube texture. The pixel dimensions of subsequent levels of each face will be the truncated value of half of the previous level's pixel dimension (independently). Each dimension clamps at a size of 1 pixel. Thus, if the division by 2 results in 0 (zero), 1 will be taken instead.
-     * @param {Integer} Levels Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Number of levels in each face of the cube texture. If this is zero, Direct3D will generate all cube texture sublevels down to 1x1 pixels for each face for hardware that supports mipmapped cube textures.  Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3dbasetexture9-getlevelcount">IDirect3DBaseTexture9::GetLevelCount</a> to see the number of levels generated.
+     * @param {Integer} _Levels 
      * @param {Integer} Usage Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Usage can be 0, which indicates no usage value. However, if usage is desired, use a combination of one or more <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dusage">D3DUSAGE</a> constants. It is good practice to match the usage parameter in CreateCubeTexture with the behavior flags in <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3d9-createdevice">IDirect3D9::CreateDevice</a>. For more information, see Remarks.
@@ -668,8 +661,8 @@ class IDirect3DDevice9 extends IUnknown{
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dcubetexture9">IDirect3DCubeTexture9</a> interface, representing the created cube texture resource.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createcubetexture
      */
-    CreateCubeTexture(EdgeLength, Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(25, this, "uint", EdgeLength, "uint", Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppCubeTexture := 0, "ptr", pSharedHandle, "HRESULT")
+    CreateCubeTexture(EdgeLength, _Levels, Usage, Format, Pool, pSharedHandle) {
+        result := ComCall(25, this, "uint", EdgeLength, "uint", _Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppCubeTexture := 0, "ptr", pSharedHandle, "HRESULT")
         return IDirect3DCubeTexture9(ppCubeTexture)
     }
 
@@ -1442,17 +1435,15 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Pointer<RECT>} pRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Pointer to the source rectangle. Using <b>NULL</b> means that the entire surface will be filled.
-     * @param {Integer} color Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcolor">D3DCOLOR</a></b>
-     * 
-     * Color used for filling.
+     * @param {Integer} _color 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be
      *      D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-colorfill
      */
-    ColorFill(pSurface, pRect, color) {
-        result := ComCall(35, this, "ptr", pSurface, "ptr", pRect, "uint", color, "HRESULT")
+    ColorFill(pSurface, pRect, _color) {
+        result := ComCall(35, this, "ptr", pSurface, "ptr", pRect, "uint", _color, "HRESULT")
         return result
     }
 
@@ -1667,9 +1658,7 @@ class IDirect3DDevice9 extends IUnknown{
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Combination of one or more <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dclear">D3DCLEAR</a> flags that specify the surface(s) that will be cleared.
-     * @param {Integer} Color Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcolor">D3DCOLOR</a></b>
-     * 
-     * Clear a render target to this ARGB color.
+     * @param {Integer} _Color 
      * @param {Float} Z Type: <b>float</b>
      * 
      * Clear the depth buffer to this new z value which ranges from 0 to 1. See remarks.
@@ -1681,8 +1670,8 @@ class IDirect3DDevice9 extends IUnknown{
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be: D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-clear
      */
-    Clear(Count, pRects, Flags, Color, Z, Stencil) {
-        result := ComCall(43, this, "uint", Count, "ptr", pRects, "uint", Flags, "uint", Color, "float", Z, "uint", Stencil, "HRESULT")
+    Clear(Count, pRects, Flags, _Color, Z, Stencil) {
+        result := ComCall(43, this, "uint", Count, "ptr", pRects, "uint", Flags, "uint", _Color, "float", Z, "uint", Stencil, "HRESULT")
         return result
     }
 
@@ -3751,9 +3740,7 @@ class IDirect3DDevice9 extends IUnknown{
      * Calling <b>IDirect3DDevice9::DrawRectPatch</b> with a handle invalidates the same handle cached by a previous <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-drawtripatch">IDirect3DDevice9::DrawTriPatch</a> call.
      * 
      * For dynamic patches, the patch data changes for every rendering of the patch, so it is not efficient to cache information. The application can convey this to Direct3D by setting Handle to 0. In this case, Direct3D draws the patch using the currently set streams and the pNumSegs values, and does not cache any information. It is not valid to simultaneously set Handle to 0 and pRectPatchInfo to <b>NULL</b>.
-     * @param {Integer} Handle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Handle to the rectangular patch to draw.
+     * @param {Integer} _Handle 
      * @param {Pointer<Float>} pNumSegs Type: <b>const float*</b>
      * 
      * Pointer to an array of four floating-point values that identify the number of segments each edge of the rectangle patch should be divided into when tessellated. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3drectpatch-info">D3DRECTPATCH_INFO</a>.
@@ -3766,10 +3753,10 @@ class IDirect3DDevice9 extends IUnknown{
      *      D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawrectpatch
      */
-    DrawRectPatch(Handle, pNumSegs, pRectPatchInfo) {
+    DrawRectPatch(_Handle, pNumSegs, pRectPatchInfo) {
         pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
 
-        result := ComCall(115, this, "uint", Handle, pNumSegsMarshal, pNumSegs, "ptr", pRectPatchInfo, "HRESULT")
+        result := ComCall(115, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, "ptr", pRectPatchInfo, "HRESULT")
         return result
     }
 
@@ -3781,9 +3768,7 @@ class IDirect3DDevice9 extends IUnknown{
      * Calling <b>IDirect3DDevice9::DrawTriPatch</b> with a handle invalidates the same handle cached by a previous <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-drawrectpatch">IDirect3DDevice9::DrawRectPatch</a> call.
      * 
      * For dynamic patches, the patch data changes for every rendering of the patch so it is not efficient to cache information. The application can convey this to Direct3D by setting Handle to 0. In this case, Direct3D draws the patch using the currently set streams and the pNumSegs values, and does not cache any information. It is not valid to simultaneously set Handle to 0 and pTriPatchInfo to <b>NULL</b>.
-     * @param {Integer} Handle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Handle to the triangular patch to draw.
+     * @param {Integer} _Handle 
      * @param {Pointer<Float>} pNumSegs Type: <b>const float*</b>
      * 
      * Pointer to an array of three floating-point values that identify the number of segments each edge of the triangle patch should be divided into when tessellated. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtripatch-info">D3DTRIPATCH_INFO</a>.
@@ -3796,26 +3781,24 @@ class IDirect3DDevice9 extends IUnknown{
      *      D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawtripatch
      */
-    DrawTriPatch(Handle, pNumSegs, pTriPatchInfo) {
+    DrawTriPatch(_Handle, pNumSegs, pTriPatchInfo) {
         pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
 
-        result := ComCall(116, this, "uint", Handle, pNumSegsMarshal, pNumSegs, "ptr", pTriPatchInfo, "HRESULT")
+        result := ComCall(116, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, "ptr", pTriPatchInfo, "HRESULT")
         return result
     }
 
     /**
      * The IDirect3DDevice9::DeletePatch method (d3d9.h) frees a cached high-order patch.
-     * @param {Integer} Handle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * 
-     * Handle of the cached high-order patch to delete.
+     * @param {Integer} _Handle 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be 
      *      D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-deletepatch
      */
-    DeletePatch(Handle) {
-        result := ComCall(117, this, "uint", Handle, "HRESULT")
+    DeletePatch(_Handle) {
+        result := ComCall(117, this, "uint", _Handle, "HRESULT")
         return result
     }
 

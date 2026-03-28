@@ -141,13 +141,11 @@ class IInspectable extends IUnknown{
 
     /**
      * Gets the trust level of the current Windows Runtime object.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/ne-inspectable-trustlevel">TrustLevel</a>*</b>
-     * 
-     * The trust level of the current Windows Runtime object. The default is <b>BaseLevel</b>.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-gettrustlevel
      */
     GetTrustLevel() {
-        result := ComCall(5, this, "int*", &trustLevel := 0, "HRESULT")
-        return trustLevel
+        result := ComCall(5, this, "int*", &_trustLevel := 0, "HRESULT")
+        return _trustLevel
     }
 }

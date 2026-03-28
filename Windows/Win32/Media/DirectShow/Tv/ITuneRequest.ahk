@@ -68,12 +68,12 @@ class ITuneRequest extends IDispatch{
      * The get_TuningSpace method retrieves the tuning space that was used to create this tune request.
      * @remarks
      * You must first access the tuning space in order to obtain the default locator and the default preferred component types.
-     * @returns {ITuningSpace} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface. The caller must release the interface.
+     * @returns {ITuningSpace} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_tuningspace
      */
     get_TuningSpace() {
-        result := ComCall(7, this, "ptr*", &TuningSpace := 0, "HRESULT")
-        return ITuningSpace(TuningSpace)
+        result := ComCall(7, this, "ptr*", &_TuningSpace := 0, "HRESULT")
+        return ITuningSpace(_TuningSpace)
     }
 
     /**
@@ -84,12 +84,12 @@ class ITuneRequest extends IDispatch{
      * If the method succeeds, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponents">IComponents</a> interface has an outstanding reference count. The caller must release the interface.
      * 
      * After a tune request is submitted to the Network Provider filter, the Network Provider updates the component lists in the tune request. You can get the updated component list by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ituner-get_tunerequest">ITuner::get_TuneRequest</a> on the Network Provider, and then calling <b>get_Components</b> on the returned tune request. (The original tune request that was submitted to the Network Provider does not get updated, because the Network Provider creates an internal copy of the tune request. Therefore, you have to call <b>get_TuneRequest</b> to get the updated component list.)
-     * @returns {IComponents} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponents">IComponents</a> interface pointer. The caller must release the interface.
+     * @returns {IComponents} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_components
      */
     get_Components() {
-        result := ComCall(8, this, "ptr*", &Components := 0, "HRESULT")
-        return IComponents(Components)
+        result := ComCall(8, this, "ptr*", &_Components := 0, "HRESULT")
+        return IComponents(_Components)
     }
 
     /**
@@ -106,22 +106,22 @@ class ITuneRequest extends IDispatch{
 
     /**
      * The get_Locator method is called from the Network Provider to get the ILocator object associated with the requested broadcast.
-     * @returns {ILocator} Address of an <b>ILocator</b> interface pointer that will be set to the new object.
+     * @returns {ILocator} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_locator
      */
     get_Locator() {
-        result := ComCall(10, this, "ptr*", &Locator := 0, "HRESULT")
-        return ILocator(Locator)
+        result := ComCall(10, this, "ptr*", &_Locator := 0, "HRESULT")
+        return ILocator(_Locator)
     }
 
     /**
      * The put_Locator method is called from the Network Provider to set the ILocator object associated with the requested broadcast.
-     * @param {ILocator} Locator Pointer to an <b>ILocator</b> interface that specifies the new locator.
+     * @param {ILocator} _Locator 
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-put_locator
      */
-    put_Locator(Locator) {
-        result := ComCall(11, this, "ptr", Locator, "HRESULT")
+    put_Locator(_Locator) {
+        result := ComCall(11, this, "ptr", _Locator, "HRESULT")
         return result
     }
 }

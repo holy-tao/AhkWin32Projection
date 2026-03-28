@@ -73,17 +73,15 @@ class IGridProvider extends IUnknown{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The ordinal number of the row of interest.
-     * @param {Integer} column Type: <b>int</b>
-     * 
-     * The ordinal number of the column of interest.
+     * @param {Integer} _column 
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives a pointer to a UI Automation provider for the specified cell or a null reference 
      *                 (Nothing in Microsoft Visual Basic .NET) if the cell is empty.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-getitem
      */
-    GetItem(row, column) {
-        result := ComCall(3, this, "int", row, "int", column, "ptr*", &pRetVal := 0, "HRESULT")
+    GetItem(row, _column) {
+        result := ComCall(3, this, "int", row, "int", _column, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderSimple(pRetVal)
     }
 

@@ -73,7 +73,7 @@ class IX509PolicyServerUrl extends IDispatch{
 
     /**
      * Initializes an IX509PolicyServerUrl object for a computer or user context.
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -97,8 +97,8 @@ class IX509PolicyServerUrl extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-initialize
      */
-    Initialize(context) {
-        result := ComCall(7, this, "int", context, "HRESULT")
+    Initialize(_context) {
+        result := ComCall(7, this, "int", _context, "HRESULT")
         return result
     }
 
@@ -275,7 +275,7 @@ class IX509PolicyServerUrl extends IDispatch{
      * Registers a certificate enrollment policy (CEP) server.
      * @remarks
      * The <b>UpdateRegistry</b> method is called by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmenthelper-addpolicyserver">AddPolicyServer</a> method.
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -310,14 +310,14 @@ class IX509PolicyServerUrl extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-updateregistry
      */
-    UpdateRegistry(context) {
-        result := ComCall(20, this, "int", context, "HRESULT")
+    UpdateRegistry(_context) {
+        result := ComCall(20, this, "int", _context, "HRESULT")
         return result
     }
 
     /**
      * Unregisters a certificate enrollment policy (CEP) server.
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -341,8 +341,8 @@ class IX509PolicyServerUrl extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-removefromregistry
      */
-    RemoveFromRegistry(context) {
-        result := ComCall(21, this, "int", context, "HRESULT")
+    RemoveFromRegistry(_context) {
+        result := ComCall(21, this, "int", _context, "HRESULT")
         return result
     }
 }

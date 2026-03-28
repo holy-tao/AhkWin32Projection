@@ -168,11 +168,11 @@ class IInkRecognizer extends IDispatch{
 
     /**
      * Creates a new InkRecognizerContext object.
-     * @returns {IInkRecognizerContext} Returns a <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrecognizercontext-class">InkRecognizerContext</a> for the invoking <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognizer">IInkRecognizer</a>.
+     * @returns {IInkRecognizerContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-createrecognizercontext
      */
     CreateRecognizerContext() {
-        result := ComCall(13, this, "ptr*", &Context := 0, "HRESULT")
-        return IInkRecognizerContext(Context)
+        result := ComCall(13, this, "ptr*", &_Context := 0, "HRESULT")
+        return IInkRecognizerContext(_Context)
     }
 }

@@ -117,7 +117,7 @@ class IX509PolicyServerListManager extends IDispatch{
 
     /**
      * Initializes an IX509PolicyServerListManager object.
-     * @param {Integer} context 
+     * @param {Integer} _context 
      * @param {Integer} Flags 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -153,8 +153,8 @@ class IX509PolicyServerListManager extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverlistmanager-initialize
      */
-    Initialize(context, Flags) {
-        result := ComCall(13, this, "int", context, "int", Flags, "HRESULT")
+    Initialize(_context, Flags) {
+        result := ComCall(13, this, "int", _context, "int", Flags, "HRESULT")
         return result
     }
 }

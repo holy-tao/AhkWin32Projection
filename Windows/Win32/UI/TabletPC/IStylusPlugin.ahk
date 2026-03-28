@@ -72,12 +72,12 @@ class IStylusPlugin extends IUnknown{
      * The stylus is in range of the digitizer. This is a good place to check if the stylus is inverted and if so, switch to eraser mode.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that sent the notification.
      * @param {Integer} tcid Tablet context identifier.
-     * @param {Integer} sid Stylus identifier.
+     * @param {Integer} _sid 
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusinrange
      */
-    StylusInRange(piRtsSrc, tcid, sid) {
-        result := ComCall(5, this, "ptr", piRtsSrc, "uint", tcid, "uint", sid, "HRESULT")
+    StylusInRange(piRtsSrc, tcid, _sid) {
+        result := ComCall(5, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "HRESULT")
         return result
     }
 
@@ -87,12 +87,12 @@ class IStylusPlugin extends IUnknown{
      * The stylus is out of range of the digitizer.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that sent the notification.
      * @param {Integer} tcid Tablet context identifier.
-     * @param {Integer} sid Stylus identifier.
+     * @param {Integer} _sid 
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusoutofrange
      */
-    StylusOutOfRange(piRtsSrc, tcid, sid) {
-        result := ComCall(6, this, "ptr", piRtsSrc, "uint", tcid, "uint", sid, "HRESULT")
+    StylusOutOfRange(piRtsSrc, tcid, _sid) {
+        result := ComCall(6, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "HRESULT")
         return result
     }
 
@@ -159,14 +159,14 @@ class IStylusPlugin extends IUnknown{
      * @remarks
      * This notification is used to when the stylus button is down and the stylus is in range of the digitizer.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that sent the notification.
-     * @param {Integer} sid Security identifier.
+     * @param {Integer} _sid 
      * @param {Pointer<Guid>} pGuidStylusButton The GUID-type identifier for the stylus button data. The GUID indicates the unique identifier for this data object.
      * @param {Pointer<POINT>} pStylusPos A <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ns-rtscom-stylusinfo">StylusInfo Structure</a> containing the information about the <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that is associated with the stylus.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusbuttondown
      */
-    StylusButtonDown(piRtsSrc, sid, pGuidStylusButton, pStylusPos) {
-        result := ComCall(9, this, "ptr", piRtsSrc, "uint", sid, "ptr", pGuidStylusButton, "ptr", pStylusPos, "HRESULT")
+    StylusButtonDown(piRtsSrc, _sid, pGuidStylusButton, pStylusPos) {
+        result := ComCall(9, this, "ptr", piRtsSrc, "uint", _sid, "ptr", pGuidStylusButton, "ptr", pStylusPos, "HRESULT")
         return result
     }
 
@@ -175,14 +175,14 @@ class IStylusPlugin extends IUnknown{
      * @remarks
      * The stylus button is no longer down and the stylus is in range of the digitizer.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> (RTS) object that sent the notification.
-     * @param {Integer} sid Security identifier.
+     * @param {Integer} _sid 
      * @param {Pointer<Guid>} pGuidStylusButton The globally unique identifier (GUID) for the stylus button data.
      * @param {Pointer<POINT>} pStylusPos A<a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ns-rtscom-stylusinfo">StylusInfo Structure</a> containing the information about the RTS that is associated with the stylus.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusbuttonup
      */
-    StylusButtonUp(piRtsSrc, sid, pGuidStylusButton, pStylusPos) {
-        result := ComCall(10, this, "ptr", piRtsSrc, "uint", sid, "ptr", pGuidStylusButton, "ptr", pStylusPos, "HRESULT")
+    StylusButtonUp(piRtsSrc, _sid, pGuidStylusButton, pStylusPos) {
+        result := ComCall(10, this, "ptr", piRtsSrc, "uint", _sid, "ptr", pGuidStylusButton, "ptr", pStylusPos, "HRESULT")
         return result
     }
 
@@ -272,15 +272,15 @@ class IStylusPlugin extends IUnknown{
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-irealtimestylus-getdesiredpacketdescription">IRealTimeStylus::GetDesiredPacketDescription Method</a> method to determine what packet properties are sent in the events.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> (RTS) object that sent the notification.
      * @param {Integer} tcid The tablet context identifier for the event.
-     * @param {Integer} sid The security identifier.
+     * @param {Integer} _sid 
      * @param {Integer} event The system event sent by the RTS object
      * @param {SYSTEM_EVENT_DATA} eventdata The 
      *               <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ns-tpcshrd-system_event_data">SYSTEM_EVENT_DATA</a> structure containing information about the system event, <i>event</i>.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/classes-and-interfaces---ink-analysis">Classes and Interfaces - Ink Analysis</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-systemevent
      */
-    SystemEvent(piRtsSrc, tcid, sid, event, eventdata) {
-        result := ComCall(14, this, "ptr", piRtsSrc, "uint", tcid, "uint", sid, "ushort", event, "ptr", eventdata, "HRESULT")
+    SystemEvent(piRtsSrc, tcid, _sid, event, eventdata) {
+        result := ComCall(14, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "ushort", event, "ptr", eventdata, "HRESULT")
         return result
     }
 

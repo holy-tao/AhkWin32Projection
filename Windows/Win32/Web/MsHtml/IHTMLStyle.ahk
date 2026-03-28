@@ -2608,8 +2608,8 @@ class IHTMLStyle extends IDispatch{
      * @returns {BSTR} 
      */
     toString() {
-        String_R := BSTR()
-        result := ComCall(185, this, "ptr", String_R, "HRESULT")
-        return String_R
+        _String := BSTR()
+        result := ComCall(185, this, "ptr", _String, "HRESULT")
+        return _String
     }
 }

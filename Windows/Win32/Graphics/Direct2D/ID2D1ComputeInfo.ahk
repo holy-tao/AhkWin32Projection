@@ -34,7 +34,7 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
 
     /**
      * Establishes or changes the constant buffer data for this transform.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferCount Type: <b>UINT32</b>
      * 
      * The number of bytes of data in the constant buffer.
@@ -43,10 +43,10 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshaderconstantbuffer
      */
-    SetComputeShaderConstantBuffer(buffer_R, bufferCount) {
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+    SetComputeShaderConstantBuffer(_buffer, bufferCount) {
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, buffer_RMarshal, buffer_R, "uint", bufferCount, "HRESULT")
+        result := ComCall(7, this, _bufferMarshal, _buffer, "uint", bufferCount, "HRESULT")
         return result
     }
 

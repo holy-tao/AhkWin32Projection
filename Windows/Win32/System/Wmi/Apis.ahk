@@ -364,19 +364,16 @@ class Wmi {
      * @param {Pointer<Pointer<MI_Instance>>} extendedError Optional parameter giving more error information if the operation failed. If an instance is returned, 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_instance_delete">MI_Instance_Delete</a> must  be called to free it 
      *       when it is no longer needed.
-     * @param {Pointer<MI_Application>} application A pointer to an uninitialized <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_application">MI_Application</a> 
-     *       handle is passed in and a populated handle is returned. The initialized handle must be passed to 
-     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_application_close">MI_Application_Close</a> before the application 
-     *   shuts down. If an application passes this handle, pass it by value rather than as a pointer.
+     * @param {Pointer<MI_Application>} _application 
      * @returns {Integer} This function returns MI_Result MI_MAIN_CALL.
      * @see https://learn.microsoft.com/windows/win32/api/mi/nf-mi-mi_application_initializev1
      * @since windows8.0
      */
-    static MI_Application_InitializeV1(flags, applicationID, extendedError, application) {
+    static MI_Application_InitializeV1(flags, applicationID, extendedError, _application) {
         applicationIDMarshal := applicationID is VarRef ? "ushort*" : "ptr"
         extendedErrorMarshal := extendedError is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, applicationIDMarshal, applicationID, extendedErrorMarshal, extendedError, "ptr", application, "CDecl int")
+        result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, applicationIDMarshal, applicationID, extendedErrorMarshal, extendedError, "ptr", _application, "CDecl int")
         return result
     }
 

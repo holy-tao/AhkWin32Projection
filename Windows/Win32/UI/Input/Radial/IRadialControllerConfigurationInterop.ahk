@@ -32,15 +32,15 @@ class IRadialControllerConfigurationInterop extends IInspectable{
 
     /**
      * Retrieves a RadialControllerConfiguration object bound to the active application.
-     * @param {HWND} hwnd Handle to the window of the active application.
+     * @param {HWND} _hwnd 
      * @param {Pointer<Guid>} riid The GUID of the <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontrollerconfiguration">RadialControllerConfiguration</a> object.
      * @returns {Pointer<Void>} Address of a pointer to a <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontrollerconfiguration">RadialControllerConfiguration</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerconfigurationinterop-getforwindow
      */
-    GetForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetForWindow(_hwnd, riid) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 }

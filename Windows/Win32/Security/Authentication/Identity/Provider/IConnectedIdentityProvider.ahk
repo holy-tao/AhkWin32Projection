@@ -152,7 +152,7 @@ class IConnectedIdentityProvider extends IUnknown{
     /**
      * Returns the URL string for the specified wizard or webpage.
      * @param {Integer} Identifier Identifies the wizard or webpage that should be returned.
-     * @param {IBindCtx} Context Describes the context in which the URL will be displayed.
+     * @param {IBindCtx} _Context 
      * @param {Pointer<VARIANT>} PostData A <b>VARIANT</b> of type VT_ARRAY and VT_UI1 that will be posted to the provided URL. If the post data is not required, this parameter should be set to VT_EMPTY.
      * @param {Pointer<PWSTR>} Url Returns a URL for the specified identity wizard or webpage. The URL must begin with <b>https://</b>.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
@@ -160,10 +160,10 @@ class IConnectedIdentityProvider extends IUnknown{
      * If the method fails, the method returns a Win32 error code.
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
      */
-    GetUrl(Identifier, Context, PostData, Url) {
+    GetUrl(Identifier, _Context, PostData, Url) {
         UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "int", Identifier, "ptr", Context, "ptr", PostData, UrlMarshal, Url, "HRESULT")
+        result := ComCall(6, this, "int", Identifier, "ptr", _Context, "ptr", PostData, UrlMarshal, Url, "HRESULT")
         return result
     }
 

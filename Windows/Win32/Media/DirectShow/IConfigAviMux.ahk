@@ -38,7 +38,7 @@ class IConfigAviMux extends IUnknown{
      * It is recommended to use the audio stream as the master stream, because minor adjustments to the video playback rate are less noticeable than changes to the audio playback rate. Also, modifying the audio playback rate will cause the audio to be resampled by the audio driver.
      * 
      * This method works by adjusting the <i>dwScale</i> and <i>dwRate</i> values in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/avifmt/ns-avifmt-avistreamheader">AVISTREAMHEADER</a> structure.
-     * @param {Integer} iStream Specifies the index of the stream, or –1 to indicate no master stream. The AVI Mux writes one stream for each connected input pin. Stream numbers are indexed from zero.
+     * @param {Integer} _iStream 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -71,8 +71,8 @@ class IConfigAviMux extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfigavimux-setmasterstream
      */
-    SetMasterStream(iStream) {
-        result := ComCall(3, this, "int", iStream, "HRESULT")
+    SetMasterStream(_iStream) {
+        result := ComCall(3, this, "int", _iStream, "HRESULT")
         return result
     }
 

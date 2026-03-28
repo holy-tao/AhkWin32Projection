@@ -872,7 +872,7 @@ class BiometricFramework {
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
      * @param {Pointer<PWINBIO_ASYNC_COMPLETION_CALLBACK>} CallbackRoutine Address of the callback routine to be invoked for  completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>.
-     * @param {Pointer<Void>} UserData Address of a buffer supplied by the caller. The buffer is not modified by the framework or the biometric unit. It is returned in the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure. Your application can use the data to help it determine what actions to perform upon receipt of the completion notice or to maintain additional information about the requested operation.
+     * @param {Pointer<Void>} _UserData 
      * @param {BOOL} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
      * 
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
@@ -886,12 +886,12 @@ class BiometricFramework {
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbioasyncopenframework
      * @since windows8.0
      */
-    static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen) {
+    static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, _UserData, AsynchronousOpen) {
         TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
 
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
+        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, _UserDataMarshal, _UserData, "int", AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
         return FrameworkHandle
     }
 
@@ -1591,7 +1591,7 @@ class BiometricFramework {
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
      * @param {Pointer<PWINBIO_ASYNC_COMPLETION_CALLBACK>} CallbackRoutine Address of callback routine to be invoked when the operation started by using the session handle completes. This value is ignored unless the  <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>.
-     * @param {Pointer<Void>} UserData Address of a buffer supplied by the caller. The buffer is not modified by the framework or the biometric unit. It is returned in the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure. Your application can use the data to help it determine what actions to perform upon receipt of the completion notice or to maintain additional information about the requested operation.
+     * @param {Pointer<Void>} _UserData 
      * @param {BOOL} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
      * 
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
@@ -1605,13 +1605,13 @@ class BiometricFramework {
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbioasyncopensession
      * @since windows8.0
      */
-    static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen) {
+    static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, _UserData, AsynchronousOpen) {
         TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
 
         UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, UserDataMarshal, UserData, "int", AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
+        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, _UserDataMarshal, _UserData, "int", AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
         return SessionHandle
     }
 
@@ -2756,17 +2756,7 @@ class BiometricFramework {
      * );
      * ```
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies the open biometric session. Open the session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>.
-     * @param {Integer} EventMask A value that specifies the types of events to monitor. Only the fingerprint provider is currently supported. You must specify one of the following flags.
-     * 
-     * 
-     * 
-     * * **WINBIO_EVENT_FP_UNCLAIMED**
-     * 
-     * The sensor detected a finger swipe that was not requested by the application, or the requesting application does not have window focus. The Windows Biometric Framework calls into your callback function to indicate that a finger swipe has occurred but does not try to identify the fingerprint.
-     * 
-     * * **WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY**
-     * 
-     * The sensor detected a finger swipe that was not requested by the application, or the requesting application does not have window focus. The Windows Biometric Framework attempts to identify the fingerprint and passes the result of that process to your callback function.
+     * @param {Integer} _EventMask 
      * @param {Pointer<PWINBIO_EVENT_CALLBACK>} EventCallback Address of a callback function that receives the event notifications sent by the Windows Biometric Framework. You must define this function.
      * @param {Pointer<Void>} EventCallbackContext An optional application-defined value that is returned in the <i>pvContext</i> parameter of the callback function. This value can contain any data that the custom callback function is designed to handle.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -2835,10 +2825,10 @@ class BiometricFramework {
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbioregistereventmonitor
      * @since windows6.1
      */
-    static WinBioRegisterEventMonitor(SessionHandle, EventMask, EventCallback, EventCallbackContext) {
+    static WinBioRegisterEventMonitor(SessionHandle, _EventMask, EventCallback, EventCallbackContext) {
         EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioRegisterEventMonitor", "uint", SessionHandle, "uint", EventMask, "ptr", EventCallback, EventCallbackContextMarshal, EventCallbackContext, "HRESULT")
+        result := DllCall("winbio.dll\WinBioRegisterEventMonitor", "uint", SessionHandle, "uint", _EventMask, "ptr", EventCallback, EventCallbackContextMarshal, EventCallbackContext, "HRESULT")
         return result
     }
 
@@ -3451,7 +3441,7 @@ class BiometricFramework {
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session. Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. This value must correspond to the unit ID used previously in  the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolockunit">WinBioLockUnit</a> function.
-     * @param {Integer} Component 
+     * @param {Integer} _Component 
      * @param {Integer} ControlCode A vendor-defined code recognized by the biometric unit specified by the <i>UnitId</i> parameter and the adapter specified by the <i>Component</i> parameter.
      * @param {Pointer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
@@ -3462,10 +3452,10 @@ class BiometricFramework {
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiocontrolunit
      * @since windows6.1
      */
-    static WinBioControlUnit(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
+    static WinBioControlUnit(SessionHandle, UnitId, _Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
         ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
+        result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", _Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
         return OperationStatus
     }
 
@@ -3489,7 +3479,7 @@ class BiometricFramework {
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session. Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. This value must correspond to the unit ID used previously in  the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolockunit">WinBioLockUnit</a> function.
-     * @param {Integer} Component 
+     * @param {Integer} _Component 
      * @param {Integer} ControlCode A vendor-defined code recognized by the biometric unit specified by the <i>UnitId</i> parameter and the adapter specified by the <i>Component</i> parameter.
      * @param {Pointer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
@@ -3500,10 +3490,10 @@ class BiometricFramework {
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiocontrolunitprivileged
      * @since windows6.1
      */
-    static WinBioControlUnitPrivileged(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
+    static WinBioControlUnitPrivileged(SessionHandle, UnitId, _Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
         ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
+        result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", _Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
         return OperationStatus
     }
 
@@ -3896,7 +3886,7 @@ class BiometricFramework {
      * <td>Structure</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} Address Address of the memory block to delete.
+     * @param {Pointer<Void>} _Address 
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -3919,10 +3909,10 @@ class BiometricFramework {
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiofree
      * @since windows6.1
      */
-    static WinBioFree(Address) {
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+    static WinBioFree(_Address) {
+        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winbio.dll\WinBioFree", AddressMarshal, Address, "HRESULT")
+        result := DllCall("winbio.dll\WinBioFree", _AddressMarshal, _Address, "HRESULT")
         return result
     }
 

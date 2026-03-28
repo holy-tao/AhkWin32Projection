@@ -70,14 +70,12 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Pointer<Guid>} effectId Type: <b>REFCLSID</b>
      * 
      * The built-in or registered effect ID to create the effect. See <a href="https://docs.microsoft.com/windows/desktop/Direct2D/built-in-effects">Built-in Effects</a> for a list of effect IDs.
-     * @returns {ID2D1Effect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the effect.
+     * @returns {ID2D1Effect} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createeffect
      */
     CreateEffect(effectId) {
-        result := ComCall(4, this, "ptr", effectId, "ptr*", &effect := 0, "HRESULT")
-        return ID2D1Effect(effect)
+        result := ComCall(4, this, "ptr", effectId, "ptr*", &_effect := 0, "HRESULT")
+        return ID2D1Effect(_effect)
     }
 
     /**
@@ -102,16 +100,14 @@ class ID2D1EffectContext extends IUnknown{
 
     /**
      * Wraps an effect graph into a single transform node and then inserted into a transform graph. This allows an effect to aggregate other effects.
-     * @param {ID2D1Effect} effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>*</b>
-     * 
-     * The effect to be wrapped in a transform node.
+     * @param {ID2D1Effect} _effect 
      * @returns {ID2D1TransformNode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a>**</b>
      * 
      * The returned transform node that encapsulates the effect graph.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createtransformnodefromeffect
      */
-    CreateTransformNodeFromEffect(effect) {
-        result := ComCall(6, this, "ptr", effect, "ptr*", &transformNode := 0, "HRESULT")
+    CreateTransformNodeFromEffect(_effect) {
+        result := ComCall(6, this, "ptr", _effect, "ptr*", &transformNode := 0, "HRESULT")
         return ID2D1TransformNode(transformNode)
     }
 
@@ -400,8 +396,8 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createvertexbuffer
      */
     CreateVertexBuffer(vertexBufferProperties, resourceId, customVertexBufferProperties) {
-        result := ComCall(17, this, "ptr", vertexBufferProperties, "ptr", resourceId, "ptr", customVertexBufferProperties, "ptr*", &buffer_R := 0, "HRESULT")
-        return ID2D1VertexBuffer(buffer_R)
+        result := ComCall(17, this, "ptr", vertexBufferProperties, "ptr", resourceId, "ptr", customVertexBufferProperties, "ptr*", &_buffer := 0, "HRESULT")
+        return ID2D1VertexBuffer(_buffer)
     }
 
     /**
@@ -413,8 +409,8 @@ class ID2D1EffectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-findvertexbuffer
      */
     FindVertexBuffer(resourceId) {
-        result := ComCall(18, this, "ptr", resourceId, "ptr*", &buffer_R := 0, "HRESULT")
-        return ID2D1VertexBuffer(buffer_R)
+        result := ComCall(18, this, "ptr", resourceId, "ptr*", &_buffer := 0, "HRESULT")
+        return ID2D1VertexBuffer(_buffer)
     }
 
     /**
@@ -422,9 +418,7 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Integer} space Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * The space  of color context to create.
-     * @param {Pointer<Integer>} profile Type: <b>const BYTE*</b>
-     * 
-     * A buffer containing the ICC profile bytes used to initialize the color context when <i>space</i> is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE_CUSTOM</a>.  For other types, the parameter is ignored and should be set to <b>NULL</b>.
+     * @param {Pointer<Integer>} _profile 
      * @param {Integer} profileSize Type: <b>UINT32</b>
      * 
      * The size in bytes of <i>Profile</i>.
@@ -433,10 +427,10 @@ class ID2D1EffectContext extends IUnknown{
      * When this method returns, contains the address of a pointer to a new color context object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createcolorcontext
      */
-    CreateColorContext(space, profile, profileSize) {
-        profileMarshal := profile is VarRef ? "char*" : "ptr"
+    CreateColorContext(space, _profile, profileSize) {
+        _profileMarshal := _profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        result := ComCall(19, this, "int", space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
         return ID2D1ColorContext(colorContext)
     }
 

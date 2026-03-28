@@ -34,22 +34,22 @@ class IReadData extends IUnknown{
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 
      * @param {Pointer} lRowsOffset 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer<Integer>>} ppFixedData 
      * @param {Pointer<Pointer>} pcbVariableTotal 
      * @param {Pointer<Pointer<Integer>>} ppVariableData 
      * @returns {Pointer} 
      */
-    ReadData(hChapter, cbBookmark, pBookmark, lRowsOffset, hAccessor, cRows, ppFixedData, pcbVariableTotal, ppVariableData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    ReadData(hChapter, cbBookmark, pBookmark, lRowsOffset, _hAccessor, cRows, ppFixedData, pcbVariableTotal, ppVariableData) {
+        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
 
         pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
         ppFixedDataMarshal := ppFixedData is VarRef ? "ptr*" : "ptr"
         pcbVariableTotalMarshal := pcbVariableTotal is VarRef ? "ptr*" : "ptr"
         ppVariableDataMarshal := ppVariableData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", hAccessor, "ptr", cRows, "ptr*", &pcRowsObtained := 0, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", _hAccessor, "ptr", cRows, "ptr*", &pcRowsObtained := 0, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "HRESULT")
         return pcRowsObtained
     }
 

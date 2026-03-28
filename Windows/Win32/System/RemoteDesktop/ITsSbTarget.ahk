@@ -127,14 +127,14 @@ class ITsSbTarget extends IUnknown{
      * Specifies or retrieves the name of the target. (Put)
      * @remarks
      * This property was read-only prior to Windows Server 2012.
-     * @param {BSTR} Val 
+     * @param {BSTR} _Val 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_targetname
      */
-    put_TargetName(Val) {
-        Val := Val is String ? BSTR.Alloc(Val).Value : Val
+    put_TargetName(_Val) {
+        _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(4, this, "ptr", Val, "HRESULT")
+        result := ComCall(4, this, "ptr", _Val, "HRESULT")
         return result
     }
 
@@ -151,14 +151,14 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * Retrieves or specifies the name of the farm to which this target is joined. (Put)
-     * @param {BSTR} Val 
+     * @param {BSTR} _Val 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_farmname
      */
-    put_FarmName(Val) {
-        Val := Val is String ? BSTR.Alloc(Val).Value : Val
+    put_FarmName(_Val) {
+        _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(6, this, "ptr", Val, "HRESULT")
+        result := ComCall(6, this, "ptr", _Val, "HRESULT")
         return result
     }
 
@@ -175,14 +175,14 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * Retrieves or specifies the fully qualified domain name of the target. (ITsSbTargetEx.put_TargetFQDN)
-     * @param {BSTR} Val 
+     * @param {BSTR} _Val 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_targetfqdn
      */
-    put_TargetFQDN(Val) {
-        Val := Val is String ? BSTR.Alloc(Val).Value : Val
+    put_TargetFQDN(_Val) {
+        _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(8, this, "ptr", Val, "HRESULT")
+        result := ComCall(8, this, "ptr", _Val, "HRESULT")
         return result
     }
 
@@ -199,14 +199,14 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * Retrieves or specifies the NetBIOS name of the target. (Put)
-     * @param {BSTR} Val 
+     * @param {BSTR} _Val 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_targetnetbios
      */
-    put_TargetNetbios(Val) {
-        Val := Val is String ? BSTR.Alloc(Val).Value : Val
+    put_TargetNetbios(_Val) {
+        _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(10, this, "ptr", Val, "HRESULT")
+        result := ComCall(10, this, "ptr", _Val, "HRESULT")
         return result
     }
 
@@ -223,9 +223,9 @@ class ITsSbTarget extends IUnknown{
     get_IpAddresses(numAddresses) {
         numAddressesMarshal := numAddresses is VarRef ? "uint*" : "ptr"
 
-        SOCKADDR := TSSD_ConnectionPoint()
-        result := ComCall(11, this, "ptr", SOCKADDR, numAddressesMarshal, numAddresses, "HRESULT")
-        return SOCKADDR
+        _SOCKADDR := TSSD_ConnectionPoint()
+        result := ComCall(11, this, "ptr", _SOCKADDR, numAddressesMarshal, numAddresses, "HRESULT")
+        return _SOCKADDR
     }
 
     /**
@@ -234,13 +234,13 @@ class ITsSbTarget extends IUnknown{
      * This property was formerly known as <b>TargetExternalIpAddresses</b> in Windows Server 2008 R2.
      * 
      * If the number of external IP addresses is unknown, you can call this method with <i>sockaddr</i> set to <b>NULL</b>. The method will then return, in the <i>numAddresses</i> parameter, the number of <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ns-sessdirpublictypes-tssd_connectionpoint">TSSD_ConnectionPoint</a> structures necessary to receive all the external IP addresses. Allocate the array for <i>sockaddr</i> based on this number, and then call the method again, setting <i>sockaddr</i> to the newly allocated array and <i>numAddresses</i> to the number returned by the first call.
-     * @param {Pointer<TSSD_ConnectionPoint>} SOCKADDR 
+     * @param {Pointer<TSSD_ConnectionPoint>} _SOCKADDR 
      * @param {Integer} numAddresses 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_ipaddresses
      */
-    put_IpAddresses(SOCKADDR, numAddresses) {
-        result := ComCall(12, this, "ptr", SOCKADDR, "uint", numAddresses, "HRESULT")
+    put_IpAddresses(_SOCKADDR, numAddresses) {
+        result := ComCall(12, this, "ptr", _SOCKADDR, "uint", numAddresses, "HRESULT")
         return result
     }
 
@@ -299,14 +299,14 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * Retrieves or specifies the name of the environment associated with the target. (ITsSbTargetEx.put_EnvironmentName)
-     * @param {BSTR} Val 
+     * @param {BSTR} _Val 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_environmentname
      */
-    put_EnvironmentName(Val) {
-        Val := Val is String ? BSTR.Alloc(Val).Value : Val
+    put_EnvironmentName(_Val) {
+        _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(18, this, "ptr", Val, "HRESULT")
+        result := ComCall(18, this, "ptr", _Val, "HRESULT")
         return result
     }
 

@@ -150,12 +150,12 @@ class IUIAnimationVariable extends IUnknown{
      * @remarks
      * An animation variable's rounding mode determines how a floating-point value is converted to an integer.
      *       The default mode for each variable is <b>UI_ANIMATION_ROUNDING_NEAREST</b>.
-     * @param {Integer} mode The rounding mode for the animation variable.
+     * @param {Integer} _mode 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-setroundingmode
      */
-    SetRoundingMode(mode) {
-        result := ComCall(12, this, "int", mode, "HRESULT")
+    SetRoundingMode(_mode) {
+        result := ComCall(12, this, "int", _mode, "HRESULT")
         return result
     }
 
@@ -164,13 +164,13 @@ class IUIAnimationVariable extends IUnknown{
      * @remarks
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify an animation variable.          
      *          Because <b>NULL</b> is a valid object component of a tag, the <i>object</i> parameter can be <b>NULL</b>.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The identifier portion  of the tag.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-settag
      */
-    SetTag(object_R, id) {
-        result := ComCall(13, this, "ptr", object_R, "uint", id, "HRESULT")
+    SetTag(_object, id) {
+        result := ComCall(13, this, "ptr", _object, "uint", id, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ class IUIAnimationVariable extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify an animation variable.
      * 
      * The parameters are optional so that the method can return both portions of the tag, or just the identifier or object portion.
-     * @param {Pointer<IUnknown>} object_R 
+     * @param {Pointer<IUnknown>} _object 
      * @param {Pointer<Integer>} id The identifier portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
@@ -203,10 +203,10 @@ class IUIAnimationVariable extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-gettag
      */
-    GetTag(object_R, id) {
+    GetTag(_object, id) {
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr*", object_R, idMarshal, id, "HRESULT")
+        result := ComCall(14, this, "ptr*", _object, idMarshal, id, "HRESULT")
         return result
     }
 

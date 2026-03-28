@@ -54,7 +54,7 @@ class IDebugHostType4 extends IDebugHostType3{
      * @returns {Integer} 
      */
     GetUDTKind() {
-        result := ComCall(37, this, "int*", &udtKind := 0, "HRESULT")
-        return udtKind
+        result := ComCall(37, this, "int*", &_udtKind := 0, "HRESULT")
+        return _udtKind
     }
 }

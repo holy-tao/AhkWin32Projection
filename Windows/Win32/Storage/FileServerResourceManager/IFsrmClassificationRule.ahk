@@ -92,9 +92,9 @@ class IFsrmClassificationRule extends IFsrmRule{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_propertyaffected
      */
     get_PropertyAffected() {
-        property := BSTR()
-        result := ComCall(26, this, "ptr", property, "HRESULT")
-        return property
+        _property := BSTR()
+        result := ComCall(26, this, "ptr", _property, "HRESULT")
+        return _property
     }
 
     /**
@@ -105,14 +105,14 @@ class IFsrmClassificationRule extends IFsrmRule{
      * 
      * To enumerate the properties that have been defined, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumpropertydefinitions">IFsrmClassificationManager::EnumPropertyDefinitions</a> method. To access the name of the property, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_name">IFsrmPropertyDefinition.Name</a> 
      *     property.
-     * @param {BSTR} property 
+     * @param {BSTR} _property 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-put_propertyaffected
      */
-    put_PropertyAffected(property) {
-        property := property is String ? BSTR.Alloc(property).Value : property
+    put_PropertyAffected(_property) {
+        _property := _property is String ? BSTR.Alloc(_property).Value : _property
 
-        result := ComCall(27, this, "ptr", property, "HRESULT")
+        result := ComCall(27, this, "ptr", _property, "HRESULT")
         return result
     }
 

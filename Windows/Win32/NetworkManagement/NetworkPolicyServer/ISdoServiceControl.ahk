@@ -65,12 +65,12 @@ class ISdoServiceControl extends IDispatch{
 
     /**
      * The GetServiceStatus method retrieves the status of the service being administered through SDO.
-     * @returns {Integer} Pointer to a <b>LONG</b> variable that contains the status of the service. The status
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
      */
     GetServiceStatus() {
-        result := ComCall(9, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(9, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**

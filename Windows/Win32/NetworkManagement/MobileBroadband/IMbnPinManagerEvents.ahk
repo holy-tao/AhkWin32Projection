@@ -71,12 +71,12 @@ class IMbnPinManagerEvents extends IUnknown{
      * 
      * If <b>pinInfo.pinState</b> is set to <b>MBN_PIN_STATE_ENTER</b> or <b>MBN_PIN_STATE_UNBLOCK</b>, then <b>pinInfo.attemptsRemaining</b> contains the number of attempts remaining to enter a valid PIN or PIN unblock key (PUK). If the number of attempts remaining is unknown then <b>pinInfo.attemptsRemaining</b> is set to <b>MBN_ATTEMPTS_REMAINING_UNKNOWN</b>.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify this operation.
-     * @param {HRESULT} status The operation completion status.
+     * @param {HRESULT} _status 
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanagerevents-ongetpinstatecomplete
      */
-    OnGetPinStateComplete(pinManager, pinInfo, requestID, status) {
-        result := ComCall(4, this, "ptr", pinManager, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")
+    OnGetPinStateComplete(pinManager, pinInfo, requestID, _status) {
+        result := ComCall(4, this, "ptr", pinManager, "ptr", pinInfo, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 }

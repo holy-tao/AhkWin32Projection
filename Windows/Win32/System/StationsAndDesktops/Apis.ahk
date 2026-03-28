@@ -551,16 +551,10 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumDesktops as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWINSTA} hwinsta A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function, and must have the WINSTA_ENUMDESKTOPS access right. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/winstation/window-station-security-and-access-rights">Window Station Security and Access Rights</a>.
-     * 
-     * If this parameter is NULL, the current window station is used.
+     * @param {HWINSTA} _hwinsta 
      * @param {Pointer<DESKTOPENUMPROCA>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682612(v=vs.85)">EnumDesktopProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -570,12 +564,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdesktopsa
      * @since windows5.0
      */
-    static EnumDesktopsA(hwinsta, lpEnumFunc, lParam) {
-        hwinsta := hwinsta is Win32Handle ? NumGet(hwinsta, "ptr") : hwinsta
+    static EnumDesktopsA(_hwinsta, lpEnumFunc, _lParam) {
+        _hwinsta := _hwinsta is Win32Handle ? NumGet(_hwinsta, "ptr") : _hwinsta
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopsA", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumDesktopsA", "ptr", _hwinsta, "ptr", lpEnumFunc, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -599,16 +593,10 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumDesktops as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWINSTA} hwinsta A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function, and must have the WINSTA_ENUMDESKTOPS access right. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/winstation/window-station-security-and-access-rights">Window Station Security and Access Rights</a>.
-     * 
-     * If this parameter is NULL, the current window station is used.
+     * @param {HWINSTA} _hwinsta 
      * @param {Pointer<DESKTOPENUMPROCW>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682612(v=vs.85)">EnumDesktopProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -618,12 +606,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdesktopsw
      * @since windows5.0
      */
-    static EnumDesktopsW(hwinsta, lpEnumFunc, lParam) {
-        hwinsta := hwinsta is Win32Handle ? NumGet(hwinsta, "ptr") : hwinsta
+    static EnumDesktopsW(_hwinsta, lpEnumFunc, _lParam) {
+        _hwinsta := _hwinsta is Win32Handle ? NumGet(_hwinsta, "ptr") : _hwinsta
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopsW", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumDesktopsW", "ptr", _hwinsta, "ptr", lpEnumFunc, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -645,7 +633,7 @@ class StationsAndDesktops {
      * If this parameter is NULL, the current desktop is used.
      * @param {Pointer<WNDENUMPROC>} lpfn A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633498(v=vs.85)">EnumWindowsProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} If the function fails or is unable to perform the enumeration, the return value is zero.
      * 
      * To get extended error information, call 
@@ -657,12 +645,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdesktopwindows
      * @since windows5.0
      */
-    static EnumDesktopWindows(hDesktop, lpfn, lParam) {
+    static EnumDesktopWindows(hDesktop, lpfn, _lParam) {
         hDesktop := hDesktop is Win32Handle ? NumGet(hDesktop, "ptr") : hDesktop
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopWindows", "ptr", hDesktop, "ptr", lpfn, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumDesktopWindows", "ptr", hDesktop, "ptr", lpfn, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -985,7 +973,7 @@ class StationsAndDesktops {
      * > The winuser.h header defines EnumWindowStations as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WINSTAENUMPROCA>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682643(v=vs.85)">EnumWindowStationProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -995,10 +983,10 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumwindowstationsa
      * @since windows5.0
      */
-    static EnumWindowStationsA(lpEnumFunc, lParam) {
+    static EnumWindowStationsA(lpEnumFunc, _lParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1023,7 +1011,7 @@ class StationsAndDesktops {
      * > The winuser.h header defines EnumWindowStations as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WINSTAENUMPROCW>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682643(v=vs.85)">EnumWindowStationProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
@@ -1033,10 +1021,10 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumwindowstationsw
      * @since windows5.0
      */
-    static EnumWindowStationsW(lpEnumFunc, lParam) {
+    static EnumWindowStationsW(lpEnumFunc, _lParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, "ptr", _lParam, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1049,9 +1037,7 @@ class StationsAndDesktops {
      * @remarks
      * The 
      * <b>CloseWindowStation</b> function will fail if the handle being closed is for the window station assigned to the calling process.
-     * @param {HWINSTA} hWinSta A handle to the window station to be closed. This handle is returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function. Do not specify the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a> function.
+     * @param {HWINSTA} _hWinSta 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1061,12 +1047,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-closewindowstation
      * @since windows5.0
      */
-    static CloseWindowStation(hWinSta) {
-        hWinSta := hWinSta is Win32Handle ? NumGet(hWinSta, "ptr") : hWinSta
+    static CloseWindowStation(_hWinSta) {
+        _hWinSta := _hWinSta is Win32Handle ? NumGet(_hWinSta, "ptr") : _hWinSta
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CloseWindowStation", "ptr", hWinSta, "int")
+        result := DllCall("USER32.dll\CloseWindowStation", "ptr", _hWinSta, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1076,12 +1062,7 @@ class StationsAndDesktops {
 
     /**
      * Assigns the specified window station to the calling process.
-     * @param {HWINSTA} hWinSta A handle to the window station. This can be a handle returned by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a>, or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a> function.
-     * 
-     * This window station must be associated with the current session.
+     * @param {HWINSTA} _hWinSta 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1089,12 +1070,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setprocesswindowstation
      * @since windows5.0
      */
-    static SetProcessWindowStation(hWinSta) {
-        hWinSta := hWinSta is Win32Handle ? NumGet(hWinSta, "ptr") : hWinSta
+    static SetProcessWindowStation(_hWinSta) {
+        _hWinSta := _hWinSta is Win32Handle ? NumGet(_hWinSta, "ptr") : _hWinSta
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetProcessWindowStation", "ptr", hWinSta, "int")
+        result := DllCall("USER32.dll\SetProcessWindowStation", "ptr", _hWinSta, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1364,17 +1345,9 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent. 
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<BSMINFO>} pbsmInfo Type: <b>PBSMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-bsminfo">BSMINFO</a> structure that contains additional information if the request is denied and <i>dwFlags</i> is set to <b>BSF_QUERY</b>.
@@ -1388,12 +1361,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessageexa
      * @since windows5.1.2600
      */
-    static BroadcastSystemMessageExA(flags, lpInfo, Msg, wParam, lParam, pbsmInfo) {
+    static BroadcastSystemMessageExA(flags, lpInfo, _Msg, _wParam, _lParam, pbsmInfo) {
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageExA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageExA", "uint", flags, lpInfoMarshal, lpInfo, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr", pbsmInfo, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1425,17 +1398,9 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent. 
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<BSMINFO>} pbsmInfo Type: <b>PBSMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-bsminfo">BSMINFO</a> structure that contains additional information if the request is denied and <i>dwFlags</i> is set to <b>BSF_QUERY</b>.
@@ -1449,12 +1414,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessageexw
      * @since windows5.1.2600
      */
-    static BroadcastSystemMessageExW(flags, lpInfo, Msg, wParam, lParam, pbsmInfo) {
+    static BroadcastSystemMessageExW(flags, lpInfo, _Msg, _wParam, _lParam, pbsmInfo) {
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageExW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageExW", "uint", flags, lpInfoMarshal, lpInfo, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr", pbsmInfo, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1481,17 +1446,9 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent.
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {Integer} Type: <b>long</b>
      * 
      * If the function succeeds, the return value is a positive value.
@@ -1501,10 +1458,10 @@ class StationsAndDesktops {
      * If the <i>dwFlags</i> parameter is <b>BSF_QUERY</b> and at least one recipient returned <b>BROADCAST_QUERY_DENY</b> to the corresponding message, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessagea
      */
-    static BroadcastSystemMessageA(flags, lpInfo, Msg, wParam, lParam) {
+    static BroadcastSystemMessageA(flags, lpInfo, _Msg, _wParam, _lParam) {
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageA", "uint", flags, lpInfoMarshal, lpInfo, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         return result
     }
 
@@ -1523,17 +1480,9 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message. 
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
-     * 
-     * The message to be sent. 
-     * 
-     * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {Integer} Type: <b>long</b>
      * 
      * If the function succeeds, the return value is a positive value.
@@ -1544,12 +1493,12 @@ class StationsAndDesktops {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessagew
      * @since windows5.0
      */
-    static BroadcastSystemMessageW(flags, lpInfo, Msg, wParam, lParam) {
+    static BroadcastSystemMessageW(flags, lpInfo, _Msg, _wParam, _lParam) {
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageW", "uint", flags, lpInfoMarshal, lpInfo, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }

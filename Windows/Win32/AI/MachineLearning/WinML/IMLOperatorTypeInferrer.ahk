@@ -30,11 +30,11 @@ class IMLOperatorTypeInferrer extends IUnknown{
 
     /**
      * 
-     * @param {IMLOperatorTypeInferenceContext} context 
+     * @param {IMLOperatorTypeInferenceContext} _context 
      * @returns {HRESULT} 
      */
-    InferOutputTypes(context) {
-        result := ComCall(3, this, "ptr", context, "HRESULT")
+    InferOutputTypes(_context) {
+        result := ComCall(3, this, "ptr", _context, "HRESULT")
         return result
     }
 }

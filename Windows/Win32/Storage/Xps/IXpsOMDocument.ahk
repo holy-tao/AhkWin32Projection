@@ -232,11 +232,11 @@ class IXpsOMDocument extends IXpsOMPart{
      * Makes a deep copy of the interface. (IXpsOMDocument.Clone)
      * @remarks
      * This method does not update any of the resource pointers in the copy.
-     * @returns {IXpsOMDocument} A pointer to the copy of the interface.
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-clone
      */
     Clone() {
-        result := ComCall(12, this, "ptr*", &document := 0, "HRESULT")
-        return IXpsOMDocument(document)
+        result := ComCall(12, this, "ptr*", &_document := 0, "HRESULT")
+        return IXpsOMDocument(_document)
     }
 }

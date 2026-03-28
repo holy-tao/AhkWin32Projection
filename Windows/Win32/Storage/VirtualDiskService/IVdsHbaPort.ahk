@@ -45,7 +45,7 @@ class IVdsHbaPort extends IUnknown{
 
     /**
      * Sets the statuses of all paths originating from the HBA port to a specified status.
-     * @param {Integer} status The status to be assigned to the paths.
+     * @param {Integer} _status 
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
@@ -80,8 +80,8 @@ class IVdsHbaPort extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdshbaport-setallpathstatuses
      */
-    SetAllPathStatuses(status) {
-        result := ComCall(4, this, "int", status, "HRESULT")
+    SetAllPathStatuses(_status) {
+        result := ComCall(4, this, "int", _status, "HRESULT")
         return result
     }
 }

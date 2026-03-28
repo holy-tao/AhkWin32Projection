@@ -1268,7 +1268,7 @@ class Snmp {
      * 
      * You must always precede the object identifier with a period (.) to obtain the correct system group (for example, ".1.3.6.1.2.1.1"). If an application passes the variable "1.3.6.1.2.1.1", 
      * <b>SnmpMgrStrToOid</b> cannot interpret the object identifier correctly.
-     * @param {PSTR} string_R 
+     * @param {PSTR} _string 
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to receive the converted value.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1276,10 +1276,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrstrtooid
      * @since windows5.0
      */
-    static SnmpMgrStrToOid(string_R, oid) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static SnmpMgrStrToOid(_string, oid) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string_R, "ptr", oid, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", _string, "ptr", oid, "int")
         return result
     }
 
@@ -1289,17 +1289,17 @@ class Snmp {
      * If the function succeeds, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function to free the memory allocated for the converted string.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to convert.
-     * @param {Pointer<PSTR>} string_R 
+     * @param {Pointer<PSTR>} _string 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgroidtostr
      * @since windows5.0
      */
-    static SnmpMgrOidToStr(oid, string_R) {
-        string_RMarshal := string_R is VarRef ? "ptr*" : "ptr"
+    static SnmpMgrOidToStr(oid, _string) {
+        _stringMarshal := _string is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, string_RMarshal, string_R, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, _stringMarshal, _string, "int")
         return result
     }
 
@@ -1401,7 +1401,7 @@ class Snmp {
      * @param {Pointer<AsnOctetString>} IPAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap.
      * @param {Pointer<Integer>} genericTrap 
      * @param {Pointer<Integer>} specificTrap Pointer to a variable to receive an indication of the specific trap generated.
-     * @param {Pointer<Integer>} timeStamp Pointer to a variable to receive the time stamp.
+     * @param {Pointer<Integer>} _timeStamp 
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
      * @returns {BOOL} If the function returns a trap, the return value is <b>TRUE</b>. The code for the error can be retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> immediately after the call.
@@ -1451,12 +1451,12 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap
      * @since windows5.0
      */
-    static SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, timeStamp, variableBindings) {
+    static SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, _timeStamp, variableBindings) {
         genericTrapMarshal := genericTrap is VarRef ? "uint*" : "ptr"
         specificTrapMarshal := specificTrap is VarRef ? "int*" : "ptr"
-        timeStampMarshal := timeStamp is VarRef ? "uint*" : "ptr"
+        _timeStampMarshal := _timeStamp is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, timeStampMarshal, timeStamp, "ptr", variableBindings, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, _timeStampMarshal, _timeStamp, "ptr", variableBindings, "int")
         return result
     }
 
@@ -1479,7 +1479,7 @@ class Snmp {
      * @param {Pointer<Integer>} specificTrap Pointer to a variable to receive an indicator of the specific trap generated.
      * @param {Pointer<AsnOctetString>} community Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to receive the community string of the generated SNMP trap.
-     * @param {Pointer<Integer>} timeStamp Pointer to a variable to receive the time stamp.
+     * @param {Pointer<Integer>} _timeStamp 
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
      * @returns {BOOL} If the function returns a trap, the return value is nonzero.
@@ -1529,12 +1529,12 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrapex
      * @since windows5.0
      */
-    static SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, specificTrap, community, timeStamp, variableBindings) {
+    static SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, specificTrap, community, _timeStamp, variableBindings) {
         genericTrapMarshal := genericTrap is VarRef ? "uint*" : "ptr"
         specificTrapMarshal := specificTrap is VarRef ? "int*" : "ptr"
-        timeStampMarshal := timeStamp is VarRef ? "uint*" : "ptr"
+        _timeStampMarshal := _timeStamp is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, "ptr", community, timeStampMarshal, timeStamp, "ptr", variableBindings, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, "ptr", community, _timeStampMarshal, _timeStamp, "ptr", variableBindings, "int")
         return result
     }
 
@@ -2455,7 +2455,7 @@ class Snmp {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-sessions">WinSNMP Sessions</a>.
-     * @param {HWND} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs.
+     * @param {HWND} _hWnd 
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window.
      * @returns {Pointer} If the function succeeds, the return value is a handle that identifies the WinSNMP session that the implementation opens for the calling application.
      * 
@@ -2517,10 +2517,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpopen
      * @since windows5.0
      */
-    static SnmpOpen(hWnd, wMsg) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SnmpOpen(_hWnd, wMsg) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("wsnmp32.dll\SnmpOpen", "ptr", hWnd, "uint", wMsg, "ptr")
+        result := DllCall("wsnmp32.dll\SnmpOpen", "ptr", _hWnd, "uint", wMsg, "ptr")
         return result
     }
 
@@ -2626,7 +2626,7 @@ class Snmp {
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} srcEntity Handle to the management entity that initiates the request to send the SNMP message.
      * @param {Pointer} dstEntity Handle to the target entity that will respond to the SNMP request.
-     * @param {Pointer} context Handle to the context, (a set of managed object resources), that the target management entity controls.
+     * @param {Pointer} _context 
      * @param {Pointer} PDU Handle to the protocol data unit that contains the SNMP operation request.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
@@ -2824,8 +2824,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpsendmsg
      * @since windows5.0
      */
-    static SnmpSendMsg(session, srcEntity, dstEntity, context, PDU) {
-        result := DllCall("wsnmp32.dll\SnmpSendMsg", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", context, "ptr", PDU, "uint")
+    static SnmpSendMsg(session, srcEntity, dstEntity, _context, PDU) {
+        result := DllCall("wsnmp32.dll\SnmpSendMsg", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", _context, "ptr", PDU, "uint")
         return result
     }
 
@@ -2855,7 +2855,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a> function specifies a handle to the management entity that registers for trap notification.
      * @param {Pointer<Pointer>} dstEntity Pointer to a variable that receives a handle to the entity that receives the message. Note that the <i>dstEntity</i> parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a> function specifies a handle to the management entity that sends traps.
-     * @param {Pointer<Pointer>} context Pointer to a variable that receives a handle to the context, which is a set of managed object resources. The entity specified by the <i>srcEntity</i> parameter issues the message from this context.
+     * @param {Pointer<Pointer>} _context 
      * @param {Pointer<Pointer>} PDU Pointer to a variable that receives a handle to the protocol data unit (PDU) component of the message.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the output parameters contain the values indicated in the preceding parameter descriptions.
      * 
@@ -3033,13 +3033,13 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmprecvmsg
      * @since windows5.0
      */
-    static SnmpRecvMsg(session, srcEntity, dstEntity, context, PDU) {
+    static SnmpRecvMsg(session, srcEntity, dstEntity, _context, PDU) {
         srcEntityMarshal := srcEntity is VarRef ? "ptr*" : "ptr"
         dstEntityMarshal := dstEntity is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
         PDUMarshal := PDU is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("wsnmp32.dll\SnmpRecvMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, contextMarshal, context, PDUMarshal, PDU, "uint")
+        result := DllCall("wsnmp32.dll\SnmpRecvMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, PDUMarshal, PDU, "uint")
         return result
     }
 
@@ -3089,19 +3089,8 @@ class Snmp {
      * 
      * Note that the <i>dstEntity</i> parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function receives a handle to the management entity that registers for trap notification.
-     * @param {Pointer} context Handle to the context, which is a set of managed object resources. 
-     * 
-     * 
-     * 
-     * 
-     * If this parameter is <b>NULL</b>, the implementation registers or unregisters the WinSNMP application for traps and notifications for every context.
-     * @param {Pointer<smiOID>} notification Pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that contains the pattern-matching sequence for one type of trap or notification. The implementation uses this sequence to identify the type of trap or notification for which the WinSNMP application is registering or unregistering. For additional information, see the following Remarks section. 
-     * 
-     * 
-     * 
-     * 
-     * If this parameter is <b>NULL</b>, the implementation registers or unregisters the WinSNMP application for all traps and notifications from the management entity or entities specified by the <i>dstEntity</i> parameter.
+     * @param {Pointer} _context 
+     * @param {Pointer<smiOID>} _notification 
      * @param {Integer} state 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
@@ -3233,8 +3222,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpregister
      * @since windows5.0
      */
-    static SnmpRegister(session, srcEntity, dstEntity, context, notification, state) {
-        result := DllCall("wsnmp32.dll\SnmpRegister", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", context, "ptr", notification, "uint", state, "uint")
+    static SnmpRegister(session, srcEntity, dstEntity, _context, _notification, state) {
+        result := DllCall("wsnmp32.dll\SnmpRegister", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", _context, "ptr", _notification, "uint", state, "uint")
         return result
     }
 
@@ -3271,7 +3260,7 @@ class Snmp {
      * <b>SnmpCreateSession</b> function, requesting that the implementation signal the session about messages and events using window notification messages.
      * 
      * <c>hSession = SnmpCreateSession (myWnd, myMsg, NULL, NULL);</c>
-     * @param {HWND} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs. This parameter is required for window notification messages for the session.
+     * @param {HWND} _hWnd 
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window. This parameter is required for window notification messages for the session.
      * @param {Pointer<SNMPAPI_CALLBACK>} fCallBack Specifies the address of an application-defined, session-specific 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nc-winsnmp-snmpapi_callback">SNMPAPI_CALLBACK</a> function. The implementation will call this function to inform the WinSNMP session when notifications are available. 
@@ -3374,12 +3363,12 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcreatesession
      * @since windows5.0
      */
-    static SnmpCreateSession(hWnd, wMsg, fCallBack, lpClientData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SnmpCreateSession(_hWnd, wMsg, fCallBack, lpClientData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         lpClientDataMarshal := lpClientData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("wsnmp32.dll\SnmpCreateSession", "ptr", hWnd, "uint", wMsg, "ptr", fCallBack, lpClientDataMarshal, lpClientData, "ptr")
+        result := DllCall("wsnmp32.dll\SnmpCreateSession", "ptr", _hWnd, "uint", wMsg, "ptr", fCallBack, lpClientDataMarshal, lpClientData, "ptr")
         return result
     }
 
@@ -3823,7 +3812,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function. A WinSNMP application can change the setting of the entity and context translation mode with a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsettranslatemode">SnmpSetTranslateMode</a> function.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {PSTR} string_R 
+     * @param {PSTR} _string 
      * @returns {Pointer} If the function succeeds, the return value is a handle to the SNMP management entity of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -3895,10 +3884,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtoentity
      * @since windows5.0
      */
-    static SnmpStrToEntity(session, string_R) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static SnmpStrToEntity(session, _string) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("wsnmp32.dll\SnmpStrToEntity", "ptr", session, "ptr", string_R, "ptr")
+        result := DllCall("wsnmp32.dll\SnmpStrToEntity", "ptr", session, "ptr", _string, "ptr")
         return result
     }
 
@@ -3915,8 +3904,8 @@ class Snmp {
      * 
      * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the Microsoft WinSNMP implementation also returns the literal SNMP transport address of the management entity.
      * @param {Pointer} entity Handle to the SNMP management entity of interest.
-     * @param {Integer} size Specifies the size, in bytes, of the buffer pointed to by the <i>string</i> parameter. The WinSNMP application must allocate a buffer that is large enough to contain the output string.
-     * @param {PSTR} string_R 
+     * @param {Integer} _size 
+     * @param {PSTR} _string 
      * @returns {Integer} If the function succeeds, the return value is the number of bytes, including a terminating null byte, that 
      * <b>SnmpEntityToStr</b> returns in the <i>string</i> buffer. This value can be less than or equal to the value of the <i>size</i> parameter, but it cannot be greater.
      * 
@@ -3989,10 +3978,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpentitytostr
      * @since windows5.0
      */
-    static SnmpEntityToStr(entity, size, string_R) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static SnmpEntityToStr(entity, _size, _string) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("wsnmp32.dll\SnmpEntityToStr", "ptr", entity, "uint", size, "ptr", string_R, "uint")
+        result := DllCall("wsnmp32.dll\SnmpEntityToStr", "ptr", entity, "uint", _size, "ptr", _string, "uint")
         return result
     }
 
@@ -4091,7 +4080,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function to deallocate the resources. For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {Pointer<smiOCTETS>} string_R 
+     * @param {Pointer<smiOCTETS>} _string 
      * @returns {Pointer} If the function succeeds, the return value is a handle to the context of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4175,8 +4164,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtocontext
      * @since windows5.0
      */
-    static SnmpStrToContext(session, string_R) {
-        result := DllCall("wsnmp32.dll\SnmpStrToContext", "ptr", session, "ptr", string_R, "ptr")
+    static SnmpStrToContext(session, _string) {
+        result := DllCall("wsnmp32.dll\SnmpStrToContext", "ptr", session, "ptr", _string, "ptr")
         return result
     }
 
@@ -4196,8 +4185,8 @@ class Snmp {
      * <b>SnmpContextToStr</b> returns the SNMP community string.
      * 
      * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the implementation also returns the SNMP community string.
-     * @param {Pointer} context Handle to the SNMP context of interest.
-     * @param {Pointer<smiOCTETS>} string_R 
+     * @param {Pointer} _context 
+     * @param {Pointer<smiOCTETS>} _string 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4258,8 +4247,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcontexttostr
      * @since windows5.0
      */
-    static SnmpContextToStr(context, string_R) {
-        result := DllCall("wsnmp32.dll\SnmpContextToStr", "ptr", context, "ptr", string_R, "uint")
+    static SnmpContextToStr(_context, _string) {
+        result := DllCall("wsnmp32.dll\SnmpContextToStr", "ptr", _context, "ptr", _string, "uint")
         return result
     }
 
@@ -4274,7 +4263,7 @@ class Snmp {
      * 
      * For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
-     * @param {Pointer} context Handle to the SNMP context that will have its resources released.
+     * @param {Pointer} _context 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4335,8 +4324,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpfreecontext
      * @since windows5.0
      */
-    static SnmpFreeContext(context) {
-        result := DllCall("wsnmp32.dll\SnmpFreeContext", "ptr", context, "uint")
+    static SnmpFreeContext(_context) {
+        result := DllCall("wsnmp32.dll\SnmpFreeContext", "ptr", _context, "uint")
         return result
     }
 
@@ -5913,7 +5902,7 @@ class Snmp {
      * For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
-     * @param {PSTR} string_R 
+     * @param {PSTR} _string 
      * @param {Pointer<smiOID>} dstOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that receives the converted value.
      * @returns {Integer} If the function succeeds, the return value is the number of subidentifiers in the converted object identifier. This number is also the value of the <b>len</b> member of the 
@@ -5977,10 +5966,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtooid
      * @since windows5.0
      */
-    static SnmpStrToOid(string_R, dstOID) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static SnmpStrToOid(_string, dstOID) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("wsnmp32.dll\SnmpStrToOid", "ptr", string_R, "ptr", dstOID, "uint")
+        result := DllCall("wsnmp32.dll\SnmpStrToOid", "ptr", _string, "ptr", dstOID, "uint")
         return result
     }
 
@@ -5991,8 +5980,8 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer<smiOID>} srcOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure with an object identifier to convert.
-     * @param {Integer} size Specifies the size, in bytes, of the buffer indicated by the <i>string</i> parameter. For more information, see the following Remarks section.
-     * @param {PSTR} string_R 
+     * @param {Integer} _size 
+     * @param {PSTR} _string 
      * @returns {Integer} If the function succeeds, the return value is the length, in bytes, of the string that the WinSNMP application writes to the <i>string</i> parameter. The return value includes a <b>null</b>-terminating byte. This value may be less than or equal to the value of the <i>size</i> parameter, but it may not be greater.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -6075,10 +6064,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpoidtostr
      * @since windows5.0
      */
-    static SnmpOidToStr(srcOID, size, string_R) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static SnmpOidToStr(srcOID, _size, _string) {
+        _string := _string is String ? StrPtr(_string) : _string
 
-        result := DllCall("wsnmp32.dll\SnmpOidToStr", "ptr", srcOID, "uint", size, "ptr", string_R, "uint")
+        result := DllCall("wsnmp32.dll\SnmpOidToStr", "ptr", srcOID, "uint", _size, "ptr", _string, "uint")
         return result
     }
 
@@ -6334,7 +6323,7 @@ class Snmp {
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} srcEntity Handle to the management entity that initiates the request to encode the SNMP message.
      * @param {Pointer} dstEntity Handle to the target management entity.
-     * @param {Pointer} context Handle to the context (a set of managed object resources) that the target management entity controls.
+     * @param {Pointer} _context 
      * @param {Pointer} pdu Handle to the PDU that contains the SNMP operation request.
      * @param {Pointer<smiOCTETS>} msgBufDesc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that receives the encoded SNMP message.
@@ -6432,8 +6421,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpencodemsg
      * @since windows5.0
      */
-    static SnmpEncodeMsg(session, srcEntity, dstEntity, context, pdu, msgBufDesc) {
-        result := DllCall("wsnmp32.dll\SnmpEncodeMsg", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", context, "ptr", pdu, "ptr", msgBufDesc, "uint")
+    static SnmpEncodeMsg(session, srcEntity, dstEntity, _context, pdu, msgBufDesc) {
+        result := DllCall("wsnmp32.dll\SnmpEncodeMsg", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", _context, "ptr", pdu, "ptr", msgBufDesc, "uint")
         return result
     }
 
@@ -6450,7 +6439,7 @@ class Snmp {
      * @param {Pointer} session Handle to the WinSNMP session. This parameter is required. For additional information, see the following Remarks section.
      * @param {Pointer<Pointer>} srcEntity Pointer to a variable that receives a handle to the source management entity. For more information, see the following Remarks section.
      * @param {Pointer<Pointer>} dstEntity Pointer to a variable that receives a handle to the target management entity. For more information, see the following Remarks section.
-     * @param {Pointer<Pointer>} context Pointer to a variable that receives a handle to the context (a set of managed object resources) that the target management entity controls.
+     * @param {Pointer<Pointer>} _context 
      * @param {Pointer<Pointer>} pdu Pointer to a variable that receives a handle to the SNMP protocol data unit (PDU).
      * @param {Pointer<smiOCTETS>} msgBufDesc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that contains the SNMP message to decode into its components. The <b>len</b> member of the structure specifies the maximum number of bytes to process; the <b>ptr</b> member points to the encoded SNMP message.
@@ -6570,13 +6559,13 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpdecodemsg
      * @since windows5.0
      */
-    static SnmpDecodeMsg(session, srcEntity, dstEntity, context, pdu, msgBufDesc) {
+    static SnmpDecodeMsg(session, srcEntity, dstEntity, _context, pdu, msgBufDesc) {
         srcEntityMarshal := srcEntity is VarRef ? "ptr*" : "ptr"
         dstEntityMarshal := dstEntity is VarRef ? "ptr*" : "ptr"
-        contextMarshal := context is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
         pduMarshal := pdu is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("wsnmp32.dll\SnmpDecodeMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, contextMarshal, context, pduMarshal, pdu, "ptr", msgBufDesc, "uint")
+        result := DllCall("wsnmp32.dll\SnmpDecodeMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, pduMarshal, pdu, "ptr", msgBufDesc, "uint")
         return result
     }
 

@@ -857,18 +857,18 @@ class IInertiaProcessor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialtimestamp
      */
     get_InitialTimestamp() {
-        result := ComCall(45, this, "uint*", &timestamp := 0, "HRESULT")
-        return timestamp
+        result := ComCall(45, this, "uint*", &_timestamp := 0, "HRESULT")
+        return _timestamp
     }
 
     /**
      * The InitialTimestamp property specifies the starting time stamp for a target object with inertia. (Put)
-     * @param {Integer} timestamp 
+     * @param {Integer} _timestamp 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialtimestamp
      */
-    put_InitialTimestamp(timestamp) {
-        result := ComCall(46, this, "uint", timestamp, "HRESULT")
+    put_InitialTimestamp(_timestamp) {
+        result := ComCall(46, this, "uint", _timestamp, "HRESULT")
         return result
     }
 
@@ -896,12 +896,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * The ProcessTime method performs calculations for the given tick and can raise the Started, Delta, or Completed event depending on whether extrapolation is completed or not. If extrapolation finished at the previous tick, the method is no-op.
-     * @param {Integer} timestamp A parameter that contains a timestamp (in millisecs) to process.
+     * @param {Integer} _timestamp 
      * @returns {BOOL} Indicates whether an operation was performed. A value of false indicates extrapolation was finished at a previous tick and the operation was a no-op.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-processtime
      */
-    ProcessTime(timestamp) {
-        result := ComCall(49, this, "uint", timestamp, "int*", &completed := 0, "HRESULT")
+    ProcessTime(_timestamp) {
+        result := ComCall(49, this, "uint", _timestamp, "int*", &completed := 0, "HRESULT")
         return completed
     }
 
@@ -921,12 +921,12 @@ class IInertiaProcessor extends IUnknown{
      * Finishes the current manipulation at the given tick, stops inertia on the inertia processor, and raises the ManipulationCompleted event.
      * @remarks
      * The <b>CompleteTime</b> method raises the <a href="https://docs.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationcompleted">ManipulationCompleted</a> event on an <a href="https://docs.microsoft.com/windows/win32/api/manipulations/nn-manipulations-_imanipulationevents">_IManipulationEvents</a> interface implementation.
-     * @param {Integer} timestamp A parameter containing a timestamp (in milliseconds) to process.
+     * @param {Integer} _timestamp 
      * @returns {HRESULT} Returns <b>S_OK</b> on success, otherwise returns an error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-completetime
      */
-    CompleteTime(timestamp) {
-        result := ComCall(51, this, "uint", timestamp, "HRESULT")
+    CompleteTime(_timestamp) {
+        result := ComCall(51, this, "uint", _timestamp, "HRESULT")
         return result
     }
 }

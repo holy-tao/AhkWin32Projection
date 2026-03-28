@@ -38,14 +38,12 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
      * Specifies the method used to determine which points are inside the geometry described by this geometry sink and which points are outside.
      * @remarks
      * The fill mode defaults to D2D1_FILL_MODE_ALTERNATE. To set the fill mode, call <b>SetFillMode</b> before the first call to <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>. Not doing will put the geometry sink in an error state.
-     * @param {Integer} fillMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
-     * 
-     * The method used to determine whether a given point is part of the geometry.
+     * @param {Integer} _fillMode 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setfillmode
      */
-    SetFillMode(fillMode) {
-        ComCall(3, this, "int", fillMode)
+    SetFillMode(_fillMode) {
+        ComCall(3, this, "int", _fillMode)
     }
 
     /**
@@ -81,17 +79,15 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
 
     /**
      * Creates a sequence of lines using the specified points and adds them to the geometry sink.
-     * @param {Pointer<D2D_POINT_2F>} points Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
-     * 
-     * A pointer to an array of one or more points that describe the lines to draw. A line is drawn from the geometry sink's current point (the end point of the last segment drawn or the location specified by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>) to the first point in the array. if the array contains additional points, a line is drawn from the first point to the second point in the array, from the second point to the third point, and so on.
+     * @param {Pointer<D2D_POINT_2F>} _points 
      * @param {Integer} pointsCount Type: <b>UINT</b>
      * 
      * The number of points in the <i>points</i> array.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addlines
      */
-    AddLines(points, pointsCount) {
-        ComCall(6, this, "ptr", points, "uint", pointsCount)
+    AddLines(_points, pointsCount) {
+        ComCall(6, this, "ptr", _points, "uint", pointsCount)
     }
 
     /**

@@ -80,7 +80,7 @@ class IIsoImageManager extends IDispatch{
      * Sets the Path property value with a logical path to an .iso image.
      * @remarks
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @param {BSTR} Val The logical path to the .iso image. For example, "c:\\path\\file.iso".
+     * @param {BSTR} _Val 
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
      * 
      * <table>
@@ -104,10 +104,10 @@ class IIsoImageManager extends IDispatch{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iisoimagemanager-setpath
      */
-    SetPath(Val) {
-        Val := Val is String ? BSTR.Alloc(Val).Value : Val
+    SetPath(_Val) {
+        _Val := _Val is String ? BSTR.Alloc(_Val).Value : _Val
 
-        result := ComCall(9, this, "ptr", Val, "HRESULT")
+        result := ComCall(9, this, "ptr", _Val, "HRESULT")
         return result
     }
 

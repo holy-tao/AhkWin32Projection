@@ -37,13 +37,13 @@ class IComInstance2Events extends IUnknown{
      * @param {Pointer<Guid>} clsid The CLSID of the object being created.
      * @param {Pointer<Guid>} tsid The transaction stream identifier, which is unique for correlation to objects.
      * @param {Integer} CtxtID The context identifier for this object.
-     * @param {Integer} ObjectID The initial JIT-activated object.
+     * @param {Integer} _ObjectID 
      * @param {Pointer<Guid>} guidPartition The partition identifier for which this instance is created.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectcreate2
      */
-    OnObjectCreate2(pInfo, guidActivity, clsid, tsid, CtxtID, ObjectID, guidPartition) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "ptr", clsid, "ptr", tsid, "uint", CtxtID, "uint", ObjectID, "ptr", guidPartition, "HRESULT")
+    OnObjectCreate2(pInfo, guidActivity, clsid, tsid, CtxtID, _ObjectID, guidPartition) {
+        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "ptr", clsid, "ptr", tsid, "uint", CtxtID, "uint", _ObjectID, "ptr", guidPartition, "HRESULT")
         return result
     }
 

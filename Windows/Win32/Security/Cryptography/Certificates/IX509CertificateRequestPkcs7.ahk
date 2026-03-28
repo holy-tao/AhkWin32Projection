@@ -119,7 +119,7 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest{
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is <b>NULL</b>, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
      * 
      * Finally, the method sets the initialized PKCS #10 request as the inner request object.
-     * @param {Integer} Context An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509certificateenrollmentcontext">X509CertificateEnrollmentContext</a> enumeration value that specifies whether the requested certificate is intended for an end user, a computer, or an administrator acting on behalf of the computer.
+     * @param {Integer} _Context 
      * @param {BSTR} strTemplateName A  <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -145,10 +145,10 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromtemplatename
      */
-    InitializeFromTemplateName(Context, strTemplateName) {
+    InitializeFromTemplateName(_Context, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(32, this, "int", Context, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(32, this, "int", _Context, "ptr", strTemplateName, "HRESULT")
         return result
     }
 
@@ -167,7 +167,7 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest{
      * <li>Creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-isignercertificate">ISignerCertificate</a> from the original certificate, if it is to be renewed, and sets it on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-get_signercertificate">SignerCertificate</a> property.</li>
      * <li>Sets the PKCS #10 request  as the inner request object.</li>
      * </ul>
-     * @param {Integer} Context An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509certificateenrollmentcontext">X509CertificateEnrollmentContext</a> enumeration value that specifies whether the requested certificate is intended for an end user, a computer, or an administrator acting on behalf of the computer.
+     * @param {Integer} _Context 
      * @param {VARIANT_BOOL} RenewalRequest A <b>VARIANT_BOOL</b> that indicates whether the end entity is requesting that the certificate identified by the  <i>strCertificate</i> parameter be renewed.
      * @param {BSTR} strCertificate A <b>BSTR</b> variable that contains the DER-encoded  certificate.
      * 
@@ -206,10 +206,10 @@ class IX509CertificateRequestPkcs7 extends IX509CertificateRequest{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefromcertificate
      */
-    InitializeFromCertificate(Context, RenewalRequest, strCertificate, Encoding, InheritOptions) {
+    InitializeFromCertificate(_Context, RenewalRequest, strCertificate, Encoding, InheritOptions) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(33, this, "int", Context, "short", RenewalRequest, "ptr", strCertificate, "int", Encoding, "int", InheritOptions, "HRESULT")
+        result := ComCall(33, this, "int", _Context, "short", RenewalRequest, "ptr", strCertificate, "int", Encoding, "int", InheritOptions, "HRESULT")
         return result
     }
 

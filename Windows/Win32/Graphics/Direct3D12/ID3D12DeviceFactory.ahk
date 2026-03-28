@@ -176,14 +176,14 @@ class ID3D12DeviceFactory extends IUnknown{
 
     /**
      * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
-     * @param {IUnknown} adapter 
+     * @param {IUnknown} _adapter 
      * @param {Integer} FeatureLevel 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
-    CreateDevice(adapter, FeatureLevel, riid) {
-        result := ComCall(9, this, "ptr", adapter, "int", FeatureLevel, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")
+    CreateDevice(_adapter, FeatureLevel, riid) {
+        result := ComCall(9, this, "ptr", _adapter, "int", FeatureLevel, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")
         return ppvDevice
     }
 }

@@ -64,14 +64,14 @@ class IDebugHostFunctionIntrospection extends IUnknown{
     /**
      * 
      * @param {Integer} rva 
-     * @param {Pointer<BSTR>} sourceFile 
+     * @param {Pointer<BSTR>} _sourceFile 
      * @param {Pointer<Integer>} sourceLine 
      * @returns {HRESULT} 
      */
-    FindSourceLocationByRVA(rva, sourceFile, sourceLine) {
+    FindSourceLocationByRVA(rva, _sourceFile, sourceLine) {
         sourceLineMarshal := sourceLine is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", rva, "ptr", sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
+        result := ComCall(6, this, "uint", rva, "ptr", _sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
         return result
     }
 }

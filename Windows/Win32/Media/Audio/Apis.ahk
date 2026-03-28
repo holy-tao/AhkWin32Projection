@@ -10260,7 +10260,7 @@ class Audio {
      * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
+     * @param {LPARAM} _lParam 
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 
@@ -10336,10 +10336,10 @@ class Audio {
      * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveradda
      * @since windows5.0
      */
-    static acmDriverAddA(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
+    static acmDriverAddA(phadid, hinstModule, _lParam, dwPriority, fdwAdd) {
         hinstModule := hinstModule is Win32Handle ? NumGet(hinstModule, "ptr") : hinstModule
 
-        result := DllCall("MSACM32.dll\acmDriverAddA", "ptr", phadid, "ptr", hinstModule, "ptr", lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
+        result := DllCall("MSACM32.dll\acmDriverAddA", "ptr", phadid, "ptr", hinstModule, "ptr", _lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
         return result
     }
 
@@ -10350,7 +10350,7 @@ class Audio {
      * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
+     * @param {LPARAM} _lParam 
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 
@@ -10426,10 +10426,10 @@ class Audio {
      * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveraddw
      * @since windows5.0
      */
-    static acmDriverAddW(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
+    static acmDriverAddW(phadid, hinstModule, _lParam, dwPriority, fdwAdd) {
         hinstModule := hinstModule is Win32Handle ? NumGet(hinstModule, "ptr") : hinstModule
 
-        result := DllCall("MSACM32.dll\acmDriverAddW", "ptr", phadid, "ptr", hinstModule, "ptr", lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
+        result := DllCall("MSACM32.dll\acmDriverAddW", "ptr", phadid, "ptr", hinstModule, "ptr", _lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
         return result
     }
 

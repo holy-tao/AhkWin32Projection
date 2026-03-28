@@ -46,12 +46,12 @@ class IWebApplicationHost extends IUnknown{
 
     /**
      * Gets the handle of the current WWAHost window.
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<HWND>} _hwnd 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationhost-get_hwnd
      */
-    get_HWND(hwnd) {
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
+    get_HWND(_hwnd) {
+        result := ComCall(3, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -61,8 +61,8 @@ class IWebApplicationHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationhost-get_document
      */
     get_Document() {
-        result := ComCall(4, this, "ptr*", &htmlDocument := 0, "HRESULT")
-        return IHTMLDocument2(htmlDocument)
+        result := ComCall(4, this, "ptr*", &_htmlDocument := 0, "HRESULT")
+        return IHTMLDocument2(_htmlDocument)
     }
 
     /**

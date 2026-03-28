@@ -127,12 +127,12 @@ class IDirectManipulationViewport extends IUnknown{
      * This method returns the viewport state at the time of the call and not at the time when the return value is read.
      * 
      * This method will fail if called after <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-abandon">Abandon</a>.
-     * @returns {Integer} One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_status">DIRECTMANIPULATION_STATUS</a>.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getstatus
      */
     GetStatus() {
-        result := ComCall(8, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(8, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**
@@ -142,16 +142,16 @@ class IDirectManipulationViewport extends IUnknown{
      * 
      * The out parameters are optional, so the method can return an ID, the viewport object, or both.
      * @param {Pointer<Guid>} riid IID to the interface.
-     * @param {Pointer<Pointer<Void>>} object_R 
+     * @param {Pointer<Pointer<Void>>} _object 
      * @param {Pointer<Integer>} id The identifier portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-gettag
      */
-    GetTag(riid, object_R, id) {
-        object_RMarshal := object_R is VarRef ? "ptr*" : "ptr"
+    GetTag(riid, _object, id) {
+        _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", riid, object_RMarshal, object_R, idMarshal, id, "HRESULT")
+        result := ComCall(9, this, "ptr", riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -161,13 +161,13 @@ class IDirectManipulationViewport extends IUnknown{
      * A tag is a pairing of an integer ID with a Component Object Model (COM) object. It can be used by an app to identify the viewport.
      * 
      * The object parameter is optional, so that the method can set just an ID.
-     * @param {IUnknown} object_R 
+     * @param {IUnknown} _object 
      * @param {Integer} id The ID portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-settag
      */
-    SetTag(object_R, id) {
-        result := ComCall(10, this, "ptr", object_R, "uint", id, "HRESULT")
+    SetTag(_object, id) {
+        result := ComCall(10, this, "ptr", _object, "uint", id, "HRESULT")
         return result
     }
 
@@ -232,15 +232,15 @@ class IDirectManipulationViewport extends IUnknown{
      * <li>Client to screen mapping (from client to screen coordinate system)
      * </li>
      * </ol>
-     * @param {Pointer<Float>} matrix The transform matrix, in row-wise order: _11, _12, _21, _22, _31, _32.
+     * @param {Pointer<Float>} _matrix 
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewporttransform
      */
-    SetViewportTransform(matrix, pointCount) {
-        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+    SetViewportTransform(_matrix, pointCount) {
+        _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
 
-        result := ComCall(14, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
+        result := ComCall(14, this, _matrixMarshal, _matrix, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -257,15 +257,15 @@ class IDirectManipulationViewport extends IUnknown{
      * 
      * 
      * This method cannot be called if the viewport status is <b>DIRECTMANIPULATION_RUNNING</b> or <b>DIRECTMANIPULATION_INERTIA</b>.
-     * @param {Pointer<Float>} matrix The transform matrix, in row-wise order: _11, _12, _21, _22, _31, _32.
+     * @param {Pointer<Float>} _matrix 
      * @param {Integer} pointCount The size of the transform matrix. This value is always 6, because a 3x2 matrix is used for all direct manipulation transforms.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-syncdisplaytransform
      */
-    SyncDisplayTransform(matrix, pointCount) {
-        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
+    SyncDisplayTransform(_matrix, pointCount) {
+        _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
 
-        result := ComCall(15, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
+        result := ComCall(15, this, _matrixMarshal, _matrix, "uint", pointCount, "HRESULT")
         return result
     }
 
@@ -278,8 +278,8 @@ class IDirectManipulationViewport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getprimarycontent
      */
     GetPrimaryContent(riid) {
-        result := ComCall(16, this, "ptr", riid, "ptr*", &object_R := 0, "HRESULT")
-        return object_R
+        result := ComCall(16, this, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        return _object
     }
 
     /**
@@ -461,12 +461,12 @@ class IDirectManipulationViewport extends IUnknown{
      * </div>
      * <div> </div>
      * Calling this method with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_input_mode">DIRECTMANIPULATION_INPUT_MODE_MANUAL</a> set is similar to calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewportoptions">SetViewportOptions(DIRECTMANIPULATION_VIEWPORT_OPTIONS_INPUT)</a>. However, calling <b>SetViewportOptions</b> also overrides all other settings.
-     * @param {Integer} mode One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_input_mode">DIRECTMANIPULATION_INPUT_MODE</a>.
+     * @param {Integer} _mode 
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setinputmode
      */
-    SetInputMode(mode) {
-        result := ComCall(27, this, "int", mode, "HRESULT")
+    SetInputMode(_mode) {
+        result := ComCall(27, this, "int", _mode, "HRESULT")
         return result
     }
 
@@ -480,12 +480,12 @@ class IDirectManipulationViewport extends IUnknown{
      * 
      * 
      * Calling this method with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_input_mode">DIRECTMANIPULATION_INPUT_MODE_MANUAL</a> set is similar to calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewportoptions">SetViewportOptions(DIRECTMANIPULATION_VIEWPORT_OPTIONS_INPUT)</a>. However, calling <b>SetViewportOptions</b> also overrides all other settings.
-     * @param {Integer} mode One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_input_mode">DIRECTMANIPULATION_INPUT_MODE</a>.
+     * @param {Integer} _mode 
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setupdatemode
      */
-    SetUpdateMode(mode) {
-        result := ComCall(28, this, "int", mode, "HRESULT")
+    SetUpdateMode(_mode) {
+        result := ComCall(28, this, "int", _mode, "HRESULT")
         return result
     }
 

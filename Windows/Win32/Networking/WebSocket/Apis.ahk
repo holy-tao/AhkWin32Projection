@@ -293,9 +293,7 @@ class WebSocket {
      * 
      * <div class="alert"><b>Note</b>  Once <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_property_type">WEB_SOCKET_INDICATE_SEND_COMPLETE</a> is returned by <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> for this action, the memory pointer to by <i>pBuffer</i> can be reclaimed.</div>
      * <div> </div>
-     * @param {Pointer<Void>} Context Type: <b>PVOID</b>
-     * 
-     * A pointer to an application context handle that will be returned by a subsequent call to  <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a>.
+     * @param {Pointer<Void>} _Context 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
@@ -322,12 +320,12 @@ class WebSocket {
      * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketsend
      * @since windows8.0
      */
-    static WebSocketSend(hWebSocket, BufferType, pBuffer, Context) {
+    static WebSocketSend(hWebSocket, BufferType, pBuffer, _Context) {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("websocket.dll\WebSocketSend", "ptr", hWebSocket, "int", BufferType, "ptr", pBuffer, ContextMarshal, Context, "HRESULT")
+        result := DllCall("websocket.dll\WebSocketSend", "ptr", hWebSocket, "int", BufferType, "ptr", pBuffer, _ContextMarshal, _Context, "HRESULT")
         return result
     }
 

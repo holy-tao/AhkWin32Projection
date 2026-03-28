@@ -220,14 +220,14 @@ class IXDSCodec extends IUnknown{
 
     /**
      * Not implemented in this release.
-     * @param {Pointer<Integer>} protType Reserved.
+     * @param {Pointer<Integer>} _protType 
      * @returns {Integer} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
      */
-    GetCurrLicenseExpDate(protType) {
-        protTypeMarshal := protType is VarRef ? "int*" : "ptr"
+    GetCurrLicenseExpDate(_protType) {
+        _protTypeMarshal := _protType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, protTypeMarshal, protType, "int*", &lpDateTime := 0, "HRESULT")
+        result := ComCall(8, this, _protTypeMarshal, _protType, "int*", &lpDateTime := 0, "HRESULT")
         return lpDateTime
     }
 

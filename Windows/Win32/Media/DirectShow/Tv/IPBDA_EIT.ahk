@@ -35,15 +35,15 @@ class IPBDA_EIT extends IUnknown{
 
     /**
      * Initializes an object that gets data from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
-     * @param {Integer} size Specifies the buffer size for data used to initialize each section.
+     * @param {Integer} _size 
      * @param {Pointer<Integer>} pBuffer Specifies the buffer used to initialize each section.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-initialize
      */
-    Initialize(size, pBuffer) {
+    Initialize(_size, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", size, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(3, this, "uint", _size, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 

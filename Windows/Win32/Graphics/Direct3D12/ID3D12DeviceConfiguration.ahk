@@ -64,12 +64,12 @@ class ID3D12DeviceConfiguration extends IUnknown{
     /**
      * 
      * @param {Pointer} pBlob 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
-    CreateVersionedRootSignatureDeserializer(pBlob, Size, riid) {
-        result := ComCall(6, this, "ptr", pBlob, "ptr", Size, "ptr", riid, "ptr*", &ppvDeserializer := 0, "HRESULT")
+    CreateVersionedRootSignatureDeserializer(pBlob, _Size, riid) {
+        result := ComCall(6, this, "ptr", pBlob, "ptr", _Size, "ptr", riid, "ptr*", &ppvDeserializer := 0, "HRESULT")
         return ppvDeserializer
     }
 }

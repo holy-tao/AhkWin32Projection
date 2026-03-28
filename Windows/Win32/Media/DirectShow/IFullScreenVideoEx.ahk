@@ -33,16 +33,16 @@ class IFullScreenVideoEx extends IFullScreenVideo{
 
     /**
      * The SetAcceleratorTable method specifies an accelerator table that will be used to translate keyboard messages. The Full Screen Renderer filter does not support this method.
-     * @param {HWND} hwnd Handle of the window that will receive the translated messages.
-     * @param {HACCEL} hAccel Handle to the accelerator table.
+     * @param {HWND} _hwnd 
+     * @param {HACCEL} _hAccel 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-ifullscreenvideoex-setacceleratortable
      */
-    SetAcceleratorTable(hwnd, hAccel) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hAccel := hAccel is Win32Handle ? NumGet(hAccel, "ptr") : hAccel
+    SetAcceleratorTable(_hwnd, _hAccel) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hAccel := _hAccel is Win32Handle ? NumGet(_hAccel, "ptr") : _hAccel
 
-        result := ComCall(20, this, "ptr", hwnd, "ptr", hAccel, "HRESULT")
+        result := ComCall(20, this, "ptr", _hwnd, "ptr", _hAccel, "HRESULT")
         return result
     }
 

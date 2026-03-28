@@ -180,16 +180,15 @@ class ICertExit extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} Context Specifies a context handle that can be used to get properties associated with the event from the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nn-certif-icertserverexit">ICertServerExit</a> interface.
+     * @param {Integer} _Context 
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/certexit/nf-certexit-icertexit-notify
      */
-    Notify(ExitEvent, Context) {
-        result := ComCall(8, this, "int", ExitEvent, "int", Context, "HRESULT")
+    Notify(ExitEvent, _Context) {
+        result := ComCall(8, this, "int", ExitEvent, "int", _Context, "HRESULT")
         return result
     }
 

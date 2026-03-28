@@ -4665,13 +4665,13 @@ class Ime {
      * This function calls the application callback function for each enumerated input context, and passes the specified <i>lParam</i> value.
      * @param {Integer} idThread 
      * @param {Pointer<IMCENUMPROC>} lpfn Pointer to the enumeration callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-imcenumproc">EnumInputContext</a>.
-     * @param {LPARAM} lParam Application-supplied data. The function passes this data to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenuminputcontext
      * @since windows5.1.2600
      */
-    static ImmEnumInputContext(idThread, lpfn, lParam) {
-        result := DllCall("IMM32.dll\ImmEnumInputContext", "uint", idThread, "ptr", lpfn, "ptr", lParam, "int")
+    static ImmEnumInputContext(idThread, lpfn, _lParam) {
+        result := DllCall("IMM32.dll\ImmEnumInputContext", "uint", idThread, "ptr", lpfn, "ptr", _lParam, "int")
         return result
     }
 

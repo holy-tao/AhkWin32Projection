@@ -137,9 +137,7 @@ class DirectComposition {
      * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The HWND to route messages to.
+     * @param {HWND} _hwnd 
      * @param {BOOL} enable Type: <b>BOOL</b>
      * 
      * Boolean value indicating whether to enable or disable routing.
@@ -148,10 +146,10 @@ class DirectComposition {
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionattachmousewheeltohwnd
      */
-    static DCompositionAttachMouseWheelToHwnd(visual, hwnd, enable) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DCompositionAttachMouseWheelToHwnd(visual, _hwnd, enable) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "HRESULT")
+        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", _hwnd, "int", enable, "HRESULT")
         return result
     }
 
@@ -160,9 +158,7 @@ class DirectComposition {
      * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The HWND to route messages to.
+     * @param {HWND} _hwnd 
      * @param {BOOL} enable Type: <b>BOOL</b>
      * 
      * Boolean value indicating whether to enable or disable routing.
@@ -171,10 +167,10 @@ class DirectComposition {
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionattachmousedragtohwnd
      */
-    static DCompositionAttachMouseDragToHwnd(visual, hwnd, enable) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DCompositionAttachMouseDragToHwnd(visual, _hwnd, enable) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "HRESULT")
+        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", _hwnd, "int", enable, "HRESULT")
         return result
     }
 

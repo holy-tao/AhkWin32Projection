@@ -3409,7 +3409,7 @@ class KernelStreaming {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} IoControl 
      * @param {Pointer} InBuffer 
      * @param {Integer} InLength 
@@ -3418,12 +3418,12 @@ class KernelStreaming {
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {HRESULT} 
      */
-    static KsSynchronousDeviceControl(Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static KsSynchronousDeviceControl(_Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
+        result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", _Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
         return result
     }
 

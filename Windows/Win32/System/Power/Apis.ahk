@@ -1166,14 +1166,14 @@ class Power {
      * 
      * 
      * If the OEM preferred computer role is not supported on the platform specified by the caller, the function returns the closest supported value.  For example, calling the <b>PowerDeterminePlatformRoleEx</b> function with a <i>Version</i> of <b>POWER_PLATFORM_ROLE_V1</b> on a tablet device returns <b>PlatformRoleMobile</b>.
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @returns {Integer} The return value is one of the values from the 
      *       specified version of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerdetermineplatformroleex
      * @since windows8.0
      */
-    static PowerDeterminePlatformRoleEx(Version) {
-        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRoleEx", "uint", Version, "int")
+    static PowerDeterminePlatformRoleEx(_Version) {
+        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRoleEx", "uint", _Version, "int")
         return result
     }
 
@@ -1218,7 +1218,7 @@ class Power {
      * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -1233,13 +1233,13 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerreadacvalue
      * @since windows6.0.6000
      */
-    static PowerReadACValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer_R, BufferSize) {
+    static PowerReadACValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadACValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadACValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -1252,7 +1252,7 @@ class Power {
      * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -1267,13 +1267,13 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerreaddcvalue
      * @since windows6.0.6000
      */
-    static PowerReadDCValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer_R, BufferSize) {
+    static PowerReadDCValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadDCValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDCValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -1395,21 +1395,17 @@ class Power {
      * Registers a callback to receive effective power mode change notifications.
      * @remarks
      * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power mode is changing, you may receive multiple callbacks; the last callback is the most recent update.
-     * @param {Integer} Version Supplies the maximum effective power mode version the caller understands. If the effective power mode comes from a later version, it is reduced to a compatible version that is then passed to the callback. 
-     * 
-     * The following values can be passed in: 
-     * - EFFECTIVE_POWER_MODE_V1 is available starting with Windows 10, version 1809 and tracks the performance power slider and battery saver states. 
-     * - EFFECTIVE_POWER_MODE_V2 is available starting with Windows 10, version 1903 and tracks the performance power slider, battery saver, game mode and windows mixed reality power states.
+     * @param {Integer} _Version 
      * @param {Pointer<EFFECTIVE_POWER_MODE_CALLBACK>} Callback A pointer to the callback to call when the effective power mode changes. This will also be called once upon registration to supply the current mode. If multiple callbacks are registered using this API, those callbacks can be called concurrently.
-     * @param {Pointer<Void>} Context Caller-specified opaque context.
+     * @param {Pointer<Void>} _Context 
      * @returns {Pointer<Void>} A handle to the registration. Use this handle to unregister for notifications.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
      * @since windows10.0.17763
      */
-    static PowerRegisterForEffectivePowerModeNotifications(Version, Callback, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static PowerRegisterForEffectivePowerModeNotifications(_Version, Callback, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, ContextMarshal, Context, "ptr*", &RegistrationHandle := 0, "HRESULT")
+        result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", _Version, "ptr", Callback, _ContextMarshal, _Context, "ptr*", &RegistrationHandle := 0, "HRESULT")
         return RegistrationHandle
     }
 
@@ -1482,7 +1478,7 @@ class Power {
      * 
      * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<PWRSCHEMESENUMPROC>} lpfn A pointer to a callback function to be called for each power scheme enumerated. For more information, see Remarks.
-     * @param {LPARAM} lParam A user-defined value to be passed to the callback function.
+     * @param {LPARAM} _lParam 
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1490,10 +1486,10 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-enumpwrschemes
      * @since windows5.1.2600
      */
-    static EnumPwrSchemes(lpfn, lParam) {
+    static EnumPwrSchemes(lpfn, _lParam) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\EnumPwrSchemes", "ptr", lpfn, "ptr", lParam, "char")
+        result := DllCall("POWRPROF.dll\EnumPwrSchemes", "ptr", lpfn, "ptr", _lParam, "char")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2504,7 +2500,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2519,12 +2515,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadfriendlyname
      * @since windows6.0.6000
      */
-    static PowerReadFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerReadFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2534,7 +2530,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2550,12 +2546,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreaddescription
      * @since windows6.0.6000
      */
-    static PowerReadDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerReadDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2569,7 +2565,7 @@ class Power {
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
      * @param {Integer} PossibleSettingIndex The zero-based index of the possible setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the  <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2581,13 +2577,13 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossiblevalue
      * @since windows6.0.6000
      */
-    static PowerReadPossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, Buffer_R, BufferSize) {
+    static PowerReadPossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadPossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "uint", PossibleSettingIndex, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "uint", PossibleSettingIndex, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2597,7 +2593,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      * <i>Buffer</i> parameter. 
      * 
@@ -2610,12 +2606,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossiblefriendlyname
      * @since windows6.0.6000
      */
-    static PowerReadPossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
+    static PowerReadPossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2625,7 +2621,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2637,12 +2633,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossibledescription
      * @since windows6.0.6000
      */
-    static PowerReadPossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
+    static PowerReadPossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2713,7 +2709,7 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2725,12 +2721,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvalueunitsspecifier
      * @since windows6.0.6000
      */
-    static PowerReadValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerReadValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2784,7 +2780,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2799,12 +2795,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadiconresourcespecifier
      * @since windows6.0.6000
      */
-    static PowerReadIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerReadIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2850,17 +2846,17 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The size of the friendly name specified by the <i>Buffer</i> parameter, including the terminating <b>NULL</b> character.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritefriendlyname
      * @since windows6.0.6000
      */
-    static PowerWriteFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerWriteFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -2884,17 +2880,17 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritedescription
      * @since windows6.0.6000
      */
-    static PowerWriteDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerWriteDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -2909,17 +2905,17 @@ class Power {
      * @param {Integer} Type The type of data for the value. The possible values are listed in 
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossiblevalue
      * @since windows6.0.6000
      */
-    static PowerWritePossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, Buffer_R, BufferSize) {
+    static PowerWritePossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWritePossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", Type, "uint", PossibleSettingIndex, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWritePossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", Type, "uint", PossibleSettingIndex, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -2932,17 +2928,17 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossiblefriendlyname
      * @since windows6.0.6000
      */
-    static PowerWritePossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
+    static PowerWritePossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWritePossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWritePossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -2955,17 +2951,17 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossibledescription
      * @since windows6.0.6000
      */
-    static PowerWritePossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
+    static PowerWritePossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWritePossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWritePossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -3040,17 +3036,17 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevalueunitsspecifier
      * @since windows6.0.6000
      */
-    static PowerWriteValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerWriteValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -3120,17 +3116,17 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwriteiconresourcespecifier
      * @since windows6.0.6000
      */
-    static PowerWriteIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
+    static PowerWriteIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", _Buffer, "uint", BufferSize, "uint")
         return result
     }
 
@@ -3475,7 +3471,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Integer} Index The zero-based index of the scheme, subgroup, or setting that is being enumerated.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that on input contains the size of the buffer pointed to by 
      *       the <i>Buffer</i> parameter. If the  <i>Buffer</i> parameter is 
      *       <b>NULL</b> or if the <i>BufferSize</i> is not large enough, the function 
@@ -3488,12 +3484,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerenumerate
      * @since windows6.0.6000
      */
-    static PowerEnumerate(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, AccessFlags, Index, Buffer_R, BufferSize) {
+    static PowerEnumerate(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, AccessFlags, Index, _Buffer, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerEnumerate", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "int", AccessFlags, "uint", Index, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerEnumerate", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "int", AccessFlags, "uint", Index, "ptr", _Buffer, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -4076,7 +4072,7 @@ class Power {
 
     /**
      * Unregisters the power setting notification.
-     * @param {HPOWERNOTIFY} Handle The handle returned from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerpowersettingnotification">RegisterPowerSettingNotification</a> function.
+     * @param {HPOWERNOTIFY} _Handle 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4084,12 +4080,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterpowersettingnotification
      * @since windows6.0.6000
      */
-    static UnregisterPowerSettingNotification(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static UnregisterPowerSettingNotification(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterPowerSettingNotification", "ptr", Handle, "int")
+        result := DllCall("USER32.dll\UnregisterPowerSettingNotification", "ptr", _Handle, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4128,7 +4124,7 @@ class Power {
 
     /**
      * Cancels a registration to receive notification when the system is suspended or resumed. Similar to PowerUnregisterSuspendResumeNotification but operates in user mode.
-     * @param {HPOWERNOTIFY} Handle A handle to a registration obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registersuspendresumenotification">RegisterSuspendResumeNotification</a> function.
+     * @param {HPOWERNOTIFY} _Handle 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4136,12 +4132,12 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregistersuspendresumenotification
      * @since windows8.0
      */
-    static UnregisterSuspendResumeNotification(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static UnregisterSuspendResumeNotification(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterSuspendResumeNotification", "ptr", Handle, "int")
+        result := DllCall("USER32.dll\UnregisterSuspendResumeNotification", "ptr", _Handle, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4250,7 +4246,7 @@ class Power {
      * Creates a new power request object.
      * @remarks
      * When the power request object is no longer needed, use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to free the handle and clean up the object.
-     * @param {Pointer<REASON_CONTEXT>} Context Points to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-reason_context">REASON_CONTEXT</a> structure that contains information about the power request.
+     * @param {Pointer<REASON_CONTEXT>} _Context 
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the power request object.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call 
@@ -4258,10 +4254,10 @@ class Power {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-powercreaterequest
      * @since windows6.1
      */
-    static PowerCreateRequest(Context) {
+    static PowerCreateRequest(_Context) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PowerCreateRequest", "ptr", Context, "ptr")
+        result := DllCall("KERNEL32.dll\PowerCreateRequest", "ptr", _Context, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }

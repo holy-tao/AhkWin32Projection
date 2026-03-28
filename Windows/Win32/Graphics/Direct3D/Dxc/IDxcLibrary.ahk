@@ -72,24 +72,24 @@ class IDxcLibrary extends IUnknown{
     /**
      * 
      * @param {Pointer} pText 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Integer} codePage 
      * @returns {IDxcBlobEncoding} 
      */
-    CreateBlobWithEncodingFromPinned(pText, size, codePage) {
-        result := ComCall(6, this, "ptr", pText, "uint", size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+    CreateBlobWithEncodingFromPinned(pText, _size, codePage) {
+        result := ComCall(6, this, "ptr", pText, "uint", _size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
     /**
      * 
      * @param {Pointer} pText 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Integer} codePage 
      * @returns {IDxcBlobEncoding} 
      */
-    CreateBlobWithEncodingOnHeapCopy(pText, size, codePage) {
-        result := ComCall(7, this, "ptr", pText, "uint", size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+    CreateBlobWithEncodingOnHeapCopy(pText, _size, codePage) {
+        result := ComCall(7, this, "ptr", pText, "uint", _size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
@@ -97,12 +97,12 @@ class IDxcLibrary extends IUnknown{
      * 
      * @param {Pointer} pText 
      * @param {IMalloc} pIMalloc 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Integer} codePage 
      * @returns {IDxcBlobEncoding} 
      */
-    CreateBlobWithEncodingOnMalloc(pText, pIMalloc, size, codePage) {
-        result := ComCall(8, this, "ptr", pText, "ptr", pIMalloc, "uint", size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+    CreateBlobWithEncodingOnMalloc(pText, pIMalloc, _size, codePage) {
+        result := ComCall(8, this, "ptr", pText, "ptr", pIMalloc, "uint", _size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 

@@ -44,14 +44,14 @@ class DDiscFormat2EraseEvents extends IDispatch{
      * Notification is sent every 0.5 or 1.0 seconds depending on the method required to blank the media.
      * 
      * Total time estimates for a single erasure can vary as the operation progresses. The drive provides updated information that can affect the projected duration of the erasure.
-     * @param {IDispatch} object_R 
+     * @param {IDispatch} _object 
      * @param {Integer} elapsedSeconds Elapsed time, in seconds, of the erase operation.
      * @param {Integer} estimatedTotalSeconds Estimated time, in seconds, to complete the erase operation.
      * @returns {HRESULT} Return values are ignored.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscformat2eraseevents-update
      */
-    Update(object_R, elapsedSeconds, estimatedTotalSeconds) {
-        result := ComCall(7, this, "ptr", object_R, "int", elapsedSeconds, "int", estimatedTotalSeconds, "HRESULT")
+    Update(_object, elapsedSeconds, estimatedTotalSeconds) {
+        result := ComCall(7, this, "ptr", _object, "int", elapsedSeconds, "int", estimatedTotalSeconds, "HRESULT")
         return result
     }
 }

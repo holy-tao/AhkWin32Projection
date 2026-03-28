@@ -33,13 +33,13 @@ class IX509CertificateTemplate extends IDispatch{
 
     /**
      * Retrieves a template property value.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplate-get_property
      */
-    get_Property(property) {
+    get_Property(_property) {
         pValue := VARIANT()
-        result := ComCall(7, this, "int", property, "ptr", pValue, "HRESULT")
+        result := ComCall(7, this, "int", _property, "ptr", pValue, "HRESULT")
         return pValue
     }
 }

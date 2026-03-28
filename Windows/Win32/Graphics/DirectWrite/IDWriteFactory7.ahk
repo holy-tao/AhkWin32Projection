@@ -55,13 +55,11 @@ class IDWriteFactory7 extends IDWriteFactory6{
      * @param {Integer} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
      * 
      * How to group families in the collection.
-     * @returns {IDWriteFontCollection3} Type: **[IDWriteFontCollection3](./nn-dwrite_3-idwritefontcollection3.md)\*\***
-     * 
-     * The address of a pointer to an [IDWriteFontCollection3](./nn-dwrite_3-idwritefontcollection3.md) interface. On successful completion, the function sets the pointer to a newly created font collection object, otherwise it sets the pointer to `nullptr`.
+     * @returns {IDWriteFontCollection3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory7-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel) {
-        result := ComCall(56, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &fontCollection := 0, "HRESULT")
-        return IDWriteFontCollection3(fontCollection)
+        result := ComCall(56, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &_fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection3(_fontCollection)
     }
 }

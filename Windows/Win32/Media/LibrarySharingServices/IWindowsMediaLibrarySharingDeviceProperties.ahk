@@ -44,12 +44,12 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     /**
      * The get_Item method retrieves an IWindowsMediaLibrarySharingDeviceProperty interface that represents an individual property for a media device.
      * @param {Integer} index The zero-based index of the property in the collection of all properties associated with the media device.
-     * @returns {IWindowsMediaLibrarySharingDeviceProperty} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty">IWindowsMediaLibrarySharingDeviceProperty</a> interface.
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &property := 0, "HRESULT")
-        return IWindowsMediaLibrarySharingDeviceProperty(property)
+        result := ComCall(7, this, "int", index, "ptr*", &_property := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDeviceProperty(_property)
     }
 
     /**
@@ -65,13 +65,13 @@ class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
     /**
      * The GetProperty method retrieves an IWindowsMediaLibrarySharingDeviceProperty interface that represents an individual property for a media device.
      * @param {BSTR} name A <b>BSTR</b> that specifies the name of the property.
-     * @returns {IWindowsMediaLibrarySharingDeviceProperty} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperty">IWindowsMediaLibrarySharingDeviceProperty</a> interface.
+     * @returns {IWindowsMediaLibrarySharingDeviceProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-getproperty
      */
     GetProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "ptr*", &property := 0, "HRESULT")
-        return IWindowsMediaLibrarySharingDeviceProperty(property)
+        result := ComCall(9, this, "ptr", name, "ptr*", &_property := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDeviceProperty(_property)
     }
 }

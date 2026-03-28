@@ -161,16 +161,16 @@ class EnterpriseData {
 
     /**
      * 
-     * @param {Integer} Version 
+     * @param {Integer} _Version 
      * @param {Integer} Type 
      * @param {Pointer<Void>} pvData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
      */
-    static SrpHostingInitialize(Version, Type, pvData, cbData) {
+    static SrpHostingInitialize(_Version, Type, pvData, cbData) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("srpapi.dll\SrpHostingInitialize", "int", Version, "int", Type, pvDataMarshal, pvData, "uint", cbData, "HRESULT")
+        result := DllCall("srpapi.dll\SrpHostingInitialize", "int", _Version, "int", Type, pvDataMarshal, pvData, "uint", cbData, "HRESULT")
         return result
     }
 

@@ -77,7 +77,7 @@ class EventLog {
      * Closes an open handle.
      * @remarks
      * You cannot use the handle after the handle is closed. When you close a parent handle, any opened handles that were created using the handle are also closed. For example, if you query for events, the query result contains a handle for each event that matches the query. Best practice suggests that you close each event handle when you are done with the event but if you do not, when you close the query handle, all event handles are also closed.
-     * @param {EVT_HANDLE} Object_R 
+     * @param {EVT_HANDLE} _Object 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -111,12 +111,12 @@ class EventLog {
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtclose
      * @since windows6.0.6000
      */
-    static EvtClose(Object_R) {
-        Object_R := Object_R is Win32Handle ? NumGet(Object_R, "ptr") : Object_R
+    static EvtClose(_Object) {
+        _Object := _Object is Win32Handle ? NumGet(_Object, "ptr") : _Object
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtClose", "ptr", Object_R, "int")
+        result := DllCall("wevtapi.dll\EvtClose", "ptr", _Object, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -154,7 +154,7 @@ class EventLog {
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.</li>
      * </ol>
      * The operation being stopped will return with an error code of ERROR_CANCELLED.
-     * @param {EVT_HANDLE} Object_R 
+     * @param {EVT_HANDLE} _Object 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -189,12 +189,12 @@ class EventLog {
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtcancel
      * @since windows6.0.6000
      */
-    static EvtCancel(Object_R) {
-        Object_R := Object_R is Win32Handle ? NumGet(Object_R, "ptr") : Object_R
+    static EvtCancel(_Object) {
+        _Object := _Object is Win32Handle ? NumGet(_Object, "ptr") : _Object
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtCancel", "ptr", Object_R, "int")
+        result := DllCall("wevtapi.dll\EvtCancel", "ptr", _Object, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -209,18 +209,18 @@ class EventLog {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> functions can provide extended error information if there is a problem with the specified XPath. For example, the error information can identify the character in the XPath where a parsing error occurred. To receive the extended error information for a malformed XPath, you cannot specify the EvtQueryTolerateQueryErrors flag when calling <b>EvtQuery</b> or <b>EvtSubscribe</b>.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Pointer<Integer>} BufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} The return value is ERROR_SUCCESS if the call succeeded; otherwise, a Win32 error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetextendedstatus
      * @since windows6.0.6000
      */
-    static EvtGetExtendedStatus(BufferSize, Buffer_R, BufferUsed) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static EvtGetExtendedStatus(BufferSize, _Buffer, BufferUsed) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, "uint")
+        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, "uint")
         return result
     }
 
@@ -233,21 +233,21 @@ class EventLog {
      * 
      * You must only use the query handle that this function returns on the same thread that created the handle.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to query for events on the local computer.
-     * @param {PWSTR} Path The name of the channel or the full path to a log file that contains the events that you want to query. You can specify an .evt, .evtx, or.etl log file. The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query and the query specifies the path.
+     * @param {PWSTR} _Path 
      * @param {PWSTR} Query A query that specifies the types of events that you want to retrieve. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {Integer} Flags One or more flags that specify the order that you want to receive the events and whether you are querying against a channel or log file.  For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_flags">EVT_QUERY_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} A handle to the query results if successful; otherwise, <b>NULL</b>. If the function returns <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtquery
      * @since windows6.0.6000
      */
-    static EvtQuery(Session, Path, Query, Flags) {
+    static EvtQuery(Session, _Path, Query, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
-        Path := Path is String ? StrPtr(Path) : Path
+        _Path := _Path is String ? StrPtr(_Path) : _Path
         Query := Query is String ? StrPtr(Query) : Query
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtQuery", "ptr", Session, "ptr", Path, "ptr", Query, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtQuery", "ptr", Session, "ptr", _Path, "ptr", Query, "uint", Flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -389,25 +389,25 @@ class EventLog {
      * @param {PWSTR} ChannelPath The name of the Admin or Operational channel that contains the events that you want to subscribe to (you cannot subscribe to Analytic or Debug channels). The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query.
      * @param {PWSTR} Query A query that specifies the types of events that you want the subscription service to return. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {EVT_HANDLE} Bookmark A handle to a bookmark that identifies the starting point for the subscription.  To get a bookmark handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreatebookmark">EvtCreateBookmark</a> function.  You must set this parameter if the <i>Flags</i> parameter contains the EvtSubscribeStartAfterBookmark flag; otherwise, <b>NULL</b>.
-     * @param {Pointer<Void>} Context A caller-defined context value that the subscription service will pass to the specified callback each time it delivers an event.
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<EVT_SUBSCRIBE_CALLBACK>} Callback Pointer to your <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nc-winevt-evt_subscribe_callback">EVT_SUBSCRIBE_CALLBACK</a> callback function that will receive the subscription events. This parameter must be <b>NULL</b> if the <i>SignalEvent</i> parameter is not <b>NULL</b>.
      * @param {Integer} Flags One or more flags that specify when to start subscribing to events. For example, if you specify EvtSubscribeStartAtOldestRecord, the service will retrieve all current and future events that match your query criteria; however, if you specify EvtSubscribeToFutureEvents, the service returns only future events that match your query criteria. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_subscribe_flags">EVT_SUBSCRIBE_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} A handle to the subscription if successful; otherwise, <b>NULL</b>. If the function returns <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code. You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function with the subscription handle when done.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtsubscribe
      * @since windows6.0.6000
      */
-    static EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, Context, Callback, Flags) {
+    static EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, _Context, Callback, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         SignalEvent := SignalEvent is Win32Handle ? NumGet(SignalEvent, "ptr") : SignalEvent
         ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
         Query := Query is String ? StrPtr(Query) : Query
         Bookmark := Bookmark is Win32Handle ? NumGet(Bookmark, "ptr") : Bookmark
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, ContextMarshal, Context, "ptr", Callback, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, _ContextMarshal, _Context, "ptr", Callback, "uint", Flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -457,11 +457,11 @@ class EventLog {
      * When an EVT_HANDLE from this function is used in the <b>EvtRender</b> function, the list of values that is returned by that function consists of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures, each corresponding to exactly one of the XPATH expressions in the original <i>ValuePaths</i> parameter array in order of appearance.  Each such <b>EVT_VARIANT</b> structure contains the value that is identified by its corresponding XPATH expression for the event that is being rendered.  If no value is found, the <b>EVT_VARIANT</b> structure contains <b>NULL</b>.  If multiple values are present, the <b>EVT_VARIANT</b> structure will contain the first value encountered.
      * 
      * Be careful when comparing floating-point numbers in XPath queries. Any string representation of a floating-point number is approximated, so the value displayed in XML might not match the number stored with the event. Floating-point numbers should be compared as being less than or greater than a constant.
-     * @param {EVT_HANDLE} Context A handle to the rendering context that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreaterendercontext">EvtCreateRenderContext</a> function returns. This parameter must be set to <b>NULL</b> if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark.
+     * @param {EVT_HANDLE} _Context 
      * @param {EVT_HANDLE} Fragment A handle to an event or to a bookmark. Set this parameter to a bookmark handle if the <i>Flags</i> parameter is set to EvtRenderBookmark; otherwise, set to an event handle.
      * @param {Integer} Flags A flag that identifies what to render. For example, the entire event or specific properties of the event. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_render_flags">EVT_RENDER_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} BufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @param {Pointer<Integer>} PropertyCount The number of the properties in the <i>Buffer</i> parameter if the <i>Flags</i> parameter is set to EvtRenderEventValues; otherwise, zero.
      * @returns {BOOL} <table>
@@ -497,8 +497,8 @@ class EventLog {
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtrender
      * @since windows6.0.6000
      */
-    static EvtRender(Context, Fragment, Flags, BufferSize, Buffer_R, BufferUsed, PropertyCount) {
-        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+    static EvtRender(_Context, Fragment, Flags, BufferSize, _Buffer, BufferUsed, PropertyCount) {
+        _Context := _Context is Win32Handle ? NumGet(_Context, "ptr") : _Context
         Fragment := Fragment is Win32Handle ? NumGet(Fragment, "ptr") : Fragment
 
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
@@ -506,7 +506,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtRender", "ptr", Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, "int")
+        result := DllCall("wevtapi.dll\EvtRender", "ptr", _Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -557,7 +557,7 @@ class EventLog {
      * To override the insertion values, the <i>Flags</i> parameter must be set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageEvent</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageXML</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>. If <i>Flags</i> is set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>, the resource identifier must identify the event's message string.
      * @param {Integer} Flags A flag that specifies the message string in the event to format. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EVT_FORMAT_MESSAGE_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @param {Pointer<Integer>} BufferUsed The size, in characters of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -592,16 +592,16 @@ class EventLog {
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtformatmessage
      * @since windows6.0.6000
      */
-    static EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values, Flags, BufferSize, Buffer_R, BufferUsed) {
+    static EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values, Flags, BufferSize, _Buffer, BufferUsed) {
         PublisherMetadata := PublisherMetadata is Win32Handle ? NumGet(PublisherMetadata, "ptr") : PublisherMetadata
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -616,19 +616,19 @@ class EventLog {
      * 
      * To get information about the channel or log file, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetloginfo">EvtGetLogInfo</a> function.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to open a channel or log on the local computer.
-     * @param {PWSTR} Path The name of the channel or the full path to the exported log file.
+     * @param {PWSTR} _Path 
      * @param {Integer} Flags A flag that determines whether the <i>Path</i> parameter points to a log file or channel. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_open_log_flags">EVT_OPEN_LOG_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the file or channel; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenlog
      * @since windows6.0.6000
      */
-    static EvtOpenLog(Session, Path, Flags) {
+    static EvtOpenLog(Session, _Path, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
-        Path := Path is String ? StrPtr(Path) : Path
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtOpenLog", "ptr", Session, "ptr", Path, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtOpenLog", "ptr", Session, "ptr", _Path, "uint", Flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -765,7 +765,7 @@ class EventLog {
      * 
      * This function  affects only the specified channel or log file—if the channel uses autoBackup or fileMax, this function will not affect those backup files.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> for local channels.
-     * @param {PWSTR} Path The name of the channel or the full path to a log file that contains the events that you want to export. If the <i>Query</i> parameter contains an XPath query, you must specify the channel or log file. If the <i>Flags</i> parameter contains EvtExportLogFilePath, you must specify the log file. If the <i>Query</i> parameter contains a structured XML query, the channel or path that you specify here must match the channel or path in the query. If the <i>Flags</i> parameter contains EvtExportLogChannelPath, this parameter can be <b>NULL</b> if  the query is a structured XML query that specifies the channel.
+     * @param {PWSTR} _Path 
      * @param {PWSTR} Query A query that specifies the types of events that you want to export. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To export all events, set this parameter to <b>NULL</b> or "*".
      * @param {PWSTR} TargetFilePath The full path to the target log file that will receive the events. The target log file must not exist.
      * @param {Integer} Flags Flags that indicate whether the events come from a channel or log file. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_exportlog_flags">EVT_EXPORTLOG_FLAGS</a> enumeration.
@@ -802,15 +802,15 @@ class EventLog {
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtexportlog
      * @since windows6.0.6000
      */
-    static EvtExportLog(Session, Path, Query, TargetFilePath, Flags) {
+    static EvtExportLog(Session, _Path, Query, TargetFilePath, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
-        Path := Path is String ? StrPtr(Path) : Path
+        _Path := _Path is String ? StrPtr(_Path) : _Path
         Query := Query is String ? StrPtr(Query) : Query
         TargetFilePath := TargetFilePath is String ? StrPtr(TargetFilePath) : TargetFilePath
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtExportLog", "ptr", Session, "ptr", Path, "ptr", Query, "ptr", TargetFilePath, "uint", Flags, "int")
+        result := DllCall("wevtapi.dll\EvtExportLog", "ptr", Session, "ptr", _Path, "ptr", Query, "ptr", TargetFilePath, "uint", Flags, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1049,9 +1049,7 @@ class EventLog {
      * @param {EVT_HANDLE} ChannelConfig A handle to the channel's configuration properties that the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenchannelconfig">EvtOpenChannelConfig</a> function returns.
      * @param {Integer} PropertyId The identifier of the channel property to set. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_config_property_id">EVT_CHANNEL_CONFIG_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
-     * @param {Pointer<EVT_VARIANT>} PropertyValue The property value to set.
-     * 
-     * A caller-allocated buffer that contains the new configuration property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. Be sure to set the configuration value and variant type.
+     * @param {Pointer<EVT_VARIANT>} _PropertyValue 
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1085,12 +1083,12 @@ class EventLog {
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtsetchannelconfigproperty
      * @since windows6.0.6000
      */
-    static EvtSetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyValue) {
+    static EvtSetChannelConfigProperty(ChannelConfig, PropertyId, Flags, _PropertyValue) {
         ChannelConfig := ChannelConfig is Win32Handle ? NumGet(ChannelConfig, "ptr") : ChannelConfig
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtSetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "ptr", PropertyValue, "int")
+        result := DllCall("wevtapi.dll\EvtSetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "ptr", _PropertyValue, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

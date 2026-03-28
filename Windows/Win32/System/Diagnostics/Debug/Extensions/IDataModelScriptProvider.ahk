@@ -48,9 +48,9 @@ class IDataModelScriptProvider extends IUnknown{
      * @returns {BSTR} 
      */
     GetExtension() {
-        extension := BSTR()
-        result := ComCall(4, this, "ptr", extension, "HRESULT")
-        return extension
+        _extension := BSTR()
+        result := ComCall(4, this, "ptr", _extension, "HRESULT")
+        return _extension
     }
 
     /**
@@ -76,7 +76,7 @@ class IDataModelScriptProvider extends IUnknown{
      * @returns {IDataModelScriptTemplateEnumerator} 
      */
     EnumerateTemplates() {
-        result := ComCall(7, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IDataModelScriptTemplateEnumerator(enumerator)
+        result := ComCall(7, this, "ptr*", &_enumerator := 0, "HRESULT")
+        return IDataModelScriptTemplateEnumerator(_enumerator)
     }
 }

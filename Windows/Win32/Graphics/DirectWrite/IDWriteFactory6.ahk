@@ -104,14 +104,12 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {Integer} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
      * 
      * How to group families in the collection.
-     * @returns {IDWriteFontCollection2} Type: **[IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md)\*\***
-     * 
-     * The address of a pointer to an [IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md) interface. On successful completion, the function sets the pointer to a newly created font collection object, otherwise it sets the pointer to `nullptr`.
+     * @returns {IDWriteFontCollection2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel) {
-        result := ComCall(51, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &fontCollection := 0, "HRESULT")
-        return IDWriteFontCollection2(fontCollection)
+        result := ComCall(51, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &_fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection2(_fontCollection)
     }
 
     /**
@@ -122,14 +120,12 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {Integer} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
      * 
      * How to group families in the collection.
-     * @returns {IDWriteFontCollection2} Type: **[IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md)\*\***
-     * 
-     * The address of a pointer to an [IDWriteFontCollection2](./nn-dwrite_3-idwritefontcollection2.md) interface. On successful completion, the function sets the pointer to a newly created font collection object, otherwise it sets the pointer to `nullptr`.
+     * @returns {IDWriteFontCollection2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontcollectionfromfontset
      */
     CreateFontCollectionFromFontSet(fontSet, fontFamilyModel) {
-        result := ComCall(52, this, "ptr", fontSet, "int", fontFamilyModel, "ptr*", &fontCollection := 0, "HRESULT")
-        return IDWriteFontCollection2(fontCollection)
+        result := ComCall(52, this, "ptr", fontSet, "int", fontFamilyModel, "ptr*", &_fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection2(_fontCollection)
     }
 
     /**
@@ -151,9 +147,7 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * @param {PWSTR} fontFamilyName Type: **[WCHAR](/windows/win32/winprog/windows-data-types) const \***
      * 
      * Name of the font family from the collection.
-     * @param {IDWriteFontCollection} fontCollection Type: **[IDWriteFontCollection](../dwrite/nn-dwrite-idwritefontcollection.md)\***
-     * 
-     * Font collection. Use `nullptr` to indicate the system font collection.
+     * @param {IDWriteFontCollection} _fontCollection 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md) const \***
      * 
      * A pointer to an array containing a list of font axis values. The array should be the size (the number of elements) indicated by the *fontAxisValueCount* argument.
@@ -171,11 +165,11 @@ class IDWriteFactory6 extends IDWriteFactory5{
      * The address of a pointer to an [IDWriteTextFormat3](./nn-dwrite_3-idwritetextformat3.md) interface. On successful completion, the function sets the pointer to a newly created text format object, otherwise it sets the pointer to `nullptr`.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createtextformat
      */
-    CreateTextFormat(fontFamilyName, fontCollection, fontAxisValues, fontAxisValueCount, fontSize, localeName) {
+    CreateTextFormat(fontFamilyName, _fontCollection, fontAxisValues, fontAxisValueCount, fontSize, localeName) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", fontCollection, "ptr", fontAxisValues, "uint", fontAxisValueCount, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", _fontCollection, "ptr", fontAxisValues, "uint", fontAxisValueCount, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
         return IDWriteTextFormat3(textFormat)
     }
 }

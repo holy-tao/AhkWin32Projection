@@ -36,27 +36,21 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Allows a derived class to call the WinProc function of the base class.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window receiving the message.
+     * @param {HWND} _hwnd 
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message received by the window.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message information specific to the message type.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message information specific to the message type.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-wndprocbs
      */
-    WndProcBS(hwnd, uMsg, wParam, lParam) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    WndProcBS(_hwnd, uMsg, _wParam, _lParam) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(33, this, "ptr", hwnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := ComCall(33, this, "ptr", _hwnd, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -87,16 +81,14 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Calls the derived class from the base class on receipt of a WM_SIZE message. The derived class handles the message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional information provided by the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-size">WM_SIZE</a> message.
+     * @param {WPARAM} _wParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-onsize
      */
-    OnSize(wParam) {
-        result := ComCall(36, this, "ptr", wParam, "HRESULT")
+    OnSize(_wParam) {
+        result := ComCall(36, this, "ptr", _wParam, "HRESULT")
         return result
     }
 
@@ -117,22 +109,15 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Calls the derived class from the base class on receipt of a WM_COMMAND message. The derived class handles the message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional information taken from the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. The high-order word specifies the notification code if the message is from a control. If the message is from an accelerator, this value is 1. If the message is from a menu, this value is zero. 
-     *                     
-     * 
-     * The low-order word specifies the identifier of the menu item, control, or accelerator.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional information taken from the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. Handle to the control sending the message if the message is from a control. Otherwise, this parameter is <b>NULL</b>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the command processing; it depends on the command sent.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-oncommand
      */
-    OnCommand(wParam, lParam) {
-        result := ComCall(38, this, "ptr", wParam, "ptr", lParam, "ptr")
+    OnCommand(_wParam, _lParam) {
+        result := ComCall(38, this, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -408,9 +393,7 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * Deprecated. Coordinates the initializing of state between the base and the derived classes.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the current window.
+     * @param {HWND} _hwnd 
      * @param {IUnknown} pauto Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the outer object's <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nn-exdisp-iwebbrowser2">IWebBrowser2</a> automation interface.
@@ -419,10 +402,10 @@ class IBrowserService2 extends IBrowserService{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_initialize
      */
-    _Initialize(hwnd, pauto) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    _Initialize(_hwnd, pauto) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(58, this, "ptr", hwnd, "ptr", pauto, "HRESULT")
+        result := ComCall(58, this, "ptr", _hwnd, "ptr", pauto, "HRESULT")
         return result
     }
 
@@ -581,21 +564,17 @@ class IBrowserService2 extends IBrowserService{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be sent.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_sendchildren
      */
-    _SendChildren(hwndBar, fBroadcast, uMsg, wParam, lParam) {
+    _SendChildren(hwndBar, fBroadcast, uMsg, _wParam, _lParam) {
         hwndBar := hwndBar is Win32Handle ? NumGet(hwndBar, "ptr") : hwndBar
 
-        result := ComCall(68, this, "ptr", hwndBar, "int", fBroadcast, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(68, this, "ptr", hwndBar, "int", fBroadcast, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
         return result
     }
 
@@ -792,19 +771,15 @@ class IBrowserService2 extends IBrowserService{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be sent.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-forwardviewmsg
      */
-    ForwardViewMsg(uMsg, wParam, lParam) {
-        result := ComCall(81, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+    ForwardViewMsg(uMsg, _wParam, _lParam) {
+        result := ComCall(81, this, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -972,9 +947,7 @@ class IBrowserService2 extends IBrowserService{
      * @param {Pointer<TOOLBARITEM>} ptbi Type: <b>LPTOOLBARITEM</b>
      * 
      * A pointer to a [TOOLBARITEM](./ns-shdeprecated-toolbaritem.md) structure that specifies a browser toolbar item.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the browser window in which the focus shift is taking place.
+     * @param {HWND} _hwnd 
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> that contains a keystroke message that indicates an accelerator.
@@ -983,10 +956,10 @@ class IBrowserService2 extends IBrowserService{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_setfocus
      */
-    _SetFocus(ptbi, hwnd, lpMsg) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    _SetFocus(ptbi, _hwnd, lpMsg) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(91, this, "ptr", ptbi, "ptr", hwnd, "ptr", lpMsg, "HRESULT")
+        result := ComCall(91, this, "ptr", ptbi, "ptr", _hwnd, "ptr", lpMsg, "HRESULT")
         return result
     }
 

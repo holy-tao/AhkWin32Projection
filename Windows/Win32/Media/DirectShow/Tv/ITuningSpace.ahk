@@ -229,12 +229,12 @@ class ITuningSpace extends IDispatch{
      * The CreateTuneRequest method creates an empty (uninitialized) tune request.
      * @remarks
      * You can query the returned <b>ITuneRequest</b> pointer for derived interfaces. For more information, see the reference pages for the individual tuning space objects, which are listed in the topic <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/tuning-model-objects">Tuning Model Objects</a>.
-     * @returns {ITuneRequest} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the new tune request object. The caller must release the interface.
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-createtunerequest
      */
     CreateTuneRequest() {
-        result := ComCall(16, this, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(16, this, "ptr*", &_TuneRequest := 0, "HRESULT")
+        return ITuneRequest(_TuneRequest)
     }
 
     /**
@@ -267,12 +267,12 @@ class ITuningSpace extends IDispatch{
      * A component is a stream within the program. An example of a preferred component type would be an audio stream in English. When multiple components are available, the Tuner attempts to play the preferred ones first.
      * 
      * If the tuning space does not have any default preferred types, this method succeeds but returns the value <b>NULL</b> in the <i>ppComponentTypes</i> parameter. Check for a <b>NULL</b> value before attempting to dereference the pointer.
-     * @returns {IComponentTypes} Address of a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface pointer. Use this interface to enumerate the component types. The caller must release the interface.
+     * @returns {IComponentTypes} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_defaultpreferredcomponenttypes
      */
     get_DefaultPreferredComponentTypes() {
-        result := ComCall(19, this, "ptr*", &ComponentTypes := 0, "HRESULT")
-        return IComponentTypes(ComponentTypes)
+        result := ComCall(19, this, "ptr*", &_ComponentTypes := 0, "HRESULT")
+        return IComponentTypes(_ComponentTypes)
     }
 
     /**

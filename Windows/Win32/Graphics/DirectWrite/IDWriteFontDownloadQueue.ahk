@@ -82,20 +82,15 @@ class IDWriteFontDownloadQueue extends IUnknown{
      *       to a background download operation. If any previous downloads are still ongoing     
      *       when BeginDownload is called again, the new download does not complete until     
      *       the previous downloads have finished.
-     * @param {IUnknown} context Type: <b>IUnknown*</b>
-     * 
-     * Optional context object that is passed back to the     
-     *           download notification handler's DownloadCompleted method. If the context object  
-     *           implements IDWriteFontDownloadListener, its DownloadCompleted will be called    
-     *           when done.
+     * @param {IUnknown} _context 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      *  Returns S_OK if a download was successfully begun, S_FALSE if the queue was 
      *           empty, or a standard HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-begindownload
      */
-    BeginDownload(context) {
-        result := ComCall(6, this, "ptr", context, "HRESULT")
+    BeginDownload(_context) {
+        result := ComCall(6, this, "ptr", _context, "HRESULT")
         return result
     }
 

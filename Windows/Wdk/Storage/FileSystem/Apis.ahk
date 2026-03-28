@@ -3361,18 +3361,18 @@ class FileSystem {
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} CompletionFilter 
      * @param {BOOLEAN} WatchTree 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {BOOLEAN} Asynchronous 
      * @returns {NTSTATUS} 
      */
-    static NtNotifyChangeKey(KeyHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, CompletionFilter, WatchTree, Buffer_R, BufferSize, Asynchronous) {
+    static NtNotifyChangeKey(KeyHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, CompletionFilter, WatchTree, _Buffer, BufferSize, Asynchronous) {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\NtNotifyChangeKey", "ptr", KeyHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", Buffer_R, "uint", BufferSize, "char", Asynchronous, "int")
+        result := DllCall("ntdll.dll\NtNotifyChangeKey", "ptr", KeyHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", _Buffer, "uint", BufferSize, "char", Asynchronous, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -3786,16 +3786,16 @@ class FileSystem {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {NTSTATUS} 
      */
-    static NtSetSecurityObject(Handle, SecurityInformation, SecurityDescriptor) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static NtSetSecurityObject(_Handle, SecurityInformation, _SecurityDescriptor) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\NtSetSecurityObject", "ptr", Handle, "uint", SecurityInformation, "ptr", SecurityDescriptor, "int")
+        result := DllCall("ntdll.dll\NtSetSecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -3851,7 +3851,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {Pointer} SidList 
@@ -3860,10 +3860,10 @@ class FileSystem {
      * @param {BOOLEAN} RestartScan 
      * @returns {NTSTATUS} 
      */
-    static NtQueryQuotaInformationFile(FileHandle, IoStatusBlock, Buffer_R, Length, ReturnSingleEntry, SidList, SidListLength, StartSid, RestartScan) {
+    static NtQueryQuotaInformationFile(FileHandle, IoStatusBlock, _Buffer, Length, ReturnSingleEntry, SidList, SidListLength, StartSid, RestartScan) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("ntdll.dll\NtQueryQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, "ptr", StartSid, "char", RestartScan, "int")
+        result := DllCall("ntdll.dll\NtQueryQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, "ptr", StartSid, "char", RestartScan, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -3872,14 +3872,14 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
-    static NtSetQuotaInformationFile(FileHandle, IoStatusBlock, Buffer_R, Length) {
+    static NtSetQuotaInformationFile(FileHandle, IoStatusBlock, _Buffer, Length) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("ntdll.dll\NtSetQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "int")
+        result := DllCall("ntdll.dll\NtSetQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -3902,7 +3902,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {Pointer} EaList 
@@ -3911,12 +3911,12 @@ class FileSystem {
      * @param {BOOLEAN} RestartScan 
      * @returns {NTSTATUS} 
      */
-    static NtQueryEaFile(FileHandle, IoStatusBlock, Buffer_R, Length, ReturnSingleEntry, EaList, EaListLength, EaIndex, RestartScan) {
+    static NtQueryEaFile(FileHandle, IoStatusBlock, _Buffer, Length, ReturnSingleEntry, EaList, EaListLength, EaIndex, RestartScan) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         EaIndexMarshal := EaIndex is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtQueryEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "char", ReturnSingleEntry, "ptr", EaList, "uint", EaListLength, EaIndexMarshal, EaIndex, "char", RestartScan, "int")
+        result := DllCall("ntdll.dll\NtQueryEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", EaList, "uint", EaListLength, EaIndexMarshal, EaIndex, "char", RestartScan, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -3925,14 +3925,14 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
-    static NtSetEaFile(FileHandle, IoStatusBlock, Buffer_R, Length) {
+    static NtSetEaFile(FileHandle, IoStatusBlock, _Buffer, Length) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("ntdll.dll\NtSetEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "int")
+        result := DllCall("ntdll.dll\NtSetEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4030,23 +4030,23 @@ class FileSystem {
      * 
      * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {HANDLE} DirectoryHandle A handle to the directory object.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Integer} Length The size of the user-supplied output buffer, in bytes.
      * @param {BOOLEAN} ReturnSingleEntry Indicates whether the function should return only a single entry.
      * @param {BOOLEAN} RestartScan Indicates whether to restart the scan or continue the enumeration using the information passed in the *Context* parameter.
-     * @param {Pointer<Integer>} Context The enumeration context.
+     * @param {Pointer<Integer>} _Context 
      * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the length of the directory information returned in the output buffer, in bytes.
      * @returns {NTSTATUS} The function returns **STATUS\_SUCCESS** or an error status.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/ntquerydirectoryobject
      */
-    static NtQueryDirectoryObject(DirectoryHandle, Buffer_R, Length, ReturnSingleEntry, RestartScan, Context, ReturnLength) {
+    static NtQueryDirectoryObject(DirectoryHandle, _Buffer, Length, ReturnSingleEntry, RestartScan, _Context, ReturnLength) {
         DirectoryHandle := DirectoryHandle is Win32Handle ? NumGet(DirectoryHandle, "ptr") : DirectoryHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "uint*" : "ptr"
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtQueryDirectoryObject", "ptr", DirectoryHandle, Buffer_RMarshal, Buffer_R, "uint", Length, "char", ReturnSingleEntry, "char", RestartScan, ContextMarshal, Context, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntdll.dll\NtQueryDirectoryObject", "ptr", DirectoryHandle, _BufferMarshal, _Buffer, "uint", Length, "char", ReturnSingleEntry, "char", RestartScan, _ContextMarshal, _Context, ReturnLengthMarshal, ReturnLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4054,22 +4054,22 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} DirectoryHandle 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {BOOLEAN} RestartScan 
-     * @param {Pointer<Integer>} Context 
+     * @param {Pointer<Integer>} _Context 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
      */
-    static ZwQueryDirectoryObject(DirectoryHandle, Buffer_R, Length, ReturnSingleEntry, RestartScan, Context, ReturnLength) {
+    static ZwQueryDirectoryObject(DirectoryHandle, _Buffer, Length, ReturnSingleEntry, RestartScan, _Context, ReturnLength) {
         DirectoryHandle := DirectoryHandle is Win32Handle ? NumGet(DirectoryHandle, "ptr") : DirectoryHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "uint*" : "ptr"
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQueryDirectoryObject", "ptr", DirectoryHandle, Buffer_RMarshal, Buffer_R, "uint", Length, "char", ReturnSingleEntry, "char", RestartScan, ContextMarshal, Context, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntdll.dll\ZwQueryDirectoryObject", "ptr", DirectoryHandle, _BufferMarshal, _Buffer, "uint", Length, "char", ReturnSingleEntry, "char", RestartScan, _ContextMarshal, _Context, ReturnLengthMarshal, ReturnLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4137,7 +4137,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @param {BOOLEAN} ObjectCreation 
@@ -4146,15 +4146,15 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static ZwAccessCheckAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ZwAccessCheckAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwAccessCheckAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\ZwAccessCheckAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4165,7 +4165,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
      * @param {Integer} AuditType 
@@ -4179,15 +4179,15 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static ZwAccessCheckByTypeAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ZwAccessCheckByTypeAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwAccessCheckByTypeAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\ZwAccessCheckByTypeAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4198,7 +4198,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
      * @param {Integer} AuditType 
@@ -4212,15 +4212,15 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static ZwAccessCheckByTypeResultListAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ZwAccessCheckByTypeResultListAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwAccessCheckByTypeResultListAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\ZwAccessCheckByTypeResultListAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4232,7 +4232,7 @@ class FileSystem {
      * @param {HANDLE} ClientToken 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
      * @param {Integer} AuditType 
@@ -4246,16 +4246,16 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static ZwAccessCheckByTypeResultListAndAuditAlarmByHandle(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+    static ZwAccessCheckByTypeResultListAndAuditAlarmByHandle(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, _SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwAccessCheckByTypeResultListAndAuditAlarmByHandle", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\ZwAccessCheckByTypeResultListAndAuditAlarmByHandle", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4266,7 +4266,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {HANDLE} ClientToken 
      * @param {Integer} DesiredAccess 
      * @param {Integer} GrantedAccess 
@@ -4276,14 +4276,14 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static ZwOpenObjectAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ZwOpenObjectAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwOpenObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "char", ObjectCreation, "char", AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\ZwOpenObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "char", ObjectCreation, "char", AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4534,7 +4534,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @param {BOOLEAN} ObjectCreation 
@@ -4543,15 +4543,15 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static NtAccessCheckAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static NtAccessCheckAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtAccessCheckAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\NtAccessCheckAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4562,7 +4562,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
      * @param {Integer} AuditType 
@@ -4576,15 +4576,15 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static NtAccessCheckByTypeAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static NtAccessCheckByTypeAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtAccessCheckByTypeAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\NtAccessCheckByTypeAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4595,7 +4595,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
      * @param {Integer} AuditType 
@@ -4609,15 +4609,15 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static NtAccessCheckByTypeResultListAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static NtAccessCheckByTypeResultListAndAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtAccessCheckByTypeResultListAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\NtAccessCheckByTypeResultListAndAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4629,7 +4629,7 @@ class FileSystem {
      * @param {HANDLE} ClientToken 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
      * @param {Integer} AuditType 
@@ -4643,16 +4643,16 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static NtAccessCheckByTypeResultListAndAuditAlarmByHandle(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
+    static NtAccessCheckByTypeResultListAndAuditAlarmByHandle(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, _SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, GenerateOnClose) {
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtAccessCheckByTypeResultListAndAuditAlarmByHandle", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\NtAccessCheckByTypeResultListAndAuditAlarmByHandle", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "char", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4663,7 +4663,7 @@ class FileSystem {
      * @param {Pointer<Void>} HandleId 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
      * @param {Pointer<UNICODE_STRING>} ObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {HANDLE} ClientToken 
      * @param {Integer} DesiredAccess 
      * @param {Integer} GrantedAccess 
@@ -4673,14 +4673,14 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static NtOpenObjectAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static NtOpenObjectAuditAlarm(SubsystemName, HandleId, ObjectTypeName, ObjectName, _SecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtOpenObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "char", ObjectCreation, "char", AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntdll.dll\NtOpenObjectAuditAlarm", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", _SecurityDescriptor, "ptr", ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, "ptr", Privileges, "char", ObjectCreation, "char", AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -4786,13 +4786,13 @@ class FileSystem {
      * 
      * @param {Pointer<Void>} HeapHandle 
      * @param {Integer} Flags 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @returns {Pointer<Void>} 
      */
-    static RtlAllocateHeap(HeapHandle, Flags, Size) {
+    static RtlAllocateHeap(HeapHandle, Flags, _Size) {
         HeapHandleMarshal := HeapHandle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlAllocateHeap", HeapHandleMarshal, HeapHandle, "uint", Flags, "ptr", Size, "ptr")
+        result := DllCall("ntdll.dll\RtlAllocateHeap", HeapHandleMarshal, HeapHandle, "uint", Flags, "ptr", _Size, "ptr")
         return result
     }
 
@@ -4963,13 +4963,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String_R 
+     * @param {Pointer<UNICODE_STRING>} _String 
      * @returns {NTSTATUS} 
      */
-    static RtlValidateUnicodeString(String_R) {
+    static RtlValidateUnicodeString(_String) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("ntdll.dll\RtlValidateUnicodeString", "uint", Flags, "ptr", String_R, "int")
+        result := DllCall("ntdll.dll\RtlValidateUnicodeString", "uint", Flags, "ptr", _String, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5239,25 +5239,25 @@ class FileSystem {
      * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {BOOLEAN} AllowExtendedCharacters 
-     * @param {Pointer<GENERATE_NAME_CONTEXT>} Context 
+     * @param {Pointer<GENERATE_NAME_CONTEXT>} _Context 
      * @param {Pointer<UNICODE_STRING>} Name8dot3 
      * @returns {NTSTATUS} 
      */
-    static RtlGenerate8dot3Name(Name, AllowExtendedCharacters, Context, Name8dot3) {
-        result := DllCall("ntdll.dll\RtlGenerate8dot3Name", "ptr", Name, "char", AllowExtendedCharacters, "ptr", Context, "ptr", Name8dot3, "int")
+    static RtlGenerate8dot3Name(Name, AllowExtendedCharacters, _Context, Name8dot3) {
+        result := DllCall("ntdll.dll\RtlGenerate8dot3Name", "ptr", Name, "char", AllowExtendedCharacters, "ptr", _Context, "ptr", Name8dot3, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} Char 
+     * @param {PWSTR} _Char 
      * @returns {BOOLEAN} 
      */
-    static RtlIsValidOemCharacter(Char) {
-        Char := Char is String ? StrPtr(Char) : Char
+    static RtlIsValidOemCharacter(_Char) {
+        _Char := _Char is String ? StrPtr(_Char) : _Char
 
-        result := DllCall("ntoskrnl.exe\RtlIsValidOemCharacter", "ptr", Char, "char")
+        result := DllCall("ntoskrnl.exe\RtlIsValidOemCharacter", "ptr", _Char, "char")
         return result
     }
 
@@ -5382,14 +5382,14 @@ class FileSystem {
      * @param {Integer} CompressedBufferSize 
      * @param {Integer} UncompressedChunkSize 
      * @param {Pointer<Integer>} FinalCompressedSize 
-     * @param {Pointer<Void>} WorkSpace 
+     * @param {Pointer<Void>} _WorkSpace 
      * @returns {NTSTATUS} 
      */
-    static RtlCompressBuffer(CompressionFormatAndEngine, UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, UncompressedChunkSize, FinalCompressedSize, WorkSpace) {
+    static RtlCompressBuffer(CompressionFormatAndEngine, UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, UncompressedChunkSize, FinalCompressedSize, _WorkSpace) {
         FinalCompressedSizeMarshal := FinalCompressedSize is VarRef ? "uint*" : "ptr"
-        WorkSpaceMarshal := WorkSpace is VarRef ? "ptr" : "ptr"
+        _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlCompressBuffer", "ushort", CompressionFormatAndEngine, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", UncompressedChunkSize, FinalCompressedSizeMarshal, FinalCompressedSize, WorkSpaceMarshal, WorkSpace, "int")
+        result := DllCall("ntdll.dll\RtlCompressBuffer", "ushort", CompressionFormatAndEngine, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", UncompressedChunkSize, FinalCompressedSizeMarshal, FinalCompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5420,14 +5420,14 @@ class FileSystem {
      * @param {Pointer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
      * @param {Pointer<Integer>} FinalUncompressedSize 
-     * @param {Pointer<Void>} WorkSpace 
+     * @param {Pointer<Void>} _WorkSpace 
      * @returns {NTSTATUS} 
      */
-    static RtlDecompressBufferEx(CompressionFormat, UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, FinalUncompressedSize, WorkSpace) {
+    static RtlDecompressBufferEx(CompressionFormat, UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, FinalUncompressedSize, _WorkSpace) {
         FinalUncompressedSizeMarshal := FinalUncompressedSize is VarRef ? "uint*" : "ptr"
-        WorkSpaceMarshal := WorkSpace is VarRef ? "ptr" : "ptr"
+        _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlDecompressBufferEx", "ushort", CompressionFormat, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, WorkSpaceMarshal, WorkSpace, "int")
+        result := DllCall("ntdll.dll\RtlDecompressBufferEx", "ushort", CompressionFormat, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5441,14 +5441,14 @@ class FileSystem {
      * @param {Integer} CompressedBufferSize 
      * @param {Integer} UncompressedChunkSize 
      * @param {Pointer<Integer>} FinalUncompressedSize 
-     * @param {Pointer<Void>} WorkSpace 
+     * @param {Pointer<Void>} _WorkSpace 
      * @returns {NTSTATUS} 
      */
-    static RtlDecompressBufferEx2(CompressionFormat, UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, UncompressedChunkSize, FinalUncompressedSize, WorkSpace) {
+    static RtlDecompressBufferEx2(CompressionFormat, UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, UncompressedChunkSize, FinalUncompressedSize, _WorkSpace) {
         FinalUncompressedSizeMarshal := FinalUncompressedSize is VarRef ? "uint*" : "ptr"
-        WorkSpaceMarshal := WorkSpace is VarRef ? "ptr" : "ptr"
+        _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\RtlDecompressBufferEx2", "ushort", CompressionFormat, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", UncompressedChunkSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, WorkSpaceMarshal, WorkSpace, "int")
+        result := DllCall("ntoskrnl.exe\RtlDecompressBufferEx2", "ushort", CompressionFormat, "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", UncompressedChunkSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5462,14 +5462,14 @@ class FileSystem {
      * @param {Integer} CompressedBufferSize 
      * @param {Integer} FragmentOffset 
      * @param {Pointer<Integer>} FinalUncompressedSize 
-     * @param {Pointer<Void>} WorkSpace 
+     * @param {Pointer<Void>} _WorkSpace 
      * @returns {NTSTATUS} 
      */
-    static RtlDecompressFragment(CompressionFormat, UncompressedFragment, UncompressedFragmentSize, CompressedBuffer, CompressedBufferSize, FragmentOffset, FinalUncompressedSize, WorkSpace) {
+    static RtlDecompressFragment(CompressionFormat, UncompressedFragment, UncompressedFragmentSize, CompressedBuffer, CompressedBufferSize, FragmentOffset, FinalUncompressedSize, _WorkSpace) {
         FinalUncompressedSizeMarshal := FinalUncompressedSize is VarRef ? "uint*" : "ptr"
-        WorkSpaceMarshal := WorkSpace is VarRef ? "ptr" : "ptr"
+        _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlDecompressFragment", "ushort", CompressionFormat, "ptr", UncompressedFragment, "uint", UncompressedFragmentSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", FragmentOffset, FinalUncompressedSizeMarshal, FinalUncompressedSize, WorkSpaceMarshal, WorkSpace, "int")
+        result := DllCall("ntdll.dll\RtlDecompressFragment", "ushort", CompressionFormat, "ptr", UncompressedFragment, "uint", UncompressedFragmentSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", FragmentOffset, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5484,14 +5484,14 @@ class FileSystem {
      * @param {Integer} FragmentOffset 
      * @param {Integer} UncompressedChunkSize 
      * @param {Pointer<Integer>} FinalUncompressedSize 
-     * @param {Pointer<Void>} WorkSpace 
+     * @param {Pointer<Void>} _WorkSpace 
      * @returns {NTSTATUS} 
      */
-    static RtlDecompressFragmentEx(CompressionFormat, UncompressedFragment, UncompressedFragmentSize, CompressedBuffer, CompressedBufferSize, FragmentOffset, UncompressedChunkSize, FinalUncompressedSize, WorkSpace) {
+    static RtlDecompressFragmentEx(CompressionFormat, UncompressedFragment, UncompressedFragmentSize, CompressedBuffer, CompressedBufferSize, FragmentOffset, UncompressedChunkSize, FinalUncompressedSize, _WorkSpace) {
         FinalUncompressedSizeMarshal := FinalUncompressedSize is VarRef ? "uint*" : "ptr"
-        WorkSpaceMarshal := WorkSpace is VarRef ? "ptr" : "ptr"
+        _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\RtlDecompressFragmentEx", "ushort", CompressionFormat, "ptr", UncompressedFragment, "uint", UncompressedFragmentSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", FragmentOffset, "uint", UncompressedChunkSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, WorkSpaceMarshal, WorkSpace, "int")
+        result := DllCall("ntoskrnl.exe\RtlDecompressFragmentEx", "ushort", CompressionFormat, "ptr", UncompressedFragment, "uint", UncompressedFragmentSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "uint", FragmentOffset, "uint", UncompressedChunkSize, FinalUncompressedSizeMarshal, FinalUncompressedSize, _WorkSpaceMarshal, _WorkSpace, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5560,13 +5560,13 @@ class FileSystem {
      * @param {Integer} CompressedBufferSize 
      * @param {Pointer} CompressedDataInfo 
      * @param {Integer} CompressedDataInfoLength 
-     * @param {Pointer<Void>} WorkSpace 
+     * @param {Pointer<Void>} _WorkSpace 
      * @returns {NTSTATUS} 
      */
-    static RtlCompressChunks(UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, CompressedDataInfo, CompressedDataInfoLength, WorkSpace) {
-        WorkSpaceMarshal := WorkSpace is VarRef ? "ptr" : "ptr"
+    static RtlCompressChunks(UncompressedBuffer, UncompressedBufferSize, CompressedBuffer, CompressedBufferSize, CompressedDataInfo, CompressedDataInfoLength, _WorkSpace) {
+        _WorkSpaceMarshal := _WorkSpace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\RtlCompressChunks", "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "ptr", CompressedDataInfo, "uint", CompressedDataInfoLength, WorkSpaceMarshal, WorkSpace, "int")
+        result := DllCall("ntoskrnl.exe\RtlCompressChunks", "ptr", UncompressedBuffer, "uint", UncompressedBufferSize, "ptr", CompressedBuffer, "uint", CompressedBufferSize, "ptr", CompressedDataInfo, "uint", CompressedDataInfoLength, _WorkSpaceMarshal, _WorkSpace, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5623,11 +5623,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @returns {BOOLEAN} 
      */
-    static RtlValidSid(Sid) {
-        result := DllCall("ntdll.dll\RtlValidSid", "ptr", Sid, "char")
+    static RtlValidSid(_Sid) {
+        result := DllCall("ntdll.dll\RtlValidSid", "ptr", _Sid, "char")
         return result
     }
 
@@ -5665,11 +5665,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @returns {Pointer<Void>} 
      */
-    static RtlFreeSid(Sid) {
-        result := DllCall("ntdll.dll\RtlFreeSid", "ptr", Sid, "ptr")
+    static RtlFreeSid(_Sid) {
+        result := DllCall("ntdll.dll\RtlFreeSid", "ptr", _Sid, "ptr")
         return result
     }
 
@@ -5685,13 +5685,13 @@ class FileSystem {
      * @param {Integer} SubAuthority5 
      * @param {Integer} SubAuthority6 
      * @param {Integer} SubAuthority7 
-     * @param {Pointer<PSID>} Sid 
+     * @param {Pointer<PSID>} _Sid 
      * @returns {NTSTATUS} 
      */
-    static RtlAllocateAndInitializeSid(IdentifierAuthority, SubAuthorityCount, SubAuthority0, SubAuthority1, SubAuthority2, SubAuthority3, SubAuthority4, SubAuthority5, SubAuthority6, SubAuthority7, Sid) {
-        SidMarshal := Sid is VarRef ? "ptr*" : "ptr"
+    static RtlAllocateAndInitializeSid(IdentifierAuthority, SubAuthorityCount, SubAuthority0, SubAuthority1, SubAuthority2, SubAuthority3, SubAuthority4, SubAuthority5, SubAuthority6, SubAuthority7, _Sid) {
+        _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlAllocateAndInitializeSid", "ptr", IdentifierAuthority, "char", SubAuthorityCount, "uint", SubAuthority0, "uint", SubAuthority1, "uint", SubAuthority2, "uint", SubAuthority3, "uint", SubAuthority4, "uint", SubAuthority5, "uint", SubAuthority6, "uint", SubAuthority7, SidMarshal, Sid, "int")
+        result := DllCall("ntdll.dll\RtlAllocateAndInitializeSid", "ptr", IdentifierAuthority, "char", SubAuthorityCount, "uint", SubAuthority0, "uint", SubAuthority1, "uint", SubAuthority2, "uint", SubAuthority3, "uint", SubAuthority4, "uint", SubAuthority5, "uint", SubAuthority6, "uint", SubAuthority7, _SidMarshal, _Sid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5701,82 +5701,82 @@ class FileSystem {
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
      * @param {Pointer<Integer>} SubAuthorities 
-     * @param {Pointer<PSID>} Sid 
+     * @param {Pointer<PSID>} _Sid 
      * @returns {NTSTATUS} 
      */
-    static RtlAllocateAndInitializeSidEx(IdentifierAuthority, SubAuthorityCount, SubAuthorities, Sid) {
+    static RtlAllocateAndInitializeSidEx(IdentifierAuthority, SubAuthorityCount, SubAuthorities, _Sid) {
         SubAuthoritiesMarshal := SubAuthorities is VarRef ? "uint*" : "ptr"
-        SidMarshal := Sid is VarRef ? "ptr*" : "ptr"
+        _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlAllocateAndInitializeSidEx", "ptr", IdentifierAuthority, "char", SubAuthorityCount, SubAuthoritiesMarshal, SubAuthorities, SidMarshal, Sid, "int")
+        result := DllCall("ntdll.dll\RtlAllocateAndInitializeSidEx", "ptr", IdentifierAuthority, "char", SubAuthorityCount, SubAuthoritiesMarshal, SubAuthorities, _SidMarshal, _Sid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
      * @returns {NTSTATUS} 
      */
-    static RtlInitializeSid(Sid, IdentifierAuthority, SubAuthorityCount) {
-        result := DllCall("ntdll.dll\RtlInitializeSid", "ptr", Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, "int")
+    static RtlInitializeSid(_Sid, IdentifierAuthority, SubAuthorityCount) {
+        result := DllCall("ntdll.dll\RtlInitializeSid", "ptr", _Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
      * @returns {NTSTATUS} 
      */
-    static RtlInitializeSidEx(Sid, IdentifierAuthority, SubAuthorityCount) {
-        result := DllCall("ntdll.dll\RtlInitializeSidEx", "ptr", Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, "CDecl int")
+    static RtlInitializeSidEx(_Sid, IdentifierAuthority, SubAuthorityCount) {
+        result := DllCall("ntdll.dll\RtlInitializeSidEx", "ptr", _Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, "CDecl int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @returns {Pointer<SID_IDENTIFIER_AUTHORITY>} 
      */
-    static RtlIdentifierAuthoritySid(Sid) {
-        result := DllCall("ntdll.dll\RtlIdentifierAuthoritySid", "ptr", Sid, "ptr")
+    static RtlIdentifierAuthoritySid(_Sid) {
+        result := DllCall("ntdll.dll\RtlIdentifierAuthoritySid", "ptr", _Sid, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @param {Integer} SubAuthority 
      * @returns {Pointer<Integer>} 
      */
-    static RtlSubAuthoritySid(Sid, SubAuthority) {
-        result := DllCall("ntdll.dll\RtlSubAuthoritySid", "ptr", Sid, "uint", SubAuthority, "ptr")
+    static RtlSubAuthoritySid(_Sid, SubAuthority) {
+        result := DllCall("ntdll.dll\RtlSubAuthoritySid", "ptr", _Sid, "uint", SubAuthority, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @returns {Pointer<Integer>} 
      */
-    static RtlSubAuthorityCountSid(Sid) {
-        result := DllCall("ntdll.dll\RtlSubAuthorityCountSid", "ptr", Sid, "ptr")
+    static RtlSubAuthorityCountSid(_Sid) {
+        result := DllCall("ntdll.dll\RtlSubAuthorityCountSid", "ptr", _Sid, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @returns {Integer} 
      */
-    static RtlLengthSid(Sid) {
-        result := DllCall("ntdll.dll\RtlLengthSid", "ptr", Sid, "uint")
+    static RtlLengthSid(_Sid) {
+        result := DllCall("ntdll.dll\RtlLengthSid", "ptr", _Sid, "uint")
         return result
     }
 
@@ -5810,38 +5810,38 @@ class FileSystem {
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<BOOLEAN>} SaclPresent 
      * @param {Pointer<Pointer<ACL>>} Sacl 
      * @param {Pointer<BOOLEAN>} SaclDefaulted 
      * @returns {NTSTATUS} 
      */
-    static RtlGetSaclSecurityDescriptor(SecurityDescriptor, SaclPresent, Sacl, SaclDefaulted) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlGetSaclSecurityDescriptor(_SecurityDescriptor, SaclPresent, Sacl, SaclDefaulted) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         SaclPresentMarshal := SaclPresent is VarRef ? "char*" : "ptr"
         SaclMarshal := Sacl is VarRef ? "ptr*" : "ptr"
         SaclDefaultedMarshal := SaclDefaulted is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlGetSaclSecurityDescriptor", "ptr", SecurityDescriptor, SaclPresentMarshal, SaclPresent, SaclMarshal, Sacl, SaclDefaultedMarshal, SaclDefaulted, "int")
+        result := DllCall("ntdll.dll\RtlGetSaclSecurityDescriptor", "ptr", _SecurityDescriptor, SaclPresentMarshal, SaclPresent, SaclMarshal, Sacl, SaclDefaultedMarshal, SaclDefaulted, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} OldSid 
      * @param {PSID} NewSid 
      * @param {Pointer<Integer>} NumChanges 
      * @returns {NTSTATUS} 
      */
-    static RtlReplaceSidInSd(SecurityDescriptor, OldSid, NewSid, NumChanges) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlReplaceSidInSd(_SecurityDescriptor, OldSid, NewSid, NumChanges) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         NumChangesMarshal := NumChanges is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlReplaceSidInSd", "ptr", SecurityDescriptor, "ptr", OldSid, "ptr", NewSid, NumChangesMarshal, NumChanges, "int")
+        result := DllCall("ntdll.dll\RtlReplaceSidInSd", "ptr", _SecurityDescriptor, "ptr", OldSid, "ptr", NewSid, NumChangesMarshal, NumChanges, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5850,14 +5850,14 @@ class FileSystem {
      * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Integer} BaseSubAuthority 
-     * @param {Pointer} Sid 
+     * @param {Pointer} _Sid 
      * @param {Pointer<Integer>} SidLength 
      * @returns {NTSTATUS} 
      */
-    static RtlCreateVirtualAccountSid(Name, BaseSubAuthority, Sid, SidLength) {
+    static RtlCreateVirtualAccountSid(Name, BaseSubAuthority, _Sid, SidLength) {
         SidLengthMarshal := SidLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlCreateVirtualAccountSid", "ptr", Name, "uint", BaseSubAuthority, "ptr", Sid, SidLengthMarshal, SidLength, "int")
+        result := DllCall("ntdll.dll\RtlCreateVirtualAccountSid", "ptr", Name, "uint", BaseSubAuthority, "ptr", _Sid, SidLengthMarshal, SidLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -5874,152 +5874,152 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} Acl 
+     * @param {Pointer} _Acl 
      * @param {Integer} AclLength 
      * @param {Integer} AclRevision 
      * @returns {NTSTATUS} 
      */
-    static RtlCreateAcl(Acl, AclLength, AclRevision) {
-        result := DllCall("ntdll.dll\RtlCreateAcl", "ptr", Acl, "uint", AclLength, "uint", AclRevision, "int")
+    static RtlCreateAcl(_Acl, AclLength, AclRevision) {
+        result := DllCall("ntdll.dll\RtlCreateAcl", "ptr", _Acl, "uint", AclLength, "uint", AclRevision, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<ACL>} Acl 
+     * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceRevision 
      * @param {Integer} StartingAceIndex 
      * @param {Pointer} AceList 
      * @param {Integer} AceListLength 
      * @returns {NTSTATUS} 
      */
-    static RtlAddAce(Acl, AceRevision, StartingAceIndex, AceList, AceListLength) {
-        result := DllCall("ntdll.dll\RtlAddAce", "ptr", Acl, "uint", AceRevision, "uint", StartingAceIndex, "ptr", AceList, "uint", AceListLength, "int")
+    static RtlAddAce(_Acl, AceRevision, StartingAceIndex, AceList, AceListLength) {
+        result := DllCall("ntdll.dll\RtlAddAce", "ptr", _Acl, "uint", AceRevision, "uint", StartingAceIndex, "ptr", AceList, "uint", AceListLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<ACL>} Acl 
+     * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceIndex 
      * @returns {NTSTATUS} 
      */
-    static RtlDeleteAce(Acl, AceIndex) {
-        result := DllCall("ntdll.dll\RtlDeleteAce", "ptr", Acl, "uint", AceIndex, "int")
+    static RtlDeleteAce(_Acl, AceIndex) {
+        result := DllCall("ntdll.dll\RtlDeleteAce", "ptr", _Acl, "uint", AceIndex, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<ACL>} Acl 
+     * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceIndex 
      * @param {Pointer<Pointer<Void>>} Ace 
      * @returns {NTSTATUS} 
      */
-    static RtlGetAce(Acl, AceIndex, Ace) {
+    static RtlGetAce(_Acl, AceIndex, Ace) {
         AceMarshal := Ace is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlGetAce", "ptr", Acl, "uint", AceIndex, AceMarshal, Ace, "int")
+        result := DllCall("ntdll.dll\RtlGetAce", "ptr", _Acl, "uint", AceIndex, AceMarshal, Ace, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<ACL>} Acl 
+     * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceRevision 
      * @param {Integer} AccessMask 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @returns {NTSTATUS} 
      */
-    static RtlAddAccessAllowedAce(Acl, AceRevision, AccessMask, Sid) {
-        result := DllCall("ntdll.dll\RtlAddAccessAllowedAce", "ptr", Acl, "uint", AceRevision, "uint", AccessMask, "ptr", Sid, "int")
+    static RtlAddAccessAllowedAce(_Acl, AceRevision, AccessMask, _Sid) {
+        result := DllCall("ntdll.dll\RtlAddAccessAllowedAce", "ptr", _Acl, "uint", AceRevision, "uint", AccessMask, "ptr", _Sid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<ACL>} Acl 
+     * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceRevision 
      * @param {Integer} AceFlags 
      * @param {Integer} AccessMask 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @returns {NTSTATUS} 
      */
-    static RtlAddAccessAllowedAceEx(Acl, AceRevision, AceFlags, AccessMask, Sid) {
-        result := DllCall("ntdll.dll\RtlAddAccessAllowedAceEx", "ptr", Acl, "uint", AceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", Sid, "int")
+    static RtlAddAccessAllowedAceEx(_Acl, AceRevision, AceFlags, AccessMask, _Sid) {
+        result := DllCall("ntdll.dll\RtlAddAccessAllowedAceEx", "ptr", _Acl, "uint", AceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", _Sid, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<BOOLEAN>} DaclPresent 
      * @param {Pointer<Pointer<ACL>>} Dacl 
      * @param {Pointer<BOOLEAN>} DaclDefaulted 
      * @returns {NTSTATUS} 
      */
-    static RtlGetDaclSecurityDescriptor(SecurityDescriptor, DaclPresent, Dacl, DaclDefaulted) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlGetDaclSecurityDescriptor(_SecurityDescriptor, DaclPresent, Dacl, DaclDefaulted) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         DaclPresentMarshal := DaclPresent is VarRef ? "char*" : "ptr"
         DaclMarshal := Dacl is VarRef ? "ptr*" : "ptr"
         DaclDefaultedMarshal := DaclDefaulted is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlGetDaclSecurityDescriptor", "ptr", SecurityDescriptor, DaclPresentMarshal, DaclPresent, DaclMarshal, Dacl, DaclDefaultedMarshal, DaclDefaulted, "int")
+        result := DllCall("ntdll.dll\RtlGetDaclSecurityDescriptor", "ptr", _SecurityDescriptor, DaclPresentMarshal, DaclPresent, DaclMarshal, Dacl, DaclDefaultedMarshal, DaclDefaulted, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} Owner 
      * @param {BOOLEAN} OwnerDefaulted 
      * @returns {NTSTATUS} 
      */
-    static RtlSetOwnerSecurityDescriptor(SecurityDescriptor, Owner, OwnerDefaulted) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlSetOwnerSecurityDescriptor(_SecurityDescriptor, Owner, OwnerDefaulted) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\RtlSetOwnerSecurityDescriptor", "ptr", SecurityDescriptor, "ptr", Owner, "char", OwnerDefaulted, "int")
+        result := DllCall("ntdll.dll\RtlSetOwnerSecurityDescriptor", "ptr", _SecurityDescriptor, "ptr", Owner, "char", OwnerDefaulted, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} Group 
      * @param {BOOLEAN} GroupDefaulted 
      * @returns {NTSTATUS} 
      */
-    static RtlSetGroupSecurityDescriptor(SecurityDescriptor, Group, GroupDefaulted) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlSetGroupSecurityDescriptor(_SecurityDescriptor, Group, GroupDefaulted) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\RtlSetGroupSecurityDescriptor", "ptr", SecurityDescriptor, "ptr", Group, "char", GroupDefaulted, "int")
+        result := DllCall("ntdll.dll\RtlSetGroupSecurityDescriptor", "ptr", _SecurityDescriptor, "ptr", Group, "char", GroupDefaulted, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<PSID>} Group 
      * @param {Pointer<BOOLEAN>} GroupDefaulted 
      * @returns {NTSTATUS} 
      */
-    static RtlGetGroupSecurityDescriptor(SecurityDescriptor, Group, GroupDefaulted) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlGetGroupSecurityDescriptor(_SecurityDescriptor, Group, GroupDefaulted) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         GroupMarshal := Group is VarRef ? "ptr*" : "ptr"
         GroupDefaultedMarshal := GroupDefaulted is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlGetGroupSecurityDescriptor", "ptr", SecurityDescriptor, GroupMarshal, Group, GroupDefaultedMarshal, GroupDefaulted, "int")
+        result := DllCall("ntdll.dll\RtlGetGroupSecurityDescriptor", "ptr", _SecurityDescriptor, GroupMarshal, Group, GroupDefaultedMarshal, GroupDefaulted, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -6072,29 +6072,29 @@ class FileSystem {
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<PSID>} Owner 
      * @param {Pointer<BOOLEAN>} OwnerDefaulted 
      * @returns {NTSTATUS} 
      */
-    static RtlGetOwnerSecurityDescriptor(SecurityDescriptor, Owner, OwnerDefaulted) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static RtlGetOwnerSecurityDescriptor(_SecurityDescriptor, Owner, OwnerDefaulted) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         OwnerMarshal := Owner is VarRef ? "ptr*" : "ptr"
         OwnerDefaultedMarshal := OwnerDefaulted is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlGetOwnerSecurityDescriptor", "ptr", SecurityDescriptor, OwnerMarshal, Owner, OwnerDefaultedMarshal, OwnerDefaulted, "int")
+        result := DllCall("ntdll.dll\RtlGetOwnerSecurityDescriptor", "ptr", _SecurityDescriptor, OwnerMarshal, Owner, OwnerDefaultedMarshal, OwnerDefaulted, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {NTSTATUS} Status 
+     * @param {NTSTATUS} _Status 
      * @returns {Integer} 
      */
-    static RtlNtStatusToDosErrorNoTeb(Status) {
-        result := DllCall("ntdll.dll\RtlNtStatusToDosErrorNoTeb", "int", Status, "uint")
+    static RtlNtStatusToDosErrorNoTeb(_Status) {
+        result := DllCall("ntdll.dll\RtlNtStatusToDosErrorNoTeb", "int", _Status, "uint")
         return result
     }
 
@@ -6304,11 +6304,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {CHAR} Mode 
+     * @param {CHAR} _Mode 
      * @returns {CHAR} 
      */
-    static RtlSetThreadPlaceholderCompatibilityMode(Mode) {
-        result := DllCall("ntdll.dll\RtlSetThreadPlaceholderCompatibilityMode", "char", Mode, "char")
+    static RtlSetThreadPlaceholderCompatibilityMode(_Mode) {
+        result := DllCall("ntdll.dll\RtlSetThreadPlaceholderCompatibilityMode", "char", _Mode, "char")
         return result
     }
 
@@ -6323,11 +6323,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {CHAR} Mode 
+     * @param {CHAR} _Mode 
      * @returns {CHAR} 
      */
-    static RtlSetProcessPlaceholderCompatibilityMode(Mode) {
-        result := DllCall("ntdll.dll\RtlSetProcessPlaceholderCompatibilityMode", "char", Mode, "char")
+    static RtlSetProcessPlaceholderCompatibilityMode(_Mode) {
+        result := DllCall("ntdll.dll\RtlSetProcessPlaceholderCompatibilityMode", "char", _Mode, "char")
         return result
     }
 
@@ -7166,7 +7166,7 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine This parameter is reserved. Device and intermediate drivers should set this pointer to **NULL**.
      * @param {Pointer<Void>} ApcContext This parameter is reserved. Device and intermediate drivers should set this pointer to **NULL**.
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock Pointer to an [**IO\_STATUS\_BLOCK**](/windows-hardware/drivers/ddi/wdm/ns-wdm-_io_status_block) structure that receives the final completion status and information about the requested read operation. The **Information** member receives the number of bytes actually read from the file.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length The size, in bytes, of the buffer pointed to by *Buffer*.
      * @param {Pointer<Integer>} ByteOffset Pointer to a variable that specifies the starting byte offset in the file where the read operation will begin. If an attempt is made to read beyond the end of the file, **NtReadFile** returns an error.
      * 
@@ -7179,7 +7179,7 @@ class FileSystem {
      * @returns {NTSTATUS} **NtReadFile** returns either STATUS\_SUCCESS or the appropriate NTSTATUS error code.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/ntreadfile
      */
-    static NtReadFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, Buffer_R, Length, ByteOffset, Key) {
+    static NtReadFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, _Buffer, Length, ByteOffset, Key) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
@@ -7187,7 +7187,7 @@ class FileSystem {
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtReadFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
+        result := DllCall("ntdll.dll\NtReadFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -7216,13 +7216,13 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Pointer<Integer>} Key 
      * @returns {NTSTATUS} 
      */
-    static NtWriteFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, Buffer_R, Length, ByteOffset, Key) {
+    static NtWriteFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, _Buffer, Length, ByteOffset, Key) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
@@ -7230,7 +7230,7 @@ class FileSystem {
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtWriteFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
+        result := DllCall("ntdll.dll\NtWriteFile", "ptr", FileHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, ByteOffsetMarshal, ByteOffset, KeyMarshal, Key, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -7254,19 +7254,19 @@ class FileSystem {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
-     * @param {Pointer} SecurityDescriptor 
+     * @param {Pointer} _SecurityDescriptor 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} LengthNeeded 
      * @returns {NTSTATUS} 
      */
-    static NtQuerySecurityObject(Handle, SecurityInformation, SecurityDescriptor, Length, LengthNeeded) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static NtQuerySecurityObject(_Handle, SecurityInformation, _SecurityDescriptor, Length, LengthNeeded) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         LengthNeededMarshal := LengthNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtQuerySecurityObject", "ptr", Handle, "uint", SecurityInformation, "ptr", SecurityDescriptor, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
+        result := DllCall("ntdll.dll\NtQuerySecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -7511,34 +7511,34 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} Number_R 
+     * @param {Integer} _Number 
      * @returns {Integer} 
      */
-    static KeAcquireQueuedSpinLock(Number_R) {
-        result := DllCall("ntoskrnl.exe\KeAcquireQueuedSpinLock", "int", Number_R, "char")
+    static KeAcquireQueuedSpinLock(_Number) {
+        result := DllCall("ntoskrnl.exe\KeAcquireQueuedSpinLock", "int", _Number, "char")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Number_R 
+     * @param {Integer} _Number 
      * @param {Integer} OldIrql 
      * @returns {String} Nothing - always returns an empty string
      */
-    static KeReleaseQueuedSpinLock(Number_R, OldIrql) {
-        DllCall("ntoskrnl.exe\KeReleaseQueuedSpinLock", "int", Number_R, "char", OldIrql)
+    static KeReleaseQueuedSpinLock(_Number, OldIrql) {
+        DllCall("ntoskrnl.exe\KeReleaseQueuedSpinLock", "int", _Number, "char", OldIrql)
     }
 
     /**
      * 
-     * @param {Integer} Number_R 
+     * @param {Integer} _Number 
      * @param {Pointer<Integer>} OldIrql 
      * @returns {Integer} 
      */
-    static KeTryToAcquireQueuedSpinLock(Number_R, OldIrql) {
+    static KeTryToAcquireQueuedSpinLock(_Number, OldIrql) {
         OldIrqlMarshal := OldIrql is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\KeTryToAcquireQueuedSpinLock", "int", Number_R, OldIrqlMarshal, OldIrql, "uint")
+        result := DllCall("ntoskrnl.exe\KeTryToAcquireQueuedSpinLock", "int", _Number, OldIrqlMarshal, OldIrql, "uint")
         return result
     }
 
@@ -7614,7 +7614,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<TOKEN_ACCESS_INFORMATION>} PrimaryTokenInformation 
      * @param {Pointer<TOKEN_ACCESS_INFORMATION>} ClientTokenInformation 
      * @param {Integer} DesiredAccess 
@@ -7626,20 +7626,20 @@ class FileSystem {
      * @param {Pointer<Integer>} AccessStatus 
      * @returns {BOOLEAN} 
      */
-    static SeAccessCheckFromState(SecurityDescriptor, PrimaryTokenInformation, ClientTokenInformation, DesiredAccess, PreviouslyGrantedAccess, Privileges, GenericMapping, AccessMode, GrantedAccess, AccessStatus) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAccessCheckFromState(_SecurityDescriptor, PrimaryTokenInformation, ClientTokenInformation, DesiredAccess, PreviouslyGrantedAccess, Privileges, GenericMapping, AccessMode, GrantedAccess, AccessStatus) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         PrivilegesMarshal := Privileges is VarRef ? "ptr*" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeAccessCheckFromState", "ptr", SecurityDescriptor, "ptr", PrimaryTokenInformation, "ptr", ClientTokenInformation, "uint", DesiredAccess, "uint", PreviouslyGrantedAccess, PrivilegesMarshal, Privileges, "ptr", GenericMapping, "char", AccessMode, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "char")
+        result := DllCall("ntoskrnl.exe\SeAccessCheckFromState", "ptr", _SecurityDescriptor, "ptr", PrimaryTokenInformation, "ptr", ClientTokenInformation, "uint", DesiredAccess, "uint", PreviouslyGrantedAccess, PrivilegesMarshal, Privileges, "ptr", GenericMapping, "char", AccessMode, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "char")
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<Void>} PrimaryToken 
      * @param {Pointer<Void>} ClientToken 
      * @param {Integer} DesiredAccess 
@@ -7651,8 +7651,8 @@ class FileSystem {
      * @param {Pointer<Integer>} AccessStatus 
      * @returns {BOOLEAN} 
      */
-    static SeAccessCheckFromStateEx(SecurityDescriptor, PrimaryToken, ClientToken, DesiredAccess, PreviouslyGrantedAccess, Privileges, GenericMapping, AccessMode, GrantedAccess, AccessStatus) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAccessCheckFromStateEx(_SecurityDescriptor, PrimaryToken, ClientToken, DesiredAccess, PreviouslyGrantedAccess, Privileges, GenericMapping, AccessMode, GrantedAccess, AccessStatus) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         PrimaryTokenMarshal := PrimaryToken is VarRef ? "ptr" : "ptr"
         ClientTokenMarshal := ClientToken is VarRef ? "ptr" : "ptr"
@@ -7660,7 +7660,7 @@ class FileSystem {
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeAccessCheckFromStateEx", "ptr", SecurityDescriptor, PrimaryTokenMarshal, PrimaryToken, ClientTokenMarshal, ClientToken, "uint", DesiredAccess, "uint", PreviouslyGrantedAccess, PrivilegesMarshal, Privileges, "ptr", GenericMapping, "char", AccessMode, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "char")
+        result := DllCall("ntoskrnl.exe\SeAccessCheckFromStateEx", "ptr", _SecurityDescriptor, PrimaryTokenMarshal, PrimaryToken, ClientTokenMarshal, ClientToken, "uint", DesiredAccess, "uint", PreviouslyGrantedAccess, PrivilegesMarshal, Privileges, "ptr", GenericMapping, "char", AccessMode, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, "char")
         return result
     }
 
@@ -7705,9 +7705,9 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @param {BOOLEAN} ObjectCreated 
      * @param {BOOLEAN} AccessGranted 
@@ -7715,21 +7715,21 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeOpenObjectAuditAlarm(ObjectTypeName, Object_R, AbsoluteObjectName, SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeOpenObjectAuditAlarm(ObjectTypeName, _Object, AbsoluteObjectName, _SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeOpenObjectAuditAlarm", "ptr", ObjectTypeName, Object_RMarshal, Object_R, "ptr", AbsoluteObjectName, "ptr", SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, GenerateOnCloseMarshal, GenerateOnClose)
+        DllCall("ntoskrnl.exe\SeOpenObjectAuditAlarm", "ptr", ObjectTypeName, _ObjectMarshal, _Object, "ptr", AbsoluteObjectName, "ptr", _SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, GenerateOnCloseMarshal, GenerateOnClose)
     }
 
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @param {BOOLEAN} ObjectCreated 
      * @param {BOOLEAN} AccessGranted 
@@ -7738,21 +7738,21 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeOpenObjectAuditAlarmWithTransaction(ObjectTypeName, Object_R, AbsoluteObjectName, SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, TransactionId, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeOpenObjectAuditAlarmWithTransaction(ObjectTypeName, _Object, AbsoluteObjectName, _SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, TransactionId, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeOpenObjectAuditAlarmWithTransaction", "ptr", ObjectTypeName, Object_RMarshal, Object_R, "ptr", AbsoluteObjectName, "ptr", SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, "ptr", TransactionId, GenerateOnCloseMarshal, GenerateOnClose)
+        DllCall("ntoskrnl.exe\SeOpenObjectAuditAlarmWithTransaction", "ptr", ObjectTypeName, _ObjectMarshal, _Object, "ptr", AbsoluteObjectName, "ptr", _SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, "ptr", TransactionId, GenerateOnCloseMarshal, GenerateOnClose)
     }
 
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @param {BOOLEAN} ObjectCreated 
      * @param {BOOLEAN} AccessGranted 
@@ -7760,21 +7760,21 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeOpenObjectForDeleteAuditAlarm(ObjectTypeName, Object_R, AbsoluteObjectName, SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeOpenObjectForDeleteAuditAlarm(ObjectTypeName, _Object, AbsoluteObjectName, _SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeOpenObjectForDeleteAuditAlarm", "ptr", ObjectTypeName, Object_RMarshal, Object_R, "ptr", AbsoluteObjectName, "ptr", SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, GenerateOnCloseMarshal, GenerateOnClose)
+        DllCall("ntoskrnl.exe\SeOpenObjectForDeleteAuditAlarm", "ptr", ObjectTypeName, _ObjectMarshal, _Object, "ptr", AbsoluteObjectName, "ptr", _SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, GenerateOnCloseMarshal, GenerateOnClose)
     }
 
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} ObjectTypeName 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<UNICODE_STRING>} AbsoluteObjectName 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @param {BOOLEAN} ObjectCreated 
      * @param {BOOLEAN} AccessGranted 
@@ -7783,13 +7783,13 @@ class FileSystem {
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeOpenObjectForDeleteAuditAlarmWithTransaction(ObjectTypeName, Object_R, AbsoluteObjectName, SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, TransactionId, GenerateOnClose) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeOpenObjectForDeleteAuditAlarmWithTransaction(ObjectTypeName, _Object, AbsoluteObjectName, _SecurityDescriptor, AccessState, ObjectCreated, AccessGranted, AccessMode, TransactionId, GenerateOnClose) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeOpenObjectForDeleteAuditAlarmWithTransaction", "ptr", ObjectTypeName, Object_RMarshal, Object_R, "ptr", AbsoluteObjectName, "ptr", SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, "ptr", TransactionId, GenerateOnCloseMarshal, GenerateOnClose)
+        DllCall("ntoskrnl.exe\SeOpenObjectForDeleteAuditAlarmWithTransaction", "ptr", ObjectTypeName, _ObjectMarshal, _Object, "ptr", AbsoluteObjectName, "ptr", _SecurityDescriptor, "ptr", AccessState, "char", ObjectCreated, "char", AccessGranted, "char", AccessMode, "ptr", TransactionId, GenerateOnCloseMarshal, GenerateOnClose)
     }
 
     /**
@@ -7813,31 +7813,31 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
-     * @param {HANDLE} Handle 
+     * @param {Pointer<Void>} _Object 
+     * @param {HANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeDeleteObjectAuditAlarm(Object_R, Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static SeDeleteObjectAuditAlarm(_Object, _Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeDeleteObjectAuditAlarm", Object_RMarshal, Object_R, "ptr", Handle)
+        DllCall("ntoskrnl.exe\SeDeleteObjectAuditAlarm", _ObjectMarshal, _Object, "ptr", _Handle)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
-     * @param {HANDLE} Handle 
+     * @param {Pointer<Void>} _Object 
+     * @param {HANDLE} _Handle 
      * @param {Pointer<Guid>} TransactionId 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeDeleteObjectAuditAlarmWithTransaction(Object_R, Handle, TransactionId) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static SeDeleteObjectAuditAlarmWithTransaction(_Object, _Handle, TransactionId) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeDeleteObjectAuditAlarmWithTransaction", Object_RMarshal, Object_R, "ptr", Handle, "ptr", TransactionId)
+        DllCall("ntoskrnl.exe\SeDeleteObjectAuditAlarmWithTransaction", _ObjectMarshal, _Object, "ptr", _Handle, "ptr", TransactionId)
     }
 
     /**
@@ -8021,23 +8021,23 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Integer>} SecurityInformation 
-     * @param {Pointer} SecurityDescriptor 
+     * @param {Pointer} _SecurityDescriptor 
      * @param {Pointer<Integer>} Length 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectsSecurityDescriptor 
      * @returns {NTSTATUS} 
      */
-    static SeQuerySecurityDescriptorInfo(SecurityInformation, SecurityDescriptor, Length, ObjectsSecurityDescriptor) {
+    static SeQuerySecurityDescriptorInfo(SecurityInformation, _SecurityDescriptor, Length, ObjectsSecurityDescriptor) {
         SecurityInformationMarshal := SecurityInformation is VarRef ? "uint*" : "ptr"
         LengthMarshal := Length is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeQuerySecurityDescriptorInfo", SecurityInformationMarshal, SecurityInformation, "ptr", SecurityDescriptor, LengthMarshal, Length, "ptr", ObjectsSecurityDescriptor, "int")
+        result := DllCall("ntoskrnl.exe\SeQuerySecurityDescriptorInfo", SecurityInformationMarshal, SecurityInformation, "ptr", _SecurityDescriptor, LengthMarshal, Length, "ptr", ObjectsSecurityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectsSecurityDescriptor 
@@ -8045,20 +8045,20 @@ class FileSystem {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @returns {NTSTATUS} 
      */
-    static SeSetSecurityDescriptorInfo(Object_R, SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, PoolType, GenericMapping) {
+    static SeSetSecurityDescriptorInfo(_Object, SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, PoolType, GenericMapping) {
         ModificationDescriptor := ModificationDescriptor is Win32Handle ? NumGet(ModificationDescriptor, "ptr") : ModificationDescriptor
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         SecurityInformationMarshal := SecurityInformation is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeSetSecurityDescriptorInfo", Object_RMarshal, Object_R, SecurityInformationMarshal, SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "int", PoolType, "ptr", GenericMapping, "int")
+        result := DllCall("ntoskrnl.exe\SeSetSecurityDescriptorInfo", _ObjectMarshal, _Object, SecurityInformationMarshal, SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "int", PoolType, "ptr", GenericMapping, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectsSecurityDescriptor 
@@ -8067,13 +8067,13 @@ class FileSystem {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @returns {NTSTATUS} 
      */
-    static SeSetSecurityDescriptorInfoEx(Object_R, SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, AutoInheritFlags, PoolType, GenericMapping) {
+    static SeSetSecurityDescriptorInfoEx(_Object, SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, AutoInheritFlags, PoolType, GenericMapping) {
         ModificationDescriptor := ModificationDescriptor is Win32Handle ? NumGet(ModificationDescriptor, "ptr") : ModificationDescriptor
 
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         SecurityInformationMarshal := SecurityInformation is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeSetSecurityDescriptorInfoEx", Object_RMarshal, Object_R, SecurityInformationMarshal, SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "uint", AutoInheritFlags, "int", PoolType, "ptr", GenericMapping, "int")
+        result := DllCall("ntoskrnl.exe\SeSetSecurityDescriptorInfoEx", _ObjectMarshal, _Object, SecurityInformationMarshal, SecurityInformation, "ptr", ModificationDescriptor, "ptr", ObjectsSecurityDescriptor, "uint", AutoInheritFlags, "int", PoolType, "ptr", GenericMapping, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8137,160 +8137,160 @@ class FileSystem {
     /**
      * 
      * @param {BOOLEAN} AccessGranted 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingFileEvents(AccessGranted, SecurityDescriptor) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingFileEvents(AccessGranted, _SecurityDescriptor) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntoskrnl.exe\SeAuditingFileEvents", "char", AccessGranted, "ptr", SecurityDescriptor, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingFileEvents", "char", AccessGranted, "ptr", _SecurityDescriptor, "char")
         return result
     }
 
     /**
      * 
      * @param {BOOLEAN} AccessGranted 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingFileEventsWithContext(AccessGranted, SecurityDescriptor, SubjectSecurityContext) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingFileEventsWithContext(AccessGranted, _SecurityDescriptor, SubjectSecurityContext) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntoskrnl.exe\SeAuditingFileEventsWithContext", "char", AccessGranted, "ptr", SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingFileEventsWithContext", "char", AccessGranted, "ptr", _SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingAnyFileEventsWithContext(SecurityDescriptor, SubjectSecurityContext) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingAnyFileEventsWithContext(_SecurityDescriptor, SubjectSecurityContext) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntoskrnl.exe\SeAuditingAnyFileEventsWithContext", "ptr", SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingAnyFileEventsWithContext", "ptr", _SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
         return result
     }
 
     /**
      * 
      * @param {BOOLEAN} AccessGranted 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @param {Pointer<BOOLEAN>} StagingEnabled 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingFileEventsWithContextEx(AccessGranted, SecurityDescriptor, SubjectSecurityContext, StagingEnabled) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingFileEventsWithContextEx(AccessGranted, _SecurityDescriptor, SubjectSecurityContext, StagingEnabled) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         StagingEnabledMarshal := StagingEnabled is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeAuditingFileEventsWithContextEx", "char", AccessGranted, "ptr", SecurityDescriptor, "ptr", SubjectSecurityContext, StagingEnabledMarshal, StagingEnabled, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingFileEventsWithContextEx", "char", AccessGranted, "ptr", _SecurityDescriptor, "ptr", SubjectSecurityContext, StagingEnabledMarshal, StagingEnabled, "char")
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @param {Pointer<BOOLEAN>} StagingEnabled 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingAnyFileEventsWithContextEx(SecurityDescriptor, SubjectSecurityContext, StagingEnabled) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingAnyFileEventsWithContextEx(_SecurityDescriptor, SubjectSecurityContext, StagingEnabled) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
         StagingEnabledMarshal := StagingEnabled is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeAuditingAnyFileEventsWithContextEx", "ptr", SecurityDescriptor, "ptr", SubjectSecurityContext, StagingEnabledMarshal, StagingEnabled, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingAnyFileEventsWithContextEx", "ptr", _SecurityDescriptor, "ptr", SubjectSecurityContext, StagingEnabledMarshal, StagingEnabled, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} ObjectType 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {Pointer<Void>} _ObjectType 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeAdjustAccessStateForTrustLabel(ObjectType, SecurityDescriptor, AccessState) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAdjustAccessStateForTrustLabel(_ObjectType, _SecurityDescriptor, AccessState) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        ObjectTypeMarshal := ObjectType is VarRef ? "ptr" : "ptr"
+        _ObjectTypeMarshal := _ObjectType is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeAdjustAccessStateForTrustLabel", ObjectTypeMarshal, ObjectType, "ptr", SecurityDescriptor, "ptr", AccessState)
+        DllCall("ntoskrnl.exe\SeAdjustAccessStateForTrustLabel", _ObjectTypeMarshal, _ObjectType, "ptr", _SecurityDescriptor, "ptr", AccessState)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} ObjectType 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {Pointer<Void>} _ObjectType 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SeAdjustAccessStateForAccessConstraints(ObjectType, SecurityDescriptor, AccessState) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAdjustAccessStateForAccessConstraints(_ObjectType, _SecurityDescriptor, AccessState) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        ObjectTypeMarshal := ObjectType is VarRef ? "ptr" : "ptr"
+        _ObjectTypeMarshal := _ObjectType is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\SeAdjustAccessStateForAccessConstraints", ObjectTypeMarshal, ObjectType, "ptr", SecurityDescriptor, "ptr", AccessState)
+        DllCall("ntoskrnl.exe\SeAdjustAccessStateForAccessConstraints", _ObjectTypeMarshal, _ObjectType, "ptr", _SecurityDescriptor, "ptr", AccessState)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} ObjectType 
+     * @param {Pointer<Void>} _ObjectType 
      * @param {PSECURITY_DESCRIPTOR} ChildDescriptor 
      * @param {Pointer<ACCESS_STATE>} AccessState 
      * @returns {BOOLEAN} 
      */
-    static SeShouldCheckForAccessRightsFromParent(ObjectType, ChildDescriptor, AccessState) {
+    static SeShouldCheckForAccessRightsFromParent(_ObjectType, ChildDescriptor, AccessState) {
         ChildDescriptor := ChildDescriptor is Win32Handle ? NumGet(ChildDescriptor, "ptr") : ChildDescriptor
 
-        ObjectTypeMarshal := ObjectType is VarRef ? "ptr" : "ptr"
+        _ObjectTypeMarshal := _ObjectType is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeShouldCheckForAccessRightsFromParent", ObjectTypeMarshal, ObjectType, "ptr", ChildDescriptor, "ptr", AccessState, "char")
+        result := DllCall("ntoskrnl.exe\SeShouldCheckForAccessRightsFromParent", _ObjectTypeMarshal, _ObjectType, "ptr", ChildDescriptor, "ptr", AccessState, "char")
         return result
     }
 
     /**
      * 
      * @param {BOOLEAN} AccessGranted 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingHardLinkEvents(AccessGranted, SecurityDescriptor) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingHardLinkEvents(AccessGranted, _SecurityDescriptor) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntoskrnl.exe\SeAuditingHardLinkEvents", "char", AccessGranted, "ptr", SecurityDescriptor, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingHardLinkEvents", "char", AccessGranted, "ptr", _SecurityDescriptor, "char")
         return result
     }
 
     /**
      * 
      * @param {BOOLEAN} AccessGranted 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingHardLinkEventsWithContext(AccessGranted, SecurityDescriptor, SubjectSecurityContext) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingHardLinkEventsWithContext(AccessGranted, _SecurityDescriptor, SubjectSecurityContext) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntoskrnl.exe\SeAuditingHardLinkEventsWithContext", "char", AccessGranted, "ptr", SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingHardLinkEventsWithContext", "char", AccessGranted, "ptr", _SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
         return result
     }
 
     /**
      * 
      * @param {BOOLEAN} AccessGranted 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectSecurityContext 
      * @returns {BOOLEAN} 
      */
-    static SeAuditingFileOrGlobalEvents(AccessGranted, SecurityDescriptor, SubjectSecurityContext) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SeAuditingFileOrGlobalEvents(AccessGranted, _SecurityDescriptor, SubjectSecurityContext) {
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntoskrnl.exe\SeAuditingFileOrGlobalEvents", "char", AccessGranted, "ptr", SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
+        result := DllCall("ntoskrnl.exe\SeAuditingFileOrGlobalEvents", "char", AccessGranted, "ptr", _SecurityDescriptor, "ptr", SubjectSecurityContext, "char")
         return result
     }
 
@@ -8329,13 +8329,13 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX>} CallbackRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static SeRegisterLogonSessionTerminatedRoutineEx(CallbackRoutine, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static SeRegisterLogonSessionTerminatedRoutineEx(CallbackRoutine, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeRegisterLogonSessionTerminatedRoutineEx", "ptr", CallbackRoutine, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\SeRegisterLogonSessionTerminatedRoutineEx", "ptr", CallbackRoutine, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8343,13 +8343,13 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX>} CallbackRoutine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static SeUnregisterLogonSessionTerminatedRoutineEx(CallbackRoutine, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static SeUnregisterLogonSessionTerminatedRoutineEx(CallbackRoutine, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\SeUnregisterLogonSessionTerminatedRoutineEx", "ptr", CallbackRoutine, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\SeUnregisterLogonSessionTerminatedRoutineEx", "ptr", CallbackRoutine, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -8409,12 +8409,12 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} Context 
+     * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} _Context 
      * @param {Integer} PreviousMode 
      * @returns {BOOLEAN} 
      */
-    static RtlIsSandboxedToken(Context, PreviousMode) {
-        result := DllCall("ntoskrnl.exe\RtlIsSandboxedToken", "ptr", Context, "char", PreviousMode, "char")
+    static RtlIsSandboxedToken(_Context, PreviousMode) {
+        result := DllCall("ntoskrnl.exe\RtlIsSandboxedToken", "ptr", _Context, "char", PreviousMode, "char")
         return result
     }
 
@@ -8863,11 +8863,11 @@ class FileSystem {
      * @param {Integer} DesiredAccess 
      * @param {Integer} OpenOptions 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
-     * @param {Pointer<FILE_NETWORK_OPEN_INFORMATION>} Buffer_R 
+     * @param {Pointer<FILE_NETWORK_OPEN_INFORMATION>} _Buffer 
      * @returns {BOOLEAN} 
      */
-    static IoFastQueryNetworkAttributes(ObjectAttributes, DesiredAccess, OpenOptions, IoStatus, Buffer_R) {
-        result := DllCall("ntoskrnl.exe\IoFastQueryNetworkAttributes", "ptr", ObjectAttributes, "uint", DesiredAccess, "uint", OpenOptions, "ptr", IoStatus, "ptr", Buffer_R, "char")
+    static IoFastQueryNetworkAttributes(ObjectAttributes, DesiredAccess, OpenOptions, IoStatus, _Buffer) {
+        result := DllCall("ntoskrnl.exe\IoFastQueryNetworkAttributes", "ptr", ObjectAttributes, "uint", DesiredAccess, "uint", OpenOptions, "ptr", IoStatus, "ptr", _Buffer, "char")
         return result
     }
 
@@ -8920,31 +8920,31 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {Integer} 
      */
-    static IoGetRequestorProcessId(Irp) {
-        result := DllCall("ntoskrnl.exe\IoGetRequestorProcessId", "ptr", Irp, "uint")
+    static IoGetRequestorProcessId(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoGetRequestorProcessId", "ptr", _Irp, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {PEPROCESS} 
      */
-    static IoGetRequestorProcess(Irp) {
-        result := DllCall("ntoskrnl.exe\IoGetRequestorProcess", "ptr", Irp, "ptr")
+    static IoGetRequestorProcess(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoGetRequestorProcess", "ptr", _Irp, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static IoIsOperationSynchronous(Irp) {
-        result := DllCall("ntoskrnl.exe\IoIsOperationSynchronous", "ptr", Irp, "char")
+    static IoIsOperationSynchronous(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoIsOperationSynchronous", "ptr", _Irp, "char")
         return result
     }
 
@@ -8960,12 +8960,12 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<REPARSE_DATA_BUFFER>} ReparseBuffer 
      * @returns {BOOLEAN} 
      */
-    static IoIsValidNameGraftingBuffer(Irp, ReparseBuffer) {
-        result := DllCall("ntoskrnl.exe\IoIsValidNameGraftingBuffer", "ptr", Irp, "ptr", ReparseBuffer, "char")
+    static IoIsValidNameGraftingBuffer(_Irp, ReparseBuffer) {
+        result := DllCall("ntoskrnl.exe\IoIsValidNameGraftingBuffer", "ptr", _Irp, "ptr", ReparseBuffer, "char")
         return result
     }
 
@@ -9021,11 +9021,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
-    static IoQueueThreadIrp(Irp) {
-        DllCall("ntoskrnl.exe\IoQueueThreadIrp", "ptr", Irp)
+    static IoQueueThreadIrp(_Irp) {
+        DllCall("ntoskrnl.exe\IoQueueThreadIrp", "ptr", _Irp)
     }
 
     /**
@@ -9185,14 +9185,14 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Integer>} pSessionId 
      * @returns {NTSTATUS} 
      */
-    static IoGetRequestorSessionId(Irp, pSessionId) {
+    static IoGetRequestorSessionId(_Irp, pSessionId) {
         pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetRequestorSessionId", "ptr", Irp, pSessionIdMarshal, pSessionId, "int")
+        result := DllCall("ntoskrnl.exe\IoGetRequestorSessionId", "ptr", _Irp, pSessionIdMarshal, pSessionId, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9249,14 +9249,14 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PETHREAD} Thread 
      * @param {Pointer<IO_PRIORITY_INFO>} PriorityInfo 
      * @returns {NTSTATUS} 
      */
-    static IoRetrievePriorityInfo(Irp, FileObject, Thread, PriorityInfo) {
-        result := DllCall("ntoskrnl.exe\IoRetrievePriorityInfo", "ptr", Irp, "ptr", FileObject, "ptr", Thread, "ptr", PriorityInfo, "int")
+    static IoRetrievePriorityInfo(_Irp, FileObject, Thread, PriorityInfo) {
+        result := DllCall("ntoskrnl.exe\IoRetrievePriorityInfo", "ptr", _Irp, "ptr", FileObject, "ptr", Thread, "ptr", PriorityInfo, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9276,51 +9276,51 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<IO_IRP_EXT_TRACK_OFFSET_HEADER>>} RetFsTrackOffsetBlob 
      * @param {Pointer<Integer>} RetTrackedOffset 
      * @returns {NTSTATUS} 
      */
-    static IoGetFsTrackOffsetState(Irp, RetFsTrackOffsetBlob, RetTrackedOffset) {
+    static IoGetFsTrackOffsetState(_Irp, RetFsTrackOffsetBlob, RetTrackedOffset) {
         RetFsTrackOffsetBlobMarshal := RetFsTrackOffsetBlob is VarRef ? "ptr*" : "ptr"
         RetTrackedOffsetMarshal := RetTrackedOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\IoGetFsTrackOffsetState", "ptr", Irp, RetFsTrackOffsetBlobMarshal, RetFsTrackOffsetBlob, RetTrackedOffsetMarshal, RetTrackedOffset, "int")
+        result := DllCall("ntoskrnl.exe\IoGetFsTrackOffsetState", "ptr", _Irp, RetFsTrackOffsetBlobMarshal, RetFsTrackOffsetBlob, RetTrackedOffsetMarshal, RetTrackedOffset, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<IO_IRP_EXT_TRACK_OFFSET_HEADER>} FsTrackOffsetBlob 
      * @param {Integer} TrackedOffset 
      * @returns {NTSTATUS} 
      */
-    static IoSetFsTrackOffsetState(Irp, FsTrackOffsetBlob, TrackedOffset) {
-        result := DllCall("ntoskrnl.exe\IoSetFsTrackOffsetState", "ptr", Irp, "ptr", FsTrackOffsetBlob, "int64", TrackedOffset, "int")
+    static IoSetFsTrackOffsetState(_Irp, FsTrackOffsetBlob, TrackedOffset) {
+        result := DllCall("ntoskrnl.exe\IoSetFsTrackOffsetState", "ptr", _Irp, "ptr", FsTrackOffsetBlob, "int64", TrackedOffset, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static IoClearFsTrackOffsetState(Irp) {
-        result := DllCall("ntoskrnl.exe\IoClearFsTrackOffsetState", "ptr", Irp, "int")
+    static IoClearFsTrackOffsetState(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoClearFsTrackOffsetState", "ptr", _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static IoIrpHasFsTrackOffsetExtensionType(Irp) {
-        result := DllCall("ntoskrnl.exe\IoIrpHasFsTrackOffsetExtensionType", "ptr", Irp, "char")
+    static IoIrpHasFsTrackOffsetExtensionType(_Irp) {
+        result := DllCall("ntoskrnl.exe\IoIrpHasFsTrackOffsetExtensionType", "ptr", _Irp, "char")
         return result
     }
 
@@ -9401,12 +9401,12 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} Address 
+     * @param {Pointer} _Address 
      * @param {Pointer} Length 
      * @returns {BOOLEAN} 
      */
-    static MmSetAddressRangeModified(Address, Length) {
-        result := DllCall("ntoskrnl.exe\MmSetAddressRangeModified", "ptr", Address, "ptr", Length, "char")
+    static MmSetAddressRangeModified(_Address, Length) {
+        result := DllCall("ntoskrnl.exe\MmSetAddressRangeModified", "ptr", _Address, "ptr", Length, "char")
         return result
     }
 
@@ -9451,124 +9451,124 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} _Mdl 
      * @returns {Integer} 
      */
-    static MmMdlPagesAreZero(Mdl) {
-        result := DllCall("ntoskrnl.exe\MmMdlPagesAreZero", "ptr", Mdl, "uint")
+    static MmMdlPagesAreZero(_Mdl) {
+        result := DllCall("ntoskrnl.exe\MmMdlPagesAreZero", "ptr", _Mdl, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<ACCESS_STATE>} PassedAccessState 
      * @param {Integer} DesiredAccess 
      * @param {Integer} ObjectPointerBias 
      * @param {Pointer<Pointer<Void>>} NewObject 
-     * @param {Pointer<HANDLE>} Handle 
+     * @param {Pointer<HANDLE>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static ObInsertObject(Object_R, PassedAccessState, DesiredAccess, ObjectPointerBias, NewObject, Handle) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObInsertObject(_Object, PassedAccessState, DesiredAccess, ObjectPointerBias, NewObject, _Handle) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         NewObjectMarshal := NewObject is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObInsertObject", Object_RMarshal, Object_R, "ptr", PassedAccessState, "uint", DesiredAccess, "uint", ObjectPointerBias, NewObjectMarshal, NewObject, "ptr", Handle, "int")
+        result := DllCall("ntoskrnl.exe\ObInsertObject", _ObjectMarshal, _Object, "ptr", PassedAccessState, "uint", DesiredAccess, "uint", ObjectPointerBias, NewObjectMarshal, NewObject, "ptr", _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} HandleAttributes 
      * @param {Pointer<ACCESS_STATE>} PassedAccessState 
      * @param {Integer} DesiredAccess 
-     * @param {POBJECT_TYPE} ObjectType 
+     * @param {POBJECT_TYPE} _ObjectType 
      * @param {Integer} AccessMode 
-     * @param {Pointer<HANDLE>} Handle 
+     * @param {Pointer<HANDLE>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static ObOpenObjectByPointer(Object_R, HandleAttributes, PassedAccessState, DesiredAccess, ObjectType, AccessMode, Handle) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObOpenObjectByPointer(_Object, HandleAttributes, PassedAccessState, DesiredAccess, _ObjectType, AccessMode, _Handle) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObOpenObjectByPointer", Object_RMarshal, Object_R, "uint", HandleAttributes, "ptr", PassedAccessState, "uint", DesiredAccess, "ptr", ObjectType, "char", AccessMode, "ptr", Handle, "int")
+        result := DllCall("ntoskrnl.exe\ObOpenObjectByPointer", _ObjectMarshal, _Object, "uint", HandleAttributes, "ptr", PassedAccessState, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "ptr", _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Integer} HandleAttributes 
      * @param {Pointer<ACCESS_STATE>} PassedAccessState 
      * @param {Integer} DesiredAccess 
-     * @param {POBJECT_TYPE} ObjectType 
+     * @param {POBJECT_TYPE} _ObjectType 
      * @param {Integer} AccessMode 
      * @param {Integer} Tag 
-     * @param {Pointer<HANDLE>} Handle 
+     * @param {Pointer<HANDLE>} _Handle 
      * @returns {NTSTATUS} 
      */
-    static ObOpenObjectByPointerWithTag(Object_R, HandleAttributes, PassedAccessState, DesiredAccess, ObjectType, AccessMode, Tag, Handle) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObOpenObjectByPointerWithTag(_Object, HandleAttributes, PassedAccessState, DesiredAccess, _ObjectType, AccessMode, Tag, _Handle) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObOpenObjectByPointerWithTag", Object_RMarshal, Object_R, "uint", HandleAttributes, "ptr", PassedAccessState, "uint", DesiredAccess, "ptr", ObjectType, "char", AccessMode, "uint", Tag, "ptr", Handle, "int")
+        result := DllCall("ntoskrnl.exe\ObOpenObjectByPointerWithTag", _ObjectMarshal, _Object, "uint", HandleAttributes, "ptr", PassedAccessState, "uint", DesiredAccess, "ptr", _ObjectType, "char", AccessMode, "uint", Tag, "ptr", _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @returns {String} Nothing - always returns an empty string
      */
-    static ObMakeTemporaryObject(Object_R) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObMakeTemporaryObject(_Object) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\ObMakeTemporaryObject", Object_RMarshal, Object_R)
+        DllCall("ntoskrnl.exe\ObMakeTemporaryObject", _ObjectMarshal, _Object)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer} ObjectNameInfo 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
      */
-    static ObQueryNameString(Object_R, ObjectNameInfo, Length, ReturnLength) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static ObQueryNameString(_Object, ObjectNameInfo, Length, ReturnLength) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObQueryNameString", Object_RMarshal, Object_R, "ptr", ObjectNameInfo, "uint", Length, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntoskrnl.exe\ObQueryNameString", _ObjectMarshal, _Object, "ptr", ObjectNameInfo, "uint", Length, ReturnLengthMarshal, ReturnLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @returns {BOOLEAN} 
      */
-    static ObIsKernelHandle(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ObIsKernelHandle(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        result := DllCall("ntoskrnl.exe\ObIsKernelHandle", "ptr", Handle, "char")
+        result := DllCall("ntoskrnl.exe\ObIsKernelHandle", "ptr", _Handle, "char")
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Pointer<BOOLEAN>} GenerateOnClose 
      * @returns {NTSTATUS} 
      */
-    static ObQueryObjectAuditingByHandle(Handle, GenerateOnClose) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ObQueryObjectAuditingByHandle(_Handle, GenerateOnClose) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\ObQueryObjectAuditingByHandle", "ptr", Handle, GenerateOnCloseMarshal, GenerateOnClose, "int")
+        result := DllCall("ntoskrnl.exe\ObQueryObjectAuditingByHandle", "ptr", _Handle, GenerateOnCloseMarshal, GenerateOnClose, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9592,15 +9592,15 @@ class FileSystem {
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
      * @param {Integer} LockKey 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {BOOLEAN} 
      */
-    static FsRtlCopyRead(FileObject, FileOffset, Length, Wait, LockKey, Buffer_R, IoStatus, DeviceObject) {
+    static FsRtlCopyRead(FileObject, FileOffset, Length, Wait, LockKey, _Buffer, IoStatus, DeviceObject) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlCopyRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "uint", LockKey, "ptr", Buffer_R, "ptr", IoStatus, "ptr", DeviceObject, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlCopyRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "uint", LockKey, "ptr", _Buffer, "ptr", IoStatus, "ptr", DeviceObject, "char")
         return result
     }
 
@@ -9611,15 +9611,15 @@ class FileSystem {
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
      * @param {Integer} LockKey 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {BOOLEAN} 
      */
-    static FsRtlCopyWrite(FileObject, FileOffset, Length, Wait, LockKey, Buffer_R, IoStatus, DeviceObject) {
+    static FsRtlCopyWrite(FileObject, FileOffset, Length, Wait, LockKey, _Buffer, IoStatus, DeviceObject) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlCopyWrite", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "uint", LockKey, "ptr", Buffer_R, "ptr", IoStatus, "ptr", DeviceObject, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlCopyWrite", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "uint", LockKey, "ptr", _Buffer, "ptr", IoStatus, "ptr", DeviceObject, "char")
         return result
     }
 
@@ -9801,14 +9801,14 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_LOCK>} FileLock 
-     * @param {Pointer<IRP>} Irp 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<IRP>} _Irp 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static FsRtlProcessFileLock(FileLock, Irp, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FsRtlProcessFileLock(FileLock, _Irp, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlProcessFileLock", "ptr", FileLock, "ptr", Irp, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlProcessFileLock", "ptr", FileLock, "ptr", _Irp, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9816,22 +9816,22 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_LOCK>} FileLock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static FsRtlCheckLockForReadAccess(FileLock, Irp) {
-        result := DllCall("ntoskrnl.exe\FsRtlCheckLockForReadAccess", "ptr", FileLock, "ptr", Irp, "char")
+    static FsRtlCheckLockForReadAccess(FileLock, _Irp) {
+        result := DllCall("ntoskrnl.exe\FsRtlCheckLockForReadAccess", "ptr", FileLock, "ptr", _Irp, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<FILE_LOCK>} FileLock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static FsRtlCheckLockForWriteAccess(FileLock, Irp) {
-        result := DllCall("ntoskrnl.exe\FsRtlCheckLockForWriteAccess", "ptr", FileLock, "ptr", Irp, "char")
+    static FsRtlCheckLockForWriteAccess(FileLock, _Irp) {
+        result := DllCall("ntoskrnl.exe\FsRtlCheckLockForWriteAccess", "ptr", FileLock, "ptr", _Irp, "char")
         return result
     }
 
@@ -9926,16 +9926,16 @@ class FileSystem {
      * @param {Pointer<Integer>} Length 
      * @param {PEPROCESS} ProcessId 
      * @param {Integer} Key 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} AlreadySynchronized 
      * @returns {NTSTATUS} 
      */
-    static FsRtlFastUnlockSingle(FileLock, FileObject, FileOffset, Length, ProcessId, Key, Context, AlreadySynchronized) {
+    static FsRtlFastUnlockSingle(FileLock, FileObject, FileOffset, Length, ProcessId, Key, _Context, AlreadySynchronized) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
         LengthMarshal := Length is VarRef ? "int64*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlFastUnlockSingle", "ptr", FileLock, "ptr", FileObject, FileOffsetMarshal, FileOffset, LengthMarshal, Length, "ptr", ProcessId, "uint", Key, ContextMarshal, Context, "char", AlreadySynchronized, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlFastUnlockSingle", "ptr", FileLock, "ptr", FileObject, FileOffsetMarshal, FileOffset, LengthMarshal, Length, "ptr", ProcessId, "uint", Key, _ContextMarshal, _Context, "char", AlreadySynchronized, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9945,13 +9945,13 @@ class FileSystem {
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PEPROCESS} ProcessId 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static FsRtlFastUnlockAll(FileLock, FileObject, ProcessId, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FsRtlFastUnlockAll(FileLock, FileObject, ProcessId, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlFastUnlockAll", "ptr", FileLock, "ptr", FileObject, "ptr", ProcessId, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlFastUnlockAll", "ptr", FileLock, "ptr", FileObject, "ptr", ProcessId, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9962,13 +9962,13 @@ class FileSystem {
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PEPROCESS} ProcessId 
      * @param {Integer} Key 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
-    static FsRtlFastUnlockAllByKey(FileLock, FileObject, ProcessId, Key, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FsRtlFastUnlockAllByKey(FileLock, FileObject, ProcessId, Key, _Context) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlFastUnlockAllByKey", "ptr", FileLock, "ptr", FileObject, "ptr", ProcessId, "uint", Key, ContextMarshal, Context, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlFastUnlockAllByKey", "ptr", FileLock, "ptr", FileObject, "ptr", ProcessId, "uint", Key, _ContextMarshal, _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -9984,17 +9984,17 @@ class FileSystem {
      * @param {BOOLEAN} FailImmediately 
      * @param {BOOLEAN} ExclusiveLock 
      * @param {Pointer<IO_STATUS_BLOCK>} Iosb 
-     * @param {Pointer<IRP>} Irp 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<IRP>} _Irp 
+     * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} AlreadySynchronized 
      * @returns {BOOLEAN} 
      */
-    static FsRtlPrivateLock(FileLock, FileObject, FileOffset, Length, ProcessId, Key, FailImmediately, ExclusiveLock, Iosb, Irp, Context, AlreadySynchronized) {
+    static FsRtlPrivateLock(FileLock, FileObject, FileOffset, Length, ProcessId, Key, FailImmediately, ExclusiveLock, Iosb, _Irp, _Context, AlreadySynchronized) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
         LengthMarshal := Length is VarRef ? "int64*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlPrivateLock", "ptr", FileLock, "ptr", FileObject, FileOffsetMarshal, FileOffset, LengthMarshal, Length, "ptr", ProcessId, "uint", Key, "char", FailImmediately, "char", ExclusiveLock, "ptr", Iosb, "ptr", Irp, ContextMarshal, Context, "char", AlreadySynchronized, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlPrivateLock", "ptr", FileLock, "ptr", FileObject, FileOffsetMarshal, FileOffset, LengthMarshal, Length, "ptr", ProcessId, "uint", Key, "char", FailImmediately, "char", ExclusiveLock, "ptr", Iosb, "ptr", _Irp, _ContextMarshal, _Context, "char", AlreadySynchronized, "char")
         return result
     }
 
@@ -10095,13 +10095,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {STRING} Path 
+     * @param {STRING} _Path 
      * @param {Pointer<STRING>} FirstName 
      * @param {Pointer<STRING>} RemainingName 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlDissectDbcs(Path, FirstName, RemainingName) {
-        DllCall("ntoskrnl.exe\FsRtlDissectDbcs", "ptr", Path, "ptr", FirstName, "ptr", RemainingName)
+    static FsRtlDissectDbcs(_Path, FirstName, RemainingName) {
+        DllCall("ntoskrnl.exe\FsRtlDissectDbcs", "ptr", _Path, "ptr", FirstName, "ptr", RemainingName)
     }
 
     /**
@@ -10184,70 +10184,70 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} PoolType 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlInitializeLargeMcb(Mcb, PoolType) {
-        DllCall("ntoskrnl.exe\FsRtlInitializeLargeMcb", "ptr", Mcb, "int", PoolType)
+    static FsRtlInitializeLargeMcb(_Mcb, PoolType) {
+        DllCall("ntoskrnl.exe\FsRtlInitializeLargeMcb", "ptr", _Mcb, "int", PoolType)
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlUninitializeLargeMcb(Mcb) {
-        DllCall("ntoskrnl.exe\FsRtlUninitializeLargeMcb", "ptr", Mcb)
+    static FsRtlUninitializeLargeMcb(_Mcb) {
+        DllCall("ntoskrnl.exe\FsRtlUninitializeLargeMcb", "ptr", _Mcb)
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {BOOLEAN} SelfSynchronized 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlResetLargeMcb(Mcb, SelfSynchronized) {
-        DllCall("ntoskrnl.exe\FsRtlResetLargeMcb", "ptr", Mcb, "char", SelfSynchronized)
+    static FsRtlResetLargeMcb(_Mcb, SelfSynchronized) {
+        DllCall("ntoskrnl.exe\FsRtlResetLargeMcb", "ptr", _Mcb, "char", SelfSynchronized)
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlTruncateLargeMcb(Mcb, Vbn) {
-        DllCall("ntoskrnl.exe\FsRtlTruncateLargeMcb", "ptr", Mcb, "int64", Vbn)
+    static FsRtlTruncateLargeMcb(_Mcb, Vbn) {
+        DllCall("ntoskrnl.exe\FsRtlTruncateLargeMcb", "ptr", _Mcb, "int64", Vbn)
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
      * @param {Integer} SectorCount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlAddLargeMcbEntry(Mcb, Vbn, Lbn, SectorCount) {
-        result := DllCall("ntoskrnl.exe\FsRtlAddLargeMcbEntry", "ptr", Mcb, "int64", Vbn, "int64", Lbn, "int64", SectorCount, "char")
+    static FsRtlAddLargeMcbEntry(_Mcb, Vbn, Lbn, SectorCount) {
+        result := DllCall("ntoskrnl.exe\FsRtlAddLargeMcbEntry", "ptr", _Mcb, "int64", Vbn, "int64", Lbn, "int64", SectorCount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} SectorCount 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlRemoveLargeMcbEntry(Mcb, Vbn, SectorCount) {
-        DllCall("ntoskrnl.exe\FsRtlRemoveLargeMcbEntry", "ptr", Mcb, "int64", Vbn, "int64", SectorCount)
+    static FsRtlRemoveLargeMcbEntry(_Mcb, Vbn, SectorCount) {
+        DllCall("ntoskrnl.exe\FsRtlRemoveLargeMcbEntry", "ptr", _Mcb, "int64", Vbn, "int64", SectorCount)
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @param {Pointer<Integer>} SectorCountFromLbn 
@@ -10256,29 +10256,29 @@ class FileSystem {
      * @param {Pointer<Integer>} Index 
      * @returns {BOOLEAN} 
      */
-    static FsRtlLookupLargeMcbEntry(Mcb, Vbn, Lbn, SectorCountFromLbn, StartingLbn, SectorCountFromStartingLbn, Index) {
+    static FsRtlLookupLargeMcbEntry(_Mcb, Vbn, Lbn, SectorCountFromLbn, StartingLbn, SectorCountFromStartingLbn, Index) {
         LbnMarshal := Lbn is VarRef ? "int64*" : "ptr"
         SectorCountFromLbnMarshal := SectorCountFromLbn is VarRef ? "int64*" : "ptr"
         StartingLbnMarshal := StartingLbn is VarRef ? "int64*" : "ptr"
         SectorCountFromStartingLbnMarshal := SectorCountFromStartingLbn is VarRef ? "int64*" : "ptr"
         IndexMarshal := Index is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlLookupLargeMcbEntry", "ptr", Mcb, "int64", Vbn, LbnMarshal, Lbn, SectorCountFromLbnMarshal, SectorCountFromLbn, StartingLbnMarshal, StartingLbn, SectorCountFromStartingLbnMarshal, SectorCountFromStartingLbn, IndexMarshal, Index, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlLookupLargeMcbEntry", "ptr", _Mcb, "int64", Vbn, LbnMarshal, Lbn, SectorCountFromLbnMarshal, SectorCountFromLbn, StartingLbnMarshal, StartingLbn, SectorCountFromStartingLbnMarshal, SectorCountFromStartingLbn, IndexMarshal, Index, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @returns {BOOLEAN} 
      */
-    static FsRtlLookupLastLargeMcbEntry(Mcb, Vbn, Lbn) {
+    static FsRtlLookupLastLargeMcbEntry(_Mcb, Vbn, Lbn) {
         VbnMarshal := Vbn is VarRef ? "int64*" : "ptr"
         LbnMarshal := Lbn is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlLookupLastLargeMcbEntry", "ptr", Mcb, VbnMarshal, Vbn, LbnMarshal, Lbn, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlLookupLastLargeMcbEntry", "ptr", _Mcb, VbnMarshal, Vbn, LbnMarshal, Lbn, "char")
         return result
     }
 
@@ -10301,136 +10301,136 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @returns {Integer} 
      */
-    static FsRtlNumberOfRunsInLargeMcb(Mcb) {
-        result := DllCall("ntoskrnl.exe\FsRtlNumberOfRunsInLargeMcb", "ptr", Mcb, "uint")
+    static FsRtlNumberOfRunsInLargeMcb(_Mcb) {
+        result := DllCall("ntoskrnl.exe\FsRtlNumberOfRunsInLargeMcb", "ptr", _Mcb, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} RunIndex 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @param {Pointer<Integer>} SectorCount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlGetNextLargeMcbEntry(Mcb, RunIndex, Vbn, Lbn, SectorCount) {
+    static FsRtlGetNextLargeMcbEntry(_Mcb, RunIndex, Vbn, Lbn, SectorCount) {
         VbnMarshal := Vbn is VarRef ? "int64*" : "ptr"
         LbnMarshal := Lbn is VarRef ? "int64*" : "ptr"
         SectorCountMarshal := SectorCount is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlGetNextLargeMcbEntry", "ptr", Mcb, "uint", RunIndex, VbnMarshal, Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlGetNextLargeMcbEntry", "ptr", _Mcb, "uint", RunIndex, VbnMarshal, Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<LARGE_MCB>} Mcb 
+     * @param {Pointer<LARGE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Amount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlSplitLargeMcb(Mcb, Vbn, Amount) {
-        result := DllCall("ntoskrnl.exe\FsRtlSplitLargeMcb", "ptr", Mcb, "int64", Vbn, "int64", Amount, "char")
+    static FsRtlSplitLargeMcb(_Mcb, Vbn, Amount) {
+        result := DllCall("ntoskrnl.exe\FsRtlSplitLargeMcb", "ptr", _Mcb, "int64", Vbn, "int64", Amount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} PoolType 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlInitializeBaseMcb(Mcb, PoolType) {
-        DllCall("ntoskrnl.exe\FsRtlInitializeBaseMcb", "ptr", Mcb, "int", PoolType)
+    static FsRtlInitializeBaseMcb(_Mcb, PoolType) {
+        DllCall("ntoskrnl.exe\FsRtlInitializeBaseMcb", "ptr", _Mcb, "int", PoolType)
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} PoolType 
      * @param {Integer} Flags 
      * @returns {BOOLEAN} 
      */
-    static FsRtlInitializeBaseMcbEx(Mcb, PoolType, Flags) {
-        result := DllCall("ntoskrnl.exe\FsRtlInitializeBaseMcbEx", "ptr", Mcb, "int", PoolType, "ushort", Flags, "char")
+    static FsRtlInitializeBaseMcbEx(_Mcb, PoolType, Flags) {
+        result := DllCall("ntoskrnl.exe\FsRtlInitializeBaseMcbEx", "ptr", _Mcb, "int", PoolType, "ushort", Flags, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlUninitializeBaseMcb(Mcb) {
-        DllCall("ntoskrnl.exe\FsRtlUninitializeBaseMcb", "ptr", Mcb)
+    static FsRtlUninitializeBaseMcb(_Mcb) {
+        DllCall("ntoskrnl.exe\FsRtlUninitializeBaseMcb", "ptr", _Mcb)
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlResetBaseMcb(Mcb) {
-        DllCall("ntoskrnl.exe\FsRtlResetBaseMcb", "ptr", Mcb)
+    static FsRtlResetBaseMcb(_Mcb) {
+        DllCall("ntoskrnl.exe\FsRtlResetBaseMcb", "ptr", _Mcb)
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlTruncateBaseMcb(Mcb, Vbn) {
-        DllCall("ntoskrnl.exe\FsRtlTruncateBaseMcb", "ptr", Mcb, "int64", Vbn)
+    static FsRtlTruncateBaseMcb(_Mcb, Vbn) {
+        DllCall("ntoskrnl.exe\FsRtlTruncateBaseMcb", "ptr", _Mcb, "int64", Vbn)
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
      * @param {Integer} SectorCount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlAddBaseMcbEntry(Mcb, Vbn, Lbn, SectorCount) {
-        result := DllCall("ntoskrnl.exe\FsRtlAddBaseMcbEntry", "ptr", Mcb, "int64", Vbn, "int64", Lbn, "int64", SectorCount, "char")
+    static FsRtlAddBaseMcbEntry(_Mcb, Vbn, Lbn, SectorCount) {
+        result := DllCall("ntoskrnl.exe\FsRtlAddBaseMcbEntry", "ptr", _Mcb, "int64", Vbn, "int64", Lbn, "int64", SectorCount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
      * @param {Integer} SectorCount 
      * @returns {NTSTATUS} 
      */
-    static FsRtlAddBaseMcbEntryEx(Mcb, Vbn, Lbn, SectorCount) {
-        result := DllCall("ntoskrnl.exe\FsRtlAddBaseMcbEntryEx", "ptr", Mcb, "int64", Vbn, "int64", Lbn, "int64", SectorCount, "int")
+    static FsRtlAddBaseMcbEntryEx(_Mcb, Vbn, Lbn, SectorCount) {
+        result := DllCall("ntoskrnl.exe\FsRtlAddBaseMcbEntryEx", "ptr", _Mcb, "int64", Vbn, "int64", Lbn, "int64", SectorCount, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} SectorCount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlRemoveBaseMcbEntry(Mcb, Vbn, SectorCount) {
-        result := DllCall("ntoskrnl.exe\FsRtlRemoveBaseMcbEntry", "ptr", Mcb, "int64", Vbn, "int64", SectorCount, "char")
+    static FsRtlRemoveBaseMcbEntry(_Mcb, Vbn, SectorCount) {
+        result := DllCall("ntoskrnl.exe\FsRtlRemoveBaseMcbEntry", "ptr", _Mcb, "int64", Vbn, "int64", SectorCount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @param {Pointer<Integer>} SectorCountFromLbn 
@@ -10439,29 +10439,29 @@ class FileSystem {
      * @param {Pointer<Integer>} Index 
      * @returns {BOOLEAN} 
      */
-    static FsRtlLookupBaseMcbEntry(Mcb, Vbn, Lbn, SectorCountFromLbn, StartingLbn, SectorCountFromStartingLbn, Index) {
+    static FsRtlLookupBaseMcbEntry(_Mcb, Vbn, Lbn, SectorCountFromLbn, StartingLbn, SectorCountFromStartingLbn, Index) {
         LbnMarshal := Lbn is VarRef ? "int64*" : "ptr"
         SectorCountFromLbnMarshal := SectorCountFromLbn is VarRef ? "int64*" : "ptr"
         StartingLbnMarshal := StartingLbn is VarRef ? "int64*" : "ptr"
         SectorCountFromStartingLbnMarshal := SectorCountFromStartingLbn is VarRef ? "int64*" : "ptr"
         IndexMarshal := Index is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlLookupBaseMcbEntry", "ptr", Mcb, "int64", Vbn, LbnMarshal, Lbn, SectorCountFromLbnMarshal, SectorCountFromLbn, StartingLbnMarshal, StartingLbn, SectorCountFromStartingLbnMarshal, SectorCountFromStartingLbn, IndexMarshal, Index, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlLookupBaseMcbEntry", "ptr", _Mcb, "int64", Vbn, LbnMarshal, Lbn, SectorCountFromLbnMarshal, SectorCountFromLbn, StartingLbnMarshal, StartingLbn, SectorCountFromStartingLbnMarshal, SectorCountFromStartingLbn, IndexMarshal, Index, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @returns {BOOLEAN} 
      */
-    static FsRtlLookupLastBaseMcbEntry(Mcb, Vbn, Lbn) {
+    static FsRtlLookupLastBaseMcbEntry(_Mcb, Vbn, Lbn) {
         VbnMarshal := Vbn is VarRef ? "int64*" : "ptr"
         LbnMarshal := Lbn is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlLookupLastBaseMcbEntry", "ptr", Mcb, VbnMarshal, Vbn, LbnMarshal, Lbn, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlLookupLastBaseMcbEntry", "ptr", _Mcb, VbnMarshal, Vbn, LbnMarshal, Lbn, "char")
         return result
     }
 
@@ -10484,155 +10484,155 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @returns {Integer} 
      */
-    static FsRtlNumberOfRunsInBaseMcb(Mcb) {
-        result := DllCall("ntoskrnl.exe\FsRtlNumberOfRunsInBaseMcb", "ptr", Mcb, "uint")
+    static FsRtlNumberOfRunsInBaseMcb(_Mcb) {
+        result := DllCall("ntoskrnl.exe\FsRtlNumberOfRunsInBaseMcb", "ptr", _Mcb, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} RunIndex 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @param {Pointer<Integer>} SectorCount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlGetNextBaseMcbEntry(Mcb, RunIndex, Vbn, Lbn, SectorCount) {
+    static FsRtlGetNextBaseMcbEntry(_Mcb, RunIndex, Vbn, Lbn, SectorCount) {
         VbnMarshal := Vbn is VarRef ? "int64*" : "ptr"
         LbnMarshal := Lbn is VarRef ? "int64*" : "ptr"
         SectorCountMarshal := SectorCount is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlGetNextBaseMcbEntry", "ptr", Mcb, "uint", RunIndex, VbnMarshal, Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlGetNextBaseMcbEntry", "ptr", _Mcb, "uint", RunIndex, VbnMarshal, Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BASE_MCB>} Mcb 
+     * @param {Pointer<BASE_MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Amount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlSplitBaseMcb(Mcb, Vbn, Amount) {
-        result := DllCall("ntoskrnl.exe\FsRtlSplitBaseMcb", "ptr", Mcb, "int64", Vbn, "int64", Amount, "char")
+    static FsRtlSplitBaseMcb(_Mcb, Vbn, Amount) {
+        result := DllCall("ntoskrnl.exe\FsRtlSplitBaseMcb", "ptr", _Mcb, "int64", Vbn, "int64", Amount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} PoolType 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlInitializeMcb(Mcb, PoolType) {
-        DllCall("ntoskrnl.exe\FsRtlInitializeMcb", "ptr", Mcb, "int", PoolType)
+    static FsRtlInitializeMcb(_Mcb, PoolType) {
+        DllCall("ntoskrnl.exe\FsRtlInitializeMcb", "ptr", _Mcb, "int", PoolType)
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlUninitializeMcb(Mcb) {
-        DllCall("ntoskrnl.exe\FsRtlUninitializeMcb", "ptr", Mcb)
+    static FsRtlUninitializeMcb(_Mcb) {
+        DllCall("ntoskrnl.exe\FsRtlUninitializeMcb", "ptr", _Mcb)
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlTruncateMcb(Mcb, Vbn) {
-        DllCall("ntoskrnl.exe\FsRtlTruncateMcb", "ptr", Mcb, "uint", Vbn)
+    static FsRtlTruncateMcb(_Mcb, Vbn) {
+        DllCall("ntoskrnl.exe\FsRtlTruncateMcb", "ptr", _Mcb, "uint", Vbn)
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} Lbn 
      * @param {Integer} SectorCount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlAddMcbEntry(Mcb, Vbn, Lbn, SectorCount) {
-        result := DllCall("ntoskrnl.exe\FsRtlAddMcbEntry", "ptr", Mcb, "uint", Vbn, "uint", Lbn, "uint", SectorCount, "char")
+    static FsRtlAddMcbEntry(_Mcb, Vbn, Lbn, SectorCount) {
+        result := DllCall("ntoskrnl.exe\FsRtlAddMcbEntry", "ptr", _Mcb, "uint", Vbn, "uint", Lbn, "uint", SectorCount, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Integer} SectorCount 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlRemoveMcbEntry(Mcb, Vbn, SectorCount) {
-        DllCall("ntoskrnl.exe\FsRtlRemoveMcbEntry", "ptr", Mcb, "uint", Vbn, "uint", SectorCount)
+    static FsRtlRemoveMcbEntry(_Mcb, Vbn, SectorCount) {
+        DllCall("ntoskrnl.exe\FsRtlRemoveMcbEntry", "ptr", _Mcb, "uint", Vbn, "uint", SectorCount)
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @param {Pointer<Integer>} SectorCount 
      * @param {Pointer<Integer>} Index 
      * @returns {BOOLEAN} 
      */
-    static FsRtlLookupMcbEntry(Mcb, Vbn, Lbn, SectorCount, Index) {
+    static FsRtlLookupMcbEntry(_Mcb, Vbn, Lbn, SectorCount, Index) {
         LbnMarshal := Lbn is VarRef ? "uint*" : "ptr"
         SectorCountMarshal := SectorCount is VarRef ? "uint*" : "ptr"
         IndexMarshal := Index is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlLookupMcbEntry", "ptr", Mcb, "uint", Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, IndexMarshal, Index, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlLookupMcbEntry", "ptr", _Mcb, "uint", Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, IndexMarshal, Index, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @returns {BOOLEAN} 
      */
-    static FsRtlLookupLastMcbEntry(Mcb, Vbn, Lbn) {
+    static FsRtlLookupLastMcbEntry(_Mcb, Vbn, Lbn) {
         VbnMarshal := Vbn is VarRef ? "uint*" : "ptr"
         LbnMarshal := Lbn is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlLookupLastMcbEntry", "ptr", Mcb, VbnMarshal, Vbn, LbnMarshal, Lbn, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlLookupLastMcbEntry", "ptr", _Mcb, VbnMarshal, Vbn, LbnMarshal, Lbn, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @returns {Integer} 
      */
-    static FsRtlNumberOfRunsInMcb(Mcb) {
-        result := DllCall("ntoskrnl.exe\FsRtlNumberOfRunsInMcb", "ptr", Mcb, "uint")
+    static FsRtlNumberOfRunsInMcb(_Mcb) {
+        result := DllCall("ntoskrnl.exe\FsRtlNumberOfRunsInMcb", "ptr", _Mcb, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<MCB>} Mcb 
+     * @param {Pointer<MCB>} _Mcb 
      * @param {Integer} RunIndex 
      * @param {Pointer<Integer>} Vbn 
      * @param {Pointer<Integer>} Lbn 
      * @param {Pointer<Integer>} SectorCount 
      * @returns {BOOLEAN} 
      */
-    static FsRtlGetNextMcbEntry(Mcb, RunIndex, Vbn, Lbn, SectorCount) {
+    static FsRtlGetNextMcbEntry(_Mcb, RunIndex, Vbn, Lbn, SectorCount) {
         VbnMarshal := Vbn is VarRef ? "uint*" : "ptr"
         LbnMarshal := Lbn is VarRef ? "uint*" : "ptr"
         SectorCountMarshal := SectorCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlGetNextMcbEntry", "ptr", Mcb, "uint", RunIndex, VbnMarshal, Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, "char")
+        result := DllCall("ntoskrnl.exe\FsRtlGetNextMcbEntry", "ptr", _Mcb, "uint", RunIndex, VbnMarshal, Vbn, LbnMarshal, Lbn, SectorCountMarshal, SectorCount, "char")
         return result
     }
 
@@ -10672,14 +10672,14 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} OpenCount 
      * @returns {NTSTATUS} 
      */
-    static FsRtlOplockFsctrl(Oplock, Irp, OpenCount) {
+    static FsRtlOplockFsctrl(Oplock, _Irp, OpenCount) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlOplockFsctrl", OplockMarshal, Oplock, "ptr", Irp, "uint", OpenCount, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlOplockFsctrl", OplockMarshal, Oplock, "ptr", _Irp, "uint", OpenCount, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10687,17 +10687,17 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<IRP>} _Irp 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<POPLOCK_WAIT_COMPLETE_ROUTINE>} CompletionRoutine 
      * @param {Pointer<POPLOCK_FS_PREPOST_IRP>} PostIrpRoutine 
      * @returns {NTSTATUS} 
      */
-    static FsRtlCheckOplock(Oplock, Irp, Context, CompletionRoutine, PostIrpRoutine) {
+    static FsRtlCheckOplock(Oplock, _Irp, _Context, CompletionRoutine, PostIrpRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlCheckOplock", OplockMarshal, Oplock, "ptr", Irp, ContextMarshal, Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlCheckOplock", OplockMarshal, Oplock, "ptr", _Irp, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10705,18 +10705,18 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<POPLOCK_WAIT_COMPLETE_ROUTINE>} CompletionRoutine 
      * @param {Pointer<POPLOCK_FS_PREPOST_IRP>} PostIrpRoutine 
      * @returns {NTSTATUS} 
      */
-    static FsRtlCheckOplockEx(Oplock, Irp, Flags, Context, CompletionRoutine, PostIrpRoutine) {
+    static FsRtlCheckOplockEx(Oplock, _Irp, Flags, _Context, CompletionRoutine, PostIrpRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlCheckOplockEx", OplockMarshal, Oplock, "ptr", Irp, "uint", Flags, ContextMarshal, Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlCheckOplockEx", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10743,16 +10743,16 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} OpenCount 
      * @param {Integer} LowerOplockState 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
-    static FsRtlUpperOplockFsctrl(Oplock, Irp, OpenCount, LowerOplockState, Flags) {
+    static FsRtlUpperOplockFsctrl(Oplock, _Irp, OpenCount, LowerOplockState, Flags) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlUpperOplockFsctrl", OplockMarshal, Oplock, "ptr", Irp, "uint", OpenCount, "uint", LowerOplockState, "uint", Flags, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlUpperOplockFsctrl", OplockMarshal, Oplock, "ptr", _Irp, "uint", OpenCount, "uint", LowerOplockState, "uint", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10797,46 +10797,46 @@ class FileSystem {
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<IO_STACK_LOCATION>} IrpSp 
-     * @param {Pointer<IRP>} Irp 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<IRP>} _Irp 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<POPLOCK_WAIT_COMPLETE_ROUTINE>} CompletionRoutine 
      * @param {Pointer<POPLOCK_FS_PREPOST_IRP>} PostIrpRoutine 
      * @returns {NTSTATUS} 
      */
-    static FsRtlOplockBreakToNone(Oplock, IrpSp, Irp, Context, CompletionRoutine, PostIrpRoutine) {
+    static FsRtlOplockBreakToNone(Oplock, IrpSp, _Irp, _Context, CompletionRoutine, PostIrpRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakToNone", OplockMarshal, Oplock, "ptr", IrpSp, "ptr", Irp, ContextMarshal, Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakToNone", OplockMarshal, Oplock, "ptr", IrpSp, "ptr", _Irp, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {BOOLEAN} 
      */
-    static FsRtlOplockIsSharedRequest(Irp) {
-        result := DllCall("ntoskrnl.exe\FsRtlOplockIsSharedRequest", "ptr", Irp, "char")
+    static FsRtlOplockIsSharedRequest(_Irp) {
+        result := DllCall("ntoskrnl.exe\FsRtlOplockIsSharedRequest", "ptr", _Irp, "char")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<POPLOCK_WAIT_COMPLETE_ROUTINE>} CompletionRoutine 
      * @param {Pointer<POPLOCK_FS_PREPOST_IRP>} PostIrpRoutine 
      * @returns {NTSTATUS} 
      */
-    static FsRtlOplockBreakH(Oplock, Irp, Flags, Context, CompletionRoutine, PostIrpRoutine) {
+    static FsRtlOplockBreakH(Oplock, _Irp, Flags, _Context, CompletionRoutine, PostIrpRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakH", OplockMarshal, Oplock, "ptr", Irp, "uint", Flags, ContextMarshal, Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakH", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10844,22 +10844,22 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<POPLOCK_WAIT_COMPLETE_ROUTINE>} CompletionRoutine 
      * @param {Pointer<POPLOCK_FS_PREPOST_IRP>} PostIrpRoutine 
      * @param {Pointer<Integer>} GrantedAccess 
      * @param {Pointer<Integer>} ShareAccess 
      * @returns {NTSTATUS} 
      */
-    static FsRtlOplockBreakH2(Oplock, Irp, Flags, Context, CompletionRoutine, PostIrpRoutine, GrantedAccess, ShareAccess) {
+    static FsRtlOplockBreakH2(Oplock, _Irp, Flags, _Context, CompletionRoutine, PostIrpRoutine, GrantedAccess, ShareAccess) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         ShareAccessMarshal := ShareAccess is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakH2", OplockMarshal, Oplock, "ptr", Irp, "uint", Flags, ContextMarshal, Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, GrantedAccessMarshal, GrantedAccess, ShareAccessMarshal, ShareAccess, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakH2", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, GrantedAccessMarshal, GrantedAccess, ShareAccessMarshal, ShareAccess, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10879,18 +10879,18 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<POPLOCK_WAIT_COMPLETE_ROUTINE>} CompletionRoutine 
      * @param {Pointer<POPLOCK_FS_PREPOST_IRP>} PostIrpRoutine 
      * @returns {NTSTATUS} 
      */
-    static FsRtlOplockBreakToNoneEx(Oplock, Irp, Flags, Context, CompletionRoutine, PostIrpRoutine) {
+    static FsRtlOplockBreakToNoneEx(Oplock, _Irp, Flags, _Context, CompletionRoutine, PostIrpRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakToNoneEx", OplockMarshal, Oplock, "ptr", Irp, "uint", Flags, ContextMarshal, Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlOplockBreakToNoneEx", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, _ContextMarshal, _Context, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -10898,15 +10898,15 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} OpenCount 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
-    static FsRtlOplockFsctrlEx(Oplock, Irp, OpenCount, Flags) {
+    static FsRtlOplockFsctrlEx(Oplock, _Irp, OpenCount, Flags) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlOplockFsctrlEx", OplockMarshal, Oplock, "ptr", Irp, "uint", OpenCount, "uint", Flags, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlOplockFsctrlEx", OplockMarshal, Oplock, "ptr", _Irp, "uint", OpenCount, "uint", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -11075,13 +11075,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {UNICODE_STRING} Path 
+     * @param {UNICODE_STRING} _Path 
      * @param {Pointer<UNICODE_STRING>} FirstName 
      * @param {Pointer<UNICODE_STRING>} RemainingName 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlDissectName(Path, FirstName, RemainingName) {
-        DllCall("ntoskrnl.exe\FsRtlDissectName", "ptr", Path, "ptr", FirstName, "ptr", RemainingName)
+    static FsRtlDissectName(_Path, FirstName, RemainingName) {
+        DllCall("ntoskrnl.exe\FsRtlDissectName", "ptr", _Path, "ptr", FirstName, "ptr", RemainingName)
     }
 
     /**
@@ -11141,28 +11141,28 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<KEVENT>} Event 
      * @param {Pointer<PFSRTL_STACK_OVERFLOW_ROUTINE>} StackOverflowRoutine 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlPostStackOverflow(Context, Event, StackOverflowRoutine) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FsRtlPostStackOverflow(_Context, Event, StackOverflowRoutine) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\FsRtlPostStackOverflow", ContextMarshal, Context, "ptr", Event, "ptr", StackOverflowRoutine)
+        DllCall("ntoskrnl.exe\FsRtlPostStackOverflow", _ContextMarshal, _Context, "ptr", Event, "ptr", StackOverflowRoutine)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<KEVENT>} Event 
      * @param {Pointer<PFSRTL_STACK_OVERFLOW_ROUTINE>} StackOverflowRoutine 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlPostPagingFileStackOverflow(Context, Event, StackOverflowRoutine) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FsRtlPostPagingFileStackOverflow(_Context, Event, StackOverflowRoutine) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\FsRtlPostPagingFileStackOverflow", ContextMarshal, Context, "ptr", Event, "ptr", StackOverflowRoutine)
+        DllCall("ntoskrnl.exe\FsRtlPostPagingFileStackOverflow", _ContextMarshal, _Context, "ptr", Event, "ptr", StackOverflowRoutine)
     }
 
     /**
@@ -11208,27 +11208,27 @@ class FileSystem {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlDeregisterUncProvider(Handle) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static FsRtlDeregisterUncProvider(_Handle) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
-        DllCall("ntoskrnl.exe\FsRtlDeregisterUncProvider", "ptr", Handle)
+        DllCall("ntoskrnl.exe\FsRtlDeregisterUncProvider", "ptr", _Handle)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} _Object 
      * @param {Pointer<Integer>} Timeout 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static FsRtlCancellableWaitForSingleObject(Object_R, Timeout, Irp) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static FsRtlCancellableWaitForSingleObject(_Object, Timeout, _Irp) {
+        _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlCancellableWaitForSingleObject", Object_RMarshal, Object_R, TimeoutMarshal, Timeout, "ptr", Irp, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlCancellableWaitForSingleObject", _ObjectMarshal, _Object, TimeoutMarshal, Timeout, "ptr", _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -11240,14 +11240,14 @@ class FileSystem {
      * @param {Integer} WaitType 
      * @param {Pointer<Integer>} Timeout 
      * @param {Pointer<KWAIT_BLOCK>} WaitBlockArray 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
-    static FsRtlCancellableWaitForMultipleObjects(Count, ObjectArray, WaitType, Timeout, WaitBlockArray, Irp) {
+    static FsRtlCancellableWaitForMultipleObjects(Count, ObjectArray, WaitType, Timeout, WaitBlockArray, _Irp) {
         ObjectArrayMarshal := ObjectArray is VarRef ? "ptr*" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlCancellableWaitForMultipleObjects", "uint", Count, ObjectArrayMarshal, ObjectArray, "int", WaitType, TimeoutMarshal, Timeout, "ptr", WaitBlockArray, "ptr", Irp, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlCancellableWaitForMultipleObjects", "uint", Count, ObjectArrayMarshal, ObjectArray, "int", WaitType, TimeoutMarshal, Timeout, "ptr", WaitBlockArray, "ptr", _Irp, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -11663,14 +11663,14 @@ class FileSystem {
      * 
      * @param {Pointer<Void>} Lookaside 
      * @param {Integer} Flags 
-     * @param {Pointer} Size 
+     * @param {Pointer} _Size 
      * @param {Integer} Tag 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FsRtlInitExtraCreateParameterLookasideList(Lookaside, Flags, Size, Tag) {
+    static FsRtlInitExtraCreateParameterLookasideList(Lookaside, Flags, _Size, Tag) {
         LookasideMarshal := Lookaside is VarRef ? "ptr" : "ptr"
 
-        DllCall("ntoskrnl.exe\FsRtlInitExtraCreateParameterLookasideList", LookasideMarshal, Lookaside, "uint", Flags, "ptr", Size, "uint", Tag)
+        DllCall("ntoskrnl.exe\FsRtlInitExtraCreateParameterLookasideList", LookasideMarshal, Lookaside, "uint", Flags, "ptr", _Size, "uint", Tag)
     }
 
     /**
@@ -11757,28 +11757,28 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Pointer<ECP_LIST>>} EcpList 
      * @returns {NTSTATUS} 
      */
-    static FsRtlGetEcpListFromIrp(Irp, EcpList) {
+    static FsRtlGetEcpListFromIrp(_Irp, EcpList) {
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlGetEcpListFromIrp", "ptr", Irp, EcpListMarshal, EcpList, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlGetEcpListFromIrp", "ptr", _Irp, EcpListMarshal, EcpList, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<ECP_LIST>} EcpList 
      * @returns {NTSTATUS} 
      */
-    static FsRtlSetEcpListIntoIrp(Irp, EcpList) {
+    static FsRtlSetEcpListIntoIrp(_Irp, EcpList) {
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlSetEcpListIntoIrp", "ptr", Irp, EcpListMarshal, EcpList, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlSetEcpListIntoIrp", "ptr", _Irp, EcpListMarshal, EcpList, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -11864,7 +11864,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
-     * @param {Pointer<IRP>} Irp 
+     * @param {Pointer<IRP>} _Irp 
      * @param {Integer} Flags 
      * @param {Integer} FlagsEx2 
      * @param {Pointer<Void>} CompletionRoutineContext 
@@ -11875,12 +11875,12 @@ class FileSystem {
      * @param {Pointer<POPLOCK_NOTIFY_ROUTINE>} NotifyRoutine 
      * @returns {NTSTATUS} 
      */
-    static FsRtlCheckOplockEx2(Oplock, Irp, Flags, FlagsEx2, CompletionRoutineContext, CompletionRoutine, PostIrpRoutine, Timeout, NotifyContext, NotifyRoutine) {
+    static FsRtlCheckOplockEx2(Oplock, _Irp, Flags, FlagsEx2, CompletionRoutineContext, CompletionRoutine, PostIrpRoutine, Timeout, NotifyContext, NotifyRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
         CompletionRoutineContextMarshal := CompletionRoutineContext is VarRef ? "ptr" : "ptr"
         NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\FsRtlCheckOplockEx2", OplockMarshal, Oplock, "ptr", Irp, "uint", Flags, "uint", FlagsEx2, CompletionRoutineContextMarshal, CompletionRoutineContext, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "uint", Timeout, NotifyContextMarshal, NotifyContext, "ptr", NotifyRoutine, "int")
+        result := DllCall("ntoskrnl.exe\FsRtlCheckOplockEx2", OplockMarshal, Oplock, "ptr", _Irp, "uint", Flags, "uint", FlagsEx2, CompletionRoutineContextMarshal, CompletionRoutineContext, "ptr", CompletionRoutine, "ptr", PostIrpRoutine, "uint", Timeout, NotifyContextMarshal, NotifyContext, "ptr", NotifyRoutine, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12134,12 +12134,12 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<DRIVER_OBJECT>} DriverObj 
+     * @param {Pointer<DRIVER_OBJECT>} _DriverObj 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
-    static FsRtlSetDriverBacking(DriverObj, Flags) {
-        result := DllCall("ntoskrnl.exe\FsRtlSetDriverBacking", "ptr", DriverObj, "uint", Flags, "int")
+    static FsRtlSetDriverBacking(_DriverObj, Flags) {
+        result := DllCall("ntoskrnl.exe\FsRtlSetDriverBacking", "ptr", _DriverObj, "uint", Flags, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12425,14 +12425,14 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @returns {BOOLEAN} 
      */
-    static CcCopyRead(FileObject, FileOffset, Length, Wait, Buffer_R, IoStatus) {
+    static CcCopyRead(FileObject, FileOffset, Length, Wait, _Buffer, IoStatus) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcCopyRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", Buffer_R, "ptr", IoStatus, "char")
+        result := DllCall("ntoskrnl.exe\CcCopyRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", _Buffer, "ptr", IoStatus, "char")
         return result
     }
 
@@ -12442,12 +12442,12 @@ class FileSystem {
      * @param {Integer} FileOffset 
      * @param {Integer} Length 
      * @param {Integer} PageCount 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @returns {String} Nothing - always returns an empty string
      */
-    static CcFastCopyRead(FileObject, FileOffset, Length, PageCount, Buffer_R, IoStatus) {
-        DllCall("ntoskrnl.exe\CcFastCopyRead", "ptr", FileObject, "uint", FileOffset, "uint", Length, "uint", PageCount, "ptr", Buffer_R, "ptr", IoStatus)
+    static CcFastCopyRead(FileObject, FileOffset, Length, PageCount, _Buffer, IoStatus) {
+        DllCall("ntoskrnl.exe\CcFastCopyRead", "ptr", FileObject, "uint", FileOffset, "uint", Length, "uint", PageCount, "ptr", _Buffer, "ptr", IoStatus)
     }
 
     /**
@@ -12456,13 +12456,13 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @returns {BOOLEAN} 
      */
-    static CcCopyWrite(FileObject, FileOffset, Length, Wait, Buffer_R) {
+    static CcCopyWrite(FileObject, FileOffset, Length, Wait, _Buffer) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcCopyWrite", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", Buffer_R, "char")
+        result := DllCall("ntoskrnl.exe\CcCopyWrite", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", _Buffer, "char")
         return result
     }
 
@@ -12471,11 +12471,11 @@ class FileSystem {
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileOffset 
      * @param {Integer} Length 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
-    static CcFastCopyWrite(FileObject, FileOffset, Length, Buffer_R) {
-        DllCall("ntoskrnl.exe\CcFastCopyWrite", "ptr", FileObject, "uint", FileOffset, "uint", Length, "ptr", Buffer_R)
+    static CcFastCopyWrite(FileObject, FileOffset, Length, _Buffer) {
+        DllCall("ntoskrnl.exe\CcFastCopyWrite", "ptr", FileObject, "uint", FileOffset, "uint", Length, "ptr", _Buffer)
     }
 
     /**
@@ -12582,14 +12582,14 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {PETHREAD} IoIssuerThread 
      * @returns {BOOLEAN} 
      */
-    static CcCopyWriteEx(FileObject, FileOffset, Length, Wait, Buffer_R, IoIssuerThread) {
+    static CcCopyWriteEx(FileObject, FileOffset, Length, Wait, _Buffer, IoIssuerThread) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcCopyWriteEx", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", Buffer_R, "ptr", IoIssuerThread, "char")
+        result := DllCall("ntoskrnl.exe\CcCopyWriteEx", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", _Buffer, "ptr", IoIssuerThread, "char")
         return result
     }
 
@@ -12599,15 +12599,15 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {PETHREAD} IoIssuerThread 
      * @returns {BOOLEAN} 
      */
-    static CcCopyReadEx(FileObject, FileOffset, Length, Wait, Buffer_R, IoStatus, IoIssuerThread) {
+    static CcCopyReadEx(FileObject, FileOffset, Length, Wait, _Buffer, IoStatus, IoIssuerThread) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcCopyReadEx", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", Buffer_R, "ptr", IoStatus, "ptr", IoIssuerThread, "char")
+        result := DllCall("ntoskrnl.exe\CcCopyReadEx", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", _Buffer, "ptr", IoStatus, "ptr", IoIssuerThread, "char")
         return result
     }
 
@@ -12617,16 +12617,16 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {PETHREAD} IoIssuerThread 
      * @param {Pointer<CC_ASYNC_READ_CONTEXT>} AsyncReadContext 
      * @returns {BOOLEAN} 
      */
-    static CcAsyncCopyRead(FileObject, FileOffset, Length, Wait, Buffer_R, IoStatus, IoIssuerThread, AsyncReadContext) {
+    static CcAsyncCopyRead(FileObject, FileOffset, Length, Wait, _Buffer, IoStatus, IoIssuerThread, AsyncReadContext) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcAsyncCopyRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", Buffer_R, "ptr", IoStatus, "ptr", IoIssuerThread, "ptr", AsyncReadContext, "char")
+        result := DllCall("ntoskrnl.exe\CcAsyncCopyRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Wait, "ptr", _Buffer, "ptr", IoStatus, "ptr", IoIssuerThread, "ptr", AsyncReadContext, "char")
         return result
     }
 
@@ -12667,15 +12667,15 @@ class FileSystem {
      * @param {Integer} Length 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<Void>>} Bcb 
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {BOOLEAN} 
      */
-    static CcPinRead(FileObject, FileOffset, Length, Flags, Bcb, Buffer_R) {
+    static CcPinRead(FileObject, FileOffset, Length, Flags, Bcb, _Buffer) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
         BcbMarshal := Bcb is VarRef ? "ptr*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcPinRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "uint", Flags, BcbMarshal, Bcb, Buffer_RMarshal, Buffer_R, "char")
+        result := DllCall("ntoskrnl.exe\CcPinRead", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "uint", Flags, BcbMarshal, Bcb, _BufferMarshal, _Buffer, "char")
         return result
     }
 
@@ -12686,15 +12686,15 @@ class FileSystem {
      * @param {Integer} Length 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<Void>>} Bcb 
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {BOOLEAN} 
      */
-    static CcMapData(FileObject, FileOffset, Length, Flags, Bcb, Buffer_R) {
+    static CcMapData(FileObject, FileOffset, Length, Flags, Bcb, _Buffer) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
         BcbMarshal := Bcb is VarRef ? "ptr*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcMapData", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "uint", Flags, BcbMarshal, Bcb, Buffer_RMarshal, Buffer_R, "char")
+        result := DllCall("ntoskrnl.exe\CcMapData", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "uint", Flags, BcbMarshal, Bcb, _BufferMarshal, _Buffer, "char")
         return result
     }
 
@@ -12723,15 +12723,15 @@ class FileSystem {
      * @param {BOOLEAN} Zero 
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<Void>>} Bcb 
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} _Buffer 
      * @returns {BOOLEAN} 
      */
-    static CcPreparePinWrite(FileObject, FileOffset, Length, Zero, Flags, Bcb, Buffer_R) {
+    static CcPreparePinWrite(FileObject, FileOffset, Length, Zero, Flags, Bcb, _Buffer) {
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
         BcbMarshal := Bcb is VarRef ? "ptr*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcPreparePinWrite", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Zero, "uint", Flags, BcbMarshal, Bcb, Buffer_RMarshal, Buffer_R, "char")
+        result := DllCall("ntoskrnl.exe\CcPreparePinWrite", "ptr", FileObject, FileOffsetMarshal, FileOffset, "uint", Length, "char", Zero, "uint", Flags, BcbMarshal, Bcb, _BufferMarshal, _Buffer, "char")
         return result
     }
 
@@ -12847,44 +12847,44 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<VPB>} Vpb 
+     * @param {Pointer<VPB>} _Vpb 
      * @returns {BOOLEAN} 
      */
-    static CcIsThereDirtyData(Vpb) {
-        result := DllCall("ntoskrnl.exe\CcIsThereDirtyData", "ptr", Vpb, "char")
+    static CcIsThereDirtyData(_Vpb) {
+        result := DllCall("ntoskrnl.exe\CcIsThereDirtyData", "ptr", _Vpb, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<VPB>} Vpb 
+     * @param {Pointer<VPB>} _Vpb 
      * @param {Pointer<Integer>} NumberOfDirtyPages 
      * @returns {BOOLEAN} 
      */
-    static CcIsThereDirtyDataEx(Vpb, NumberOfDirtyPages) {
+    static CcIsThereDirtyDataEx(_Vpb, NumberOfDirtyPages) {
         NumberOfDirtyPagesMarshal := NumberOfDirtyPages is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\CcIsThereDirtyDataEx", "ptr", Vpb, NumberOfDirtyPagesMarshal, NumberOfDirtyPages, "char")
+        result := DllCall("ntoskrnl.exe\CcIsThereDirtyDataEx", "ptr", _Vpb, NumberOfDirtyPagesMarshal, NumberOfDirtyPages, "char")
         return result
     }
 
     /**
      * 
-     * @param {NTSTATUS} Status 
+     * @param {NTSTATUS} _Status 
      * @returns {BOOLEAN} 
      */
-    static CcIsCacheManagerCallbackNeeded(Status) {
-        result := DllCall("ntoskrnl.exe\CcIsCacheManagerCallbackNeeded", "int", Status, "char")
+    static CcIsCacheManagerCallbackNeeded(_Status) {
+        result := DllCall("ntoskrnl.exe\CcIsCacheManagerCallbackNeeded", "int", _Status, "char")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<CC_ERROR_CALLBACK_CONTEXT>} Context 
+     * @param {Pointer<CC_ERROR_CALLBACK_CONTEXT>} _Context 
      * @returns {NTSTATUS} 
      */
-    static CcErrorCallbackRoutine(Context) {
-        result := DllCall("ntoskrnl.exe\CcErrorCallbackRoutine", "ptr", Context, "int")
+    static CcErrorCallbackRoutine(_Context) {
+        result := DllCall("ntoskrnl.exe\CcErrorCallbackRoutine", "ptr", _Context, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12907,28 +12907,28 @@ class FileSystem {
      * Frees up a context created in the call to the SspiCreateAsyncContext function.
      * @remarks
      * For all operations that require notification of completion, SspiFreeAsyncContext must not be called until the async operation is complete and the callback has been invoked. Calling [SspiGetAsyncCallStatus](nf-sspi-sspigetasynccallstatus.md) will return status != SEC_I_ASYNC_CALL_PENDING to indicate the async operation has not completed.
-     * @param {Pointer<SspiAsyncContext>} Handle The async call context to free.
+     * @param {Pointer<SspiAsyncContext>} _Handle 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspifreeasynccontext
      */
-    static SspiFreeAsyncContext(Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
+    static SspiFreeAsyncContext(_Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
-        DllCall("ksecdd.sys\SspiFreeAsyncContext", HandleMarshal, Handle)
+        DllCall("ksecdd.sys\SspiFreeAsyncContext", _HandleMarshal, _Handle)
     }
 
     /**
      * Marks an async context for reuse.
      * @remarks
      * Only the context state is altered. Client notification info, such as callback, is left alone.
-     * @param {Pointer<SspiAsyncContext>} Handle The async context handle.
+     * @param {Pointer<SspiAsyncContext>} _Handle 
      * @returns {NTSTATUS} If the context is invalid or currently in use, an error will be returned.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspireinitasynccontext
      */
-    static SspiReinitAsyncContext(Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
+    static SspiReinitAsyncContext(_Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiReinitAsyncContext", HandleMarshal, Handle, "int")
+        result := DllCall("ksecdd.sys\SspiReinitAsyncContext", _HandleMarshal, _Handle, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -12940,32 +12940,32 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > Setting the callback to null is only supported for [SspiDeleteSecurityContextAsync](nf-sspi-sspideletesecuritycontextasync.md)
-     * @param {Pointer<SspiAsyncContext>} Context The async call context.
+     * @param {Pointer<SspiAsyncContext>} _Context 
      * @param {Pointer<SspiAsyncNotifyCallback>} Callback The SspiAsyncNotifyCallback that will be notified on call completion.
      * @param {Pointer<Void>} CallbackData An opaque pointer that is passed to [SspiAsyncNotifyCallback](nc-sspi-sspiasyncnotifycallback.md).
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspisetasyncnotifycallback
      */
-    static SspiSetAsyncNotifyCallback(Context, Callback, CallbackData) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static SspiSetAsyncNotifyCallback(_Context, Callback, CallbackData) {
+        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
         CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiSetAsyncNotifyCallback", ContextMarshal, Context, "ptr", Callback, CallbackDataMarshal, CallbackData, "HRESULT")
+        result := DllCall("ksecdd.sys\SspiSetAsyncNotifyCallback", _ContextMarshal, _Context, "ptr", Callback, CallbackDataMarshal, CallbackData, "HRESULT")
         return result
     }
 
     /**
      * Gets the current status of an async call associated with the provided context.
-     * @param {Pointer<SspiAsyncContext>} Handle The async call context to get status for.
+     * @param {Pointer<SspiAsyncContext>} _Handle 
      * @returns {HRESULT} When complete, returns the status of the async request. If the function succeeded, SspiGetAsyncCallStatus will return **SEC_E_OK**. Otherwise, refer to the respective API called to see return error codes and their respective descriptions.
      * 
      * Until the call is completed, status is **SEC_I_ASYNC_CALL_PENDING**.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspigetasynccallstatus
      */
-    static SspiGetAsyncCallStatus(Handle) {
-        HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
+    static SspiGetAsyncCallStatus(_Handle) {
+        _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SspiGetAsyncCallStatus", HandleMarshal, Handle, "HRESULT")
+        result := DllCall("ksecdd.sys\SspiGetAsyncCallStatus", _HandleMarshal, _Handle, "HRESULT")
         return result
     }
 
@@ -13785,7 +13785,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @param {Pointer<Integer>} NameSize 
      * @param {Pointer<UNICODE_STRING>} NameBuffer 
      * @param {Pointer<Integer>} DomainSize 
@@ -13793,12 +13793,12 @@ class FileSystem {
      * @param {Pointer<Integer>} NameUse 
      * @returns {NTSTATUS} 
      */
-    static SecLookupAccountSid(Sid, NameSize, NameBuffer, DomainSize, DomainBuffer, NameUse) {
+    static SecLookupAccountSid(_Sid, NameSize, NameBuffer, DomainSize, DomainBuffer, NameUse) {
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
         DomainSizeMarshal := DomainSize is VarRef ? "uint*" : "ptr"
         NameUseMarshal := NameUse is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SecLookupAccountSid", "ptr", Sid, NameSizeMarshal, NameSize, "ptr", NameBuffer, DomainSizeMarshal, DomainSize, "ptr", DomainBuffer, NameUseMarshal, NameUse, "int")
+        result := DllCall("ksecdd.sys\SecLookupAccountSid", "ptr", _Sid, NameSizeMarshal, NameSize, "ptr", NameBuffer, DomainSizeMarshal, DomainSize, "ptr", DomainBuffer, NameUseMarshal, NameUse, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13807,18 +13807,18 @@ class FileSystem {
      * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Pointer<Integer>} SidSize 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @param {Pointer<Integer>} NameUse 
      * @param {Pointer<Integer>} DomainSize 
      * @param {Pointer<UNICODE_STRING>} ReferencedDomain 
      * @returns {NTSTATUS} 
      */
-    static SecLookupAccountName(Name, SidSize, Sid, NameUse, DomainSize, ReferencedDomain) {
+    static SecLookupAccountName(Name, SidSize, _Sid, NameUse, DomainSize, ReferencedDomain) {
         SidSizeMarshal := SidSize is VarRef ? "uint*" : "ptr"
         NameUseMarshal := NameUse is VarRef ? "int*" : "ptr"
         DomainSizeMarshal := DomainSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SecLookupAccountName", "ptr", Name, SidSizeMarshal, SidSize, "ptr", Sid, NameUseMarshal, NameUse, DomainSizeMarshal, DomainSize, "ptr", ReferencedDomain, "int")
+        result := DllCall("ksecdd.sys\SecLookupAccountName", "ptr", Name, SidSizeMarshal, SidSize, "ptr", _Sid, NameUseMarshal, NameUse, DomainSizeMarshal, DomainSize, "ptr", ReferencedDomain, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13826,15 +13826,15 @@ class FileSystem {
     /**
      * 
      * @param {Integer} SidType 
-     * @param {PSID} Sid 
+     * @param {PSID} _Sid 
      * @param {Integer} SidBufferSize 
      * @param {Pointer<Integer>} SidSize 
      * @returns {NTSTATUS} 
      */
-    static SecLookupWellKnownSid(SidType, Sid, SidBufferSize, SidSize) {
+    static SecLookupWellKnownSid(SidType, _Sid, SidBufferSize, SidSize) {
         SidSizeMarshal := SidSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ksecdd.sys\SecLookupWellKnownSid", "int", SidType, "ptr", Sid, "uint", SidBufferSize, SidSizeMarshal, SidSize, "int")
+        result := DllCall("ksecdd.sys\SecLookupWellKnownSid", "int", SidType, "ptr", _Sid, "uint", SidBufferSize, SidSizeMarshal, SidSize, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13867,19 +13867,19 @@ class FileSystem {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} ObjectInformationClass 
      * @param {Pointer} ObjectInformation 
      * @param {Integer} ObjectInformationLength 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
      */
-    static ZwQueryObject(Handle, ObjectInformationClass, ObjectInformation, ObjectInformationLength, ReturnLength) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ZwQueryObject(_Handle, ObjectInformationClass, ObjectInformation, ObjectInformationLength, ReturnLength) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQueryObject", "ptr", Handle, "int", ObjectInformationClass, "ptr", ObjectInformation, "uint", ObjectInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntdll.dll\ZwQueryObject", "ptr", _Handle, "int", ObjectInformationClass, "ptr", ObjectInformation, "uint", ObjectInformationLength, ReturnLengthMarshal, ReturnLength, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -13893,18 +13893,18 @@ class FileSystem {
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} CompletionFilter 
      * @param {BOOLEAN} WatchTree 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {BOOLEAN} Asynchronous 
      * @returns {NTSTATUS} 
      */
-    static ZwNotifyChangeKey(KeyHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, CompletionFilter, WatchTree, Buffer_R, BufferSize, Asynchronous) {
+    static ZwNotifyChangeKey(KeyHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, CompletionFilter, WatchTree, _Buffer, BufferSize, Asynchronous) {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
 
         ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwNotifyChangeKey", "ptr", KeyHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", Buffer_R, "uint", BufferSize, "char", Asynchronous, "int")
+        result := DllCall("ntdll.dll\ZwNotifyChangeKey", "ptr", KeyHandle, "ptr", Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "ptr", IoStatusBlock, "uint", CompletionFilter, "char", WatchTree, "ptr", _Buffer, "uint", BufferSize, "char", Asynchronous, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14284,35 +14284,35 @@ class FileSystem {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {NTSTATUS} 
      */
-    static ZwSetSecurityObject(Handle, SecurityInformation, SecurityDescriptor) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static ZwSetSecurityObject(_Handle, SecurityInformation, _SecurityDescriptor) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
+        _SecurityDescriptor := _SecurityDescriptor is Win32Handle ? NumGet(_SecurityDescriptor, "ptr") : _SecurityDescriptor
 
-        result := DllCall("ntdll.dll\ZwSetSecurityObject", "ptr", Handle, "uint", SecurityInformation, "ptr", SecurityDescriptor, "int")
+        result := DllCall("ntdll.dll\ZwSetSecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
-     * @param {Pointer} SecurityDescriptor 
+     * @param {Pointer} _SecurityDescriptor 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} LengthNeeded 
      * @returns {NTSTATUS} 
      */
-    static ZwQuerySecurityObject(Handle, SecurityInformation, SecurityDescriptor, Length, LengthNeeded) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ZwQuerySecurityObject(_Handle, SecurityInformation, _SecurityDescriptor, Length, LengthNeeded) {
+        _Handle := _Handle is Win32Handle ? NumGet(_Handle, "ptr") : _Handle
 
         LengthNeededMarshal := LengthNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQuerySecurityObject", "ptr", Handle, "uint", SecurityInformation, "ptr", SecurityDescriptor, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
+        result := DllCall("ntdll.dll\ZwQuerySecurityObject", "ptr", _Handle, "uint", SecurityInformation, "ptr", _SecurityDescriptor, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14368,7 +14368,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {Pointer} SidList 
@@ -14377,10 +14377,10 @@ class FileSystem {
      * @param {BOOLEAN} RestartScan 
      * @returns {NTSTATUS} 
      */
-    static ZwQueryQuotaInformationFile(FileHandle, IoStatusBlock, Buffer_R, Length, ReturnSingleEntry, SidList, SidListLength, StartSid, RestartScan) {
+    static ZwQueryQuotaInformationFile(FileHandle, IoStatusBlock, _Buffer, Length, ReturnSingleEntry, SidList, SidListLength, StartSid, RestartScan) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("ntdll.dll\ZwQueryQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, "ptr", StartSid, "char", RestartScan, "int")
+        result := DllCall("ntdll.dll\ZwQueryQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, "ptr", StartSid, "char", RestartScan, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14389,14 +14389,14 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
-    static ZwSetQuotaInformationFile(FileHandle, IoStatusBlock, Buffer_R, Length) {
+    static ZwSetQuotaInformationFile(FileHandle, IoStatusBlock, _Buffer, Length) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("ntdll.dll\ZwSetQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "int")
+        result := DllCall("ntdll.dll\ZwSetQuotaInformationFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14436,7 +14436,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {Pointer} EaList 
@@ -14445,12 +14445,12 @@ class FileSystem {
      * @param {BOOLEAN} RestartScan 
      * @returns {NTSTATUS} 
      */
-    static ZwQueryEaFile(FileHandle, IoStatusBlock, Buffer_R, Length, ReturnSingleEntry, EaList, EaListLength, EaIndex, RestartScan) {
+    static ZwQueryEaFile(FileHandle, IoStatusBlock, _Buffer, Length, ReturnSingleEntry, EaList, EaListLength, EaIndex, RestartScan) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
         EaIndexMarshal := EaIndex is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQueryEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "char", ReturnSingleEntry, "ptr", EaList, "uint", EaListLength, EaIndexMarshal, EaIndex, "char", RestartScan, "int")
+        result := DllCall("ntdll.dll\ZwQueryEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "char", ReturnSingleEntry, "ptr", EaList, "uint", EaListLength, EaIndexMarshal, EaIndex, "char", RestartScan, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }
@@ -14459,14 +14459,14 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
-    static ZwSetEaFile(FileHandle, IoStatusBlock, Buffer_R, Length) {
+    static ZwSetEaFile(FileHandle, IoStatusBlock, _Buffer, Length) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("ntdll.dll\ZwSetEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "int")
+        result := DllCall("ntdll.dll\ZwSetEaFile", "ptr", FileHandle, "ptr", IoStatusBlock, "ptr", _Buffer, "uint", Length, "int")
         NTSTATUS.ThrowIfError(result)
         return result
     }

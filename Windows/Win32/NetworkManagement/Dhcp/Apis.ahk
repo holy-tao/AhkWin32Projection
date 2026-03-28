@@ -1643,15 +1643,15 @@ class Dhcp {
 ;@region Methods
     /**
      * The Dhcpv6CApiInitialize function must be the first function call made by users of DHCPv6.
-     * @param {Pointer<Integer>} Version Pointer to the DHCPv6 version implemented by the client.  If a valid pointer is passed, the DHCPv6 client will be returned through it.
+     * @param {Pointer<Integer>} _Version 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capiinitialize
      * @since windows6.0.6000
      */
-    static Dhcpv6CApiInitialize(Version) {
-        VersionMarshal := Version is VarRef ? "uint*" : "ptr"
+    static Dhcpv6CApiInitialize(_Version) {
+        _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
 
-        DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", VersionMarshal, Version)
+        DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", _VersionMarshal, _Version)
     }
 
     /**
@@ -1671,7 +1671,7 @@ class Dhcp {
      * @param {PWSTR} adapterName GUID of the adapter for which this request is meant.  This parameter must not be <b>NULL</b>.
      * @param {Pointer<DHCPV6CAPI_CLASSID>} classId Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid">DHCPV6CAPI_CLASSID</a> structure that contains the binary ClassId information to use to send on the wire. This parameter is optional.
      * @param {DHCPV6CAPI_PARAMS_ARRAY} recdParams A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params_array">DHCPV6CAPI_PARAMS_ARRAY</a> structure that contains the parameters to be received from the DHCPV6 server.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} _buffer 
      * @param {Pointer<Integer>} pSize Size of the buffer.  When the function returns ERROR_MORE_DATA, this parameter will contain the size, in bytes, required to complete the operation.  If the function is successful, this parameter contains the number of bytes used.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
      * 
@@ -1725,14 +1725,14 @@ class Dhcp {
      * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6requestparams
      * @since windows6.0.6000
      */
-    static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer_R, pSize) {
+    static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, _buffer, pSize) {
         adapterName := adapterName is String ? StrPtr(adapterName) : adapterName
 
         reservedMarshal := reserved is VarRef ? "ptr" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
         pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, reservedMarshal, reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, buffer_RMarshal, buffer_R, pSizeMarshal, pSize, "uint")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, reservedMarshal, reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, _bufferMarshal, _buffer, pSizeMarshal, pSize, "uint")
         return result
     }
 
@@ -1971,15 +1971,15 @@ class Dhcp {
 
     /**
      * The DhcpCApiInitialize function must be the first function call made by users of DHCP; it prepares the system for all other DHCP function calls. Other DHCP functions should only be called if the DhcpCApiInitialize function executes successfully.
-     * @param {Pointer<Integer>} Version Pointer to the DHCP version implemented by the client.
+     * @param {Pointer<Integer>} _Version 
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpcapiinitialize
      * @since windows5.0
      */
-    static DhcpCApiInitialize(Version) {
-        VersionMarshal := Version is VarRef ? "uint*" : "ptr"
+    static DhcpCApiInitialize(_Version) {
+        _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc.dll\DhcpCApiInitialize", VersionMarshal, Version, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpCApiInitialize", _VersionMarshal, _Version, "uint")
         return result
     }
 
@@ -2047,7 +2047,7 @@ class Dhcp {
      * @param {DHCPCAPI_PARAMS_ARRAY} SendParams Optional data to be requested, in addition to the data requested in the <i>RecdParams</i> array. The <i>SendParams</i> parameter cannot contain any of the standard options that the DHCP client sends by default.
      * @param {DHCPCAPI_PARAMS_ARRAY} RecdParams Array of DHCP data the caller is interested in receiving. This array must be empty prior to the 
      * <b>DhcpRequestParams</b> function call.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} _Buffer 
      * @param {Pointer<Integer>} pSize Size of <i>Buffer</i>. 
      * 
      * 
@@ -2094,14 +2094,14 @@ class Dhcp {
      * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcprequestparams
      * @since windows5.0
      */
-    static DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, RecdParams, Buffer_R, pSize, RequestIdStr) {
+    static DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, RecdParams, _Buffer, pSize, RequestIdStr) {
         AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
         RequestIdStr := RequestIdStr is String ? StrPtr(RequestIdStr) : RequestIdStr
 
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
         pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, ReservedMarshal, Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer_R, pSizeMarshal, pSize, "ptr", RequestIdStr, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, ReservedMarshal, Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", _Buffer, pSizeMarshal, pSize, "ptr", RequestIdStr, "uint")
         return result
     }
 
@@ -2138,9 +2138,7 @@ class Dhcp {
      * @param {PWSTR} AdapterName GUID of the adapter for which event notification is being requested.  Must be under 256 characters.
      * @param {Pointer<DHCPCAPI_CLASSID>} ClassId Reserved. Must be set to <b>NULL</b>.
      * @param {DHCPCAPI_PARAMS_ARRAY} Params Parameters for which the client is interested in registering for notification, in the form of a <a href="https://docs.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_params_array">DHCPCAPI_PARAMS_ARRAY</a> structure.
-     * @param {Pointer<Void>} Handle Attributes of <i>Handle</i> are determined by the value of <i>Flags</i>. In version 2 of the DHCP API, <i>Flags</i> must be set to DHCPCAPI_REGISTER_HANDLE_EVENT, and therefore, <i>Handle</i> must be a pointer to a <b>HANDLE</b> variable that will hold the handle to a Windows event that gets signaled when parameters specified in <i>Params</i> change. Note that this <b>HANDLE</b> variable is used in a subsequent call to the 
-     * <b>DhcpDeRegisterParamChange</b> function to deregister event notifications associated with this particular call to the 
-     * <b>DhcpRegisterParamChange</b> function.
+     * @param {Pointer<Void>} _Handle 
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion. Otherwise, returns Windows error codes.
      * 
      * <table>
@@ -2163,14 +2161,14 @@ class Dhcp {
      * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpregisterparamchange
      * @since windows5.0
      */
-    static DhcpRegisterParamChange(Flags, AdapterName, ClassId, Params, Handle) {
+    static DhcpRegisterParamChange(Flags, AdapterName, ClassId, Params, _Handle) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
         AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
 
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("dhcpcsvc.dll\DhcpRegisterParamChange", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", Params, HandleMarshal, Handle, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpRegisterParamChange", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", Params, _HandleMarshal, _Handle, "uint")
         return result
     }
 
@@ -8412,7 +8410,7 @@ class Dhcp {
     /**
      * Backs up the DHCP server database configuration, settings, and DHCP client lease record to a specified file location.
      * @param {PWSTR} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
-     * @param {PWSTR} Path Unicode string that specifies the absolute path to the file where the DHCP server database will be backed up.
+     * @param {PWSTR} _Path 
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -8446,18 +8444,18 @@ class Dhcp {
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverbackupdatabase
      * @since windowsserver2008
      */
-    static DhcpServerBackupDatabase(ServerIpAddress, Path) {
+    static DhcpServerBackupDatabase(ServerIpAddress, _Path) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
-        Path := Path is String ? StrPtr(Path) : Path
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := DllCall("DHCPSAPI.dll\DhcpServerBackupDatabase", "ptr", ServerIpAddress, "ptr", Path, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpServerBackupDatabase", "ptr", ServerIpAddress, "ptr", _Path, "uint")
         return result
     }
 
     /**
      * Restores the settings, configuration, and records for a client lease database from a specific backup location (path).
      * @param {PWSTR} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
-     * @param {PWSTR} Path Unicode string that specifies the full absolute path and filename to the backup file from which the registry configuration file and client lease database will be restored. Note that this operation will overwrite any database currently held in memory.
+     * @param {PWSTR} _Path 
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -8491,11 +8489,11 @@ class Dhcp {
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverrestoredatabase
      * @since windowsserver2008
      */
-    static DhcpServerRestoreDatabase(ServerIpAddress, Path) {
+    static DhcpServerRestoreDatabase(ServerIpAddress, _Path) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
-        Path := Path is String ? StrPtr(Path) : Path
+        _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := DllCall("DHCPSAPI.dll\DhcpServerRestoreDatabase", "ptr", ServerIpAddress, "ptr", Path, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpServerRestoreDatabase", "ptr", ServerIpAddress, "ptr", _Path, "uint")
         return result
     }
 
@@ -11856,11 +11854,11 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<DHCP_PROPERTY>} Property 
+     * @param {Pointer<DHCP_PROPERTY>} _Property 
      * @returns {String} Nothing - always returns an empty string
      */
-    static DhcpHlprFreeV4DhcpProperty(Property) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", Property)
+    static DhcpHlprFreeV4DhcpProperty(_Property) {
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", _Property)
     }
 
     /**

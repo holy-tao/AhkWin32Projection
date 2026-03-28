@@ -44,9 +44,7 @@ class IWICBitmapCodecProgressNotification extends IUnknown{
      * 
      * <b>WICProgressNotificationFrequent</b> increases the frequency in which the callback is called.
      *             If an operation is expected to take more than 30 seconds, <b>WICProgressNotificationFrequent</b> should be added to <i>dwProgressFlags</i>.
-     * @param {Pointer<PFNProgressNotification>} pfnProgressNotification Type: <b>PFNProgressNotification</b>
-     * 
-     * A function pointer to the application defined progress notification callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nc-wincodec-pfnprogressnotification">ProgressNotificationCallback</a> for the callback signature.
+     * @param {Pointer<PFNProgressNotification>} _pfnProgressNotification 
      * @param {Pointer<Void>} pvData Type: <b>LPVOID</b>
      * 
      * A pointer to component data for the callback method.
@@ -58,10 +56,10 @@ class IWICBitmapCodecProgressNotification extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecprogressnotification-registerprogressnotification
      */
-    RegisterProgressNotification(pfnProgressNotification, pvData, dwProgressFlags) {
+    RegisterProgressNotification(_pfnProgressNotification, pvData, dwProgressFlags) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", pfnProgressNotification, pvDataMarshal, pvData, "uint", dwProgressFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", _pfnProgressNotification, pvDataMarshal, pvData, "uint", dwProgressFlags, "HRESULT")
         return result
     }
 }

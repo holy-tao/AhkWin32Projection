@@ -44,52 +44,52 @@ class ITfKeyEventSink extends IUnknown{
     /**
      * ITfKeyEventSink::OnTestKeyDown method
      * @param {ITfContext} pic Pointer to the input context that receives the key event.
-     * @param {WPARAM} wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
-     * @param {LPARAM} lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Pointer to a BOOL that, on exit, indicates if the key event would be handled. If this value receives <b>TRUE</b>, the key event would be handled. If this value is <b>FALSE</b>, the key event would not be handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-ontestkeydown
      */
-    OnTestKeyDown(pic, wParam, lParam) {
-        result := ComCall(4, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+    OnTestKeyDown(pic, _wParam, _lParam) {
+        result := ComCall(4, this, "ptr", pic, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 
     /**
      * ITfKeyEventSink::OnTestKeyUp method
      * @param {ITfContext} pic Pointer to the input context that receives the key event.
-     * @param {WPARAM} wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
-     * @param {LPARAM} lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Pointer to a BOOL that, on exit, indicates if the key event would be handled. If this value receives <b>TRUE</b>, the key event would be handled. If this value receives <b>FALSE</b>, the key event would not be handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-ontestkeyup
      */
-    OnTestKeyUp(pic, wParam, lParam) {
-        result := ComCall(5, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+    OnTestKeyUp(pic, _wParam, _lParam) {
+        result := ComCall(5, this, "ptr", pic, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 
     /**
      * ITfKeyEventSink::OnKeyDown method
      * @param {ITfContext} pic Pointer to the input context that receives the key event.
-     * @param {WPARAM} wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
-     * @param {LPARAM} lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Pointer to a BOOL that, on exit, indicates if the key event was handled. If this value receives <b>TRUE</b>, the key event was handled. If this value is <b>FALSE</b>, the key event was not handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-onkeydown
      */
-    OnKeyDown(pic, wParam, lParam) {
-        result := ComCall(6, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+    OnKeyDown(pic, _wParam, _lParam) {
+        result := ComCall(6, this, "ptr", pic, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 
     /**
      * ITfKeyEventSink::OnKeyUp method
      * @param {ITfContext} pic Pointer to the input context that receives the key event.
-     * @param {WPARAM} wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
-     * @param {LPARAM} lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a>.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Pointer to a BOOL that, on exit, indicates if the key event was handled. If this value receives <b>TRUE</b>, the key event was handled. If this value receives <b>FALSE</b>, the key event was not handled.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeyeventsink-onkeyup
      */
-    OnKeyUp(pic, wParam, lParam) {
-        result := ComCall(7, this, "ptr", pic, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+    OnKeyUp(pic, _wParam, _lParam) {
+        result := ComCall(7, this, "ptr", pic, "ptr", _wParam, "ptr", _lParam, "int*", &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 

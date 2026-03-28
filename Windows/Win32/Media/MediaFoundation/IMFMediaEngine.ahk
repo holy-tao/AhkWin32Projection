@@ -481,12 +481,12 @@ class IMFMediaEngine extends IUnknown{
      * If <i>Loop</i> is <b>TRUE</b>, playback loops back to the beginning when it reaches the end of the source.
      * 
      * This method corresponds to setting the <b>loop</b> attribute of the <b>HTMLMediaElement</b> interface in HTML5.
-     * @param {BOOL} Loop_R 
+     * @param {BOOL} _Loop 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setloop
      */
-    SetLoop(Loop_R) {
-        result := ComCall(31, this, "int", Loop_R, "HRESULT")
+    SetLoop(_Loop) {
+        result := ComCall(31, this, "int", _Loop, "HRESULT")
         return result
     }
 
@@ -590,15 +590,15 @@ class IMFMediaEngine extends IUnknown{
      * This method adjusts for the correct picture aspect ratio.
      * For example, if the encoded frame is 720 × 420 and the picture aspect ratio is 4:3, the method will return a size equal to 640 × 480 pixels.
      * @param {Pointer<Integer>} cx Receives the width in pixels.
-     * @param {Pointer<Integer>} cy Receives the height in pixels.
+     * @param {Pointer<Integer>} _cy 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getnativevideosize
      */
-    GetNativeVideoSize(cx, cy) {
+    GetNativeVideoSize(cx, _cy) {
         cxMarshal := cx is VarRef ? "uint*" : "ptr"
-        cyMarshal := cy is VarRef ? "uint*" : "ptr"
+        _cyMarshal := _cy is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, cxMarshal, cx, cyMarshal, cy, "HRESULT")
+        result := ComCall(40, this, cxMarshal, cx, _cyMarshal, _cy, "HRESULT")
         return result
     }
 
@@ -607,15 +607,15 @@ class IMFMediaEngine extends IUnknown{
      * @remarks
      * The Media Engine automatically converts the pixel aspect ratio to 1:1 (square pixels).
      * @param {Pointer<Integer>} cx Receives the x component of the aspect ratio.
-     * @param {Pointer<Integer>} cy Receives the y component of the aspect ratio.
+     * @param {Pointer<Integer>} _cy 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getvideoaspectratio
      */
-    GetVideoAspectRatio(cx, cy) {
+    GetVideoAspectRatio(cx, _cy) {
         cxMarshal := cx is VarRef ? "uint*" : "ptr"
-        cyMarshal := cy is VarRef ? "uint*" : "ptr"
+        _cyMarshal := _cy is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(41, this, cxMarshal, cx, cyMarshal, cy, "HRESULT")
+        result := ComCall(41, this, cxMarshal, cx, _cyMarshal, _cy, "HRESULT")
         return result
     }
 

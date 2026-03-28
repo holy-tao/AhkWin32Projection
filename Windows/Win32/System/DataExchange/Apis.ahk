@@ -488,9 +488,7 @@ class DataExchange {
      * The return value must be posted as the <i>lParam</i> parameter of a DDE message; it must not be used for any other purpose. After the application posts a return value, it need not perform any action to dispose of the <i>lParam</i> parameter.
      * 
      * An application should call this function only for posted DDE messages.
-     * @param {Integer} msg Type: <b>UINT</b>
-     * 
-     * The DDE message to be posted.
+     * @param {Integer} _msg 
      * @param {Pointer} uiLo Type: <b>UINT_PTR</b>
      * 
      * A value that corresponds to the 16-bit Windows low-order word of an <i>lParam</i> parameter for the DDE message being posted.
@@ -503,8 +501,8 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-packddelparam
      * @since windows5.0
      */
-    static PackDDElParam(msg, uiLo, uiHi) {
-        result := DllCall("USER32.dll\PackDDElParam", "uint", msg, "ptr", uiLo, "ptr", uiHi, "ptr")
+    static PackDDElParam(_msg, uiLo, uiHi) {
+        result := DllCall("USER32.dll\PackDDElParam", "uint", _msg, "ptr", uiLo, "ptr", uiHi, "ptr")
         return result
     }
 
@@ -512,14 +510,8 @@ class DataExchange {
      * Unpacks a Dynamic Data Exchange (DDE)lParam value received from a posted DDE message.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/api/dde/nf-dde-packddelparam">PackDDElParam</a> eases the porting of 16-bit DDE applications to 32-bit DDE applications.
-     * @param {Integer} msg Type: <b>UINT</b>
-     * 
-     * The posted DDE message.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * The 
-     * 					<i>lParam</i> parameter of the posted DDE message that was received. The application must free the memory object specified by the 
-     * 					<i>lParam</i> parameter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/dde/nf-dde-freeddelparam">FreeDDElParam</a> function.
+     * @param {Integer} _msg 
+     * @param {LPARAM} _lParam 
      * @param {Pointer<Pointer>} puiLo Type: <b>PUINT_PTR</b>
      * 
      * A pointer to a variable that receives the low-order word of 
@@ -536,11 +528,11 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-unpackddelparam
      * @since windows5.0
      */
-    static UnpackDDElParam(msg, lParam, puiLo, puiHi) {
+    static UnpackDDElParam(_msg, _lParam, puiLo, puiHi) {
         puiLoMarshal := puiLo is VarRef ? "ptr*" : "ptr"
         puiHiMarshal := puiHi is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, puiLoMarshal, puiLo, puiHiMarshal, puiHi, "int")
+        result := DllCall("USER32.dll\UnpackDDElParam", "uint", _msg, "ptr", _lParam, puiLoMarshal, puiLo, puiHiMarshal, puiHi, "int")
         return result
     }
 
@@ -552,13 +544,8 @@ class DataExchange {
      * This function frees the memory specified by the 
      * 				<i>lParam</i> parameter. It does not free the contents of 
      * 				<i>lParam</i>.
-     * @param {Integer} msg Type: <b>UINT</b>
-     * 
-     * The posted DDE message.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * The 
-     * 					<i>lParam</i> parameter of the posted DDE message.
+     * @param {Integer} _msg 
+     * @param {LPARAM} _lParam 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -567,8 +554,8 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-freeddelparam
      * @since windows5.0
      */
-    static FreeDDElParam(msg, lParam) {
-        result := DllCall("USER32.dll\FreeDDElParam", "uint", msg, "ptr", lParam, "int")
+    static FreeDDElParam(_msg, _lParam) {
+        result := DllCall("USER32.dll\FreeDDElParam", "uint", _msg, "ptr", _lParam, "int")
         return result
     }
 
@@ -585,10 +572,7 @@ class DataExchange {
      * 
      * This function allocates or frees 
      * 				<i>lParam</i> parameters as needed, depending on the packing requirements of the incoming and outgoing messages. This reduces reallocations in passing DDE messages.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * The 
-     * 					<i>lParam</i> parameter of the posted DDE message being reused.
+     * @param {LPARAM} _lParam 
      * @param {Integer} msgIn Type: <b>UINT</b>
      * 
      * The identifier of the received DDE message.
@@ -611,8 +595,8 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-reuseddelparam
      * @since windows5.0
      */
-    static ReuseDDElParam(lParam, msgIn, msgOut, uiLo, uiHi) {
-        result := DllCall("USER32.dll\ReuseDDElParam", "ptr", lParam, "uint", msgIn, "uint", msgOut, "ptr", uiLo, "ptr", uiHi, "ptr")
+    static ReuseDDElParam(_lParam, msgIn, msgOut, uiLo, uiHi) {
+        result := DllCall("USER32.dll\ReuseDDElParam", "ptr", _lParam, "uint", msgIn, "uint", msgOut, "ptr", uiLo, "ptr", uiHi, "ptr")
         return result
     }
 
@@ -645,9 +629,7 @@ class DataExchange {
      * If 
      * 					<i>pidInst</i> points to a nonzero value, reinitialization of the DDEML is implied. In this case, 
      * 					<i>pidInst</i> must point to a valid application-instance identifier.
-     * @param {Pointer<PFNCALLBACK>} pfnCallback Type: <b>PFNCALLBACK</b>
-     * 
-     * A pointer to the application-defined DDE callback function. This function processes DDE transactions sent by the system. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nc-ddeml-pfncallback">DdeCallback</a> callback function.
+     * @param {Pointer<PFNCALLBACK>} _pfnCallback 
      * @param {Integer} afCmd Type: <b>DWORD</b>
      * 
      * A set of <b>APPCMD_</b>, <b>CBF_</b>, and <b>MF_</b> flags. The <b>APPCMD_</b> flags provide special instructions to <b>DdeInitialize</b>. The <b>CBF_</b> flags specify filters that prevent specific types of transactions from reaching the callback function. The <b>MF_</b> flags specify the types of DDE activity that a DDE monitoring application monitors. Using these flags enhances the performance of a DDE application by eliminating unnecessary calls to the callback function.
@@ -659,12 +641,12 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeinitializea
      * @since windows5.0
      */
-    static DdeInitializeA(pidInst, pfnCallback, afCmd) {
+    static DdeInitializeA(pidInst, _pfnCallback, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
         pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
+        result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", _pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -697,9 +679,7 @@ class DataExchange {
      * If 
      * 					<i>pidInst</i> points to a nonzero value, reinitialization of the DDEML is implied. In this case, 
      * 					<i>pidInst</i> must point to a valid application-instance identifier.
-     * @param {Pointer<PFNCALLBACK>} pfnCallback Type: <b>PFNCALLBACK</b>
-     * 
-     * A pointer to the application-defined DDE callback function. This function processes DDE transactions sent by the system. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nc-ddeml-pfncallback">DdeCallback</a> callback function.
+     * @param {Pointer<PFNCALLBACK>} _pfnCallback 
      * @param {Integer} afCmd Type: <b>DWORD</b>
      * 
      * A set of <b>APPCMD_</b>, <b>CBF_</b>, and <b>MF_</b> flags. The <b>APPCMD_</b> flags provide special instructions to <b>DdeInitialize</b>. The <b>CBF_</b> flags specify filters that prevent specific types of transactions from reaching the callback function. The <b>MF_</b> flags specify the types of DDE activity that a DDE monitoring application monitors. Using these flags enhances the performance of a DDE application by eliminating unnecessary calls to the callback function.
@@ -711,12 +691,12 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeinitializew
      * @since windows5.0
      */
-    static DdeInitializeW(pidInst, pfnCallback, afCmd) {
+    static DdeInitializeW(pidInst, _pfnCallback, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
         pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
+        result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", _pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -757,9 +737,7 @@ class DataExchange {
      * @param {HSZ} hszTopic Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the name of the topic on which a conversation is to be established. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. If this parameter is 0L, the system will attempt to establish conversations on all topics supported by the selected server (or servers).
-     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
-     * 
-     * A handle to the conversation list to be enumerated. This parameter should be 0L if a new conversation list is to be established.
+     * @param {HCONVLIST} _hConvList 
      * @param {Pointer<CONVCONTEXT>} pCC Type: <b>PCONVCONTEXT</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convcontext">CONVCONTEXT</a> structure that contains conversation-context information. If this parameter is <b>NULL</b>, the server receives the default <b>CONVCONTEXT</b> structure during the 
@@ -775,21 +753,19 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeconnectlist
      * @since windows5.0
      */
-    static DdeConnectList(idInst, hszService, hszTopic, hConvList, pCC) {
+    static DdeConnectList(idInst, hszService, hszTopic, _hConvList, pCC) {
         hszService := hszService is Win32Handle ? NumGet(hszService, "ptr") : hszService
         hszTopic := hszTopic is Win32Handle ? NumGet(hszTopic, "ptr") : hszTopic
-        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+        _hConvList := _hConvList is Win32Handle ? NumGet(_hConvList, "ptr") : _hConvList
 
-        result := DllCall("USER32.dll\DdeConnectList", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", hConvList, "ptr", pCC, "ptr")
+        result := DllCall("USER32.dll\DdeConnectList", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", _hConvList, "ptr", pCC, "ptr")
         resultHandle := HCONVLIST({Value: result}, True)
         return resultHandle
     }
 
     /**
      * Retrieves the next conversation handle in the specified conversation list.
-     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
-     * 
-     * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
+     * @param {HCONVLIST} _hConvList 
      * @param {HCONV} hConvPrev Type: <b>HCONV</b>
      * 
      * A handle to the conversation handle previously returned by this function. If this parameter is 0L, the function returns the first conversation handle in the list.
@@ -799,11 +775,11 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequerynextserver
      * @since windows5.0
      */
-    static DdeQueryNextServer(hConvList, hConvPrev) {
-        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+    static DdeQueryNextServer(_hConvList, hConvPrev) {
+        _hConvList := _hConvList is Win32Handle ? NumGet(_hConvList, "ptr") : _hConvList
         hConvPrev := hConvPrev is Win32Handle ? NumGet(hConvPrev, "ptr") : hConvPrev
 
-        result := DllCall("USER32.dll\DdeQueryNextServer", "ptr", hConvList, "ptr", hConvPrev, "ptr")
+        result := DllCall("USER32.dll\DdeQueryNextServer", "ptr", _hConvList, "ptr", hConvPrev, "ptr")
         resultHandle := HCONV({Value: result}, True)
         return resultHandle
     }
@@ -812,9 +788,7 @@ class DataExchange {
      * Destroys the specified conversation list and terminates all conversations associated with the list.
      * @remarks
      * An application can use the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddedisconnect">DdeDisconnect</a> function to terminate individual conversations in the list.
-     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
-     * 
-     * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
+     * @param {HCONVLIST} _hConvList 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -825,10 +799,10 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddedisconnectlist
      * @since windows5.0
      */
-    static DdeDisconnectList(hConvList) {
-        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+    static DdeDisconnectList(_hConvList) {
+        _hConvList := _hConvList is Win32Handle ? NumGet(_hConvList, "ptr") : _hConvList
 
-        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", hConvList, "int")
+        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", _hConvList, "int")
         return result
     }
 
@@ -878,9 +852,7 @@ class DataExchange {
      * Terminates a conversation started by either the DdeConnect or DdeConnectList function and invalidates the specified conversation handle.
      * @remarks
      * Any incomplete transactions started before calling <b>DdeDisconnect</b> are immediately abandoned. The <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-disconnect">XTYP_DISCONNECT</a> transaction is sent to the Dynamic Data Exchange (DDE) callback function of the partner in the conversation. Generally, only client applications must terminate conversations.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the active conversation to be terminated.
+     * @param {HCONV} _hConv 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -891,18 +863,16 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddedisconnect
      * @since windows5.0
      */
-    static DdeDisconnect(hConv) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeDisconnect(_hConv) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
 
-        result := DllCall("USER32.dll\DdeDisconnect", "ptr", hConv, "int")
+        result := DllCall("USER32.dll\DdeDisconnect", "ptr", _hConv, "int")
         return result
     }
 
     /**
      * Enables a client Dynamic Data Exchange Management Library (DDEML) application to attempt to reestablish a conversation with a service that has terminated a conversation with the client.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the conversation to be reestablished. A client must have obtained the conversation handle by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnect">DdeConnect</a> function or from an <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-disconnect">XTYP_DISCONNECT</a> transaction.
+     * @param {HCONV} _hConv 
      * @returns {HCONV} Type: <b>HCONV</b>
      * 
      * If the function succeeds, the return value is the handle to the reestablished conversation.
@@ -913,10 +883,10 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddereconnect
      * @since windows5.0
      */
-    static DdeReconnect(hConv) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeReconnect(_hConv) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
 
-        result := DllCall("USER32.dll\DdeReconnect", "ptr", hConv, "ptr")
+        result := DllCall("USER32.dll\DdeReconnect", "ptr", _hConv, "ptr")
         resultHandle := HCONV({Value: result}, True)
         return resultHandle
     }
@@ -931,9 +901,7 @@ class DataExchange {
      * 				<i>hUser</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convinfo">CONVINFO</a> structure is associated with the conversation and can be used to hold data associated with the conversation. If 
      * 				<i>idTransaction</i> is the identifier of an asynchronous transaction, the 
      * 				<i>hUser</i> member is associated only with the current transaction and is valid only for the duration of the transaction.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the conversation.
+     * @param {HCONV} _hConv 
      * @param {Integer} idTransaction Type: <b>DWORD</b>
      * 
      * The transaction. For asynchronous transactions, this parameter should be a transaction identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeclienttransaction">DdeClientTransaction</a> function. For synchronous transactions, this parameter should be QID_SYNC.
@@ -951,18 +919,16 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequeryconvinfo
      * @since windows5.0
      */
-    static DdeQueryConvInfo(hConv, idTransaction, pConvInfo) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeQueryConvInfo(_hConv, idTransaction, pConvInfo) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
 
-        result := DllCall("USER32.dll\DdeQueryConvInfo", "ptr", hConv, "uint", idTransaction, "ptr", pConvInfo, "uint")
+        result := DllCall("USER32.dll\DdeQueryConvInfo", "ptr", _hConv, "uint", idTransaction, "ptr", pConvInfo, "uint")
         return result
     }
 
     /**
      * Associates an application-defined value with a conversation handle or a transaction identifier. This is useful for simplifying the processing of asynchronous transactions. An application can use the DdeQueryConvInfo function to retrieve this value.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the conversation.
+     * @param {HCONV} _hConv 
      * @param {Integer} id Type: <b>DWORD</b>
      * 
      * The transaction identifier to associate with the value specified by the 
@@ -982,10 +948,10 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddesetuserhandle
      * @since windows5.0
      */
-    static DdeSetUserHandle(hConv, id, hUser) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeSetUserHandle(_hConv, id, hUser) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
 
-        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", hConv, "uint", id, "ptr", hUser, "int")
+        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", _hConv, "uint", id, "ptr", hUser, "int")
         return result
     }
 
@@ -996,10 +962,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the conversation in which the transaction was initiated. If this parameter is 0L, all transactions are abandoned (that is, the 
-     * 					<i>idTransaction</i> parameter is ignored).
+     * @param {HCONV} _hConv 
      * @param {Integer} idTransaction Type: <b>DWORD</b>
      * 
      * The identifier of the transaction to be abandoned. If this parameter is 0L, all active transactions in the specified conversation are abandoned.
@@ -1013,10 +976,10 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeabandontransaction
      * @since windows5.0
      */
-    static DdeAbandonTransaction(idInst, hConv, idTransaction) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeAbandonTransaction(idInst, _hConv, idTransaction) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
 
-        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", hConv, "uint", idTransaction, "int")
+        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", _hConv, "uint", idTransaction, "int")
         return result
     }
 
@@ -1066,9 +1029,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application-instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the conversation to enable or disable. If this parameter is <b>NULL</b>, the function affects all conversations.
+     * @param {HCONV} _hConv 
      * @param {Integer} wCmd Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
@@ -1083,10 +1044,10 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeenablecallback
      * @since windows5.0
      */
-    static DdeEnableCallback(idInst, hConv, wCmd) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeEnableCallback(idInst, _hConv, wCmd) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
 
-        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", hConv, "uint", wCmd, "int")
+        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", _hConv, "uint", wCmd, "int")
         return result
     }
 
@@ -1099,9 +1060,7 @@ class DataExchange {
      * 
      * <h3><a id="Security_Considerations"></a><a id="security_considerations"></a><a id="SECURITY_CONSIDERATIONS"></a>Security Considerations</h3>
      * If the call to <b>DdeImpersonateClient</b> fails for any reason, the client is not impersonated and the client request is made in the security context of the calling process. If the calling process is running as a highly privileged account, such as LocalSystem, or as a member of an administrative group, the user may be able to perform actions that would otherwise be disallowed. Therefore it is important that you always check the return value of the call, and if it fails to raise an error, do not continue execution of the client request.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the DDE client conversation to be impersonated.
+     * @param {HCONV} _hConv 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1110,12 +1069,12 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeimpersonateclient
      * @since windows5.0
      */
-    static DdeImpersonateClient(hConv) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeImpersonateClient(_hConv) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "int")
+        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", _hConv, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -1184,9 +1143,7 @@ class DataExchange {
      * The length, in bytes, of the data pointed to by the 
      * 					<i>pData</i> parameter, including the terminating <b>NULL</b>, if the data is a string. A value of -1 indicates that 
      * 					<i>pData</i> is a data handle that identifies the data being sent.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
-     * 
-     * A handle to the conversation in which the transaction is to take place.
+     * @param {HCONV} _hConv 
      * @param {HSZ} hszItem Type: <b>HSZ</b>
      * 
      * A handle to the data item for which data is being exchanged during the transaction. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. This parameter is ignored (and should be set to 0L) if the 
@@ -1219,14 +1176,14 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeclienttransaction
      * @since windows5.0
      */
-    static DdeClientTransaction(pData, cbData, hConv, hszItem, wFmt, wType, dwTimeout, pdwResult) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeClientTransaction(pData, cbData, _hConv, hszItem, wFmt, wType, dwTimeout, pdwResult) {
+        _hConv := _hConv is Win32Handle ? NumGet(_hConv, "ptr") : _hConv
         hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
 
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, "uint", cbData, "ptr", hConv, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, pdwResultMarshal, pdwResult, "ptr")
+        result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, "uint", cbData, "ptr", _hConv, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, pdwResultMarshal, pdwResult, "ptr")
         resultHandle := HDDEDATA({Value: result}, True)
         return resultHandle
     }
@@ -1815,9 +1772,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
-     * 
-     * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
+     * @param {HSZ} _hsz 
      * @param {PSTR} psz Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the string. To obtain the length of the string, this parameter should be set to <b>NULL</b>.
@@ -1841,11 +1796,11 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequerystringa
      * @since windows5.0
      */
-    static DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeQueryStringA(idInst, _hsz, psz, cchMax, iCodePage) {
+        _hsz := _hsz is Win32Handle ? NumGet(_hsz, "ptr") : _hsz
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
+        result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, "ptr", _hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
     }
 
@@ -1868,9 +1823,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
-     * 
-     * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
+     * @param {HSZ} _hsz 
      * @param {PWSTR} psz Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the string. To obtain the length of the string, this parameter should be set to <b>NULL</b>.
@@ -1894,11 +1847,11 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequerystringw
      * @since windows5.0
      */
-    static DdeQueryStringW(idInst, hsz, psz, cchMax, iCodePage) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeQueryStringW(idInst, _hsz, psz, cchMax, iCodePage) {
+        _hsz := _hsz is Win32Handle ? NumGet(_hsz, "ptr") : _hsz
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
+        result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, "ptr", _hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
     }
 
@@ -1909,9 +1862,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
-     * 
-     * A handle to the string handle to be freed. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
+     * @param {HSZ} _hsz 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1920,10 +1871,10 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddefreestringhandle
      * @since windows5.0
      */
-    static DdeFreeStringHandle(idInst, hsz) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeFreeStringHandle(idInst, _hsz) {
+        _hsz := _hsz is Win32Handle ? NumGet(_hsz, "ptr") : _hsz
 
-        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", hsz, "int")
+        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", _hsz, "int")
         return result
     }
 
@@ -1932,9 +1883,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
-     * 
-     * A handle to the string handle to be saved.
+     * @param {HSZ} _hsz 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1943,10 +1892,10 @@ class DataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddekeepstringhandle
      * @since windows5.0
      */
-    static DdeKeepStringHandle(idInst, hsz) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeKeepStringHandle(idInst, _hsz) {
+        _hsz := _hsz is Win32Handle ? NumGet(_hsz, "ptr") : _hsz
 
-        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", hsz, "int")
+        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", _hsz, "int")
         return result
     }
 
@@ -2604,21 +2553,19 @@ class DataExchange {
      * Places the given window in the system-maintained clipboard format listener list.
      * @remarks
      * When a window has been added to the clipboard format listener list, it is posted a <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-clipboardupdate">WM_CLIPBOARDUPDATE</a> message whenever the contents of the clipboard have changed.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be placed in the clipboard format listener list.
+     * @param {HWND} _hwnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-addclipboardformatlistener
      * @since windows6.0.6000
      */
-    static AddClipboardFormatListener(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static AddClipboardFormatListener(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", _hwnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2630,21 +2577,19 @@ class DataExchange {
      * Removes the given window from the system-maintained clipboard format listener list.
      * @remarks
      * When a window has been removed from the clipboard format listener list, it will no longer receive <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-clipboardupdate">WM_CLIPBOARDUPDATE</a> messages.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to remove from the clipboard format listener list.
+     * @param {HWND} _hwnd 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-removeclipboardformatlistener
      * @since windows6.0.6000
      */
-    static RemoveClipboardFormatListener(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RemoveClipboardFormatListener(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", _hwnd, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

@@ -292,7 +292,7 @@ class IWMStatusCallback extends IUnknown{
      * <td>Sent only when backing up licenses to indicate the licenses are restricted and cannot be backed up.</td>
      * </tr>
      * </table>
-     * @param {Integer} Status One member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_status">WMT_STATUS</a> enumeration type. For a description of possible <b>WMT_STATUS</b> values, see the tables in the Remarks section.
+     * @param {Integer} _Status 
      * @param {HRESULT} hr <b>HRESULT</b> error code. If this indicates failure, you should not process the status as normal, as some error has occurred. Use <c>if (FAILED(hr))</c> to check for a failed value. See the topic <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a> for a list of possible results.
      * @param {Integer} dwType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value specifies the type of data in the buffer at <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value. The contents of this array depend on the value of <i>Status</i> and the value of <i>dwType</i>.
@@ -300,11 +300,11 @@ class IWMStatusCallback extends IUnknown{
      * @returns {HRESULT} This method is implemented by the application. It should always return S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus
      */
-    OnStatus(Status, hr, dwType, pValue, pvContext) {
+    OnStatus(_Status, hr, dwType, pValue, pvContext) {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "int", Status, "int", hr, "int", dwType, pValueMarshal, pValue, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, "int", _Status, "int", hr, "int", dwType, pValueMarshal, pValue, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 }

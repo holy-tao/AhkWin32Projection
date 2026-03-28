@@ -25,15 +25,15 @@ class ISpThreadTask extends Win32ComInterface{
     /**
      * 
      * @param {Pointer<Void>} pvTaskData 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
-    InitThread(pvTaskData, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    InitThread(pvTaskData, _hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, "ptr", hwnd, "HRESULT")
+        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -61,18 +61,18 @@ class ISpThreadTask extends Win32ComInterface{
     /**
      * 
      * @param {Pointer<Void>} pvTaskData 
-     * @param {HWND} hWnd 
-     * @param {Integer} Msg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {HWND} _hWnd 
+     * @param {Integer} _Msg 
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} 
      */
-    WindowMessage(pvTaskData, hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    WindowMessage(pvTaskData, _hWnd, _Msg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 }

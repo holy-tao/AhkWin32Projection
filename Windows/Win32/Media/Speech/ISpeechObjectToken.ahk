@@ -58,9 +58,9 @@ class ISpeechObjectToken extends IDispatch{
      * @returns {BSTR} 
      */
     get_Id() {
-        ObjectId := BSTR()
-        result := ComCall(7, this, "ptr", ObjectId, "HRESULT")
-        return ObjectId
+        _ObjectId := BSTR()
+        result := ComCall(7, this, "ptr", _ObjectId, "HRESULT")
+        return _ObjectId
     }
 
     /**
@@ -142,8 +142,8 @@ class ISpeechObjectToken extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wbemglue/nl-wbemglue-cwbemgluefactory
      */
     CreateInstance(pUnkOuter, ClsContext) {
-        result := ComCall(13, this, "ptr", pUnkOuter, "uint", ClsContext, "ptr*", &Object_R := 0, "HRESULT")
-        return IUnknown(Object_R)
+        result := ComCall(13, this, "ptr", pUnkOuter, "uint", ClsContext, "ptr*", &_Object := 0, "HRESULT")
+        return IUnknown(_Object)
     }
 
     /**
@@ -176,16 +176,16 @@ class ISpeechObjectToken extends IDispatch{
      * @param {BSTR} ObjectStorageCLSID 
      * @param {BSTR} KeyName 
      * @param {BSTR} FileName 
-     * @param {Integer} Folder 
+     * @param {Integer} _Folder 
      * @returns {BSTR} 
      */
-    GetStorageFileName(ObjectStorageCLSID, KeyName, FileName, Folder) {
+    GetStorageFileName(ObjectStorageCLSID, KeyName, FileName, _Folder) {
         ObjectStorageCLSID := ObjectStorageCLSID is String ? BSTR.Alloc(ObjectStorageCLSID).Value : ObjectStorageCLSID
         KeyName := KeyName is String ? BSTR.Alloc(KeyName).Value : KeyName
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
         FilePath := BSTR()
-        result := ComCall(15, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "ptr", FileName, "int", Folder, "ptr", FilePath, "HRESULT")
+        result := ComCall(15, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "ptr", FileName, "int", _Folder, "ptr", FilePath, "HRESULT")
         return FilePath
     }
 
@@ -208,30 +208,30 @@ class ISpeechObjectToken extends IDispatch{
      * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
-     * @param {IUnknown} Object_R 
+     * @param {IUnknown} _Object 
      * @returns {VARIANT_BOOL} 
      */
-    IsUISupported(TypeOfUI, ExtraData, Object_R) {
+    IsUISupported(TypeOfUI, ExtraData, _Object) {
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(17, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object_R, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", _Object, "short*", &Supported := 0, "HRESULT")
         return Supported
     }
 
     /**
      * 
-     * @param {Integer} hWnd 
+     * @param {Integer} _hWnd 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
-     * @param {IUnknown} Object_R 
+     * @param {IUnknown} _Object 
      * @returns {HRESULT} 
      */
-    DisplayUI(hWnd, Title, TypeOfUI, ExtraData, Object_R) {
+    DisplayUI(_hWnd, Title, TypeOfUI, ExtraData, _Object) {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(18, this, "int", hWnd, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object_R, "HRESULT")
+        result := ComCall(18, this, "int", _hWnd, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", _Object, "HRESULT")
         return result
     }
 

@@ -82,9 +82,9 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_path
      */
     get_Path() {
-        path := BSTR()
-        result := ComCall(18, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(18, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**

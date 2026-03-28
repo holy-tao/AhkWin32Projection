@@ -57,14 +57,12 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the font family of the timed-text style.
-     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
-     * 
-     * A pointer to a variable that receives the null-terminated wide-character string that contains the font family of the style.
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontfamily
      */
     GetFontFamily() {
-        result := ComCall(5, this, "ptr*", &fontFamily := 0, "HRESULT")
-        return fontFamily
+        result := ComCall(5, this, "ptr*", &_fontFamily := 0, "HRESULT")
+        return _fontFamily
     }
 
     /**
@@ -90,15 +88,13 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the color of the timed-text style.
-     * @returns {MFARGB} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
-     * 
-     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the color.
+     * @returns {MFARGB} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getcolor
      */
     GetColor() {
-        color := MFARGB()
-        result := ComCall(7, this, "ptr", color, "HRESULT")
-        return color
+        _color := MFARGB()
+        result := ComCall(7, this, "ptr", _color, "HRESULT")
+        return _color
     }
 
     /**
@@ -128,14 +124,12 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets the font style of the timed-text style.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style">MF_TIMED_TEXT_FONT_STYLE</a>*</b>
-     * 
-     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style">MF_TIMED_TEXT_FONT_STYLE</a>-typed value that specifies the font style.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontstyle
      */
     GetFontStyle() {
-        result := ComCall(10, this, "int*", &fontStyle := 0, "HRESULT")
-        return fontStyle
+        result := ComCall(10, this, "int*", &_fontStyle := 0, "HRESULT")
+        return _fontStyle
     }
 
     /**
@@ -176,21 +170,17 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * Gets how text is decorated for the timed-text style.
-     * @returns {Integer} Type: <b>DWORD*</b>
-     * 
-     * A pointer to a variable that receives a combination of <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_decoration">MF_TIMED_TEXT_DECORATION</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies how text is decorated.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextdecoration
      */
     GetTextDecoration() {
-        result := ComCall(14, this, "uint*", &textDecoration := 0, "HRESULT")
-        return textDecoration
+        result := ComCall(14, this, "uint*", &_textDecoration := 0, "HRESULT")
+        return _textDecoration
     }
 
     /**
      * Gets the text outline for the timed-text style.
-     * @param {Pointer<MFARGB>} color Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a>*</b>
-     * 
-     * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that describes the color.
+     * @param {Pointer<MFARGB>} _color 
      * @param {Pointer<Float>} thickness Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the thickness.
@@ -205,12 +195,12 @@ class IMFTimedTextStyle extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextoutline
      */
-    GetTextOutline(color, thickness, blurRadius, unitType) {
+    GetTextOutline(_color, thickness, blurRadius, unitType) {
         thicknessMarshal := thickness is VarRef ? "double*" : "ptr"
         blurRadiusMarshal := blurRadius is VarRef ? "double*" : "ptr"
         unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", color, thicknessMarshal, thickness, blurRadiusMarshal, blurRadius, unitTypeMarshal, unitType, "HRESULT")
+        result := ComCall(15, this, "ptr", _color, thicknessMarshal, thickness, blurRadiusMarshal, blurRadius, unitTypeMarshal, unitType, "HRESULT")
         return result
     }
 }

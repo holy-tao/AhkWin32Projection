@@ -287,11 +287,11 @@ class IPMTileInfo extends IUnknown{
     /**
      * 
      * @param {Integer} HubType 
-     * @param {Integer} Size 
+     * @param {Integer} _Size 
      * @returns {HRESULT} 
      */
-    set_HubTileSize(HubType, Size) {
-        result := ComCall(20, this, "int", HubType, "int", Size, "HRESULT")
+    set_HubTileSize(HubType, _Size) {
+        result := ComCall(20, this, "int", HubType, "int", _Size, "HRESULT")
         return result
     }
 

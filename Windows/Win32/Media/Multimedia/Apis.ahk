@@ -23448,16 +23448,16 @@ class Multimedia {
 
     /**
      * 
-     * @param {HANDLE} hInstance 
+     * @param {HANDLE} _hInstance 
      * @param {PWSTR} lpResName 
      * @param {Integer} wType 
      * @returns {Integer} 
      */
-    static mciLoadCommandResource(hInstance, lpResName, wType) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static mciLoadCommandResource(_hInstance, lpResName, wType) {
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         lpResName := lpResName is String ? StrPtr(lpResName) : lpResName
 
-        result := DllCall("WINMM.dll\mciLoadCommandResource", "ptr", hInstance, "ptr", lpResName, "uint", wType, "uint")
+        result := DllCall("WINMM.dll\mciLoadCommandResource", "ptr", _hInstance, "ptr", lpResName, "uint", wType, "uint")
         return result
     }
 
@@ -23639,7 +23639,7 @@ class Multimedia {
     /**
      * Provides default processing for any messages not processed by an installable driver. This function is intended to be used only within the DriverProc function of an installable driver. (DefDriverProc)
      * @param {Pointer} dwDriverIdentifier Identifier of the installable driver.
-     * @param {HDRVR} hdrvr Handle of the installable driver instance.
+     * @param {HDRVR} _hdrvr 
      * @param {Integer} uMsg Driver message value.
      * @param {LPARAM} lParam1 32-bit message-dependent information.
      * @param {LPARAM} lParam2 32-bit message-dependent information.
@@ -23647,10 +23647,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-defdriverproc
      * @since windows5.0
      */
-    static DefDriverProc(dwDriverIdentifier, hdrvr, uMsg, lParam1, lParam2) {
-        hdrvr := hdrvr is Win32Handle ? NumGet(hdrvr, "ptr") : hdrvr
+    static DefDriverProc(dwDriverIdentifier, _hdrvr, uMsg, lParam1, lParam2) {
+        _hdrvr := _hdrvr is Win32Handle ? NumGet(_hdrvr, "ptr") : _hdrvr
 
-        result := DllCall("WINMM.dll\DefDriverProc", "ptr", dwDriverIdentifier, "ptr", hdrvr, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "ptr")
+        result := DllCall("WINMM.dll\DefDriverProc", "ptr", dwDriverIdentifier, "ptr", _hdrvr, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "ptr")
         return result
     }
 
@@ -24227,7 +24227,7 @@ class Multimedia {
 
     /**
      * The mmioClose function closes a file that was opened by using the mmioOpen function.
-     * @param {HMMIO} hmmio File handle of the file to close.
+     * @param {HMMIO} _hmmio 
      * @param {Integer} fuClose Flags for the close operation. The following value is defined.
      * 
      * <table>
@@ -24264,26 +24264,26 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmioclose
      * @since windows5.0
      */
-    static mmioClose(hmmio, fuClose) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioClose(_hmmio, fuClose) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioClose", "ptr", hmmio, "uint", fuClose, "uint")
+        result := DllCall("WINMM.dll\mmioClose", "ptr", _hmmio, "uint", fuClose, "uint")
         return result
     }
 
     /**
      * The mmioRead function reads a specified number of bytes from a file opened by using the mmioOpen function.
-     * @param {HMMIO} hmmio File handle of the file to be read.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer} pch Pointer to a buffer to contain the data read from the file.
      * @param {Integer} cch Number of bytes to read from the file.
      * @returns {Integer} Returns the number of bytes actually read. If the end of the file has been reached and no more bytes can be read, the return value is 0. If there is an error reading from the file, the return value is –1.
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmioread
      * @since windows5.0
      */
-    static mmioRead(hmmio, pch, cch) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioRead(_hmmio, pch, cch) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioRead", "ptr", hmmio, "ptr", pch, "int", cch, "int")
+        result := DllCall("WINMM.dll\mmioRead", "ptr", _hmmio, "ptr", pch, "int", cch, "int")
         return result
     }
 
@@ -24291,17 +24291,17 @@ class Multimedia {
      * The mmioWrite function writes a specified number of bytes to a file opened by using the mmioOpen function.
      * @remarks
      * The current file position is incremented by the number of bytes written.
-     * @param {HMMIO} hmmio File handle of the file.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer} pch Pointer to the buffer to be written to the file.
      * @param {Integer} cch Number of bytes to write to the file.
      * @returns {Integer} Returns the number of bytes actually written. If there is an error writing to the file, the return value is -1.
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiowrite
      * @since windows5.0
      */
-    static mmioWrite(hmmio, pch, cch) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioWrite(_hmmio, pch, cch) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioWrite", "ptr", hmmio, "ptr", pch, "int", cch, "int")
+        result := DllCall("WINMM.dll\mmioWrite", "ptr", _hmmio, "ptr", pch, "int", cch, "int")
         return result
     }
 
@@ -24311,7 +24311,7 @@ class Multimedia {
      * Seeking to an invalid location in the file, such as past the end of the file, might not cause <b>mmioSeek</b> to return an error, but it might cause subsequent I/O operations on the file to fail.
      * 
      * To locate the end of a file, call <b>mmioSeek</b> with <i>lOffset</i> set to zero and <i>iOrigin</i> set to SEEK_END.
-     * @param {HMMIO} hmmio File handle of the file to seek in.
+     * @param {HMMIO} _hmmio 
      * @param {Integer} lOffset Offset to change the file position.
      * @param {Integer} iOrigin Flags indicating how the offset specified by <i>lOffset</i> is interpreted. The following values are defined:
      * 
@@ -24355,10 +24355,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmioseek
      * @since windows5.0
      */
-    static mmioSeek(hmmio, lOffset, iOrigin) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioSeek(_hmmio, lOffset, iOrigin) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioSeek", "ptr", hmmio, "int", lOffset, "int", iOrigin, "int")
+        result := DllCall("WINMM.dll\mmioSeek", "ptr", _hmmio, "int", lOffset, "int", iOrigin, "int")
         return result
     }
 
@@ -24379,17 +24379,17 @@ class Multimedia {
      * Before calling <a href="https://docs.microsoft.com/previous-versions/dd757314(v=vs.85)">mmioAdvance</a> or <a href="https://docs.microsoft.com/previous-versions/dd757339(v=vs.85)">mmioSetInfo</a> to flush a buffer to disk, set the MMIO_DIRTY flag in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure for the file. Otherwise, the buffer will not be written to disk.
      * 
      * Do not decrement <b>pchNext</b> or modify any members in the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure other than <b>pchNext</b> and <b>dwFlags</b>. Do not set any flags in <b>dwFlags</b> except MMIO_DIRTY.
-     * @param {HMMIO} hmmio File handle of the file.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer<MMIOINFO>} pmmioinfo Pointer to a buffer that receives an <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure that <b>mmioGetInfo</b> fills with information about the file.
      * @param {Integer} fuInfo Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiogetinfo
      * @since windows5.0
      */
-    static mmioGetInfo(hmmio, pmmioinfo, fuInfo) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioGetInfo(_hmmio, pmmioinfo, fuInfo) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioGetInfo", "ptr", hmmio, "ptr", pmmioinfo, "uint", fuInfo, "uint")
+        result := DllCall("WINMM.dll\mmioGetInfo", "ptr", _hmmio, "ptr", pmmioinfo, "uint", fuInfo, "uint")
         return result
     }
 
@@ -24397,17 +24397,17 @@ class Multimedia {
      * The mmioSetInfo function updates the information retrieved by the mmioGetInfo function about a file opened by using the mmioOpen function. Use this function to terminate direct buffer access of a file opened for buffered I/O.
      * @remarks
      * If you have written to the file I/O buffer, set the MMIO_DIRTY flag in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure before calling <b>mmioSetInfo</b> to terminate direct buffer access. Otherwise, the buffer will not get flushed to disk.
-     * @param {HMMIO} hmmio File handle of the file.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer<MMIOINFO>} pmmioinfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure filled with information by the <a href="https://docs.microsoft.com/previous-versions/dd757321(v=vs.85)">mmioGetInfo</a> function.
      * @param {Integer} fuInfo Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiosetinfo
      * @since windows5.0
      */
-    static mmioSetInfo(hmmio, pmmioinfo, fuInfo) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioSetInfo(_hmmio, pmmioinfo, fuInfo) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioSetInfo", "ptr", hmmio, "ptr", pmmioinfo, "uint", fuInfo, "uint")
+        result := DllCall("WINMM.dll\mmioSetInfo", "ptr", _hmmio, "ptr", pmmioinfo, "uint", fuInfo, "uint")
         return result
     }
 
@@ -24421,7 +24421,7 @@ class Multimedia {
      * To disable buffered I/O, set <i>pchBuffer</i> to <b>NULL</b> and <i>cchBuffer</i> to zero.
      * 
      * If buffered I/O is already enabled using an internal buffer, you can reallocate the buffer to a different size by setting <i>pchBuffer</i> to <b>NULL</b> and <i>cchBuffer</i> to the new buffer size. The contents of the buffer can be changed after resizing.
-     * @param {HMMIO} hmmio File handle of the file.
+     * @param {HMMIO} _hmmio 
      * @param {PSTR} pchBuffer Pointer to an application-defined buffer to use for buffered I/O. If this parameter is <b>NULL</b>, <b>mmioSetBuffer</b> allocates an internal buffer for buffered I/O.
      * @param {Integer} cchBuffer Size, in characters, of the application-defined buffer, or the size of the buffer for <b>mmioSetBuffer</b> to allocate.
      * @param {Integer} fuBuffer Reserved; must be zero.
@@ -24458,11 +24458,11 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiosetbuffer
      * @since windows5.0
      */
-    static mmioSetBuffer(hmmio, pchBuffer, cchBuffer, fuBuffer) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioSetBuffer(_hmmio, pchBuffer, cchBuffer, fuBuffer) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
         pchBuffer := pchBuffer is String ? StrPtr(pchBuffer) : pchBuffer
 
-        result := DllCall("WINMM.dll\mmioSetBuffer", "ptr", hmmio, "ptr", pchBuffer, "int", cchBuffer, "uint", fuBuffer, "uint")
+        result := DllCall("WINMM.dll\mmioSetBuffer", "ptr", _hmmio, "ptr", pchBuffer, "int", cchBuffer, "uint", fuBuffer, "uint")
         return result
     }
 
@@ -24472,7 +24472,7 @@ class Multimedia {
      * Closing a file with the <a href="https://docs.microsoft.com/previous-versions/dd757316(v=vs.85)">mmioClose</a> function automatically flushes its buffer.
      * 
      * If there is insufficient disk space to write the buffer, <b>mmioFlush</b> fails, even if the preceding calls of the <a href="https://docs.microsoft.com/previous-versions/dd757341(v=vs.85)">mmioWrite</a> function were successful.
-     * @param {HMMIO} hmmio File handle of a file opened by using the <a href="https://docs.microsoft.com/previous-versions/dd757331(v=vs.85)">mmioOpen</a> function.
+     * @param {HMMIO} _hmmio 
      * @param {Integer} fuFlush Flag determining how the flush is carried out. It can be zero or the following.
      * 
      * <table>
@@ -24509,10 +24509,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmioflush
      * @since windows5.0
      */
-    static mmioFlush(hmmio, fuFlush) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioFlush(_hmmio, fuFlush) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioFlush", "ptr", hmmio, "uint", fuFlush, "uint")
+        result := DllCall("WINMM.dll\mmioFlush", "ptr", _hmmio, "uint", fuFlush, "uint")
         return result
     }
 
@@ -24528,7 +24528,7 @@ class Multimedia {
      * If you have written to the I/O buffer, you must set the MMIO_DIRTY flag in the <b>dwFlags</b> member of the <b>MMIOINFO</b> structure before calling <b>mmioAdvance</b>. Otherwise, the buffer will not be written to disk.
      * 
      * If the end of file is reached, <b>mmioAdvance</b> still returns successfully even though no more data can be read. To check for the end of the file, check if the <b>pchNext</b> and <b>pchEndRead</b> members of the <b>MMIOINFO</b> structure are equal after calling <b>mmioAdvance</b>.
-     * @param {HMMIO} hmmio File handle of a file opened by using the <a href="https://docs.microsoft.com/previous-versions/dd757331(v=vs.85)">mmioOpen</a> function.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer<MMIOINFO>} pmmioinfo Pointer to the <a href="https://docs.microsoft.com/previous-versions/dd757322(v=vs.85)">MMIOINFO</a> structure obtained by using the <a href="https://docs.microsoft.com/previous-versions/dd757321(v=vs.85)">mmioGetInfo</a> function. This structure is used to set the current file information, and then it is updated after the buffer is advanced. This parameter is optional.
      * @param {Integer} fuAdvance Flags for the operation. It can be one of the following.
      * 
@@ -24614,10 +24614,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmioadvance
      * @since windows5.0
      */
-    static mmioAdvance(hmmio, pmmioinfo, fuAdvance) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioAdvance(_hmmio, pmmioinfo, fuAdvance) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioAdvance", "ptr", hmmio, "ptr", pmmioinfo, "uint", fuAdvance, "uint")
+        result := DllCall("WINMM.dll\mmioAdvance", "ptr", _hmmio, "ptr", pmmioinfo, "uint", fuAdvance, "uint")
         return result
     }
 
@@ -24625,7 +24625,7 @@ class Multimedia {
      * The mmioSendMessage function sends a message to the I/O procedure associated with the specified file.
      * @remarks
      * Use this function to send custom user-defined messages. Do not use it to send the MMIOM_OPEN, MMIOM_CLOSE, MMIOM_READ, MMIOM_WRITE, MMIOM_WRITEFLUSH, or MMIOM_SEEK messages. Define custom messages to be greater than or equal to the MMIOM_USER constant.
-     * @param {HMMIO} hmmio File handle for a file opened by using the <a href="https://docs.microsoft.com/previous-versions/dd757331(v=vs.85)">mmioOpen</a> function.
+     * @param {HMMIO} _hmmio 
      * @param {Integer} uMsg Message to send to the I/O procedure.
      * @param {LPARAM} lParam1 Parameter for the message.
      * @param {LPARAM} lParam2 Parameter for the message.
@@ -24633,10 +24633,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiosendmessage
      * @since windows5.0
      */
-    static mmioSendMessage(hmmio, uMsg, lParam1, lParam2) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioSendMessage(_hmmio, uMsg, lParam1, lParam2) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioSendMessage", "ptr", hmmio, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "ptr")
+        result := DllCall("WINMM.dll\mmioSendMessage", "ptr", _hmmio, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "ptr")
         return result
     }
 
@@ -24658,7 +24658,7 @@ class Multimedia {
      * <li>The <b>dwDataOffset</b> member is the file offset of the beginning of the data portion of the chunk. If the chunk is a "RIFF" chunk or a "LIST" chunk, this member is the offset of the form type or list type.</li>
      * <li>The <b>dwFlags</b> member contains other information about the chunk. Currently, this information is not used and is set to zero.</li>
      * </ul>
-     * @param {HMMIO} hmmio File handle of an open RIFF file.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer<MMCKINFO>} pmmcki Pointer to a buffer that receives an <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure.
      * @param {Pointer<MMCKINFO>} pmmckiParent Pointer to an optional application-defined <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure identifying the parent of the chunk being searched for. If this parameter is not <b>NULL</b>, <b>mmioDescend</b> assumes the <b>MMCKINFO</b> structure it refers to was filled when <b>mmioDescend</b> was called to descend into the parent chunk, and <b>mmioDescend</b> searches for a chunk within the parent chunk. Set this parameter to <b>NULL</b> if no parent chunk is being specified.
      * @param {Integer} fuDescend Search flags. If no flags are specified, <b>mmioDescend</b> descends into the chunk beginning at the current file position. The following values are defined.
@@ -24705,10 +24705,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiodescend
      * @since windows5.0
      */
-    static mmioDescend(hmmio, pmmcki, pmmckiParent, fuDescend) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioDescend(_hmmio, pmmcki, pmmckiParent, fuDescend) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioDescend", "ptr", hmmio, "ptr", pmmcki, "ptr", pmmckiParent, "uint", fuDescend, "uint")
+        result := DllCall("WINMM.dll\mmioDescend", "ptr", _hmmio, "ptr", pmmcki, "ptr", pmmckiParent, "uint", fuDescend, "uint")
         return result
     }
 
@@ -24718,7 +24718,7 @@ class Multimedia {
      * If the chunk was descended into by using <a href="https://docs.microsoft.com/previous-versions/dd757318(v=vs.85)">mmioDescend</a>, <b>mmioAscend</b> seeks to the location following the end of the chunk (past the extra pad byte, if any).
      * 
      * If the chunk was created and descended into by using <b>mmioCreateChunk</b>, or if the MMIO_DIRTY flag is set in the <b>dwFlags</b> member of the <b>MMCKINFO</b> structure referenced by <i>lpck</i>, the current file position is assumed to be the end of the data portion of the chunk. If the chunk size is not the same as the value stored in the <b>cksize</b> member of the <b>MMCKINFO</b> structure when <b>mmioCreateChunk</b> was called, <b>mmioAscend</b> corrects the chunk size in the file before ascending from the chunk. If the chunk size is odd, <b>mmioAscend</b> writes a null pad byte at the end of the chunk. After ascending from the chunk, the current file position is the location following the end of the chunk (past the extra pad byte, if any).
-     * @param {HMMIO} hmmio File handle of an open RIFF file.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer<MMCKINFO>} pmmcki Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure previously filled by the <a href="https://docs.microsoft.com/previous-versions/dd757318(v=vs.85)">mmioDescend</a> or <a href="https://docs.microsoft.com/previous-versions/dd757317(v=vs.85)">mmioCreateChunk</a> function.
      * @param {Integer} fuAscend Reserved; must be zero.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -24754,10 +24754,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmioascend
      * @since windows5.0
      */
-    static mmioAscend(hmmio, pmmcki, fuAscend) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioAscend(_hmmio, pmmcki, fuAscend) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioAscend", "ptr", hmmio, "ptr", pmmcki, "uint", fuAscend, "uint")
+        result := DllCall("WINMM.dll\mmioAscend", "ptr", _hmmio, "ptr", pmmcki, "uint", fuAscend, "uint")
         return result
     }
 
@@ -24775,7 +24775,7 @@ class Multimedia {
      * <li>The <b>dwDataOffset</b> member does not need to be filled in. The <b>mmioCreateChunk</b> function fills this member with the file offset of the data portion of the chunk.</li>
      * <li>The <b>dwFlags</b> member does not need to be filled in. The <b>mmioCreateChunk</b> function sets the MMIO_DIRTY flag in <b>dwFlags</b>.</li>
      * </ul>
-     * @param {HMMIO} hmmio File handle of an open RIFF file.
+     * @param {HMMIO} _hmmio 
      * @param {Pointer<MMCKINFO>} pmmcki Pointer to a buffer that receives a <a href="https://docs.microsoft.com/previous-versions/dd757312(v=vs.85)">MMCKINFO</a> structure containing information about the chunk to be created.
      * @param {Integer} fuCreate Flags identifying what type of chunk to create. The following values are defined.
      * 
@@ -24828,10 +24828,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/mmiscapi/nf-mmiscapi-mmiocreatechunk
      * @since windows5.0
      */
-    static mmioCreateChunk(hmmio, pmmcki, fuCreate) {
-        hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+    static mmioCreateChunk(_hmmio, pmmcki, fuCreate) {
+        _hmmio := _hmmio is Win32Handle ? NumGet(_hmmio, "ptr") : _hmmio
 
-        result := DllCall("WINMM.dll\mmioCreateChunk", "ptr", hmmio, "ptr", pmmcki, "uint", fuCreate, "uint")
+        result := DllCall("WINMM.dll\mmioCreateChunk", "ptr", _hmmio, "ptr", pmmcki, "uint", fuCreate, "uint")
         return result
     }
 
@@ -25189,7 +25189,7 @@ class Multimedia {
      * The joySetCapture function captures a joystick by causing its messages to be sent to the specified window.
      * @remarks
      * If the specified joystick is currently captured, the function returns undefined behavior. Call the <a href="https://docs.microsoft.com/previous-versions/dd757113(v=vs.85)">joyReleaseCapture</a> function to release the captured joystick, or destroy the window to release the joystick automatically.
-     * @param {HWND} hwnd Handle to the window to receive the joystick messages.
+     * @param {HWND} _hwnd 
      * @param {Integer} uJoyID Identifier of the joystick to be captured. Valid values for <i>uJoyID</i> range from zero (JOYSTICKID1) to 15.
      * @param {Integer} uPeriod Polling frequency, in milliseconds.
      * @param {BOOL} fChanged Change position flag. Specify <b>TRUE</b> for this parameter to send messages only when the position changes by a value greater than the joystick movement threshold. Otherwise, messages are sent at the polling frequency specified in <i>uPeriod</i>.
@@ -25259,10 +25259,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/joystickapi/nf-joystickapi-joysetcapture
      * @since windows5.0
      */
-    static joySetCapture(hwnd, uJoyID, uPeriod, fChanged) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static joySetCapture(_hwnd, uJoyID, uPeriod, fChanged) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("WINMM.dll\joySetCapture", "ptr", hwnd, "uint", uJoyID, "uint", uPeriod, "int", fChanged, "uint")
+        result := DllCall("WINMM.dll\joySetCapture", "ptr", _hwnd, "uint", uJoyID, "uint", uPeriod, "int", fChanged, "uint")
         return result
     }
 
@@ -25343,7 +25343,7 @@ class Multimedia {
      * If your application installs a function as a compressor or decompressor, it should remove the function with the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icremove">ICRemove</a> function before it terminates. This prevents other applications from trying to access the function when it is not available.
      * @param {Integer} fccType Four-character code indicating the type of data used by the compressor or decompressor. Specify "VIDC" for a video compressor or decompressor.
      * @param {Integer} fccHandler Four-character code identifying a specific compressor or decompressor.
-     * @param {LPARAM} lParam Pointer to a null-terminated string containing the name of the compressor or decompressor, or the address of a function used for compression or decompression. The contents of this parameter are defined by the flags set for <i>wFlags</i>.
+     * @param {LPARAM} _lParam 
      * @param {PSTR} szDesc Reserved; do not use.
      * @param {Integer} wFlags Flags defining the contents of <i>lParam</i>. The following values are defined.
      * 
@@ -25367,10 +25367,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icinstall
      * @since windows5.0
      */
-    static ICInstall(fccType, fccHandler, lParam, szDesc, wFlags) {
+    static ICInstall(fccType, fccHandler, _lParam, szDesc, wFlags) {
         szDesc := szDesc is String ? StrPtr(szDesc) : szDesc
 
-        result := DllCall("MSVFW32.dll\ICInstall", "uint", fccType, "uint", fccHandler, "ptr", lParam, "ptr", szDesc, "uint", wFlags, "int")
+        result := DllCall("MSVFW32.dll\ICInstall", "uint", fccType, "uint", fccHandler, "ptr", _lParam, "ptr", szDesc, "uint", wFlags, "int")
         return result
     }
 
@@ -25390,17 +25390,17 @@ class Multimedia {
 
     /**
      * The ICGetInfo function obtains information about a compressor.
-     * @param {HIC} hic Handle to a compressor.
+     * @param {HIC} _hic 
      * @param {Pointer} picinfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-icinfo">ICINFO</a> structure to return information about the compressor.
      * @param {Integer} cb Size, in bytes, of the structure pointed to by <i>lpicinfo</i>.
      * @returns {LRESULT} Returns the number of bytes copied into the structure or zero if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icgetinfo
      * @since windows5.0
      */
-    static ICGetInfo(hic, picinfo, cb) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICGetInfo(_hic, picinfo, cb) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
-        result := DllCall("MSVFW32.dll\ICGetInfo", "ptr", hic, "ptr", picinfo, "uint", cb, "ptr")
+        result := DllCall("MSVFW32.dll\ICGetInfo", "ptr", _hic, "ptr", picinfo, "uint", cb, "ptr")
         return result
     }
 
@@ -25503,32 +25503,32 @@ class Multimedia {
 
     /**
      * The ICClose function closes a compressor or decompressor.
-     * @param {HIC} hic Handle to a compressor or decompressor.
+     * @param {HIC} _hic 
      * @returns {LRESULT} Returns ICERR_OK if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icclose
      * @since windows5.0
      */
-    static ICClose(hic) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICClose(_hic) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
-        result := DllCall("MSVFW32.dll\ICClose", "ptr", hic, "ptr")
+        result := DllCall("MSVFW32.dll\ICClose", "ptr", _hic, "ptr")
         return result
     }
 
     /**
      * The ICSendMessage function sends a message to a compressor.
-     * @param {HIC} hic Handle to the compressor to receive the message.
-     * @param {Integer} msg Message to send.
+     * @param {HIC} _hic 
+     * @param {Integer} _msg 
      * @param {Pointer} dw1 Additional message-specific information.
      * @param {Pointer} dw2 Additional message-specific information.
      * @returns {LRESULT} Returns a message-specific result.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icsendmessage
      * @since windows5.0
      */
-    static ICSendMessage(hic, msg, dw1, dw2) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICSendMessage(_hic, _msg, dw1, dw2) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
-        result := DllCall("MSVFW32.dll\ICSendMessage", "ptr", hic, "uint", msg, "ptr", dw1, "ptr", dw2, "ptr")
+        result := DllCall("MSVFW32.dll\ICSendMessage", "ptr", _hic, "uint", _msg, "ptr", dw1, "ptr", dw2, "ptr")
         return result
     }
 
@@ -25540,7 +25540,7 @@ class Multimedia {
      * The compressor sets the contents of <i>lpdwFlags</i> to <b>AVIIF_KEYFRAME</b> when it creates a key frame. If your application creates AVI files, it should save the information returned for <i>lpckid</i> and <i>lpdwFlags</i> in the file.
      * 
      * Compressors use <i>lpbiPrev</i> and <i>lpPrev</i> to perform temporal compression and require an external buffer to store the format and data of the previous frame. Specify <b>NULL</b> for <i>lpbiPrev</i> and <i>lpPrev</i> when compressing a key frame, when performing fast compression, or if the compressor has its own buffer to store the format and data of the previous image. Specify non-<b>NULL</b> values for these parameters if <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icgetinfo">ICGetInfo</a> returns the <b>VIDCF_TEMPORAL</b> flag, the compressor is performing normal compression, and the frame to compress is not a key frame.
-     * @param {HIC} hic Handle to the compressor to use.
+     * @param {HIC} _hic 
      * @param {Integer} dwFlags Compression flag. The following value is defined:
      * @param {Pointer<BITMAPINFOHEADER>} lpbiOutput Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the output format.
      * @param {Pointer<Void>} lpData Pointer to an output buffer large enough to contain a compressed frame.
@@ -25559,8 +25559,8 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iccompress
      * @since windows5.0
      */
-    static ICCompress(hic, dwFlags, lpbiOutput, lpData, lpbiInput, lpBits, lpckid, lpdwFlags, lFrameNum, dwFrameSize, dwQuality, lpbiPrev, lpPrev) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICCompress(_hic, dwFlags, lpbiOutput, lpData, lpbiInput, lpBits, lpckid, lpdwFlags, lFrameNum, dwFrameSize, dwQuality, lpbiPrev, lpPrev) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
@@ -25568,13 +25568,13 @@ class Multimedia {
         lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
         lpPrevMarshal := lpPrev is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSVFW32.dll\ICCompress", "ptr", hic, "uint", dwFlags, "ptr", lpbiOutput, lpDataMarshal, lpData, "ptr", lpbiInput, lpBitsMarshal, lpBits, lpckidMarshal, lpckid, lpdwFlagsMarshal, lpdwFlags, "int", lFrameNum, "uint", dwFrameSize, "uint", dwQuality, "ptr", lpbiPrev, lpPrevMarshal, lpPrev, "CDecl uint")
+        result := DllCall("MSVFW32.dll\ICCompress", "ptr", _hic, "uint", dwFlags, "ptr", lpbiOutput, lpDataMarshal, lpData, "ptr", lpbiInput, lpBitsMarshal, lpBits, lpckidMarshal, lpckid, lpdwFlagsMarshal, lpdwFlags, "int", lFrameNum, "uint", dwFrameSize, "uint", dwQuality, "ptr", lpbiPrev, lpPrevMarshal, lpPrev, "CDecl uint")
         return result
     }
 
     /**
      * The ICDecompress function decompresses a single video frame.
-     * @param {HIC} hic Handle to the decompressor to use.
+     * @param {HIC} _hic 
      * @param {Integer} dwFlags Applicable decompression flags. The following values are defined.
      * 
      * <table>
@@ -25613,13 +25613,13 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icdecompress
      * @since windows5.0
      */
-    static ICDecompress(hic, dwFlags, lpbiFormat, lpData, lpbi, lpBits) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICDecompress(_hic, dwFlags, lpbiFormat, lpData, lpbi, lpBits) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSVFW32.dll\ICDecompress", "ptr", hic, "uint", dwFlags, "ptr", lpbiFormat, lpDataMarshal, lpData, "ptr", lpbi, lpBitsMarshal, lpBits, "CDecl uint")
+        result := DllCall("MSVFW32.dll\ICDecompress", "ptr", _hic, "uint", dwFlags, "ptr", lpbiFormat, lpDataMarshal, lpData, "ptr", lpbi, lpBitsMarshal, lpBits, "CDecl uint")
         return result
     }
 
@@ -25633,7 +25633,7 @@ class Multimedia {
      * The source rectangle is relative to the full video frame. The portion of the video frame specified by the source rectangle is stretched or shrunk to fit the destination rectangle.
      * 
      * The <i>dwRate</i> and <i>dwScale</i> parameters specify the decompression rate. The integer value specified for <i>dwRate</i> divided by the integer value specified for <i>dwScale</i> defines the frame rate in frames per second. This value is used by the renderer when it is responsible for timing frames during playback.
-     * @param {HIC} hic Handle to the decompressor to use.
+     * @param {HIC} _hic 
      * @param {Integer} dwFlags Decompression flags. The following values are defined.
      *             
      * 
@@ -25674,8 +25674,8 @@ class Multimedia {
      * </tr>
      * </table>
      * @param {HPALETTE} hpal Handle to the palette used for drawing.
-     * @param {HWND} hwnd Handle to the window used for drawing.
-     * @param {HDC} hdc DC used for drawing.
+     * @param {HWND} _hwnd 
+     * @param {HDC} _hdc 
      * @param {Integer} xDst The x-coordinate of the upper right corner of the destination rectangle.
      * @param {Integer} yDst The y-coordinate of the upper right corner of the destination rectangle.
      * @param {Integer} dxDst Width of the destination rectangle.
@@ -25691,13 +25691,13 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icdrawbegin
      * @since windows5.0
      */
-    static ICDrawBegin(hic, dwFlags, hpal, hwnd, hdc, xDst, yDst, dxDst, dyDst, lpbi, xSrc, ySrc, dxSrc, dySrc, dwRate, dwScale) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICDrawBegin(_hic, dwFlags, hpal, _hwnd, _hdc, xDst, yDst, dxDst, dyDst, lpbi, xSrc, ySrc, dxSrc, dySrc, dwRate, dwScale) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
         hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("MSVFW32.dll\ICDrawBegin", "ptr", hic, "uint", dwFlags, "ptr", hpal, "ptr", hwnd, "ptr", hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", dwRate, "uint", dwScale, "CDecl uint")
+        result := DllCall("MSVFW32.dll\ICDrawBegin", "ptr", _hic, "uint", dwFlags, "ptr", hpal, "ptr", _hwnd, "ptr", _hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", dwRate, "uint", dwScale, "CDecl uint")
         return result
     }
 
@@ -25705,7 +25705,7 @@ class Multimedia {
      * The ICDraw function decompresses an image for drawing.
      * @remarks
      * You can initiate drawing the frames by sending the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/icm-draw-start">ICM_DRAW_START</a> message (or by using the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icdrawstart">ICDrawStart</a> macro). The application should be sure to buffer the required number of frames before drawing is started. Send the <b>KM_GETBUFFERSWANTED</b> message (or use the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icgetbufferswanted">ICGetBuffersWanted</a> macro) to obtain this value.
-     * @param {HIC} hic Handle to a decompressor.
+     * @param {HIC} _hic 
      * @param {Integer} dwFlags Decompression flags. The following values are defined.
      * 
      * <table>
@@ -25744,12 +25744,12 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icdraw
      * @since windows5.0
      */
-    static ICDraw(hic, dwFlags, lpFormat, lpData, cbData, lTime) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICDraw(_hic, dwFlags, lpFormat, lpData, cbData, lTime) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
         lpFormatMarshal := lpFormat is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSVFW32.dll\ICDraw", "ptr", hic, "uint", dwFlags, lpFormatMarshal, lpFormat, "ptr", lpData, "uint", cbData, "int", lTime, "CDecl uint")
+        result := DllCall("MSVFW32.dll\ICDraw", "ptr", _hic, "uint", dwFlags, lpFormatMarshal, lpFormat, "ptr", lpData, "uint", cbData, "int", lTime, "CDecl uint")
         return result
     }
 
@@ -25836,7 +25836,7 @@ class Multimedia {
 
     /**
      * The ICGetDisplayFormat function determines the best format available for displaying a compressed image. The function also opens a compressor if a handle of an open compressor is not specified.
-     * @param {HIC} hic Handle to the compressor to use. Specify <b>NULL</b> to have VCM select and open an appropriate compressor.
+     * @param {HIC} _hic 
      * @param {Pointer<BITMAPINFOHEADER>} lpbiIn Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the compressed format.
      * @param {Pointer<BITMAPINFOHEADER>} lpbiOut Pointer to a buffer to return the decompressed format. The buffer should be large enough for a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure and 256 color entries.
      * @param {Integer} BitDepth Preferred bit depth, if nonzero.
@@ -25846,10 +25846,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icgetdisplayformat
      * @since windows5.0
      */
-    static ICGetDisplayFormat(hic, lpbiIn, lpbiOut, BitDepth, dx, dy) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICGetDisplayFormat(_hic, lpbiIn, lpbiOut, BitDepth, dx, dy) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
-        result := DllCall("MSVFW32.dll\ICGetDisplayFormat", "ptr", hic, "ptr", lpbiIn, "ptr", lpbiOut, "int", BitDepth, "int", dx, "int", dy, "ptr")
+        result := DllCall("MSVFW32.dll\ICGetDisplayFormat", "ptr", _hic, "ptr", lpbiIn, "ptr", lpbiOut, "int", BitDepth, "int", dx, "int", dy, "ptr")
         resultHandle := HIC({Value: result}, True)
         return resultHandle
     }
@@ -25858,7 +25858,7 @@ class Multimedia {
      * The ICImageCompress function compresses an image to a given size. This function does not require initialization functions.
      * @remarks
      * To obtain the format information from the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure, use the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globallock">GlobalLock</a> function to lock the data. Use the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globalfree">GlobalFree</a> function to free the DIB when you are finished.
-     * @param {HIC} hic Handle to a compressor opened with the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icopen">ICOpen</a> function. Specify <b>NULL</b> to have VCM select an appropriate compressor for the compression format. An application can have the user select the compressor by using the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-iccompressorchoose">ICCompressorChoose</a> function, which opens the selected compressor and returns a handle of the compressor in this parameter.
+     * @param {HIC} _hic 
      * @param {Integer} uiFlags Reserved; must be zero.
      * @param {Pointer<BITMAPINFO>} lpbiIn Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure containing the input data format.
      * @param {Pointer<Void>} lpBits Pointer to input data bits to compress. The data bits exclude header and format information.
@@ -25869,13 +25869,13 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icimagecompress
      * @since windows5.0
      */
-    static ICImageCompress(hic, uiFlags, lpbiIn, lpBits, lpbiOut, lQuality, plSize) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICImageCompress(_hic, uiFlags, lpbiIn, lpBits, lpbiOut, lQuality, plSize) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
         plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
 
-        result := DllCall("MSVFW32.dll\ICImageCompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "int", lQuality, plSizeMarshal, plSize, "ptr")
+        result := DllCall("MSVFW32.dll\ICImageCompress", "ptr", _hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "int", lQuality, plSizeMarshal, plSize, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -25884,7 +25884,7 @@ class Multimedia {
      * The ICImageDecompress function decompresses an image without using initialization functions.
      * @remarks
      * To obtain the format information from the <b>LPBITMAPINFOHEADER</b> structure, use the <b>GlobalLock</b> function to lock the data. Use the <b>GlobalFree</b> function to free the DIB when you are finished.
-     * @param {HIC} hic Handle to a decompressor opened with the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icopen">ICOpen</a> function. Specify <b>NULL</b> to have VCM select an appropriate decompressor for the compressed image.
+     * @param {HIC} _hic 
      * @param {Integer} uiFlags Reserved; must be zero.
      * @param {Pointer<BITMAPINFO>} lpbiIn Compressed input data format.
      * @param {Pointer<Void>} lpBits Pointer to input data bits to compress. The data bits exclude header and format information.
@@ -25893,12 +25893,12 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-icimagedecompress
      * @since windows5.0
      */
-    static ICImageDecompress(hic, uiFlags, lpbiIn, lpBits, lpbiOut) {
-        hic := hic is Win32Handle ? NumGet(hic, "ptr") : hic
+    static ICImageDecompress(_hic, uiFlags, lpbiIn, lpBits, lpbiOut) {
+        _hic := _hic is Win32Handle ? NumGet(_hic, "ptr") : _hic
 
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSVFW32.dll\ICImageDecompress", "ptr", hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "ptr")
+        result := DllCall("MSVFW32.dll\ICImageDecompress", "ptr", _hic, "uint", uiFlags, "ptr", lpbiIn, lpBitsMarshal, lpBits, "ptr", lpbiOut, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -25907,7 +25907,7 @@ class Multimedia {
      * The ICCompressorChoose function displays a dialog box in which a user can select a compressor. This function can display all registered compressors or list only the compressors that support a specific format.
      * @remarks
      * Before using this function, set the <b>cbSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-compvars">COMPVARS</a> structure to the size of the structure. Initialize the rest of the structure to zeros unless you want to specify some valid defaults for the dialog box. If specifying defaults, set the <i>dwFlags</i> member to ICMF_COMPVARS_VALID and initialize the other members of the structure. For more information about initializing the structure, see the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-icseqcompressframestart">ICSeqCompressFrameStart</a> function and <b>COMPVARS</b>.
-     * @param {HWND} hwnd Handle to a parent window for the dialog box.
+     * @param {HWND} _hwnd 
      * @param {Integer} uiFlags Applicable flags. The following values are defined.
      * 
      * <table>
@@ -25942,14 +25942,14 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iccompressorchoose
      * @since windows5.0
      */
-    static ICCompressorChoose(hwnd, uiFlags, pvIn, lpData, pc, lpszTitle) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ICCompressorChoose(_hwnd, uiFlags, pvIn, lpData, pc, lpszTitle) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
         pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", hwnd, "uint", uiFlags, pvInMarshal, pvIn, lpDataMarshal, lpData, "ptr", pc, "ptr", lpszTitle, "int")
+        result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", _hwnd, "uint", uiFlags, pvInMarshal, pvIn, lpDataMarshal, lpData, "ptr", pc, "ptr", lpszTitle, "int")
         return result
     }
 
@@ -26128,16 +26128,16 @@ class Multimedia {
      * @remarks
      * To select the palette of the DrawDib DC as a background palette, use the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-drawdibdraw">DrawDibDraw</a> function and specify the DDF_BACKGROUNDPAL flag.
      * @param {Pointer} hdd Handle to a DrawDib DC.
-     * @param {HDC} hdc Handle to the DC containing the palette.
+     * @param {HDC} _hdc 
      * @param {BOOL} fBackground Background palette flag. If this value is nonzero, the palette is a background palette. If this value is zero and the DC is attached to a window, the logical palette becomes the foreground palette when the window has the input focus. (A DC is attached to a window when the window class style is CS_OWNDC or when the DC is obtained by using the <a href="https://docs.microsoft.com/previous-versions//ms533241(v=vs.85)">GetDC</a> function.)
      * @returns {Integer} Returns the number of entries in the logical palette mapped to different values in the system palette. If an error occurs or no colors were updated, it returns zero.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-drawdibrealize
      * @since windows5.0
      */
-    static DrawDibRealize(hdd, hdc, fBackground) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawDibRealize(hdd, _hdc, fBackground) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("MSVFW32.dll\DrawDibRealize", "ptr", hdd, "ptr", hdc, "int", fBackground, "uint")
+        result := DllCall("MSVFW32.dll\DrawDibRealize", "ptr", hdd, "ptr", _hdc, "int", fBackground, "uint")
         return result
     }
 
@@ -26175,7 +26175,7 @@ class Multimedia {
      * 
      * If the parameters of <b>DrawDibBegin</b> have not changed, subsequent calls to the function have no effect.
      * @param {Pointer} hdd Handle to a DrawDib DC.
-     * @param {HDC} hdc Handle to a DC for drawing. This parameter is optional.
+     * @param {HDC} _hdc 
      * @param {Integer} dxDst Width, in <b>MM_TEXT</b> client units, of the destination rectangle.
      * @param {Integer} dyDst Height, in <b>MM_TEXT</b> client units, of the destination rectangle.
      * @param {Pointer<BITMAPINFOHEADER>} lpbi Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure containing the image format. The color table for the DIB follows the image format and the <b>biHeight</b> member must be a positive value.
@@ -26236,10 +26236,10 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-drawdibbegin
      * @since windows5.0
      */
-    static DrawDibBegin(hdd, hdc, dxDst, dyDst, lpbi, dxSrc, dySrc, wFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawDibBegin(hdd, _hdc, dxDst, dyDst, lpbi, dxSrc, dySrc, wFlags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("MSVFW32.dll\DrawDibBegin", "ptr", hdd, "ptr", hdc, "int", dxDst, "int", dyDst, "ptr", lpbi, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
+        result := DllCall("MSVFW32.dll\DrawDibBegin", "ptr", hdd, "ptr", _hdc, "int", dxDst, "int", dyDst, "ptr", lpbi, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
         return result
     }
 
@@ -26252,7 +26252,7 @@ class Multimedia {
      * 
      * Although they are set at different times, <b>DDF_UPDATE</b> and <b>DDF_DONTDRAW</b> can be used together to create composite images off-screen. When the off-screen image is complete, you can display the image by calling <b>DrawDibDraw</b>.
      * @param {Pointer} hdd Handle to a DrawDib DC.
-     * @param {HDC} hdc Handle to the DC.
+     * @param {HDC} _hdc 
      * @param {Integer} xDst The x-coordinate, in <b>MM_TEXT</b> client coordinates, of the upper left corner of the destination rectangle.
      * @param {Integer} yDst The y-coordinate, in <b>MM_TEXT</b> client coordinates, of the upper left corner of the destination rectangle.
      * @param {Integer} dxDst Width, in <b>MM_TEXT</b> client coordinates, of the destination rectangle. If <i>dxDst</i> is −1, the width of the bitmap is used.
@@ -26316,12 +26316,12 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-drawdibdraw
      * @since windows5.0
      */
-    static DrawDibDraw(hdd, hdc, xDst, yDst, dxDst, dyDst, lpbi, lpBits, xSrc, ySrc, dxSrc, dySrc, wFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawDibDraw(hdd, _hdc, xDst, yDst, dxDst, dyDst, lpbi, lpBits, xSrc, ySrc, dxSrc, dySrc, wFlags) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSVFW32.dll\DrawDibDraw", "ptr", hdd, "ptr", hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, lpBitsMarshal, lpBits, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
+        result := DllCall("MSVFW32.dll\DrawDibDraw", "ptr", hdd, "ptr", _hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, lpBitsMarshal, lpBits, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
         return result
     }
 
@@ -26683,13 +26683,13 @@ class Multimedia {
      * <td>Indicates a video stream.</td>
      * </tr>
      * </table>
-     * @param {Integer} lParam Count of the stream type. Identifies which occurrence of the specified stream type to access.
+     * @param {Integer} _lParam 
      * @returns {IAVIStream} Pointer to the new stream interface.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avifilegetstream
      * @since windows5.0
      */
-    static AVIFileGetStream(pfile, fccType, lParam) {
-        result := DllCall("AVIFIL32.dll\AVIFileGetStream", "ptr", pfile, "ptr*", &ppavi := 0, "uint", fccType, "int", lParam, "HRESULT")
+    static AVIFileGetStream(pfile, fccType, _lParam) {
+        result := DllCall("AVIFIL32.dll\AVIFileGetStream", "ptr", pfile, "ptr*", &ppavi := 0, "uint", fccType, "int", _lParam, "HRESULT")
         return IAVIStream(ppavi)
     }
 
@@ -27277,17 +27277,17 @@ class Multimedia {
      * <td>Indicates a video stream.</td>
      * </tr>
      * </table>
-     * @param {Integer} lParam Stream of the type specified in <i>fccType</i> to access. This parameter is zero-based; use zero to specify the first occurrence.
-     * @param {Integer} mode Access mode to use when opening the file. This function can open only existing streams, so the OF_CREATE mode flag cannot be used. For more information about the available flags for the <i>mode</i> parameter, see the <b>OpenFile</b> function.
+     * @param {Integer} _lParam 
+     * @param {Integer} _mode 
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier of the handler you want to use. If the value is <b>NULL</b>, the system chooses one from the registry based on the file extension or the file RIFF type.
      * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avistreamopenfromfilea
      * @since windows5.0
      */
-    static AVIStreamOpenFromFileA(szFile, fccType, lParam, mode, pclsidHandler) {
+    static AVIStreamOpenFromFileA(szFile, fccType, _lParam, _mode, pclsidHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "HRESULT")
+        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", _lParam, "uint", _mode, "ptr", pclsidHandler, "HRESULT")
         return IAVIStream(ppavi)
     }
 
@@ -27329,17 +27329,17 @@ class Multimedia {
      * <td>Indicates a video stream.</td>
      * </tr>
      * </table>
-     * @param {Integer} lParam Stream of the type specified in <i>fccType</i> to access. This parameter is zero-based; use zero to specify the first occurrence.
-     * @param {Integer} mode Access mode to use when opening the file. This function can open only existing streams, so the OF_CREATE mode flag cannot be used. For more information about the available flags for the <i>mode</i> parameter, see the <b>OpenFile</b> function.
+     * @param {Integer} _lParam 
+     * @param {Integer} _mode 
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier of the handler you want to use. If the value is <b>NULL</b>, the system chooses one from the registry based on the file extension or the file RIFF type.
      * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avistreamopenfromfilew
      * @since windows5.0
      */
-    static AVIStreamOpenFromFileW(szFile, fccType, lParam, mode, pclsidHandler) {
+    static AVIStreamOpenFromFileW(szFile, fccType, _lParam, _mode, pclsidHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "HRESULT")
+        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", _lParam, "uint", _mode, "ptr", pclsidHandler, "HRESULT")
         return IAVIStream(ppavi)
     }
 
@@ -27547,7 +27547,7 @@ class Multimedia {
      * An application must allocate memory for the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structures and the array of pointers to these structures.
      * 
      * The argument <i>ppavi</i> contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
-     * @param {HWND} hwnd Handle to the parent window for the Compression Options dialog box.
+     * @param {HWND} _hwnd 
      * @param {Integer} uiFlags Flags for displaying the Compression Options dialog box. The following flags are defined.
      * 
      * <table>
@@ -27577,12 +27577,12 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avisaveoptions
      * @since windows5.0
      */
-    static AVISaveOptions(hwnd, uiFlags, nStreams, ppavi, plpOptions) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static AVISaveOptions(_hwnd, uiFlags, nStreams, ppavi, plpOptions) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("AVIFIL32.dll\AVISaveOptions", "ptr", hwnd, "uint", uiFlags, "int", nStreams, "ptr*", ppavi, plpOptionsMarshal, plpOptions, "ptr")
+        result := DllCall("AVIFIL32.dll\AVISaveOptions", "ptr", _hwnd, "uint", uiFlags, "int", nStreams, "ptr*", ppavi, plpOptionsMarshal, plpOptions, "ptr")
         return result
     }
 
@@ -27735,15 +27735,15 @@ class Multimedia {
      * 
      * The argument ppstream is the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavistream">IAVIStream</a> interface.
      * @param {Integer} cfFormat Clipboard flag.
-     * @param {HANDLE} hGlobal Handle to stream data on the clipboard.
+     * @param {HANDLE} _hGlobal 
      * @returns {IAVIStream} Handle to the created stream.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avimakestreamfromclipboard
      * @since windows5.0
      */
-    static AVIMakeStreamFromClipboard(cfFormat, hGlobal) {
-        hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
+    static AVIMakeStreamFromClipboard(cfFormat, _hGlobal) {
+        _hGlobal := _hGlobal is Win32Handle ? NumGet(_hGlobal, "ptr") : _hGlobal
 
-        result := DllCall("AVIFIL32.dll\AVIMakeStreamFromClipboard", "uint", cfFormat, "ptr", hGlobal, "ptr*", &ppstream := 0, "HRESULT")
+        result := DllCall("AVIFIL32.dll\AVIMakeStreamFromClipboard", "uint", cfFormat, "ptr", _hGlobal, "ptr*", &ppstream := 0, "HRESULT")
         return IAVIStream(ppstream)
     }
 
@@ -28047,7 +28047,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines MCIWndCreate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window.
-     * @param {HINSTANCE} hInstance Handle to the module instance to associate with the MCIWnd window.
+     * @param {HINSTANCE} _hInstance 
      * @param {Integer} dwStyle Flags defining the window style. In addition to specifying the window styles used with the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function, you can specify the following styles to use with MCIWnd windows.
      * 
      * <table>
@@ -28135,12 +28135,12 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-mciwndcreatea
      * @since windows5.0
      */
-    static MCIWndCreateA(hwndParent, hInstance, dwStyle, szFile) {
+    static MCIWndCreateA(hwndParent, _hInstance, dwStyle, szFile) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("MSVFW32.dll\MCIWndCreateA", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
+        result := DllCall("MSVFW32.dll\MCIWndCreateA", "ptr", hwndParent, "ptr", _hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -28161,7 +28161,7 @@ class Multimedia {
      * > [!NOTE]
      * > The vfw.h header defines MCIWndCreate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window.
-     * @param {HINSTANCE} hInstance Handle to the module instance to associate with the MCIWnd window.
+     * @param {HINSTANCE} _hInstance 
      * @param {Integer} dwStyle Flags defining the window style. In addition to specifying the window styles used with the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function, you can specify the following styles to use with MCIWnd windows.
      * 
      * <table>
@@ -28249,12 +28249,12 @@ class Multimedia {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-mciwndcreatew
      * @since windows5.0
      */
-    static MCIWndCreateW(hwndParent, hInstance, dwStyle, szFile) {
+    static MCIWndCreateW(hwndParent, _hInstance, dwStyle, szFile) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        _hInstance := _hInstance is Win32Handle ? NumGet(_hInstance, "ptr") : _hInstance
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("MSVFW32.dll\MCIWndCreateW", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
+        result := DllCall("MSVFW32.dll\MCIWndCreateW", "ptr", hwndParent, "ptr", _hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }

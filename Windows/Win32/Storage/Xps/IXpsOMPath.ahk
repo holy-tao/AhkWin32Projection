@@ -1811,11 +1811,11 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Makes a deep copy of the interface. (IXpsOMPath.Clone)
-     * @returns {IXpsOMPath} A pointer to the copy of the interface.
+     * @returns {IXpsOMPath} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-clone
      */
     Clone() {
-        result := ComCall(66, this, "ptr*", &path := 0, "HRESULT")
-        return IXpsOMPath(path)
+        result := ComCall(66, this, "ptr*", &_path := 0, "HRESULT")
+        return IXpsOMPath(_path)
     }
 }

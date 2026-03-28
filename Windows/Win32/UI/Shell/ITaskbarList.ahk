@@ -60,52 +60,46 @@ class ITaskbarList extends IUnknown{
      * Any type of window can be added to the taskbar, but it is recommended that the window at least have the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_CAPTION</a> style.
      * 
      * Any window added with this method must be removed with the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-deletetab">DeleteTab</a> method when the added window is destroyed.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be added to the taskbar.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-addtab
      */
-    AddTab(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    AddTab(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(4, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(4, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
     /**
      * Deletes an item from the taskbar.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be deleted from the taskbar.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-deletetab
      */
-    DeleteTab(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    DeleteTab(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(5, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(5, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
     /**
      * Activates an item on the taskbar. The window is not actually activated; the window's item on the taskbar is merely displayed as active.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window on the taskbar to be displayed as active.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-activatetab
      */
-    ActivateTab(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ActivateTab(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -113,18 +107,16 @@ class ITaskbarList extends IUnknown{
      * Marks a taskbar item as active but does not visually activate it.
      * @remarks
      * <b>SetActiveAlt</b> marks the item associated with <i>hwnd</i> as the currently active item for the window's process without changing the pressed state of any item. Any user action that would activate a different tab in that process will activate the tab associated with <i>hwnd</i> instead. The active state of the window's item is not guaranteed to be preserved when the process associated with <i>hwnd</i> is not active. To ensure that a given tab is always active, call <b>SetActiveAlt</b> whenever any of your windows are activated. Calling <b>SetActiveAlt</b> with a <b>NULL</b> <i>hwnd</i> clears this state.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window to be marked as active.
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-setactivealt
      */
-    SetActiveAlt(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetActiveAlt(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(7, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(7, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 }

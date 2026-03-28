@@ -74,13 +74,13 @@ class ISettingsEngine extends IUnknown{
 
     /**
      * Retrieves a text message for a returned HRESULT code.
-     * @param {Integer} HResult The HRESULT code for which this method retrieves the error description.
+     * @param {Integer} _HResult 
      * @returns {BSTR} The text message that corresponds to the HRESULT code.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-geterrordescription
      */
-    GetErrorDescription(HResult) {
+    GetErrorDescription(_HResult) {
         Message := BSTR()
-        result := ComCall(5, this, "int", HResult, "ptr", Message, "HRESULT")
+        result := ComCall(5, this, "int", _HResult, "ptr", Message, "HRESULT")
         return Message
     }
 
@@ -97,14 +97,14 @@ class ISettingsEngine extends IUnknown{
     /**
      * Gets the status of the schema store.
      * @param {Pointer<Void>} Reserved Reserved. Must be <b>NULL</b>.
-     * @returns {Integer} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmuserstatus">WcmUserStatus</a> value that indicates the status of the store.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getstorestatus
      */
     GetStoreStatus(Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, ReservedMarshal, Reserved, "int*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(7, this, ReservedMarshal, Reserved, "int*", &_Status := 0, "HRESULT")
+        return _Status
     }
 
     /**

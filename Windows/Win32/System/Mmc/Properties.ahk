@@ -76,8 +76,8 @@ class Properties extends IDispatch{
     Item(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, "ptr", Name, "ptr*", &Property := 0, "HRESULT")
-        return Property(Property)
+        result := ComCall(8, this, "ptr", Name, "ptr*", &_Property := 0, "HRESULT")
+        return Property(_Property)
     }
 
     /**

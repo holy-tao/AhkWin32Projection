@@ -965,19 +965,19 @@ class IscsiDisc {
      * @param {PWSTR} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
      * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
      * @param {Pointer<Integer>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationw
      * @since windows6.0.6000
      */
-    static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_R) {
+    static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, _Buffer) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -1002,19 +1002,19 @@ class IscsiDisc {
      * @param {PSTR} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
      * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
      * @param {Pointer<Integer>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationa
      * @since windows6.0.6000
      */
-    static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_R) {
+    static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, _Buffer) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, "uint")
         return result
     }
 
@@ -1266,17 +1266,17 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOLEAN} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsw
      * @since windows6.0.6000
      */
-    static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiTargetsW(ForceUpdate, BufferSize, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -1287,17 +1287,17 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOLEAN} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa
      * @since windows6.0.6000
      */
-    static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiTargetsA(ForceUpdate, BufferSize, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -2314,19 +2314,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
      *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlistw
      * @since windows6.0.6000
      */
-    static ReportIScsiInitiatorListW(BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiInitiatorListW(BufferSize, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -2337,19 +2337,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
      *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlista
      * @since windows6.0.6000
      */
-    static ReportIScsiInitiatorListA(BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiInitiatorListA(BufferSize, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -2704,15 +2704,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address IP address or the DNS name of the server.
+     * @param {PWSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsserverw
      * @since windows6.0.6000
      */
-    static AddISNSServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddISNSServerW(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\AddISNSServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddISNSServerW", "ptr", _Address, "uint")
         return result
     }
 
@@ -2729,15 +2729,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address IP address or the DNS name of the server.
+     * @param {PSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsservera
      * @since windows6.0.6000
      */
-    static AddISNSServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddISNSServerA(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\AddISNSServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddISNSServerA", "ptr", _Address, "uint")
         return result
     }
 
@@ -2754,15 +2754,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address The DNS or IP Address of the server to remove.
+     * @param {PWSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsserverw
      * @since windows6.0.6000
      */
-    static RemoveISNSServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveISNSServerW(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\RemoveISNSServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveISNSServerW", "ptr", _Address, "uint")
         return result
     }
 
@@ -2779,15 +2779,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address The DNS or IP Address of the server to remove.
+     * @param {PSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsservera
      * @since windows6.0.6000
      */
-    static RemoveISNSServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveISNSServerA(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\RemoveISNSServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveISNSServerA", "ptr", _Address, "uint")
         return result
     }
 
@@ -2805,15 +2805,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address The DNS or IP Address of the iSNS server.
+     * @param {PWSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsserverw
      * @since windows6.0.6000
      */
-    static RefreshISNSServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RefreshISNSServerW(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\RefreshISNSServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RefreshISNSServerW", "ptr", _Address, "uint")
         return result
     }
 
@@ -2831,15 +2831,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address The DNS or IP Address of the iSNS server.
+     * @param {PSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsservera
      * @since windows6.0.6000
      */
-    static RefreshISNSServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RefreshISNSServerA(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\RefreshISNSServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RefreshISNSServerA", "ptr", _Address, "uint")
         return result
     }
 
@@ -2850,19 +2850,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
      * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlistw
      * @since windows6.0.6000
      */
-    static ReportISNSServerListW(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportISNSServerListW(BufferSizeInChar, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -2873,19 +2873,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
      * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlista
      * @since windows6.0.6000
      */
-    static ReportISNSServerListA(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportISNSServerListA(BufferSizeInChar, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -3180,17 +3180,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesw
      * @since windows6.0.6000
      */
-    static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportPersistentIScsiDevicesW(BufferSizeInChar, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -3200,17 +3200,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesa
      * @since windows6.0.6000
      */
-    static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportPersistentIScsiDevicesA(BufferSizeInChar, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -3275,7 +3275,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address A string that represents the IP address or DNS name associated with the RADIUS server.
+     * @param {PWSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
      * <table>
@@ -3298,10 +3298,10 @@ class IscsiDisc {
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addradiusserverw
      * @since windows6.0.6000
      */
-    static AddRadiusServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddRadiusServerW(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\AddRadiusServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddRadiusServerW", "ptr", _Address, "uint")
         return result
     }
 
@@ -3316,7 +3316,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address A string that represents the IP address or DNS name associated with the RADIUS server.
+     * @param {PSTR} _Address 
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
      * <table>
@@ -3339,10 +3339,10 @@ class IscsiDisc {
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addradiusservera
      * @since windows6.0.6000
      */
-    static AddRadiusServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddRadiusServerA(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\AddRadiusServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddRadiusServerA", "ptr", _Address, "uint")
         return result
     }
 
@@ -3351,15 +3351,15 @@ class IscsiDisc {
      * @remarks
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address A string that represents the IP address or RADIUS server name.
+     * @param {PWSTR} _Address 
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusserverw
      * @since windows6.0.6000
      */
-    static RemoveRadiusServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveRadiusServerW(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerW", "ptr", _Address, "uint")
         return result
     }
 
@@ -3368,15 +3368,15 @@ class IscsiDisc {
      * @remarks
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address A string that represents the IP address or RADIUS server name.
+     * @param {PSTR} _Address 
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusservera
      * @since windows6.0.6000
      */
-    static RemoveRadiusServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveRadiusServerA(_Address) {
+        _Address := _Address is String ? StrPtr(_Address) : _Address
 
-        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerA", "ptr", _Address, "uint")
         return result
     }
 
@@ -3386,17 +3386,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} _Buffer 
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlistw
      * @since windows6.0.6000
      */
-    static ReportRadiusServerListW(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportRadiusServerListW(BufferSizeInChar, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, "uint")
         return result
     }
 
@@ -3406,17 +3406,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} _Buffer 
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlista
      * @since windows6.0.6000
      */
-    static ReportRadiusServerListA(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportRadiusServerListA(BufferSizeInChar, _Buffer) {
+        _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, "uint")
         return result
     }
 

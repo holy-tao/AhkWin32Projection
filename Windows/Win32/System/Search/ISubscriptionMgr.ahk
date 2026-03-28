@@ -38,14 +38,14 @@ class ISubscriptionMgr extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszURL 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
-    DeleteSubscription(pwszURL, hwnd) {
+    DeleteSubscription(pwszURL, _hwnd) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", hwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszURL, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -109,20 +109,20 @@ class ISubscriptionMgr extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszURL 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
-    ShowSubscriptionProperties(pwszURL, hwnd) {
+    ShowSubscriptionProperties(pwszURL, _hwnd) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(9, this, "ptr", pwszURL, "ptr", hwnd, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszURL, "ptr", _hwnd, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pwszURL 
      * @param {PWSTR} pwszFriendlyName 
      * @param {Integer} dwFlags 
@@ -130,12 +130,12 @@ class ISubscriptionMgr extends IUnknown{
      * @param {Pointer<SUBSCRIPTIONINFO>} pInfo 
      * @returns {HRESULT} 
      */
-    CreateSubscription(hwnd, pwszURL, pwszFriendlyName, dwFlags, subsType, pInfo) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CreateSubscription(_hwnd, pwszURL, pwszFriendlyName, dwFlags, subsType, pInfo) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
         pwszFriendlyName := pwszFriendlyName is String ? StrPtr(pwszFriendlyName) : pwszFriendlyName
 
-        result := ComCall(10, this, "ptr", hwnd, "ptr", pwszURL, "ptr", pwszFriendlyName, "uint", dwFlags, "int", subsType, "ptr", pInfo, "HRESULT")
+        result := ComCall(10, this, "ptr", _hwnd, "ptr", pwszURL, "ptr", pwszFriendlyName, "uint", dwFlags, "int", subsType, "ptr", pInfo, "HRESULT")
         return result
     }
 }

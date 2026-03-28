@@ -249,13 +249,12 @@ class IGroupPolicyObject extends IUnknown{
      * When you have finished using the registry handle, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function to close the handle.
      * @param {Integer} dwSection 
-     * @param {Pointer<HKEY>} hKey Receives a handle to the registry key. This handle is opened with all access rights. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
+     * @param {Pointer<HKEY>} _hKey 
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h. If the registry information is not loaded, the method returns <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getregistrykey
      */
-    GetRegistryKey(dwSection, hKey) {
-        result := ComCall(15, this, "uint", dwSection, "ptr", hKey, "HRESULT")
+    GetRegistryKey(dwSection, _hKey) {
+        result := ComCall(15, this, "uint", dwSection, "ptr", _hKey, "HRESULT")
         return result
     }
 

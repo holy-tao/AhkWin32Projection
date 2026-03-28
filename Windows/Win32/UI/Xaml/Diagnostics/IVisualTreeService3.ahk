@@ -38,15 +38,15 @@ class IVisualTreeService3 extends IVisualTreeService2{
      * Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nf-xamlom-ivisualtreeservice3-getdictionaryitem">GetDictionaryItem</a> to get a <i>resourceContext</i> and give better resolution context for <b>ResolveResource</b>.
      * @param {Integer} resourceContext The context of the resource.
      * @param {PWSTR} resourceName The name of the resource.
-     * @param {Integer} resourceType The type of the resource.
+     * @param {Integer} _resourceType 
      * @param {Integer} propertyIndex The index of the property to apply the resource to.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-resolveresource
      */
-    ResolveResource(resourceContext, resourceName, resourceType, propertyIndex) {
+    ResolveResource(resourceContext, resourceName, _resourceType, propertyIndex) {
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
 
-        result := ComCall(19, this, "uint", resourceContext, "ptr", resourceName, "int", resourceType, "uint", propertyIndex, "HRESULT")
+        result := ComCall(19, this, "uint", resourceContext, "ptr", resourceName, "int", _resourceType, "uint", propertyIndex, "HRESULT")
         return result
     }
 

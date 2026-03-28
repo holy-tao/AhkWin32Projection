@@ -71,7 +71,7 @@ class IWbemObjectSink extends IUnknown{
      * If you do not specify <b>WBEM_FLAG_SEND_STATUS</b> when calling your provider or service method, you are guaranteed to receive one and only one call to 
      * <b>SetStatus</b>.
      * @param {Integer} lFlags Bitmask of status information. The status of the operation can be obtained by examining the <i>hResult</i> parameter.
-     * @param {HRESULT} hResult This parameter is set to the <b>HRESULT</b> of the asynchronous operation or notification. This is either an error code, if an error occurred, or the amount of progress that has been made on an asynchronous call.
+     * @param {HRESULT} _hResult 
      * @param {BSTR} strParam Receives a pointer to a read-only <b>BSTR</b>, if the original asynchronous operation returns a string. For example, when using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putinstanceasync">PutInstanceAsync</a>, 
      * <b>SetStatus</b> is called with this parameter set to the object path of the newly created instance.
@@ -80,10 +80,10 @@ class IWbemObjectSink extends IUnknown{
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus
      */
-    SetStatus(lFlags, hResult, strParam, pObjParam) {
+    SetStatus(lFlags, _hResult, strParam, pObjParam) {
         strParam := strParam is String ? BSTR.Alloc(strParam).Value : strParam
 
-        result := ComCall(4, this, "int", lFlags, "int", hResult, "ptr", strParam, "ptr", pObjParam, "HRESULT")
+        result := ComCall(4, this, "int", lFlags, "int", _hResult, "ptr", strParam, "ptr", pObjParam, "HRESULT")
         return result
     }
 }

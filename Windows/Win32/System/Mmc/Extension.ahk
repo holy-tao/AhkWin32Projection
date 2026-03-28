@@ -107,9 +107,9 @@ class Extension extends IDispatch{
      * @returns {BSTR} 
      */
     get_Version() {
-        Version := BSTR()
-        result := ComCall(9, this, "ptr", Version, "HRESULT")
-        return Version
+        _Version := BSTR()
+        result := ComCall(9, this, "ptr", _Version, "HRESULT")
+        return _Version
     }
 
     /**
@@ -117,8 +117,8 @@ class Extension extends IDispatch{
      * @returns {Extensions} 
      */
     get_Extensions() {
-        result := ComCall(10, this, "ptr*", &Extensions := 0, "HRESULT")
-        return Extensions(Extensions)
+        result := ComCall(10, this, "ptr*", &_Extensions := 0, "HRESULT")
+        return Extensions(_Extensions)
     }
 
     /**

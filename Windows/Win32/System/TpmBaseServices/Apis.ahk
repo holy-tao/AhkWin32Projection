@@ -374,7 +374,7 @@ class TpmBaseServices {
      * Submits a Trusted Platform Module (TPM) command to TPM Base Services (TBS) for processing.
      * @param {Pointer<Void>} hContext The handle of the context that is submitting the command.
      * @param {Integer} Locality 
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @param {Pointer} pabCommand A pointer to a buffer that contains the TPM command to process.
      * @param {Integer} cbCommand The length, in bytes, of the command.
      * @param {Pointer} pabResult A pointer to a buffer to receive the result of the TPM command.  This buffer can be the same as <i>pabCommand</i>.
@@ -490,11 +490,11 @@ class TpmBaseServices {
      * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsip_submit_command
      * @since windows6.0.6000
      */
-    static Tbsip_Submit_Command(hContext, Locality, Priority, pabCommand, cbCommand, pabResult, pcbResult) {
+    static Tbsip_Submit_Command(hContext, Locality, _Priority, pabCommand, cbCommand, pabResult, pcbResult) {
         hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("tbs.dll\Tbsip_Submit_Command", hContextMarshal, hContext, "uint", Locality, "uint", Priority, "ptr", pabCommand, "uint", cbCommand, "ptr", pabResult, pcbResultMarshal, pcbResult, "uint")
+        result := DllCall("tbs.dll\Tbsip_Submit_Command", hContextMarshal, hContext, "uint", Locality, "uint", _Priority, "ptr", pabCommand, "uint", cbCommand, "ptr", pabResult, pcbResultMarshal, pcbResult, "uint")
         return result
     }
 
@@ -911,7 +911,7 @@ class TpmBaseServices {
 
     /**
      * Obtains the version of the TPM on the computer.
-     * @param {Integer} Size Size of the memory location.
+     * @param {Integer} _Size 
      * @param {Pointer} Info A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tbs/ns-tbs-tpm_device_info">TPM_DEVICE_INFO</a> structure is returned containing the version information about the TPM. The location must be large enough to hold four 32-bit values.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
@@ -962,8 +962,8 @@ class TpmBaseServices {
      * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_getdeviceinfo
      * @since windows8.0
      */
-    static Tbsi_GetDeviceInfo(Size, Info) {
-        result := DllCall("tbs.dll\Tbsi_GetDeviceInfo", "uint", Size, "ptr", Info, "uint")
+    static Tbsi_GetDeviceInfo(_Size, Info) {
+        result := DllCall("tbs.dll\Tbsi_GetDeviceInfo", "uint", _Size, "ptr", Info, "uint")
         return result
     }
 

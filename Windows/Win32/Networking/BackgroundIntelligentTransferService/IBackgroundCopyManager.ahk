@@ -170,7 +170,7 @@ class IBackgroundCopyManager extends IUnknown{
      * Descriptions for HTTP errors are  localized.
      * 
      * <b>Windows XP/2000:  </b>Descriptions for HTTP errors are not localized.
-     * @param {HRESULT} hResult Error code from a previous call to a BITS method.
+     * @param {HRESULT} _hResult 
      * @param {Integer} LanguageId Identifies the language identifier to use to generate the description. To create the language identifier, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a> macro. For example, to specify U.S. English, use the following code sample. 
      * 
@@ -186,8 +186,8 @@ class IBackgroundCopyManager extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppErrorDescription</i> when done.
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-geterrordescription
      */
-    GetErrorDescription(hResult, LanguageId) {
-        result := ComCall(6, this, "int", hResult, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "int")
+    GetErrorDescription(_hResult, LanguageId) {
+        result := ComCall(6, this, "int", _hResult, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "int")
         if(result != 0) {
             Com.CoTaskMemFree(pErrorDescription)
             throw OSError()

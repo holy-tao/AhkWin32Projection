@@ -51,15 +51,15 @@ class HostComputeSystem {
      * HcsCreateOperation
      * @remarks
      * Refer to the async model sample code for details on how to use HCS operations.
-     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HCS_OPERATION_COMPLETION>} callback Optional pointer to an [`HCS_OPERATION_COMPLETION`](./HCS_OPERATION_COMPLETION.md) callback to be invoked when the operation completes.
      * @returns {HCS_OPERATION} Returns the `HCS_OPERATION` handle to the newly created operation on success, `NULL` if resources required for the operation couldn't be allocated. It is the responsibility of the caller to release the operation using [`HcsCloseOperation`](./HcsCloseOperation.md) once it is no longer used.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateOperation
      */
-    static HcsCreateOperation(context, callback) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static HcsCreateOperation(_context, callback) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computecore.dll\HcsCreateOperation", contextMarshal, context, "ptr", callback, "ptr")
+        result := DllCall("computecore.dll\HcsCreateOperation", _contextMarshal, _context, "ptr", callback, "ptr")
         resultHandle := HCS_OPERATION({Value: result}, True)
         return resultHandle
     }
@@ -67,14 +67,14 @@ class HostComputeSystem {
     /**
      * 
      * @param {Integer} eventTypes 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
      * @returns {HCS_OPERATION} 
      */
-    static HcsCreateOperationWithNotifications(eventTypes, context, callback) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static HcsCreateOperationWithNotifications(eventTypes, _context, callback) {
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", "int", eventTypes, contextMarshal, context, "ptr", callback, "ptr")
+        result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", "int", eventTypes, _contextMarshal, _context, "ptr", callback, "ptr")
         resultHandle := HCS_OPERATION({Value: result}, True)
         return resultHandle
     }
@@ -107,16 +107,16 @@ class HostComputeSystem {
     /**
      * HcsSetOperationContext
      * @param {HCS_OPERATION} operation The handle to an active operation.
-     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<Void>} _context 
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationContext
      */
-    static HcsSetOperationContext(operation, context) {
+    static HcsSetOperationContext(operation, _context) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computecore.dll\HcsSetOperationContext", "ptr", operation, contextMarshal, context, "HRESULT")
+        result := DllCall("computecore.dll\HcsSetOperationContext", "ptr", operation, _contextMarshal, _context, "HRESULT")
         return result
     }
 
@@ -220,15 +220,15 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {Integer} type 
      * @param {PWSTR} uri 
-     * @param {HANDLE} handle 
+     * @param {HANDLE} _handle 
      * @returns {HRESULT} 
      */
-    static HcsAddResourceToOperation(operation, type, uri, handle) {
+    static HcsAddResourceToOperation(operation, type, uri, _handle) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
         uri := uri is String ? StrPtr(uri) : uri
-        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
 
-        result := DllCall("computecore.dll\HcsAddResourceToOperation", "ptr", operation, "int", type, "ptr", uri, "ptr", handle, "HRESULT")
+        result := DllCall("computecore.dll\HcsAddResourceToOperation", "ptr", operation, "int", type, "ptr", uri, "ptr", _handle, "HRESULT")
         return result
     }
 
@@ -291,17 +291,17 @@ class HostComputeSystem {
     /**
      * HcsSetOperationCallback
      * @param {HCS_OPERATION} operation The handle to an active operation.
-     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HCS_OPERATION_COMPLETION>} callback The target [`HCS_OPERATION_COMPLETION`](./HCS_OPERATION_COMPLETION.md) callback that is invoked on completion of an operation.
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationCallback
      */
-    static HcsSetOperationCallback(operation, context, callback) {
+    static HcsSetOperationCallback(operation, _context, callback) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computecore.dll\HcsSetOperationCallback", "ptr", operation, contextMarshal, context, "ptr", callback, "HRESULT")
+        result := DllCall("computecore.dll\HcsSetOperationCallback", "ptr", operation, _contextMarshal, _context, "ptr", callback, "HRESULT")
         return result
     }
 
@@ -339,17 +339,17 @@ class HostComputeSystem {
      * @param {PWSTR} id Unique Id identifying the compute system.
      * @param {PWSTR} configuration JSON document specifying the settings of the [compute system](./../SchemaReference.md#ComputeSystem). The compute system document is expected to have a `Container`, `VirtualMachine` or `HostedSystem` property set since they are mutually exclusive.
      * @param {HCS_OPERATION} operation The handle to the operation that tracks the create operation.
-     * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor Reserved for future use, must be `NULL`.
+     * @param {Pointer<SECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {HCS_SYSTEM} Receives a handle to the newly created compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsCreateComputeSystem
      */
-    static HcsCreateComputeSystem(id, configuration, operation, securityDescriptor) {
+    static HcsCreateComputeSystem(id, configuration, operation, _securityDescriptor) {
         id := id is String ? StrPtr(id) : id
         configuration := configuration is String ? StrPtr(configuration) : configuration
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         computeSystem := HCS_SYSTEM()
-        result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, "ptr", operation, "ptr", securityDescriptor, "ptr", computeSystem, "HRESULT")
+        result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, "ptr", operation, "ptr", _securityDescriptor, "ptr", computeSystem, "HRESULT")
         return computeSystem
     }
 
@@ -632,17 +632,17 @@ class HostComputeSystem {
      * HcsSetComputeSystemCallback
      * @param {HCS_SYSTEM} computeSystem The handle to the compute system.
      * @param {Integer} callbackOptions The option for callback, using one from [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
-     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback The target [`HCS_EVENT_CALLBACK`](./HCS_EVENT_CALLBACK.md) for compute system events.
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetComputeSystemCallback
      */
-    static HcsSetComputeSystemCallback(computeSystem, callbackOptions, context, callback) {
+    static HcsSetComputeSystemCallback(computeSystem, callbackOptions, _context, callback) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computecore.dll\HcsSetComputeSystemCallback", "ptr", computeSystem, "int", callbackOptions, contextMarshal, context, "ptr", callback, "HRESULT")
+        result := DllCall("computecore.dll\HcsSetComputeSystemCallback", "ptr", computeSystem, "int", callbackOptions, _contextMarshal, _context, "ptr", callback, "HRESULT")
         return result
     }
 
@@ -717,17 +717,17 @@ class HostComputeSystem {
      * @param {HCS_SYSTEM} computeSystem The handle to the compute system in which to start the process.
      * @param {PWSTR} processParameters JSON document of [ProcessParameters](./../SchemaReference.md#ProcessParameters) specifying the command line and environment for the process.
      * @param {HCS_OPERATION} operation Handle to the operation that tracks the process creation operation.
-     * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor Reserved for future use, must be `NULL`.
+     * @param {Pointer<SECURITY_DESCRIPTOR>} _securityDescriptor 
      * @returns {HCS_PROCESS} Receives the `HCS_PROCESS` handle to the newly created process.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateProcess
      */
-    static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor) {
+    static HcsCreateProcess(computeSystem, processParameters, operation, _securityDescriptor) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         process := HCS_PROCESS()
-        result := DllCall("computecore.dll\HcsCreateProcess", "ptr", computeSystem, "ptr", processParameters, "ptr", operation, "ptr", securityDescriptor, "ptr", process, "HRESULT")
+        result := DllCall("computecore.dll\HcsCreateProcess", "ptr", computeSystem, "ptr", processParameters, "ptr", operation, "ptr", _securityDescriptor, "ptr", process, "HRESULT")
         return process
     }
 
@@ -856,17 +856,17 @@ class HostComputeSystem {
      * HcsSetProcessCallback
      * @param {HCS_PROCESS} process The handle to the process for that the callback is registered.
      * @param {Integer} callbackOptions The option for callback, using [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
-     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<Void>} _context 
      * @param {Pointer<HCS_EVENT_CALLBACK>} callback Callback function that is invoked for events on the process.
      * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetProcessCallback
      */
-    static HcsSetProcessCallback(process, callbackOptions, context, callback) {
+    static HcsSetProcessCallback(process, callbackOptions, _context, callback) {
         process := process is Win32Handle ? NumGet(process, "ptr") : process
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computecore.dll\HcsSetProcessCallback", "ptr", process, "int", callbackOptions, contextMarshal, context, "ptr", callback, "HRESULT")
+        result := DllCall("computecore.dll\HcsSetProcessCallback", "ptr", process, "int", callbackOptions, _contextMarshal, _context, "ptr", callback, "HRESULT")
         return result
     }
 

@@ -73,17 +73,16 @@ class ITaskFolder extends IDispatch{
 
     /**
      * Gets a folder that contains tasks at a specified location.
-     * @param {BSTR} path The path (location) to the folder. Do not use a backslash following the last folder name in the path. The root task folder is specified with a backslash (\\). An example of a task folder path, under the root task folder,
-     *  is \MyTaskFolder. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
+     * @param {BSTR} _path 
      * @returns {ITaskFolder} The folder at the specified location.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-getfolder
      */
-    GetFolder(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    GetFolder(_path) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(9, this, "ptr", path, "ptr*", &ppFolder := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", _path, "ptr*", &ppFolder := 0, "HRESULT")
         return ITaskFolder(ppFolder)
     }
 
@@ -140,17 +139,16 @@ class ITaskFolder extends IDispatch{
 
     /**
      * Gets a task at a specified location in a folder.
-     * @param {BSTR} path The path (location) to the task in a folder. The root task folder is specified with a backslash (\\). An example of a task folder path, under the root task folder,
-     *  is \MyTaskFolder. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
+     * @param {BSTR} _path 
      * @returns {IRegisteredTask} The task at the specified location.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iregisteredtask">IRegisteredTask</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-gettask
      */
-    GetTask(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    GetTask(_path) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(13, this, "ptr", path, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", _path, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -193,9 +191,7 @@ class ITaskFolder extends IDispatch{
      * Passing the TASK_VALIDATE_ONLY and TASK_IGNORE_REGISTRATION_TRIGGERS values together to the <i>flags</i> parameter is an invalid argument.
      * 
      * If a task defines a network that does not exist in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_networksettings">NetworkSettings</a> settings of the task, the <b>ITaskFolder::RegisterTask</b>  method will return error 0x8000ffff when the task is registered.
-     * @param {BSTR} path The task name. If this value is <b>NULL</b>, the task will be registered in the root task folder and the task name will be a GUID value that is created by the Task Scheduler service.
-     * 
-     * A task name cannot begin or end with a space character. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
+     * @param {BSTR} _path 
      * @param {BSTR} xmlText An XML-formatted definition of the task.
      * 
      * The following topics contain tasks defined using XML.<ul>
@@ -405,11 +401,11 @@ class ITaskFolder extends IDispatch{
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iregisteredtask">IRegisteredTask</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-registertask
      */
-    RegisterTask(path, xmlText, flags, userId, password, logonType, sddl) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    RegisterTask(_path, xmlText, flags, userId, password, logonType, sddl) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
         xmlText := xmlText is String ? BSTR.Alloc(xmlText).Value : xmlText
 
-        result := ComCall(16, this, "ptr", path, "ptr", xmlText, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", _path, "ptr", xmlText, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -428,9 +424,7 @@ class ITaskFolder extends IDispatch{
      * 
      * 
      * If a task defines a network that does not exist in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itasksettings-get_networksettings">NetworkSettings</a> settings of the task, the <b>ITaskFolder::RegisterTaskDefinition</b>  method will return error 0x8000ffff when the task is registered.
-     * @param {BSTR} path The name of the task. If this value is <b>NULL</b>, the task will be registered in the root task folder and the task name will be a GUID value created by the Task Scheduler service.
-     * 
-     * A task name cannot begin or end with a space character. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
+     * @param {BSTR} _path 
      * @param {ITaskDefinition} pDefinition The definition of the registered task.
      * @param {Integer} flags A <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/ne-taskschd-task_creation">TASK_CREATION</a> constant.
      * 
@@ -616,10 +610,10 @@ class ITaskFolder extends IDispatch{
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iregisteredtask">IRegisteredTask</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-registertaskdefinition
      */
-    RegisterTaskDefinition(path, pDefinition, flags, userId, password, logonType, sddl) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    RegisterTaskDefinition(_path, pDefinition, flags, userId, password, logonType, sddl) {
+        _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(17, this, "ptr", path, "ptr", pDefinition, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", _path, "ptr", pDefinition, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 

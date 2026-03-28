@@ -600,12 +600,12 @@ class IInkEdit extends IDispatch{
      * Gets or sets a value that allows for toggling the appearance of the selection between ink and text. (Put)
      * @remarks
      * This property is run time only.
-     * @param {Integer} InkDisplayMode 
+     * @param {Integer} _InkDisplayMode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selinksdisplaymode
      */
-    put_SelInksDisplayMode(InkDisplayMode) {
-        result := ComCall(25, this, "int", InkDisplayMode, "HRESULT")
+    put_SelInksDisplayMode(_InkDisplayMode) {
+        result := ComCall(25, this, "int", _InkDisplayMode, "HRESULT")
         return result
     }
 

@@ -50,12 +50,12 @@ class IDxcUtils extends IUnknown{
     /**
      * 
      * @param {Pointer} pData 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Integer} codePage 
      * @returns {IDxcBlobEncoding} 
      */
-    CreateBlobFromPinned(pData, size, codePage) {
-        result := ComCall(4, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+    CreateBlobFromPinned(pData, _size, codePage) {
+        result := ComCall(4, this, "ptr", pData, "uint", _size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(ppBlobEncoding)
     }
 
@@ -63,25 +63,25 @@ class IDxcUtils extends IUnknown{
      * 
      * @param {Pointer} pData 
      * @param {IMalloc} pIMalloc 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Integer} codePage 
      * @returns {IDxcBlobEncoding} 
      */
-    MoveToBlob(pData, pIMalloc, size, codePage) {
-        result := ComCall(5, this, "ptr", pData, "ptr", pIMalloc, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+    MoveToBlob(pData, pIMalloc, _size, codePage) {
+        result := ComCall(5, this, "ptr", pData, "ptr", pIMalloc, "uint", _size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(ppBlobEncoding)
     }
 
     /**
      * The CreateBlob function creates an empty BLOB.
      * @param {Pointer} pData 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Integer} codePage 
      * @returns {IDxcBlobEncoding} 
      * @see https://learn.microsoft.com/windows/win32/NetMon2/createblob
      */
-    CreateBlob(pData, size, codePage) {
-        result := ComCall(6, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+    CreateBlob(pData, _size, codePage) {
+        result := ComCall(6, this, "ptr", pData, "uint", _size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(ppBlobEncoding)
     }
 

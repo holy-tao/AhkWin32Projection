@@ -74,9 +74,9 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_path
      */
     get_Path() {
-        path := BSTR()
-        result := ComCall(22, this, "ptr", path, "HRESULT")
-        return path
+        _path := BSTR()
+        result := ComCall(22, this, "ptr", _path, "HRESULT")
+        return _path
     }
 
     /**

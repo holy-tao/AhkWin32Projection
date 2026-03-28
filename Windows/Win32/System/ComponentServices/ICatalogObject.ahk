@@ -74,14 +74,14 @@ class ICatalogObject extends IDispatch{
      * @remarks
      * For information regarding properties exposed by catalog objects in each collection, see <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
      * @param {BSTR} bstrPropName 
-     * @param {VARIANT} val 
+     * @param {VARIANT} _val 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-put_value
      */
-    put_Value(bstrPropName, val) {
+    put_Value(bstrPropName, _val) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(8, this, "ptr", bstrPropName, "ptr", val, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrPropName, "ptr", _val, "HRESULT")
         return result
     }
 

@@ -99,9 +99,7 @@ class WindowsConnectionManager {
      * @param {PWSTR} strProfileName Type: <b>LPCWSTR</b>
      * 
      * The name of the profile. If querying a non-global property (<b>connection_cost</b>, <b>dataplan_status</b>, or <b>hotspot_profile</b>), the profile must be specified or the call will fail.
-     * @param {Integer} Property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_property">WCM_PROPERTY</a></b>
-     * 
-     * The WCM property to query.
+     * @param {Integer} _Property 
      * @param {Pointer<Integer>} pdwDataSize Type: <b>PDWORD</b>
      * 
      * The size of the returned property value.
@@ -114,7 +112,7 @@ class WindowsConnectionManager {
      * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmqueryproperty
      * @since windows8.0
      */
-    static WcmQueryProperty(pInterface, strProfileName, Property, pdwDataSize, ppData) {
+    static WcmQueryProperty(pInterface, strProfileName, _Property, pdwDataSize, ppData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
         strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
@@ -122,7 +120,7 @@ class WindowsConnectionManager {
         pdwDataSizeMarshal := pdwDataSize is VarRef ? "uint*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, pdwDataSizeMarshal, pdwDataSize, ppDataMarshal, ppData, "uint")
+        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", _Property, "ptr", pReserved, pdwDataSizeMarshal, pdwDataSize, ppDataMarshal, ppData, "uint")
         return result
     }
 
@@ -183,9 +181,7 @@ class WindowsConnectionManager {
      * @param {PWSTR} strProfileName Type: <b>LPCWSTR</b>
      * 
      * The profile name.
-     * @param {Integer} Property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_property">WCM_PROPERTY</a></b>
-     * 
-     * The WCM property to set.
+     * @param {Integer} _Property 
      * @param {Integer} dwDataSize Type: <b>DWORD</b>
      * 
      * The size of the new property value.
@@ -198,14 +194,14 @@ class WindowsConnectionManager {
      * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmsetproperty
      * @since windows8.0
      */
-    static WcmSetProperty(pInterface, strProfileName, Property, dwDataSize, pbData) {
+    static WcmSetProperty(pInterface, strProfileName, _Property, dwDataSize, pbData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
         strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := DllCall("wcmapi.dll\WcmSetProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint", dwDataSize, pbDataMarshal, pbData, "uint")
+        result := DllCall("wcmapi.dll\WcmSetProperty", "ptr", pInterface, "ptr", strProfileName, "int", _Property, "ptr", pReserved, "uint", dwDataSize, pbDataMarshal, pbData, "uint")
         return result
     }
 

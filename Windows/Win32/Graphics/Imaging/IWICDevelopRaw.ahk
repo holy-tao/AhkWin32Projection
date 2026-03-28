@@ -369,16 +369,14 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * Sets the tint value of the raw image.
      * @remarks
      * The codec implementer must determine what the outer range values represent and must determine how to map the values to their image processing routines.
-     * @param {Float} Tint Type: <b>double</b>
-     * 
-     * The tint value of the raw image. The default value is the "as-shot" setting if it exists or 0.0. The value range for sharpness is -1.0 through +1.0. The -1.0 lower limit represents a full green bias to the image, while the 1.0 upper limit represents a full magenta bias.
+     * @param {Float} _Tint 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-settint
      */
-    SetTint(Tint) {
-        result := ComCall(31, this, "double", Tint, "HRESULT")
+    SetTint(_Tint) {
+        result := ComCall(31, this, "double", _Tint, "HRESULT")
         return result
     }
 

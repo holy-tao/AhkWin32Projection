@@ -43,18 +43,18 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @param {Pointer<Integer>} pWidth 
      * @param {Pointer<Integer>} pHeight 
      * @param {Pointer<Integer>} pDepth 
      * @returns {HRESULT} 
      */
-    GetModeInfo(Mode, pWidth, pHeight, pDepth) {
+    GetModeInfo(_Mode, pWidth, pHeight, pDepth) {
         pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
         pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
         pDepthMarshal := pDepth is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", Mode, pWidthMarshal, pWidth, pHeightMarshal, pHeight, pDepthMarshal, pDepth, "HRESULT")
+        result := ComCall(4, this, "int", _Mode, pWidthMarshal, pWidth, pHeightMarshal, pHeight, pDepthMarshal, pDepth, "HRESULT")
         return result
     }
 
@@ -69,21 +69,21 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
-    IsModeAvailable(Mode) {
-        result := ComCall(6, this, "int", Mode, "HRESULT")
+    IsModeAvailable(_Mode) {
+        result := ComCall(6, this, "int", _Mode, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
-    IsModeEnabled(Mode) {
-        result := ComCall(7, this, "int", Mode, "HRESULT")
+    IsModeEnabled(_Mode) {
+        result := ComCall(7, this, "int", _Mode, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ class IFullScreenVideo extends IUnknown{
      * Each recognizer supports one or more Unicode point ranges. To determine which Unicode point ranges the recognizer supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getunicoderanges">GetUnicodeRanges</a> function. If you do not call this function, the recognizer uses a default set of Unicode point ranges. The default ranges are recognizer specific.
      * 
      * The Microsoft gesture recognizer uses Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
-     * @param {Integer} Mode 
+     * @param {Integer} _Mode 
      * @param {Integer} bEnabled 
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -164,8 +164,8 @@ class IFullScreenVideo extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setenabledunicoderanges
      */
-    SetEnabled(Mode, bEnabled) {
-        result := ComCall(8, this, "int", Mode, "int", bEnabled, "HRESULT")
+    SetEnabled(_Mode, bEnabled) {
+        result := ComCall(8, this, "int", _Mode, "int", bEnabled, "HRESULT")
         return result
     }
 
@@ -190,13 +190,13 @@ class IFullScreenVideo extends IUnknown{
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
-    SetMessageDrain(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetMessageDrain(_hwnd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(11, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(11, this, "ptr", _hwnd, "HRESULT")
         return result
     }
 
@@ -205,9 +205,9 @@ class IFullScreenVideo extends IUnknown{
      * @returns {HWND} 
      */
     GetMessageDrain() {
-        hwnd := HWND()
-        result := ComCall(12, this, "ptr", hwnd, "HRESULT")
-        return hwnd
+        _hwnd := HWND()
+        result := ComCall(12, this, "ptr", _hwnd, "HRESULT")
+        return _hwnd
     }
 
     /**
@@ -220,12 +220,12 @@ class IFullScreenVideo extends IUnknown{
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {Integer} Monitor 
+     * @param {Integer} _Monitor 
      * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorbrightness
      */
-    SetMonitor(Monitor) {
-        result := ComCall(13, this, "int", Monitor, "HRESULT")
+    SetMonitor(_Monitor) {
+        result := ComCall(13, this, "int", _Monitor, "HRESULT")
         return result
     }
 
@@ -243,8 +243,8 @@ class IFullScreenVideo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness
      */
     GetMonitor() {
-        result := ComCall(14, this, "int*", &Monitor := 0, "HRESULT")
-        return Monitor
+        result := ComCall(14, this, "int*", &_Monitor := 0, "HRESULT")
+        return _Monitor
     }
 
     /**

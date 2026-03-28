@@ -8979,9 +8979,7 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * The handle of the window being subclassed.
+     * @param {HWND} _hWnd 
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
      * 
      * A pointer to a window procedure. This pointer and the subclass ID uniquely identify this subclass callback. For the callback function prototype, see <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a>.
@@ -8997,10 +8995,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-setwindowsubclass
      * @since windows5.1.2600
      */
-    static SetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, dwRefData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, dwRefData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("COMCTL32.dll\SetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr", dwRefData, "int")
+        result := DllCall("COMCTL32.dll\SetWindowSubclass", "ptr", _hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr", dwRefData, "int")
         return result
     }
 
@@ -9008,9 +9006,7 @@ class Shell {
      * Retrieves the reference data for the specified window subclass callback.
      * @remarks
      * To use <b>GetWindowSubclass</b>, specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * The handle of the window being subclassed.
+     * @param {HWND} _hWnd 
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
      * 
      * A pointer to a window procedure. This pointer and the subclass ID uniquely identify this subclass callback.
@@ -9053,12 +9049,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-getwindowsubclass
      * @since windows5.1.2600
      */
-    static GetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
         pdwRefDataMarshal := pdwRefData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("COMCTL32.dll\GetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, pdwRefDataMarshal, pdwRefData, "int")
+        result := DllCall("COMCTL32.dll\GetWindowSubclass", "ptr", _hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, pdwRefDataMarshal, pdwRefData, "int")
         return result
     }
 
@@ -9073,9 +9069,7 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * The handle of the window being subclassed.
+     * @param {HWND} _hWnd 
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
      * 
      * A pointer to a window procedure. This pointer and the subclass ID uniquely identify this subclass callback. For the callback function prototype, see <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a>.
@@ -9088,10 +9082,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-removewindowsubclass
      * @since windows5.1.2600
      */
-    static RemoveWindowSubclass(hWnd, pfnSubclass, uIdSubclass) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RemoveWindowSubclass(_hWnd, pfnSubclass, uIdSubclass) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("COMCTL32.dll\RemoveWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "int")
+        result := DllCall("COMCTL32.dll\RemoveWindowSubclass", "ptr", _hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "int")
         return result
     }
 
@@ -9106,28 +9100,22 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the window being subclassed.
+     * @param {HWND} _hWnd 
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * A value of type unsigned <b>int</b> that specifies a window message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Specifies additional message information. The contents of this parameter depend on the value of the window message.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Specifies additional message information. The contents of this parameter depend on the value of the window message. Note: On 64-bit versions of Windows LPARAM is a 64-bit value.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The returned value is specific to the message sent. This value should be ignored.
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-defsubclassproc
      * @since windows5.1.2600
      */
-    static DefSubclassProc(hWnd, uMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefSubclassProc(_hWnd, uMsg, _wParam, _lParam) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        result := DllCall("COMCTL32.dll\DefSubclassProc", "ptr", hWnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+        result := DllCall("COMCTL32.dll\DefSubclassProc", "ptr", _hWnd, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -10243,9 +10231,7 @@ class Shell {
      * Applies the default set of properties on a Shell item.
      * @remarks
      * The list of properties to set a default value comes from the <b>SetDefaultsFor</b> registry entry under the ProgID for the file association of the item. The list is prefixed by "<c>prop:</code>" and contains the canonical names of the properties to set the default value, for example, "<code>prop:System.Author;System.Document.DateCreated</c>". The possible properties for this list are <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-author">System.Author</a>, <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-document-datecreated">System.Document.DateCreated</a>, and <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-photo-datetaken">System.Photo.DateTaken</a>. If the <b>SetDefaultsFor</b> entry does not exist on the ProgID, this function uses the default found on the <b>SetDefaultsFor</b> entry of <b>HKEY_CLASSES_ROOT</b>&#92;<b>*</b>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the item's parent window, which receives error notifications. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the item.
@@ -10261,10 +10247,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-shsetdefaultproperties
      * @since windows6.0.6000
      */
-    static SHSetDefaultProperties(hwnd, psi, dwFileOpFlags, pfops) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHSetDefaultProperties(_hwnd, psi, dwFileOpFlags, pfops) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("SHELL32.dll\SHSetDefaultProperties", "ptr", hwnd, "ptr", psi, "uint", dwFileOpFlags, "ptr", pfops, "HRESULT")
+        result := DllCall("SHELL32.dll\SHSetDefaultProperties", "ptr", _hwnd, "ptr", psi, "uint", dwFileOpFlags, "ptr", pfops, "HRESULT")
         return result
     }
 
@@ -10826,9 +10812,7 @@ class Shell {
      * This function creates a file system folder whose fully qualified path is given by <i>pszPath</i>. If one or more of the intermediate folders do not exist, it creates them.
      * 
      * To set security attributes on a new folder, use <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreatedirectoryexa">SHCreateDirectoryEx</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface is displayed.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the fully qualified path of the directory. This string should have no more than MAX_PATH characters, including the terminating null character.
@@ -10900,11 +10884,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedirectory
      * @since windows5.1.2600
      */
-    static SHCreateDirectory(hwnd, pszPath) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHCreateDirectory(_hwnd, pszPath) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", hwnd, "ptr", pszPath, "int")
+        result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", _hwnd, "ptr", pszPath, "int")
         return result
     }
 
@@ -10925,9 +10909,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHCreateDirectoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
+     * @param {HWND} _hwnd 
      * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string specifying the fully qualified path of the directory. This string is of maximum length of 248 characters, including the terminating null character.
@@ -11013,11 +10995,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedirectoryexa
      * @since windows5.0
      */
-    static SHCreateDirectoryExA(hwnd, pszPath, psa) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHCreateDirectoryExA(_hwnd, pszPath, psa) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
+        result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", _hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
     }
 
@@ -11038,9 +11020,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHCreateDirectoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string specifying the fully qualified path of the directory. This string is of maximum length of 248 characters, including the terminating null character.
@@ -11126,11 +11106,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedirectoryexw
      * @since windows5.0
      */
-    static SHCreateDirectoryExW(hwnd, pszPath, psa) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHCreateDirectoryExW(_hwnd, pszPath, psa) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
+        result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", _hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
     }
 
@@ -11245,9 +11225,9 @@ class Shell {
      * @since windows5.0
      */
     static SHGetSpecialFolderLocation(csidl) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr*", &ppidl := 0, "HRESULT")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", _hwnd, "int", csidl, "ptr*", &ppidl := 0, "HRESULT")
         return ppidl
     }
 
@@ -11268,9 +11248,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCloneSpecialIDList(csidl, fCreate) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", hwnd, "int", csidl, "int", fCreate, "ptr")
+        result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", _hwnd, "int", csidl, "int", fCreate, "ptr")
         return result
     }
 
@@ -11300,11 +11280,11 @@ class Shell {
      * @since windows5.0
      */
     static SHGetSpecialFolderPathA(pszPath, csidl, fCreate) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", _hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
     }
 
@@ -11334,11 +11314,11 @@ class Shell {
      * @since windows5.0
      */
     static SHGetSpecialFolderPathW(pszPath, csidl, fCreate) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", _hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
     }
 
@@ -11458,12 +11438,12 @@ class Shell {
      * @since windows5.0
      */
     static SHGetFolderPathA(csidl, hToken, dwFlags, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "HRESULT")
+        result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", _hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -11566,12 +11546,12 @@ class Shell {
      * @since windows5.0
      */
     static SHGetFolderPathW(csidl, hToken, dwFlags, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "HRESULT")
+        result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", _hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -11601,11 +11581,11 @@ class Shell {
      * @since windows5.0
      */
     static SHGetFolderLocation(csidl, hToken, dwFlags) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", &ppidl := 0, "HRESULT")
+        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", _hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", &ppidl := 0, "HRESULT")
         return ppidl
     }
 
@@ -11802,13 +11782,13 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetFolderPathAndSubDirA(csidl, hToken, dwFlags, pszSubDir, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "HRESULT")
+        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", _hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -11839,13 +11819,13 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetFolderPathAndSubDirW(csidl, hToken, dwFlags, pszSubDir, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static _hwnd := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "HRESULT")
+        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", _hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -12446,9 +12426,7 @@ class Shell {
      * For performance reasons, multiple notifications can be combined into a single notification. For example, if a large number of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHCNE_UPDATEITEM</a> notifications are generated for files in the same folder, they can be joined into a single <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHCNE_UPDATEDIR</a> notification.
      * 
      * The <b>NTSHChangeNotifyRegister</b> function, which is no longer available as of Windows Vista, was equivalent to <b>SHChangeNotifyRegister</b> with the SHCNRF_NewDelivery flag.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that receives the change or notification messages.
+     * @param {HWND} _hwnd 
      * @param {Integer} fSources Type: <b>int</b>
      * @param {Integer} fEvents Type: <b>LONG</b>
      * 
@@ -12468,10 +12446,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotifyregister
      * @since windows5.0
      */
-    static SHChangeNotifyRegister(hwnd, fSources, fEvents, wMsg, cEntries, pshcne) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHChangeNotifyRegister(_hwnd, fSources, fEvents, wMsg, cEntries, pshcne) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("SHELL32.dll\SHChangeNotifyRegister", "ptr", hwnd, "int", fSources, "int", fEvents, "uint", wMsg, "int", cEntries, "ptr", pshcne, "uint")
+        result := DllCall("SHELL32.dll\SHChangeNotifyRegister", "ptr", _hwnd, "int", fSources, "int", fEvents, "uint", wMsg, "int", cEntries, "ptr", pshcne, "uint")
         return result
     }
 
@@ -12497,9 +12475,7 @@ class Shell {
 
     /**
      * Locks the shared memory associated with a Shell change notification event.
-     * @param {HANDLE} hChange Type: <b>HANDLE</b>
-     * 
-     * A handle to a window received as a <i>wParam</i> in the specified Shell change notification message.
+     * @param {HANDLE} _hChange 
      * @param {Integer} dwProcId Type: <b>DWORD</b>
      * 
      * The process ID (<i>lParam</i> in the message callback).
@@ -12515,13 +12491,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotification_lock
      * @since windows5.0
      */
-    static SHChangeNotification_Lock(hChange, dwProcId, pppidl, plEvent) {
-        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+    static SHChangeNotification_Lock(_hChange, dwProcId, pppidl, plEvent) {
+        _hChange := _hChange is Win32Handle ? NumGet(_hChange, "ptr") : _hChange
 
         pppidlMarshal := pppidl is VarRef ? "ptr*" : "ptr"
         plEventMarshal := plEvent is VarRef ? "int*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, "ptr")
+        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", _hChange, "uint", dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         resultHandle.DefineProp("Free", { Call: (self) => Shell.SHChangeNotification_Unlock(self.Value) })
         return resultHandle
@@ -12663,9 +12639,7 @@ class Shell {
 
     /**
      * Displays a dialog box that prompts the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the text that displays in the dialog box which prompts the user.
@@ -12678,19 +12652,17 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-restartdialog
      * @since windows5.0
      */
-    static RestartDialog(hwnd, pszPrompt, dwReturn) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RestartDialog(_hwnd, pszPrompt, dwReturn) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
-        result := DllCall("SHELL32.dll\RestartDialog", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "int")
+        result := DllCall("SHELL32.dll\RestartDialog", "ptr", _hwnd, "ptr", pszPrompt, "uint", dwReturn, "int")
         return result
     }
 
     /**
      * Displays a dialog box that asks the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
      * 
      * A null-terminated string that contains the text that displays in the dialog box to prompt the user.
@@ -12710,11 +12682,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-restartdialogex
      * @since windows5.0
      */
-    static RestartDialogEx(hwnd, pszPrompt, dwReturn, dwReasonCode) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RestartDialogEx(_hwnd, pszPrompt, dwReturn, dwReasonCode) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
-        result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode, "int")
+        result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", _hwnd, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode, "int")
         return result
     }
 
@@ -12834,9 +12806,7 @@ class Shell {
      * Executes a drag-and-drop operation. Supports drag source creation on demand, as well as drag images.
      * @remarks
      * As of Windows Vista, if a drag image is not already stored in the data object <i>pdtobj</i> and a drag image cannot be obtained from the window specified by <i>hwnd</i>, the Shell provides a generic drag image. A drag image can fail to be obtained from the specified window either because <i>hwnd</i> is <b>NULL</b> or the specified window does not support the DI_GETDRAGIMAGE message.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the window used to obtain the drag image. This value can be <b>NULL</b>. See Remarks for more details.
+     * @param {HWND} _hwnd 
      * @param {IDataObject} pdata Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on a data object that contains the data being dragged.
@@ -12856,10 +12826,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdodragdrop
      * @since windows5.1.2600
      */
-    static SHDoDragDrop(hwnd, pdata, pdsrc, dwEffect) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHDoDragDrop(_hwnd, pdata, pdsrc, dwEffect) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", &pdwEffect := 0, "HRESULT")
+        result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", _hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", &pdwEffect := 0, "HRESULT")
         return pdwEffect
     }
 
@@ -12982,9 +12952,7 @@ class Shell {
      * Scrolls the window while an image is being dragged.
      * @remarks
      * The function is successful and the window scrolls only when the <b>bFull</b> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a> structure is <b>TRUE</b>. Each time this function is called, as long as <b>bFull</b> is <b>FALSE</b>, the <b>iNextSample</b> parameter is incremented by 1 and the current scroll coordinates and time are returned in the <b>AUTO_SCROLL_DATA</b> structure. When <b>iNextSample</b> is equal to NUM_POINTS, <b>bFull</b> is set to <b>TRUE</b>, the function succeeds, and the window scrolls.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window being scrolled.
+     * @param {HWND} _hwnd 
      * @param {Pointer<AUTO_SCROLL_DATA>} pad Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a> structure.
@@ -12997,10 +12965,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_autoscroll
      * @since windows5.0
      */
-    static DAD_AutoScroll(hwnd, pad, pptNow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DAD_AutoScroll(_hwnd, pad, pptNow) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("SHELL32.dll\DAD_AutoScroll", "ptr", hwnd, "ptr", pad, "ptr", pptNow, "int")
+        result := DllCall("SHELL32.dll\DAD_AutoScroll", "ptr", _hwnd, "ptr", pad, "ptr", pptNow, "int")
         return result
     }
 
@@ -13240,9 +13208,7 @@ class Shell {
 
     /**
      * The GetFileNameFromBrowse function creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszFilePath Type: <b>PWSTR</b>
      * 
      * A null-terminated Unicode string that contains a file name used to initialize the File Name edit control. This string corresponds to the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure's <b>lpstrFile</b> member and is used in exactly the same way.
@@ -13267,15 +13233,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-getfilenamefrombrowse
      * @since windows5.0
      */
-    static GetFileNameFromBrowse(hwnd, pszFilePath, cchFilePath, pszWorkingDir, pszDefExt, pszFilters, pszTitle) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetFileNameFromBrowse(_hwnd, pszFilePath, cchFilePath, pszWorkingDir, pszDefExt, pszFilters, pszTitle) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
         pszWorkingDir := pszWorkingDir is String ? StrPtr(pszWorkingDir) : pszWorkingDir
         pszDefExt := pszDefExt is String ? StrPtr(pszDefExt) : pszDefExt
         pszFilters := pszFilters is String ? StrPtr(pszFilters) : pszFilters
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", hwnd, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "int")
+        result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", _hwnd, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "int")
         return result
     }
 
@@ -13576,9 +13542,7 @@ class Shell {
 
     /**
      * SHObjectProperties may be altered or unavailable.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window of the dialog box. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Integer} shopObjectType Type: <b>DWORD</b>
      * 
      * A flag value that specifies the type of object.
@@ -13594,12 +13558,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shobjectproperties
      * @since windows5.1.2600
      */
-    static SHObjectProperties(hwnd, shopObjectType, pszObjectName, pszPropertyPage) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHObjectProperties(_hwnd, shopObjectType, pszObjectName, pszPropertyPage) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszObjectName := pszObjectName is String ? StrPtr(pszObjectName) : pszObjectName
         pszPropertyPage := pszPropertyPage is String ? StrPtr(pszPropertyPage) : pszPropertyPage
 
-        result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", hwnd, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "int")
+        result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", _hwnd, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "int")
         return result
     }
 
@@ -13607,9 +13571,7 @@ class Shell {
      * SHFormatDrive may be altered or unavailable.
      * @remarks
      * The format is controlled by the dialog box interface. That is, the user must click the <b>OK</b> button to actually begin the format—the format cannot be started programmatically.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window of the dialog box. The <b>Format</b> dialog box must have a parent window; therefore, this parameter cannot be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Integer} drive Type: <b>UINT</b>
      * 
      * The drive to format. The value of this parameter represents a letter drive starting at 0 for the A: drive. For example, a value of 2 stands for the C: drive.
@@ -13663,26 +13625,24 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shformatdrive
      * @since windows5.1.2600
      */
-    static SHFormatDrive(hwnd, drive, fmtID, options) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHFormatDrive(_hwnd, drive, fmtID, options) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := DllCall("SHELL32.dll\SHFormatDrive", "ptr", hwnd, "uint", drive, "uint", fmtID, "uint", options, "uint")
+        result := DllCall("SHELL32.dll\SHFormatDrive", "ptr", _hwnd, "uint", drive, "uint", fmtID, "uint", options, "uint")
         return result
     }
 
     /**
      * Frees property sheet handlers that are pointed to an array created by SHCreatePropSheetExtArray.
-     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
-     * 
-     * The handle of the array that contains pointers to the property sheet handlers to destroy.
+     * @param {HPSXA} _hpsxa 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray
      * @since windows5.1.2600
      */
-    static SHDestroyPropSheetExtArray(hpsxa) {
-        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+    static SHDestroyPropSheetExtArray(_hpsxa) {
+        _hpsxa := _hpsxa is Win32Handle ? NumGet(_hpsxa, "ptr") : _hpsxa
 
-        DllCall("SHELL32.dll\SHDestroyPropSheetExtArray", "ptr", hpsxa)
+        DllCall("SHELL32.dll\SHDestroyPropSheetExtArray", "ptr", _hpsxa)
     }
 
     /**
@@ -13691,60 +13651,50 @@ class Shell {
      * This function should be called only once for the property sheet extension array named in <i>hpsxa</i>.
      * 
      * This function calls each extension's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages">IShellPropSheetExt::AddPages</a> method. See that page for further details.
-     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
-     * 
-     * The array of property sheet handlers returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
+     * @param {HPSXA} _hpsxa 
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnAddPage Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> callback function. It is called once for each property sheet handler. The callback function then returns the information needed to add a page to the handler's property sheet.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * A pointer to application-defined data. This data is passed to the callback function specified by <i>lpfnAddPage</i>.
+     * @param {LPARAM} _lParam 
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns the number of pages actually added.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray
      * @since windows5.0
      */
-    static SHAddFromPropSheetExtArray(hpsxa, lpfnAddPage, lParam) {
-        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+    static SHAddFromPropSheetExtArray(_hpsxa, lpfnAddPage, _lParam) {
+        _hpsxa := _hpsxa is Win32Handle ? NumGet(_hpsxa, "ptr") : _hpsxa
 
-        result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", "ptr", hpsxa, "ptr", lpfnAddPage, "ptr", lParam, "uint")
+        result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", "ptr", _hpsxa, "ptr", lpfnAddPage, "ptr", _lParam, "uint")
         return result
     }
 
     /**
      * Requests each property sheet in a property sheet extension array to replace pages. Each page is allowed up to one replacement.
-     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
-     * 
-     * A property sheet array handle (HPSXA) returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
+     * @param {HPSXA} _hpsxa 
      * @param {Integer} uPageID Type: <b>UINT</b>
      * 
      * The ID of the page to replace.
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnReplaceWith Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> function used by the property sheet extension to add a page to a property sheet.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * An application-defined value.
+     * @param {LPARAM} _lParam 
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The number of replacements actually performed.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shreplacefrompropsheetextarray
      * @since windows5.1.2600
      */
-    static SHReplaceFromPropSheetExtArray(hpsxa, uPageID, lpfnReplaceWith, lParam) {
-        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+    static SHReplaceFromPropSheetExtArray(_hpsxa, uPageID, lpfnReplaceWith, _lParam) {
+        _hpsxa := _hpsxa is Win32Handle ? NumGet(_hpsxa, "ptr") : _hpsxa
 
-        result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", "ptr", hpsxa, "uint", uPageID, "ptr", lpfnReplaceWith, "ptr", lParam, "uint")
+        result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", "ptr", _hpsxa, "uint", uPageID, "ptr", lpfnReplaceWith, "ptr", _lParam, "uint")
         return result
     }
 
     /**
      * OpenRegStream may be altered or unavailable. Instead, use SHOpenRegStream2 or SHOpenRegStream.
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the key that is currently open.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubkey Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that specifies the name of the subkey.
@@ -13758,12 +13708,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-openregstream
      * @since windows5.1.2600
      */
-    static OpenRegStream(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static OpenRegStream(_hkey, pszSubkey, pszValue, grfMode) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHELL32.dll\OpenRegStream", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHELL32.dll\OpenRegStream", "ptr", _hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -13946,9 +13896,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlobj_core.h header defines SHStartNetConnectionDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszRemoteName Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated character string that specifies the remote network name. This value can be set to <b>NULL</b>.
@@ -13959,11 +13907,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shstartnetconnectiondialogw
      * @since windows5.1.2600
      */
-    static SHStartNetConnectionDialogW(hwnd, pszRemoteName, dwType) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHStartNetConnectionDialogW(_hwnd, pszRemoteName, dwType) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszRemoteName := pszRemoteName is String ? StrPtr(pszRemoteName) : pszRemoteName
 
-        result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", hwnd, "ptr", pszRemoteName, "uint", dwType, "HRESULT")
+        result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", _hwnd, "ptr", pszRemoteName, "uint", dwType, "HRESULT")
         return result
     }
 
@@ -14396,19 +14344,17 @@ class Shell {
      * <td>Updates an object by passing a pointer to an array of two PIDLs.</td>
      * </tr>
      * </table>
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Contents of this value depend on the message passed in <i>uMsg</i>. See individual message topics for more information.
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value depends on the message passed in <i>uMsg</i>. See individual message topics for more information.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shshellfolderview_message
      * @since windows5.1.2600
      */
-    static SHShellFolderView_Message(hwndMain, uMsg, lParam) {
+    static SHShellFolderView_Message(hwndMain, uMsg, _lParam) {
         hwndMain := hwndMain is Win32Handle ? NumGet(hwndMain, "ptr") : hwndMain
 
-        result := DllCall("SHELL32.dll\SHShellFolderView_Message", "ptr", hwndMain, "uint", uMsg, "ptr", lParam, "ptr")
+        result := DllCall("SHELL32.dll\SHShellFolderView_Message", "ptr", hwndMain, "uint", uMsg, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -14457,9 +14403,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure for the parent folder. This value can be <b>NULL</b>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures in the array pointed to by <i>apidl</i>.
@@ -14469,9 +14413,7 @@ class Shell {
      * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the parent folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface. This <b>IShellFolder</b> must support the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface. If it does not, <b>CDefFolderMenu_Create2</b> fails and returns E_NOINTERFACE. This value can be <b>NULL</b>.
-     * @param {Pointer<LPFNDFMCALLBACK>} pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a></b>
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a> callback object. This value can be <b>NULL</b> if the callback object is not needed.
+     * @param {Pointer<LPFNDFMCALLBACK>} _pfn 
      * @param {Integer} nKeys Type: <b>UINT</b>
      * 
      * The number of registry keys in the array pointed to by <i>ahkeys</i>.
@@ -14489,12 +14431,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-cdeffoldermenu_create2
      * @since windows5.0
      */
-    static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static CDefFolderMenu_Create2(pidlFolder, _hwnd, cidl, apidl, psf, _pfn, nKeys, ahkeys) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", &ppcm := 0, "HRESULT")
+        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", _hwnd, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", _pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", &ppcm := 0, "HRESULT")
         return IContextMenu(ppcm)
     }
 
@@ -14523,9 +14465,7 @@ class Shell {
 
     /**
      * SHFind_InitMenuPopup may be altered or unavailable.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * The handle of the popup menu.
+     * @param {HMENU} _hmenu 
      * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * The handle of the popup menu's owner window. This value can be <b>NULL</b>.
@@ -14541,11 +14481,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shfind_initmenupopup
      * @since windows5.1.2600
      */
-    static SHFind_InitMenuPopup(hmenu, hwndOwner, idCmdFirst, idCmdLast) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static SHFind_InitMenuPopup(_hmenu, hwndOwner, idCmdFirst, idCmdLast) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", "ptr", hmenu, "ptr", hwndOwner, "uint", idCmdFirst, "uint", idCmdLast, "ptr")
+        result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", "ptr", _hmenu, "ptr", hwndOwner, "uint", idCmdFirst, "uint", idCmdLast, "ptr")
         return result
     }
 
@@ -14777,9 +14717,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHPathPrepareForWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
+     * @param {HWND} _hwnd 
      * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
@@ -14793,11 +14731,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpathprepareforwritea
      * @since windows5.0
      */
-    static SHPathPrepareForWriteA(hwnd, punkEnableModless, pszPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHPathPrepareForWriteA(_hwnd, punkEnableModless, pszPath, dwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "HRESULT")
+        result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", _hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -14811,9 +14749,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHPathPrepareForWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
+     * @param {HWND} _hwnd 
      * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
@@ -14827,11 +14763,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpathprepareforwritew
      * @since windows5.0
      */
-    static SHPathPrepareForWriteW(hwnd, punkEnableModless, pszPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHPathPrepareForWriteW(_hwnd, punkEnableModless, pszPath, dwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "HRESULT")
+        result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", _hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -14984,9 +14920,7 @@ class Shell {
 
     /**
      * PickIconDlg may be altered or unavailable.
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszIconPath Type: <b>PWSTR</b>
      * 
      * A pointer to a string that contains the null-terminated, fully qualified path of the default resource that contains the icons. If the user chooses a different resource in the dialog, this buffer contains the path of that file when the function returns. This buffer should be at least MAX_PATH characters in length, or the returned path may be truncated. You should verify that the path is valid before using it.
@@ -15002,13 +14936,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pickicondlg
      * @since windows5.1.2600
      */
-    static PickIconDlg(hwnd, pszIconPath, cchIconPath, piIconIndex) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static PickIconDlg(_hwnd, pszIconPath, cchIconPath, piIconIndex) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         piIconIndexMarshal := piIconIndex is VarRef ? "int*" : "ptr"
 
-        result := DllCall("SHELL32.dll\PickIconDlg", "ptr", hwnd, "ptr", pszIconPath, "uint", cchIconPath, piIconIndexMarshal, piIconIndex, "int")
+        result := DllCall("SHELL32.dll\PickIconDlg", "ptr", _hwnd, "ptr", pszIconPath, "uint", cchIconPath, piIconIndexMarshal, piIconIndex, "int")
         return result
     }
 
@@ -15043,15 +14977,13 @@ class Shell {
 
     /**
      * Enables asynchronous register and deregister of a thread.
-     * @param {Integer} status Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a></b>
-     * 
-     * Indicates whether the function is being used to register or deregister the thread. One of the values of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a>.
+     * @param {Integer} _status 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shchangenotifyregisterthread
      * @since windows6.0.6000
      */
-    static SHChangeNotifyRegisterThread(status) {
-        DllCall("SHELL32.dll\SHChangeNotifyRegisterThread", "int", status)
+    static SHChangeNotifyRegisterThread(_status) {
+        DllCall("SHELL32.dll\SHChangeNotifyRegisterThread", "int", _status)
     }
 
     /**
@@ -15133,9 +15065,7 @@ class Shell {
      * When you are finished with the returned HPSXA handle, destroy it by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray">SHDestroyPropSheetExtArray</a>.
      * 
      * This function loads up to <i>max_iface</i> property sheet extensions into an array that is then passed to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray">SHAddFromPropSheetExtArray</a>.
-     * @param {HKEY} hKey Type: <b>HKEY</b>
-     * 
-     * The registry root key that contains the subkey with the property sheet extension handlers. For instance, <b>HKEY_LOCAL_MACHINE</b>.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} pszSubKey Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated string specifying the name of the subkey that contains <b>shellex</b>&#92;<b>PropertySheetHandlers</b>.
@@ -15161,11 +15091,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shcreatepropsheetextarray
      * @since windows5.1.2600
      */
-    static SHCreatePropSheetExtArray(hKey, pszSubKey, max_iface) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHCreatePropSheetExtArray(_hKey, pszSubKey, max_iface) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey, "ptr", pszSubKey, "uint", max_iface, "ptr")
+        result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", _hKey, "ptr", pszSubKey, "uint", max_iface, "ptr")
         resultHandle := HPSXA({Value: result}, True)
         return resultHandle
     }
@@ -15216,9 +15146,7 @@ class Shell {
      * The preferred way to handle updates is to author a Channel Definition Format (CDF) with an Open Software Description (OSD) vocabulary and make the shortcut OSD-aware. Refer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa768023(v=vs.85)">Channel Definition Format</a> documentation for details.
      * 
      * The <b>SoftwareUpdateMessageBox</b> function is intended to be used in the case where Shell shortcut hooks do not work. One example is an application that was not installed on the start menu. If that application needs to do its own software update check, it should use this function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} pszDistUnit Type: <b>PCWSTR</b>
      * 
      * The string value containing the identifier for the code distribution unit. For ActiveX controls, <i>pszDistUnit</i> is typically a GUID.
@@ -15285,11 +15213,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-softwareupdatemessagebox
      * @since windows5.0
      */
-    static SoftwareUpdateMessageBox(hWnd, pszDistUnit, dwFlags, psdi) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SoftwareUpdateMessageBox(_hWnd, pszDistUnit, dwFlags, psdi) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         pszDistUnit := pszDistUnit is String ? StrPtr(pszDistUnit) : pszDistUnit
 
-        result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", "ptr", hWnd, "ptr", pszDistUnit, "uint", dwFlags, "ptr", psdi, "uint")
+        result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", "ptr", _hWnd, "ptr", pszDistUnit, "uint", dwFlags, "ptr", psdi, "uint")
         return result
     }
 
@@ -15575,9 +15503,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines DragQueryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
-     * 
-     * Identifier of the structure that contains the file names of the dropped files.
+     * @param {HDROP} _hDrop 
      * @param {Integer} iFile Type: <b>UINT</b>
      * 
      * Index of the file to query. If the value of this parameter is 0xFFFFFFFF, <b>DragQueryFile</b> returns a count of the files dropped. If the value of this parameter is between zero and the total number of files dropped, <b>DragQueryFile</b> copies the file name with the corresponding value to the buffer pointed to by the <i>lpszFile</i> parameter.
@@ -15599,11 +15525,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragqueryfilea
      * @since windows5.1.2600
      */
-    static DragQueryFileA(hDrop, iFile, lpszFile, cch) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragQueryFileA(_hDrop, iFile, lpszFile, cch) {
+        _hDrop := _hDrop is Win32Handle ? NumGet(_hDrop, "ptr") : _hDrop
         lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
-        result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
+        result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", _hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
     }
 
@@ -15612,9 +15538,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines DragQueryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
-     * 
-     * Identifier of the structure that contains the file names of the dropped files.
+     * @param {HDROP} _hDrop 
      * @param {Integer} iFile Type: <b>UINT</b>
      * 
      * Index of the file to query. If the value of this parameter is 0xFFFFFFFF, <b>DragQueryFile</b> returns a count of the files dropped. If the value of this parameter is between zero and the total number of files dropped, <b>DragQueryFile</b> copies the file name with the corresponding value to the buffer pointed to by the <i>lpszFile</i> parameter.
@@ -15636,11 +15560,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragqueryfilew
      * @since windows5.1.2600
      */
-    static DragQueryFileW(hDrop, iFile, lpszFile, cch) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragQueryFileW(_hDrop, iFile, lpszFile, cch) {
+        _hDrop := _hDrop is Win32Handle ? NumGet(_hDrop, "ptr") : _hDrop
         lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
-        result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
+        result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", _hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
     }
 
@@ -15648,9 +15572,7 @@ class Shell {
      * Retrieves the position of the mouse pointer at the time a file was dropped during a drag-and-drop operation.
      * @remarks
      * The window for which coordinates are returned is the window that received the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
-     * 
-     * Handle of the drop structure that describes the dropped file.
+     * @param {HDROP} _hDrop 
      * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that, when this function returns successfully, receives the coordinates of the mouse pointer at the time the file was dropped.
@@ -15660,35 +15582,31 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragquerypoint
      * @since windows5.1.2600
      */
-    static DragQueryPoint(hDrop, ppt) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragQueryPoint(_hDrop, ppt) {
+        _hDrop := _hDrop is Win32Handle ? NumGet(_hDrop, "ptr") : _hDrop
 
-        result := DllCall("SHELL32.dll\DragQueryPoint", "ptr", hDrop, "ptr", ppt, "int")
+        result := DllCall("SHELL32.dll\DragQueryPoint", "ptr", _hDrop, "ptr", ppt, "int")
         return result
     }
 
     /**
      * Releases memory that the system allocated for use in transferring file names to the application.
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
-     * 
-     * Identifier of the structure that describes dropped files. This handle is retrieved from the <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
+     * @param {HDROP} _hDrop 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragfinish
      * @since windows5.1.2600
      */
-    static DragFinish(hDrop) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragFinish(_hDrop) {
+        _hDrop := _hDrop is Win32Handle ? NumGet(_hDrop, "ptr") : _hDrop
 
-        DllCall("SHELL32.dll\DragFinish", "ptr", hDrop)
+        DllCall("SHELL32.dll\DragFinish", "ptr", _hDrop)
     }
 
     /**
      * Registers whether a window accepts dropped files.
      * @remarks
      * An application that calls <b>DragAcceptFiles</b> with the <i>fAccept</i> parameter set to <b>TRUE</b> has identified itself as able to process the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message from File Manager.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * The identifier of the window that is registering whether it will accept dropped files.
+     * @param {HWND} _hWnd 
      * @param {BOOL} fAccept Type: <b>BOOL</b>
      * 
      * A value that indicates if the window identified by the <i>hWnd</i> parameter accepts dropped files. This value is <b>TRUE</b> to accept dropped files or <b>FALSE</b> to discontinue accepting dropped files.
@@ -15696,10 +15614,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragacceptfiles
      * @since windows5.1.2600
      */
-    static DragAcceptFiles(hWnd, fAccept) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DragAcceptFiles(_hWnd, fAccept) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
 
-        DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd, "int", fAccept)
+        DllCall("SHELL32.dll\DragAcceptFiles", "ptr", _hWnd, "int", fAccept)
     }
 
     /**
@@ -15767,9 +15685,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellExecute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
+     * @param {HWND} _hwnd 
      * @param {PSTR} lpOperation Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string, referred to in this case as a <i>verb</i>, that specifies the action to be performed. The set of available verbs depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. The following verbs are commonly used:
@@ -15965,14 +15881,14 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecutea
      * @since windows5.1.2600
      */
-    static ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ShellExecuteA(_hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
         lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
-        result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
+        result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", _hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         resultHandle := HINSTANCE({Value: result}, False)
         return resultHandle
     }
@@ -16042,9 +15958,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellExecute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} lpOperation Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string, referred to in this case as a <i>verb</i>, that specifies the action to be performed. The set of available verbs depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. The following verbs are commonly used:
@@ -16240,14 +16154,14 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecutew
      * @since windows5.1.2600
      */
-    static ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ShellExecuteW(_hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
         lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
-        result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
+        result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", _hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         resultHandle := HINSTANCE({Value: result}, False)
         return resultHandle
     }
@@ -16512,9 +16426,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellAbout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A window handle to a parent window. This parameter can be <b>NULL</b>.
+     * @param {HWND} _hWnd 
      * @param {PSTR} szApp Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the title bar of the <b>ShellAbout</b> dialog box and on the first line of the dialog box after the text "Microsoft". If the text contains a separator (#) that divides it into two parts, the function displays the first part in the title bar and the second part on the first line after the text "Microsoft".
@@ -16527,22 +16439,20 @@ class Shell {
      * @param {PSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
+     * @param {HICON} _hIcon 
      * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellabouta
      * @since windows5.1.2600
      */
-    static ShellAboutA(hWnd, szApp, szOtherStuff, hIcon) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShellAboutA(_hWnd, szApp, szOtherStuff, _hIcon) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         szApp := szApp is String ? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
-        result := DllCall("SHELL32.dll\ShellAboutA", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
+        result := DllCall("SHELL32.dll\ShellAboutA", "ptr", _hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", _hIcon, "int")
         return result
     }
 
@@ -16558,9 +16468,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellAbout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A window handle to a parent window. This parameter can be <b>NULL</b>.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} szApp Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the title bar of the <b>ShellAbout</b> dialog box and on the first line of the dialog box after the text "Microsoft". If the text contains a separator (#) that divides it into two parts, the function displays the first part in the title bar and the second part on the first line after the text "Microsoft".
@@ -16573,22 +16481,20 @@ class Shell {
      * @param {PWSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
+     * @param {HICON} _hIcon 
      * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellaboutw
      * @since windows5.1.2600
      */
-    static ShellAboutW(hWnd, szApp, szOtherStuff, hIcon) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShellAboutW(_hWnd, szApp, szOtherStuff, _hIcon) {
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         szApp := szApp is String ? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
-        result := DllCall("SHELL32.dll\ShellAboutW", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
+        result := DllCall("SHELL32.dll\ShellAboutW", "ptr", _hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", _hIcon, "int")
         return result
     }
 
@@ -16596,21 +16502,19 @@ class Shell {
      * Creates a duplicate of a specified icon.
      * @remarks
      * When it is no longer needed, the caller is responsible for freeing the icon handle returned by <b>DuplicateIcon</b> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function.
-     * @param {HICON} hIcon Type: <b>HICON</b>
-     * 
-     * Handle to the icon to be duplicated.
+     * @param {HICON} _hIcon 
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * If successful, the function returns the handle to the new icon that was created; otherwise, <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-duplicateicon
      * @since windows5.1.2600
      */
-    static DuplicateIcon(hIcon) {
+    static DuplicateIcon(_hIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
 
-        result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon, "ptr")
+        result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", _hIcon, "ptr")
         resultHandle := HICON({Value: result}, True)
         return resultHandle
     }
@@ -17993,9 +17897,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines SHEmptyRecycleBin as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {PSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
@@ -18006,11 +17908,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shemptyrecyclebina
      * @since windows5.0
      */
-    static SHEmptyRecycleBinA(hwnd, pszRootPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHEmptyRecycleBinA(_hwnd, pszRootPath, dwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-        result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "HRESULT")
+        result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", _hwnd, "ptr", pszRootPath, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -18019,9 +17921,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines SHEmptyRecycleBin as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
@@ -18032,11 +17932,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shemptyrecyclebinw
      * @since windows5.0
      */
-    static SHEmptyRecycleBinW(hwnd, pszRootPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHEmptyRecycleBinW(_hwnd, pszRootPath, dwFlags) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-        result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "HRESULT")
+        result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", _hwnd, "ptr", pszRootPath, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -18600,9 +18500,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines SHInvokePrinterCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window of any windows or dialog boxes that are created during the operation.
+     * @param {HWND} _hwnd 
      * @param {Integer} uAction Type: <b>UINT</b>
      * @param {PSTR} lpBuf1 Type: <b>LPCTSTR</b>
      * 
@@ -18619,12 +18517,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shinvokeprintercommanda
      * @since windows5.0
      */
-    static SHInvokePrinterCommandA(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHInvokePrinterCommandA(_hwnd, uAction, lpBuf1, lpBuf2, fModal) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
 
-        result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
+        result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", _hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
     }
 
@@ -18646,9 +18544,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines SHInvokePrinterCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The handle of the parent window of any windows or dialog boxes that are created during the operation.
+     * @param {HWND} _hwnd 
      * @param {Integer} uAction Type: <b>UINT</b>
      * @param {PWSTR} lpBuf1 Type: <b>LPCTSTR</b>
      * 
@@ -18665,12 +18561,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shinvokeprintercommandw
      * @since windows5.0
      */
-    static SHInvokePrinterCommandW(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHInvokePrinterCommandW(_hwnd, uAction, lpBuf1, lpBuf2, fModal) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
 
-        result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
+        result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", _hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
     }
 
@@ -18803,9 +18699,7 @@ class Shell {
      * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
+     * @param {HWND} _hWnd 
      * @param {PSTR} lpcText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains either the message to be displayed or a resource ID specifying where the message is to be retrieved from.
@@ -18825,15 +18719,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellmessageboxa
      * @since windows5.1.2600
      */
-    static ShellMessageBoxA(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
+    static ShellMessageBoxA(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle) {
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
         lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", _hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18849,9 +18743,7 @@ class Shell {
      * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {HWND} hWnd Type: <b>HWND</b>
-     * 
-     * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
+     * @param {HWND} _hWnd 
      * @param {PWSTR} lpcText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains either the message to be displayed or a resource ID specifying where the message is to be retrieved from.
@@ -18871,15 +18763,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellmessageboxw
      * @since windows5.1.2600
      */
-    static ShellMessageBoxW(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
+    static ShellMessageBoxW(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle) {
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
         lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", _hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -19083,7 +18975,7 @@ class Shell {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a> pointer type, such as that returned in the <i>ppv</i> parameter, can be cast as an <b>HIMAGELIST</b> as needed; for example, for use in a list view. Conversely, an <b>HIMAGELIST</b> can be cast as a pointer to an <b>IImageList</b>.
      * 
      * As of Windows Vista, <b>SHIL_SMALL</b>, <b>SHIL_LARGE</b>, and <b>SHIL_EXTRALARGE</b> scale with dots per inch (dpi) if the process is marked as dpi-aware. To set these types to be dpi-aware, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setprocessdpiaware">SetProcessDPIAware</a>. <b>SHIL_JUMBO</b> is fixed at 256 pixels regardless of the dpi-aware setting.
-     * @param {Integer} iImageList Type: <b>int</b>
+     * @param {Integer} _iImageList 
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the image list interface identifier, normally IID_IImageList.
@@ -19093,8 +18985,8 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetimagelist
      * @since windows5.1.2600
      */
-    static SHGetImageList(iImageList, riid) {
-        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+    static SHGetImageList(_iImageList, riid) {
+        result := DllCall("SHELL32.dll\SHGetImageList", "int", _iImageList, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
     }
 
@@ -21374,9 +21266,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToStr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
-     * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
+     * @param {Pointer<STRRET>} _pstr 
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
@@ -21386,8 +21276,8 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettostra
      * @since windows5.0
      */
-    static StrRetToStrA(pstr, pidl) {
-        result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "HRESULT")
+    static StrRetToStrA(_pstr, pidl) {
+        result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", _pstr, "ptr", pidl, "ptr*", &ppsz := 0, "HRESULT")
         return ppsz
     }
 
@@ -21396,9 +21286,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToStr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
-     * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
+     * @param {Pointer<STRRET>} _pstr 
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
@@ -21408,8 +21296,8 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettostrw
      * @since windows5.0
      */
-    static StrRetToStrW(pstr, pidl) {
-        result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "HRESULT")
+    static StrRetToStrW(_pstr, pidl) {
+        result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", _pstr, "ptr", pidl, "ptr*", &ppsz := 0, "HRESULT")
         return ppsz
     }
 
@@ -21424,9 +21312,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToBuf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
-     * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
+     * @param {Pointer<STRRET>} _pstr 
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
@@ -21442,10 +21328,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobufa
      * @since windows5.0
      */
-    static StrRetToBufA(pstr, pidl, pszBuf, cchBuf) {
+    static StrRetToBufA(_pstr, pidl, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrRetToBufA", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "HRESULT")
+        result := DllCall("SHLWAPI.dll\StrRetToBufA", "ptr", _pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "HRESULT")
         return result
     }
 
@@ -21460,9 +21346,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToBuf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
-     * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
+     * @param {Pointer<STRRET>} _pstr 
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
@@ -21478,10 +21362,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobufw
      * @since windows5.0
      */
-    static StrRetToBufW(pstr, pidl, pszBuf, cchBuf) {
+    static StrRetToBufW(_pstr, pidl, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrRetToBufW", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "HRESULT")
+        result := DllCall("SHLWAPI.dll\StrRetToBufW", "ptr", _pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "HRESULT")
         return result
     }
 
@@ -21650,9 +21534,7 @@ class Shell {
      * Accepts a STRRET structure returned by IShellFolder::GetDisplayNameOf that contains or points to a string, and returns that string as a BSTR.
      * @remarks
      * If the <i>uType</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure pointed to by <i>pstr</i> is set to <b>STRRET_WSTR</b>, the <i>pOleStr</i> member of that structure is freed on return.
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
-     * 
-     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer is longer valid.
+     * @param {Pointer<STRRET>} _pstr 
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> that uniquely identifies a file object or subfolder relative to the parent folder. This value can be <b>NULL</b>.
@@ -21662,9 +21544,9 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobstr
      * @since windows5.1.2600
      */
-    static StrRetToBSTR(pstr, pidl) {
+    static StrRetToBSTR(_pstr, pidl) {
         pbstr := BSTR()
-        result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", pstr, "ptr", pidl, "ptr", pbstr, "HRESULT")
+        result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", _pstr, "ptr", pidl, "ptr", pbstr, "HRESULT")
         return pbstr
     }
 
@@ -22488,9 +22370,7 @@ class Shell {
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses. (ANSI)
      * @remarks
      * This function uses the font currently selected in <i>hDC</i> to calculate the width of the text. This function will not compact the path beyond the base file name preceded by ellipses.
-     * @param {HDC} hDC Type: <b>HDC</b>
-     * 
-     * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
+     * @param {HDC} _hDC 
      * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be modified. On return, this buffer will contain the modified string.
@@ -22503,11 +22383,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcompactpatha
      * @since windows5.0
      */
-    static PathCompactPathA(hDC, pszPath, dx) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static PathCompactPathA(_hDC, pszPath, dx) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
+        result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", _hDC, "ptr", pszPath, "uint", dx, "int")
         return result
     }
 
@@ -22515,9 +22395,7 @@ class Shell {
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses. (Unicode)
      * @remarks
      * This function uses the font currently selected in <i>hDC</i> to calculate the width of the text. This function will not compact the path beyond the base file name preceded by ellipses.
-     * @param {HDC} hDC Type: <b>HDC</b>
-     * 
-     * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
+     * @param {HDC} _hDC 
      * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be modified. On return, this buffer will contain the modified string.
@@ -22530,11 +22408,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcompactpathw
      * @since windows5.0
      */
-    static PathCompactPathW(hDC, pszPath, dx) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static PathCompactPathW(_hDC, pszPath, dx) {
+        _hDC := _hDC is Win32Handle ? NumGet(_hDC, "ptr") : _hDC
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
+        result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", _hDC, "ptr", pszPath, "uint", dx, "int")
         return result
     }
 
@@ -25558,7 +25436,7 @@ class Shell {
      * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Integer} UrlIs Type: <b>URLIS</b>
+     * @param {Integer} _UrlIs 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
@@ -25569,10 +25447,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisa
      * @since windows5.0
      */
-    static UrlIsA(pszUrl, UrlIs) {
+    static UrlIsA(pszUrl, _UrlIs) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := DllCall("SHLWAPI.dll\UrlIsA", "ptr", pszUrl, "int", UrlIs, "int")
+        result := DllCall("SHLWAPI.dll\UrlIsA", "ptr", pszUrl, "int", _UrlIs, "int")
         return result
     }
 
@@ -25584,7 +25462,7 @@ class Shell {
      * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Integer} UrlIs Type: <b>URLIS</b>
+     * @param {Integer} _UrlIs 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
@@ -25595,10 +25473,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisw
      * @since windows5.0
      */
-    static UrlIsW(pszUrl, UrlIs) {
+    static UrlIsW(pszUrl, _UrlIs) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := DllCall("SHLWAPI.dll\UrlIsW", "ptr", pszUrl, "int", UrlIs, "int")
+        result := DllCall("SHLWAPI.dll\UrlIsW", "ptr", pszUrl, "int", _UrlIs, "int")
         return result
     }
 
@@ -26529,12 +26407,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteEmptyKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
-     * 
-     * <a id="HKEY_CLASSES_ROOT"></a>
-     * <a id="hkey_classes_root"></a>
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
@@ -26544,11 +26417,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeleteemptykeya
      * @since windows5.0
      */
-    static SHDeleteEmptyKeyA(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteEmptyKeyA(_hkey, pszSubKey) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", "ptr", _hkey, "ptr", pszSubKey, "uint")
         return result
     }
 
@@ -26564,12 +26437,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteEmptyKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
-     * 
-     * <a id="HKEY_CLASSES_ROOT"></a>
-     * <a id="hkey_classes_root"></a>
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
@@ -26579,11 +26447,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeleteemptykeyw
      * @since windows5.0
      */
-    static SHDeleteEmptyKeyW(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteEmptyKeyW(_hkey, pszSubKey) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", "ptr", _hkey, "ptr", pszSubKey, "uint")
         return result
     }
 
@@ -26597,12 +26465,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
-     * 
-     * <a id="HKEY_CLASSES_ROOT"></a>
-     * <a id="hkey_classes_root"></a>
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
@@ -26612,11 +26475,11 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletekeya
      * @since windows5.0
      */
-    static SHDeleteKeyA(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteKeyA(_hkey, pszSubKey) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteKeyA", "ptr", _hkey, "ptr", pszSubKey, "uint")
         return result
     }
 
@@ -26630,12 +26493,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
-     * 
-     * <a id="HKEY_CLASSES_ROOT"></a>
-     * <a id="hkey_classes_root"></a>
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
@@ -26645,29 +26503,27 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletekeyw
      * @since windows5.0
      */
-    static SHDeleteKeyW(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteKeyW(_hkey, pszSubKey) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteKeyW", "ptr", _hkey, "ptr", pszSubKey, "uint")
         return result
     }
 
     /**
      * Duplicates a registry key's HKEY handle.
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * The HKEY handle to be duplicated.
+     * @param {HKEY} _hkey 
      * @returns {HKEY} Type: <b>HKEY</b>
      * 
      * Returns a duplicate of the handle specified in <i>hkey</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregduplicatehkey
      * @since windows5.0
      */
-    static SHRegDuplicateHKey(hkey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHRegDuplicateHKey(_hkey) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
 
-        result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", hkey, "ptr")
+        result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", _hkey, "ptr")
         resultHandle := HKEY({Value: result}, True)
         return resultHandle
     }
@@ -26677,9 +26533,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the subkey for which to change the value.
@@ -26692,12 +26546,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletevaluea
      * @since windows5.0
      */
-    static SHDeleteValueA(hkey, pszSubKey, pszValue) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteValueA(_hkey, pszSubKey, pszValue) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHDeleteValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteValueA", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
     }
 
@@ -26706,9 +26560,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the subkey for which to change the value.
@@ -26721,12 +26573,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletevaluew
      * @since windows5.0
      */
-    static SHDeleteValueW(hkey, pszSubKey, pszValue) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteValueW(_hkey, pszSubKey, pszValue) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHDeleteValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteValueW", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
     }
 
@@ -26740,9 +26592,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey from which to retrieve the value.
@@ -26764,15 +26614,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetvaluea
      * @since windows5.0
      */
-    static SHGetValueA(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHGetValueA(_hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHGetValueA", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -26786,9 +26636,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey from which to retrieve the value.
@@ -26810,15 +26658,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetvaluew
      * @since windows5.0
      */
-    static SHGetValueW(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHGetValueW(_hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHGetValueW", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -26827,9 +26675,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey with which a value is associated. This can be <b>NULL</b> or a pointer to an empty string. In this case, the value is added to the key identified by the <i>hkey</i> parameter.
@@ -26851,12 +26697,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsetvaluea
      * @since windows5.0
      */
-    static SHSetValueA(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHSetValueA(_hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHSetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
+        result := DllCall("SHLWAPI.dll\SHSetValueA", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
     }
 
@@ -26865,9 +26711,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey with which a value is associated. This can be <b>NULL</b> or a pointer to an empty string. In this case, the value is added to the key identified by the <i>hkey</i> parameter.
@@ -26889,12 +26733,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsetvaluew
      * @since windows5.0
      */
-    static SHSetValueW(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHSetValueW(_hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHSetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
+        result := DllCall("SHLWAPI.dll\SHSetValueW", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
     }
 
@@ -26925,12 +26769,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
-     * 
-     * <a id="HKEY_CLASSES_ROOT"></a>
-     * <a id="hkey_classes_root"></a>
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the relative path from <i>hkey</i> to the subkey to retrieve the value from. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the <i>hkey</i> location.
@@ -26979,15 +26818,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluea
      * @since windows5.1.2600
      */
-    static SHRegGetValueA(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHRegGetValueA(_hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHRegGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetValueA", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27018,12 +26857,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
-     * 
-     * <a id="HKEY_CLASSES_ROOT"></a>
-     * <a id="hkey_classes_root"></a>
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the relative path from <i>hkey</i> to the subkey to retrieve the value from. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the <i>hkey</i> location.
@@ -27072,15 +26906,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluew
      * @since windows5.1.2600
      */
-    static SHRegGetValueW(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHRegGetValueW(_hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHRegGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetValueW", "ptr", _hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27126,9 +26960,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
@@ -27147,16 +26979,16 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryvalueexa
      * @since windows5.0
      */
-    static SHQueryValueExA(hkey, pszValue, pdwType, pvData, pcbData) {
+    static SHQueryValueExA(_hkey, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryValueExA", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryValueExA", "ptr", _hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27165,9 +26997,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
@@ -27186,16 +27016,16 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryvalueexw
      * @since windows5.0
      */
-    static SHQueryValueExW(hkey, pszValue, pdwType, pvData, pcbData) {
+    static SHQueryValueExW(_hkey, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryValueExW", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryValueExW", "ptr", _hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27204,9 +27034,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27222,13 +27050,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumkeyexa
      * @since windows5.0
      */
-    static SHEnumKeyExA(hkey, dwIndex, pszName, pcchName) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumKeyExA(_hkey, dwIndex, pszName, pcchName) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumKeyExA", "ptr", hkey, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumKeyExA", "ptr", _hkey, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
         return result
     }
 
@@ -27237,9 +27065,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27255,13 +27081,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumkeyexw
      * @since windows5.0
      */
-    static SHEnumKeyExW(hkey, dwIndex, pszName, pcchName) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumKeyExW(_hkey, dwIndex, pszName, pcchName) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumKeyExW", "ptr", hkey, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumKeyExW", "ptr", _hkey, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
         return result
     }
 
@@ -27270,9 +27096,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27297,15 +27121,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumvaluea
      * @since windows5.0
      */
-    static SHEnumValueA(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumValueA(_hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumValueA", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumValueA", "ptr", _hkey, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27314,9 +27138,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27341,15 +27163,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumvaluew
      * @since windows5.0
      */
-    static SHEnumValueW(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumValueW(_hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumValueW", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumValueW", "ptr", _hkey, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27358,9 +27180,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of subkeys under the specified key.
@@ -27379,15 +27199,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryinfokeya
      * @since windows5.0
      */
-    static SHQueryInfoKeyA(hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHQueryInfoKeyA(_hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
 
         pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
         pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
         pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
         pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyA", "ptr", hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyA", "ptr", _hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
         return result
     }
 
@@ -27396,9 +27216,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * A handle to the currently open key, or any of the following predefined values.
+     * @param {HKEY} _hkey 
      * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of subkeys under the specified key.
@@ -27417,15 +27235,15 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryinfokeyw
      * @since windows5.0
      */
-    static SHQueryInfoKeyW(hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHQueryInfoKeyW(_hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
 
         pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
         pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
         pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
         pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyW", "ptr", hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyW", "ptr", _hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
         return result
     }
 
@@ -27548,9 +27366,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
-     * 
-     * A handle to a key that is currently open, or a registry root key.
+     * @param {HKEY} _hKey 
      * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the subkey.
@@ -27569,13 +27385,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetpatha
      * @since windows5.0
      */
-    static SHRegGetPathA(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegGetPathA(_hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegGetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetPathA", "ptr", _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -27626,9 +27442,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
-     * 
-     * A handle to a key that is currently open, or a registry root key.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the subkey.
@@ -27647,13 +27461,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetpathw
      * @since windows5.0
      */
-    static SHRegGetPathW(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegGetPathW(_hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegGetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetPathW", "ptr", _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -27706,9 +27520,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegSetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
-     * 
-     * A handle to a key that is currently open, or a registry root key.
+     * @param {HKEY} _hKey 
      * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the name of an existing subkey. If the subkey does not exist, <b>SHRegSetPath</b> will fail.
@@ -27727,13 +27539,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetpatha
      * @since windows5.0
      */
-    static SHRegSetPathA(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegSetPathA(_hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegSetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegSetPathA", "ptr", _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -27786,9 +27598,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegSetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
-     * 
-     * A handle to a key that is currently open, or a registry root key.
+     * @param {HKEY} _hKey 
      * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the name of an existing subkey. If the subkey does not exist, <b>SHRegSetPath</b> will fail.
@@ -27807,13 +27617,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetpathw
      * @since windows5.0
      */
-    static SHRegSetPathW(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegSetPathW(_hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
+        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegSetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegSetPathW", "ptr", _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -29296,9 +29106,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29317,12 +29125,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstreama
      * @since windows5.0
      */
-    static SHOpenRegStreamA(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStreamA(_hkey, pszSubkey, pszValue, grfMode) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", _hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29336,9 +29144,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29357,12 +29163,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstreamw
      * @since windows5.0
      */
-    static SHOpenRegStreamW(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStreamW(_hkey, pszSubkey, pszValue, grfMode) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", _hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29376,9 +29182,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
+     * @param {HKEY} _hkey 
      * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29392,12 +29196,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstream2a
      * @since windows5.0
      */
-    static SHOpenRegStream2A(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStream2A(_hkey, pszSubkey, pszValue, grfMode) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", _hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29411,9 +29215,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
-     * 
-     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
+     * @param {HKEY} _hkey 
      * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29427,12 +29229,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstream2w
      * @since windows5.0
      */
-    static SHOpenRegStream2W(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStream2W(_hkey, pszSubkey, pszValue, grfMode) {
+        _hkey := _hkey is Win32Handle ? NumGet(_hkey, "ptr") : _hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", _hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -30323,9 +30125,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHMessageBoxCheck as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The window handle to the message box's owner. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {PSTR} pszText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the message to be displayed.
@@ -30356,13 +30156,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shmessageboxchecka
      * @since windows5.1.2600
      */
-    static SHMessageBoxCheckA(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHMessageBoxCheckA(_hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszText := pszText is String ? StrPtr(pszText) : pszText
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
 
-        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
+        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", _hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
     }
 
@@ -30408,9 +30208,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHMessageBoxCheck as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
-     * 
-     * The window handle to the message box's owner. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd 
      * @param {PWSTR} pszText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the message to be displayed.
@@ -30441,13 +30239,13 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shmessageboxcheckw
      * @since windows5.1.2600
      */
-    static SHMessageBoxCheckW(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHMessageBoxCheckW(_hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
+        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszText := pszText is String ? StrPtr(pszText) : pszText
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
 
-        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
+        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", _hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
     }
 
@@ -30466,20 +30264,16 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsendmessagebroadcasta
      * @since windows5.1.2600
      */
-    static SHSendMessageBroadcastA(uMsg, wParam, lParam) {
-        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastA", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+    static SHSendMessageBroadcastA(uMsg, _wParam, _lParam) {
+        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastA", "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -30498,20 +30292,16 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
-     * 
-     * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
-     * 
-     * Additional message-specific information.
+     * @param {WPARAM} _wParam 
+     * @param {LPARAM} _lParam 
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsendmessagebroadcastw
      * @since windows5.1.2600
      */
-    static SHSendMessageBroadcastW(uMsg, wParam, lParam) {
-        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastW", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
+    static SHSendMessageBroadcastW(uMsg, _wParam, _lParam) {
+        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastW", "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr")
         return result
     }
 
@@ -30914,9 +30704,7 @@ class Shell {
      * Beginning with Windows Vista, this function is declared in Shlwapi.h.
      * 
      * <b>Windows XP:  </b>This function is declared in Shlwapi.dll.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * The handle of the menu.
+     * @param {HMENU} _hmenu 
      * @param {Integer} id Type: <b>UINT</b>
      * 
      * An application-defined 16-bit value that identifies the menu item.
@@ -30926,10 +30714,10 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-getmenuposfromid
      * @since windows5.1.2600
      */
-    static GetMenuPosFromID(hmenu, id) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static GetMenuPosFromID(_hmenu, id) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
-        result := DllCall("SHLWAPI.dll\GetMenuPosFromID", "ptr", hmenu, "uint", id, "int")
+        result := DllCall("SHLWAPI.dll\GetMenuPosFromID", "ptr", _hmenu, "uint", id, "int")
         return result
     }
 
@@ -31103,15 +30891,7 @@ class Shell {
      * @param {Integer} flags Type: <b>SHCT_FLAGS</b>
      * 
      * The flags that control the behavior of the function. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ctf">CTF</a> constants.
-     * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCallback Type: <b>LPTHREAD_START_ROUTINE</b>
-     * 
-     * A pointer to an optional application-defined function of the 
-     * 				 <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">LPTHREAD_START_ROUTINE</a> type. This function is called 
-     * 				 in the context of the created thread before the function pointed to by 
-     * 				 <i>pfnThreadProc</i> is called. It will also receive <i>pData</i> as 
-     * 				 its argument. <b>SHCreateThread</b> will wait for the 
-     * 				 function pointed to by <i>pfnCallback</i> to return before returning to its caller. The 
-     * 				 return value of the function pointed to by <i>pfnCallback</i> is ignored.
+     * @param {Pointer<LPTHREAD_START_ROUTINE>} _pfnCallback 
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the thread is successfully created, or <b>FALSE</b> otherwise. On failure, use <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the specific error value as shown here.
@@ -31132,12 +30912,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatethread
      * @since windows5.0
      */
-    static SHCreateThread(pfnThreadProc, pData, flags, pfnCallback) {
+    static SHCreateThread(pfnThreadProc, pData, flags, _pfnCallback) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", _pfnCallback, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31173,9 +30953,7 @@ class Shell {
      * @param {Integer} flags Type: <b>SHCT_FLAGS</b>
      * 
      * Flags that control the behavior of the function; one or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ctf">CTF</a> constants.
-     * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCallback Type: <b>LPTHREAD_START_ROUTINE</b>
-     * 
-     * A pointer to an optional application-defined function of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">LPTHREAD_START_ROUTINE</a>. This function is called in the context of the created thread before the function pointed to by <i>pfnThreadProc</i> is called. It will also receive <i>pData</i> as its argument. <b>SHCreateThreadWithHandle</b> waits for the function pointed to by <i>pfnCallback</i> to complete before returning to its caller. The return value for the function specified by <i>pfnCallback</i> is ignored.
+     * @param {Pointer<LPTHREAD_START_ROUTINE>} _pfnCallback 
      * @param {Pointer<HANDLE>} pHandle Type: <b>HANDLE*</b>
      * 
      * A pointer to the <b>HANDLE</b> of the created thread. When it is no longer needed, this handle should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function. This value can be <b>NULL</b>.
@@ -31185,12 +30963,12 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatethreadwithhandle
      * @since windows6.0.6000
      */
-    static SHCreateThreadWithHandle(pfnThreadProc, pData, flags, pfnCallback, pHandle) {
+    static SHCreateThreadWithHandle(pfnThreadProc, pData, flags, _pfnCallback, pHandle) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "ptr", pHandle, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", _pfnCallback, "ptr", pHandle, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -31223,19 +31001,17 @@ class Shell {
      * <li>If the device context is indexed, a full palette is returned.</li>
      * <li>If the device context is not indexed, a default palette (VGA colors) is returned.</li>
      * </ul>
-     * @param {HDC} hdc Type: <b>HDC</b>
-     * 
-     * The device context.
+     * @param {HDC} _hdc 
      * @returns {HPALETTE} Type: <b>HPALETTE</b>
      * 
      * Returns the palette if successful; otherwise 0.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreateshellpalette
      * @since windows5.0
      */
-    static SHCreateShellPalette(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SHCreateShellPalette(_hdc) {
+        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", hdc, "ptr")
+        result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", _hdc, "ptr")
         resultHandle := HPALETTE({Value: result}, True)
         return resultHandle
     }
@@ -33094,16 +32870,16 @@ class Shell {
     /**
      * Enables an app to register a callback function through which it can be notified that its library is going into or coming out of a suspended state.
      * @param {Pointer<PAPPSTATE_CHANGE_ROUTINE>} Routine A pointer to a callback function that is called when the app enters or leaves the suspended state. See <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nc-appnotify-pappstate_change_routine">PAPPSTATE_CHANGE_ROUTINE</a> for more detail on this function.
-     * @param {Pointer<Void>} Context App-specific context information that the app uses when going into or out of a suspended state. This is commonly a "this" pointer.
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<PAPPSTATE_REGISTRATION>} Registration When this function returns successfully, this parameter receives the address of a pointer to a value that can be used to identify the registration. Store this value to use with <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-unregisterappstatechangenotification">UnregisterAppStateChangeNotification</a>.
      * @returns {Integer} A standard Win32 status code.
      * @see https://learn.microsoft.com/windows/win32/api/appnotify/nf-appnotify-registerappstatechangenotification
      */
-    static RegisterAppStateChangeNotification(Routine, Context, Registration) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static RegisterAppStateChangeNotification(Routine, _Context, Registration) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, ContextMarshal, Context, RegistrationMarshal, Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, "uint")
         return result
     }
 
@@ -33120,15 +32896,15 @@ class Shell {
     /**
      * 
      * @param {Pointer<PAPPCONSTRAIN_CHANGE_ROUTINE>} Routine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} _Context 
      * @param {Pointer<PAPPCONSTRAIN_REGISTRATION>} Registration 
      * @returns {Integer} 
      */
-    static RegisterAppConstrainedChangeNotification(Routine, Context, Registration) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static RegisterAppConstrainedChangeNotification(Routine, _Context, Registration) {
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
         RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, ContextMarshal, Context, RegistrationMarshal, Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, "uint")
         return result
     }
 

@@ -32,57 +32,57 @@ class IJsDebugDataTarget extends IUnknown{
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} _address 
      * @param {Integer} flags 
      * @param {Pointer<Integer>} pBuffer 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @param {Pointer<Integer>} pBytesRead 
      * @returns {HRESULT} 
      */
-    ReadMemory(address, flags, pBuffer, size, pBytesRead) {
+    ReadMemory(_address, flags, pBuffer, _size, pBytesRead) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
         pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", address, "int", flags, pBufferMarshal, pBuffer, "uint", size, pBytesReadMarshal, pBytesRead, "HRESULT")
+        result := ComCall(3, this, "uint", _address, "int", flags, pBufferMarshal, pBuffer, "uint", _size, pBytesReadMarshal, pBytesRead, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} _address 
      * @param {Pointer<Integer>} pMemory 
-     * @param {Integer} size 
+     * @param {Integer} _size 
      * @returns {HRESULT} 
      */
-    WriteMemory(address, pMemory, size) {
+    WriteMemory(_address, pMemory, _size) {
         pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", address, pMemoryMarshal, pMemory, "uint", size, "HRESULT")
+        result := ComCall(4, this, "uint", _address, pMemoryMarshal, pMemory, "uint", _size, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Integer} address 
-     * @param {Integer} size 
+     * @param {Integer} _address 
+     * @param {Integer} _size 
      * @param {Integer} allocationType 
      * @param {Integer} pageProtection 
      * @returns {Integer} 
      */
-    AllocateVirtualMemory(address, size, allocationType, pageProtection) {
-        result := ComCall(5, this, "uint", address, "uint", size, "uint", allocationType, "uint", pageProtection, "uint*", &pAllocatedAddress := 0, "HRESULT")
+    AllocateVirtualMemory(_address, _size, allocationType, pageProtection) {
+        result := ComCall(5, this, "uint", _address, "uint", _size, "uint", allocationType, "uint", pageProtection, "uint*", &pAllocatedAddress := 0, "HRESULT")
         return pAllocatedAddress
     }
 
     /**
      * 
-     * @param {Integer} address 
-     * @param {Integer} size 
+     * @param {Integer} _address 
+     * @param {Integer} _size 
      * @param {Integer} freeType 
      * @returns {HRESULT} 
      */
-    FreeVirtualMemory(address, size, freeType) {
-        result := ComCall(6, this, "uint", address, "uint", size, "uint", freeType, "HRESULT")
+    FreeVirtualMemory(_address, _size, freeType) {
+        result := ComCall(6, this, "uint", _address, "uint", _size, "uint", freeType, "HRESULT")
         return result
     }
 
@@ -99,25 +99,25 @@ class IJsDebugDataTarget extends IUnknown{
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} _address 
      * @returns {BSTR} 
      */
-    ReadBSTR(address) {
+    ReadBSTR(_address) {
         pString := BSTR()
-        result := ComCall(8, this, "uint", address, "ptr", pString, "HRESULT")
+        result := ComCall(8, this, "uint", _address, "ptr", pString, "HRESULT")
         return pString
     }
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} _address 
      * @param {Integer} characterSize 
      * @param {Integer} maxCharacters 
      * @returns {BSTR} 
      */
-    ReadNullTerminatedString(address, characterSize, maxCharacters) {
+    ReadNullTerminatedString(_address, characterSize, maxCharacters) {
         pString := BSTR()
-        result := ComCall(9, this, "uint", address, "ushort", characterSize, "uint", maxCharacters, "ptr", pString, "HRESULT")
+        result := ComCall(9, this, "uint", _address, "ushort", characterSize, "uint", maxCharacters, "ptr", pString, "HRESULT")
         return pString
     }
 

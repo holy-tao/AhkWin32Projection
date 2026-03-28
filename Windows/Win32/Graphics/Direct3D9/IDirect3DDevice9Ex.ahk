@@ -91,19 +91,17 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @param {Pointer<Float>} rows Type: <b>float*</b>
      * 
      * An array of weights, one weight for each kernel sub-element in the width. This parameter must be <b>NULL</b>, which will set the weights equal to the default value.
-     * @param {Pointer<Float>} columns Type: <b>float*</b>
-     * 
-     * An array of weights, one weight for each kernel sub-element in the height. This parameter must be <b>NULL</b>, which will set the weights equal to the default value.
+     * @param {Pointer<Float>} _columns 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-setconvolutionmonokernel
      */
-    SetConvolutionMonoKernel(width, height, rows, columns) {
+    SetConvolutionMonoKernel(width, height, rows, _columns) {
         rowsMarshal := rows is VarRef ? "float*" : "ptr"
-        columnsMarshal := columns is VarRef ? "float*" : "ptr"
+        _columnsMarshal := _columns is VarRef ? "float*" : "ptr"
 
-        result := ComCall(119, this, "uint", width, "uint", height, rowsMarshal, rows, columnsMarshal, columns, "HRESULT")
+        result := ComCall(119, this, "uint", width, "uint", height, rowsMarshal, rows, _columnsMarshal, _columns, "HRESULT")
         return result
     }
 
@@ -241,16 +239,14 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * Set the priority on the GPU thread.
      * @remarks
      * GPU thread priority is not reset when a device is lost. The effects of calls to this method are not recorded in state blocks.
-     * @param {Integer} Priority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
-     * 
-     * The thread priority, ranging from -7 to 7.
+     * @param {Integer} _Priority 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Possible return values include: D3D_OK, D3DERR_INVALIDCALL, or D3DERR_DEVICEREMOVED (see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3derr">D3DERR</a>).
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-setgputhreadpriority
      */
-    SetGPUThreadPriority(Priority) {
-        result := ComCall(123, this, "int", Priority, "HRESULT")
+    SetGPUThreadPriority(_Priority) {
+        result := ComCall(123, this, "int", _Priority, "HRESULT")
         return result
     }
 

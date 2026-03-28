@@ -42,12 +42,12 @@ class ICredentialProviderUser extends IUnknown{
      * This SID applies to both logon and credential UI.
      * 
      * This value can also be retrieved as a <b>PROPVARIANT</b> through <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getvalue">ICredentialProviderUser::GetValue</a>.
-     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the user's SID. It is the responsibility of the caller to free this resource by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getsid
      */
     GetSid() {
-        result := ComCall(3, this, "ptr*", &sid := 0, "HRESULT")
-        return sid
+        result := ComCall(3, this, "ptr*", &_sid := 0, "HRESULT")
+        return _sid
     }
 
     /**

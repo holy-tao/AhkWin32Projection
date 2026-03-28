@@ -87,7 +87,7 @@ class IOpcSignatureReferenceSet extends IUnknown{
      * <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
      * <div> </div>
      * @param {Integer} transformMethod The canonicalization method to be used for the XML markup to be referenced.
-     * @returns {IOpcSignatureReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer that represents the reference to  the XML element to be signed.
+     * @returns {IOpcSignatureReference} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-create
      */
     Create(referenceUri, referenceId, type, digestMethod, transformMethod) {
@@ -95,15 +95,15 @@ class IOpcSignatureReferenceSet extends IUnknown{
         type := type is String ? StrPtr(type) : type
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, "int", transformMethod, "ptr*", &reference := 0, "HRESULT")
-        return IOpcSignatureReference(reference)
+        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, "int", transformMethod, "ptr*", &_reference := 0, "HRESULT")
+        return IOpcSignatureReference(_reference)
     }
 
     /**
      * Deletes a specified IOpcSignatureReference interface pointer from the set.
      * @remarks
      * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
-     * @param {IOpcSignatureReference} reference An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer to be deleted.
+     * @param {IOpcSignatureReference} _reference 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -136,8 +136,8 @@ class IOpcSignatureReferenceSet extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-delete
      */
-    Delete(reference) {
-        result := ComCall(4, this, "ptr", reference, "HRESULT")
+    Delete(_reference) {
+        result := ComCall(4, this, "ptr", _reference, "HRESULT")
         return result
     }
 

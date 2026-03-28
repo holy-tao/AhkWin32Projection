@@ -62,9 +62,9 @@ class ISortColumnArray extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getatomnamea
      */
     GetAt(index) {
-        sortcolumn := SORTCOLUMN()
-        result := ComCall(4, this, "uint", index, "ptr", sortcolumn, "HRESULT")
-        return sortcolumn
+        _sortcolumn := SORTCOLUMN()
+        result := ComCall(4, this, "uint", index, "ptr", _sortcolumn, "HRESULT")
+        return _sortcolumn
     }
 
     /**

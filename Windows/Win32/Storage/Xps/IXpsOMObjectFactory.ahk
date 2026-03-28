@@ -566,12 +566,12 @@ class IXpsOMObjectFactory extends IUnknown{
      * 
      * ```
      * @param {IOpcPartUri} partUri The  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name to be assigned to this resource. This parameter must not be <b>NULL</b>.
-     * @returns {IXpsOMDocument} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface.
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createdocument
      */
     CreateDocument(partUri) {
-        result := ComCall(13, this, "ptr", partUri, "ptr*", &document := 0, "HRESULT")
-        return IXpsOMDocument(document)
+        result := ComCall(13, this, "ptr", partUri, "ptr*", &_document := 0, "HRESULT")
+        return IXpsOMDocument(_document)
     }
 
     /**
@@ -880,12 +880,12 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @returns {IXpsOMPath} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompath">IXpsOMPath</a> interface.
+     * @returns {IXpsOMPath} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpath
      */
     CreatePath() {
-        result := ComCall(19, this, "ptr*", &path := 0, "HRESULT")
-        return IXpsOMPath(path)
+        result := ComCall(19, this, "ptr*", &_path := 0, "HRESULT")
+        return IXpsOMPath(_path)
     }
 
     /**
@@ -1030,12 +1030,12 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {Pointer<XPS_MATRIX>} matrix The initial matrix to be assigned to the transform.
+     * @param {Pointer<XPS_MATRIX>} _matrix 
      * @returns {IXpsOMMatrixTransform} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creatematrixtransform
      */
-    CreateMatrixTransform(matrix) {
-        result := ComCall(22, this, "ptr", matrix, "ptr*", &transform := 0, "HRESULT")
+    CreateMatrixTransform(_matrix) {
+        result := ComCall(22, this, "ptr", _matrix, "ptr*", &transform := 0, "HRESULT")
         return IXpsOMMatrixTransform(transform)
     }
 
@@ -1085,13 +1085,13 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {Pointer<XPS_COLOR>} color The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that specifies  the brush color.
+     * @param {Pointer<XPS_COLOR>} _color 
      * @param {IXpsOMColorProfileResource} colorProfile The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresource">IXpsOMColorProfileResource</a> interface. Unless the color type is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, this value must be <b>NULL</b>.
      * @returns {IXpsOMSolidColorBrush} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomsolidcolorbrush">IXpsOMSolidColorBrush</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createsolidcolorbrush
      */
-    CreateSolidColorBrush(color, colorProfile) {
-        result := ComCall(23, this, "ptr", color, "ptr", colorProfile, "ptr*", &solidColorBrush := 0, "HRESULT")
+    CreateSolidColorBrush(_color, colorProfile) {
+        result := ComCall(23, this, "ptr", _color, "ptr", colorProfile, "ptr*", &solidColorBrush := 0, "HRESULT")
         return IXpsOMSolidColorBrush(solidColorBrush)
     }
 
@@ -1231,14 +1231,14 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {IXpsOMImageResource} image The  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the image to be used as the source image of the brush.
+     * @param {IXpsOMImageResource} _image 
      * @param {Pointer<XPS_RECT>} viewBox The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that defines the <i>viewbox</i>, which is the area  of the source image that is used by the brush.
      * @param {Pointer<XPS_RECT>} viewPort The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that defines the <i>viewport</i>, which is the area covered by the first    tile in the output area.
      * @returns {IXpsOMImageBrush} A pointer to the new  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimagebrush">IXpsOMImageBrush</a>  interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createimagebrush
      */
-    CreateImageBrush(image, viewBox, viewPort) {
-        result := ComCall(25, this, "ptr", image, "ptr", viewBox, "ptr", viewPort, "ptr*", &imageBrush := 0, "HRESULT")
+    CreateImageBrush(_image, viewBox, viewPort) {
+        result := ComCall(25, this, "ptr", _image, "ptr", viewBox, "ptr", viewPort, "ptr*", &imageBrush := 0, "HRESULT")
         return IXpsOMImageBrush(imageBrush)
     }
 
@@ -1543,7 +1543,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {Pointer<XPS_COLOR>} color The color value.
+     * @param {Pointer<XPS_COLOR>} _color 
      * @param {IXpsOMColorProfileResource} colorProfile A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresource">IXpsOMColorProfileResource</a> interface that contains the color profile to be used. If the color type is not <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, this parameter must be <b>NULL</b>.
      * @param {Float} offset The offset value.
      * 
@@ -1551,8 +1551,8 @@ class IXpsOMObjectFactory extends IUnknown{
      * @returns {IXpsOMGradientStop} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creategradientstop
      */
-    CreateGradientStop(color, colorProfile, offset) {
-        result := ComCall(30, this, "ptr", color, "ptr", colorProfile, "float", offset, "ptr*", &gradientStop := 0, "HRESULT")
+    CreateGradientStop(_color, colorProfile, offset) {
+        result := ComCall(30, this, "ptr", _color, "ptr", colorProfile, "float", offset, "ptr*", &gradientStop := 0, "HRESULT")
         return IXpsOMGradientStop(gradientStop)
     }
 

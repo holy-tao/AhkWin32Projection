@@ -1027,9 +1027,7 @@ class ID3D11Device extends IUnknown{
      * <li>Only R10G10B10A2_UNORM, R16G16B16A16_FLOAT and R8G8B8A8_UNORM formats are allowed</li>
      * </ul>
      * If a shared texture is updated on one device <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-flush">ID3D11DeviceContext::Flush</a> must be called on that device.
-     * @param {HANDLE} hResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a></b>
-     * 
-     * A resource handle. See remarks.
+     * @param {HANDLE} _hResource 
      * @param {Pointer<Guid>} ReturnedInterface Type: <b>REFIID</b>
      * 
      * The globally unique identifier (GUID) for the resource interface. See remarks.
@@ -1038,10 +1036,10 @@ class ID3D11Device extends IUnknown{
      * Address of a pointer to the resource we are gaining access to.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-opensharedresource
      */
-    OpenSharedResource(hResource, ReturnedInterface) {
-        hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
+    OpenSharedResource(_hResource, ReturnedInterface) {
+        _hResource := _hResource is Win32Handle ? NumGet(_hResource, "ptr") : _hResource
 
-        result := ComCall(28, this, "ptr", hResource, "ptr", ReturnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", _hResource, "ptr", ReturnedInterface, "ptr*", &ppResource := 0, "HRESULT")
         return ppResource
     }
 

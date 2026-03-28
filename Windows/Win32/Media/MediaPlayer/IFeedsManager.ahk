@@ -184,8 +184,8 @@ class IFeedsManager extends IDispatch{
      * @returns {Integer} 
      */
     get_BackgroundSyncStatus() {
-        result := ComCall(17, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(17, this, "int*", &_status := 0, "HRESULT")
+        return _status
     }
 
     /**

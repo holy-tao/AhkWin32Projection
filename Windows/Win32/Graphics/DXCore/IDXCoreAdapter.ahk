@@ -59,14 +59,14 @@ class IDXCoreAdapter extends IUnknown{
 
     /**
      * Determines whether this DXCore adapter object and the current operating system (OS) support the specified adapter property.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @returns {Boolean} Type: **bool**
      * 
      * Returns `true` if this DXCore adapter object and the current operating system (OS) support the specified adapter property. Otherwise, returns `false`.
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-ispropertysupported
      */
-    IsPropertySupported(property) {
-        result := ComCall(5, this, "uint", property, "int")
+    IsPropertySupported(_property) {
+        result := ComCall(5, this, "uint", _property, "int")
         return result
     }
 
@@ -74,7 +74,7 @@ class IDXCoreAdapter extends IUnknown{
      * Retrieves the value of the specified adapter property.
      * @remarks
      * You can call **GetProperty** on an adapter that's no longer valid&mdash;the function won't fail as a result of that. This function zeros out the *propertyData* buffer prior to filling it in.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @param {Pointer} bufferSize Type: **size_t**
      * 
      * The size, in bytes, of the output buffer that you allocate and provide in *propertyData*.
@@ -93,8 +93,8 @@ class IDXCoreAdapter extends IUnknown{
      * |E_POINTER|`nullptr` was provided for *propertyData*.|
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty
      */
-    GetProperty(property, bufferSize, propertyData) {
-        result := ComCall(6, this, "uint", property, "ptr", bufferSize, "ptr", propertyData, "HRESULT")
+    GetProperty(_property, bufferSize, propertyData) {
+        result := ComCall(6, this, "uint", _property, "ptr", bufferSize, "ptr", propertyData, "HRESULT")
         return result
     }
 
@@ -102,27 +102,27 @@ class IDXCoreAdapter extends IUnknown{
      * For a specified adapter property, retrieves the size of buffer, in bytes, that is required for a call to [GetProperty](/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty).
      * @remarks
      * You can call **GetPropertySize** on an adapter that's no longer valid&mdash;the function won't fail.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @returns {Pointer} Type: **size_t\***
      * 
      * A pointer to a **size_t** value. The function dereferences the pointer and sets the value to the size, in bytes, of the output buffer that you should allocate and pass as the *propertyData* argument in your call to [GetProperty](/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty).
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getpropertysize
      */
-    GetPropertySize(property) {
-        result := ComCall(7, this, "uint", property, "ptr*", &bufferSize := 0, "HRESULT")
+    GetPropertySize(_property) {
+        result := ComCall(7, this, "uint", _property, "ptr*", &bufferSize := 0, "HRESULT")
         return bufferSize
     }
 
     /**
      * Determines whether this DXCore adapter object and the current operating system (OS) support querying the value of the specified adapter state.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @returns {Boolean} Type: **bool**
      * 
      * Returns `true` if this DXCore adapter object and the current operating system (OS) support querying the specified adapter state. Otherwise, returns `false`.
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-isquerystatesupported
      */
-    IsQueryStateSupported(property) {
-        result := ComCall(8, this, "uint", property, "int")
+    IsQueryStateSupported(_property) {
+        result := ComCall(8, this, "uint", _property, "int")
         return result
     }
 
@@ -163,14 +163,14 @@ class IDXCoreAdapter extends IUnknown{
 
     /**
      * Determines whether this DXCore adapter object and the current operating system (OS) support setting the value of the specified adapter state.
-     * @param {Integer} property 
+     * @param {Integer} _property 
      * @returns {Boolean} Type: **bool**
      * 
      * Returns `true` if this DXCore adapter object and the current operating system (OS) support setting the specified adapter state. Otherwise, returns `false`.
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-issetstatesupported
      */
-    IsSetStateSupported(property) {
-        result := ComCall(10, this, "uint", property, "int")
+    IsSetStateSupported(_property) {
+        result := ComCall(10, this, "uint", _property, "int")
         return result
     }
 

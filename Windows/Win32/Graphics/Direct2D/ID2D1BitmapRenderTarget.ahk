@@ -45,13 +45,11 @@ class ID2D1BitmapRenderTarget extends ID2D1RenderTarget{
      * Retrieves the bitmap for this render target. The returned bitmap can be used for drawing operations.
      * @remarks
      * The DPI for the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a> obtained from <b>GetBitmap</b> will be the DPI of the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmaprendertarget">ID2D1BitmapRenderTarget</a> when the render target was created. Changing the DPI of the <b>ID2D1BitmapRenderTarget</b> by calling  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-setdpi">SetDpi</a> doesn't affect the DPI of the bitmap, even if <b>SetDpi</b> is called before <b>GetBitmap</b>. Using <b>SetDpi</b> to change the DPI of the <b>ID2D1BitmapRenderTarget</b> does affect how contents are rendered into the bitmap: it just doesn't affect the DPI of the bitmap retrieved by <b>GetBitmap</b>.
-     * @returns {ID2D1Bitmap} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>**</b>
-     * 
-     * When this method returns, contains the address of a pointer to the bitmap for this render target. This bitmap can be used for drawing operations.
+     * @returns {ID2D1Bitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmaprendertarget-getbitmap
      */
     GetBitmap() {
-        result := ComCall(57, this, "ptr*", &bitmap := 0, "HRESULT")
-        return ID2D1Bitmap(bitmap)
+        result := ComCall(57, this, "ptr*", &_bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(_bitmap)
     }
 }

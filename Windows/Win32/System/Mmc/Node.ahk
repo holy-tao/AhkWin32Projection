@@ -74,9 +74,9 @@ class Node extends IDispatch{
     get_Property(PropertyName) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        PropertyValue := BSTR()
-        result := ComCall(8, this, "ptr", PropertyName, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        _PropertyValue := BSTR()
+        result := ComCall(8, this, "ptr", PropertyName, "ptr", _PropertyValue, "HRESULT")
+        return _PropertyValue
     }
 
     /**

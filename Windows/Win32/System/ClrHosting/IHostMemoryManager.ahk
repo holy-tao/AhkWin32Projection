@@ -210,26 +210,26 @@ class IHostMemoryManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Void>} startAddress 
-     * @param {Pointer} size 
+     * @param {Pointer} _size 
      * @returns {HRESULT} 
      */
-    NeedsVirtualAddressSpace(startAddress, size) {
+    NeedsVirtualAddressSpace(startAddress, _size) {
         startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, startAddressMarshal, startAddress, "ptr", size, "HRESULT")
+        result := ComCall(10, this, startAddressMarshal, startAddress, "ptr", _size, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} startAddress 
-     * @param {Pointer} size 
+     * @param {Pointer} _size 
      * @returns {HRESULT} 
      */
-    AcquiredVirtualAddressSpace(startAddress, size) {
+    AcquiredVirtualAddressSpace(startAddress, _size) {
         startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, startAddressMarshal, startAddress, "ptr", size, "HRESULT")
+        result := ComCall(11, this, startAddressMarshal, startAddress, "ptr", _size, "HRESULT")
         return result
     }
 

@@ -41,18 +41,18 @@ class ISimilarityTraitsTable extends IUnknown{
      * Creates or opens a similarity traits table.
      * @remarks
      * If an existing similarity traits table is being opened, the table must be valid.  Otherwise, the existing table is overwritten, even if <b>FALSE</b> is specified for the <i>truncate</i> parameter.
-     * @param {PWSTR} path A pointer to a null-terminated string that specifies the name of the file that will contain the similarity traits table. The alternate stream name ":Traits" will be appended to the end of this file name. For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
+     * @param {PWSTR} _path 
      * @param {BOOL} truncate <b>TRUE</b> if a new similarity traits table should always be created or truncated. If <b>FALSE</b> is specified and the table exists and is valid, it may be used; otherwise, if the table is not valid or does not exist, the existing table is overwritten.
-     * @param {Pointer<Integer>} securityDescriptor A pointer to a  security descriptor to use when opening the file. If this parameter is <b>NULL</b>, the file is assigned a default security descriptor. The access control lists (ACL) in the file's default security descriptor are inherited from the file's parent directory. For more information, see the <i>lpSecurityAttributes</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
+     * @param {Pointer<Integer>} _securityDescriptor 
      * @returns {Integer} A pointer to a variable that receives an  <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables">RdcCreatedTables</a> enumeration value that describes the state of the similarity traits table. If a new table is created, this variable receives <b>RDCTABLE_New</b>. If an existing table is used, this variable receives <b>RDCTABLE_Existing</b>. If this method fails, this variable receives <b>RDCTABLE_InvalidOrUnknown</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-createtable
      */
-    CreateTable(path, truncate, securityDescriptor) {
-        path := path is String ? StrPtr(path) : path
+    CreateTable(_path, truncate, _securityDescriptor) {
+        _path := _path is String ? StrPtr(_path) : _path
 
-        securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
+        _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, "int", truncate, _securityDescriptorMarshal, _securityDescriptor, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -103,18 +103,18 @@ class ISimilarityTraitsTable extends IUnknown{
      * Returns a list of files that are similar to a given file. The results in the list are sorted in order of similarity, beginning with the most similar file.
      * @remarks
      * The list of files that is returned in the <i>findSimilarFileIndexResults</i> parameter may include files that have been deleted.
-     * @param {Pointer<SimilarityData>} similarityData A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure that contains similarity information for the file.
+     * @param {Pointer<SimilarityData>} _similarityData 
      * @param {Integer} numberOfMatchesRequired TBD
-     * @param {Pointer<FindSimilarFileIndexResults>} findSimilarFileIndexResults A pointer to a buffer that receives an array of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-findsimilarfileindexresults">FindSimilarFileIndexResults</a> structures that contain the requested information.
+     * @param {Pointer<FindSimilarFileIndexResults>} _findSimilarFileIndexResults 
      * @param {Integer} resultsSize The number of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-findsimilarfileindexresults">FindSimilarFileIndexResults</a> structures that can be stored in the buffer that the <i>findSimilarFileIndexResults</i> parameter points to.
      * @param {Pointer<Integer>} resultsUsed The number of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-findsimilarfileindexresults">FindSimilarFileIndexResults</a> structures that were returned in the buffer that the <i>findSimilarFileIndexResults</i> parameter points to.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-findsimilarfileindex
      */
-    FindSimilarFileIndex(similarityData, numberOfMatchesRequired, findSimilarFileIndexResults, resultsSize, resultsUsed) {
+    FindSimilarFileIndex(_similarityData, numberOfMatchesRequired, _findSimilarFileIndexResults, resultsSize, resultsUsed) {
         resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", similarityData, "ushort", numberOfMatchesRequired, "ptr", findSimilarFileIndexResults, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
+        result := ComCall(7, this, "ptr", _similarityData, "ushort", numberOfMatchesRequired, "ptr", _findSimilarFileIndexResults, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
         return result
     }
 
@@ -122,12 +122,12 @@ class ISimilarityTraitsTable extends IUnknown{
      * Retrieves similarity data from the similarity traits table.
      * @remarks
      * The <b>BeginDump</b> method is used for debugging and garbage collection. It returns an interface pointer to an iterator object that allows the application to efficiently dump all of the entries in the similarity traits table.
-     * @returns {ISimilarityTableDumpState} An optional pointer to a location that will receive the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-isimilaritytabledumpstate">ISimilarityTableDumpState</a> interface pointer. The caller must release this interface when it is no longer needed.
+     * @returns {ISimilarityTableDumpState} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-begindump
      */
     BeginDump() {
-        result := ComCall(8, this, "ptr*", &similarityTableDumpState := 0, "HRESULT")
-        return ISimilarityTableDumpState(similarityTableDumpState)
+        result := ComCall(8, this, "ptr*", &_similarityTableDumpState := 0, "HRESULT")
+        return ISimilarityTableDumpState(_similarityTableDumpState)
     }
 
     /**

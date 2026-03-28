@@ -44,9 +44,7 @@ class IImageRecompress extends IUnknown{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The x dimension of the image to return.
-     * @param {Integer} cy Type: <b>int</b>
-     * 
-     * The y dimension of the image to return.
+     * @param {Integer} _cy 
      * @param {Integer} iQuality Type: <b>int</b>
      * 
      * An indication of recompression quality that can range from 0 to 100.
@@ -60,8 +58,8 @@ class IImageRecompress extends IUnknown{
      * 				variable that receives the output stream written to.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iimagerecompress-recompressimage
      */
-    RecompressImage(psi, cx, cy, iQuality, pstg) {
-        result := ComCall(3, this, "ptr", psi, "int", cx, "int", cy, "int", iQuality, "ptr", pstg, "ptr*", &ppstrmOut := 0, "HRESULT")
+    RecompressImage(psi, cx, _cy, iQuality, pstg) {
+        result := ComCall(3, this, "ptr", psi, "int", cx, "int", _cy, "int", iQuality, "ptr", pstg, "ptr*", &ppstrmOut := 0, "HRESULT")
         return IStream(ppstrmOut)
     }
 }

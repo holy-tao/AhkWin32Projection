@@ -390,8 +390,8 @@ class IInkDrawingAttributes extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_extendedproperties
      */
     get_ExtendedProperties() {
-        result := ComCall(25, this, "ptr*", &Properties := 0, "HRESULT")
-        return IInkExtendedProperties(Properties)
+        result := ComCall(25, this, "ptr*", &_Properties := 0, "HRESULT")
+        return IInkExtendedProperties(_Properties)
     }
 
     /**

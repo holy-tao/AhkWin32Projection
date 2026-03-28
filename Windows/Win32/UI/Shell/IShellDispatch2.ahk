@@ -59,15 +59,15 @@ class IShellDispatch2 extends IShellDispatch{
      * 
      * This method is not currently available in Microsoft Visual Basic.
      * @param {BSTR} Group 
-     * @param {BSTR} Restriction 
+     * @param {BSTR} _Restriction 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-isrestricted
      */
-    IsRestricted(Group, Restriction) {
+    IsRestricted(Group, _Restriction) {
         Group := Group is String ? BSTR.Alloc(Group).Value : Group
-        Restriction := Restriction is String ? BSTR.Alloc(Restriction).Value : Restriction
+        _Restriction := _Restriction is String ? BSTR.Alloc(_Restriction).Value : _Restriction
 
-        result := ComCall(30, this, "ptr", Group, "ptr", Restriction, "int*", &plRestrictValue := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", Group, "ptr", _Restriction, "int*", &plRestrictValue := 0, "HRESULT")
         return plRestrictValue
     }
 
@@ -79,7 +79,7 @@ class IShellDispatch2 extends IShellDispatch{
      * This method is equivalent to launching one of the commands associated with a file's shortcut menu. Each command is represented by a verb string. The set of supported verbs varies from file to file. The most commonly supported verb is "open", which is also usually the default verb. Other verbs might be supported by only certain types of files. For further discussion of Shell verbs, see [Launching Applications](launch.md) or [Extending Shortcut Menus](context.md).
      * 
      * This method is not currently available in Microsoft Visual Basic.
-     * @param {BSTR} File 
+     * @param {BSTR} _File 
      * @param {VARIANT} vArgs 
      * @param {VARIANT} vDir 
      * @param {VARIANT} vOperation Type: **Variant**
@@ -104,10 +104,10 @@ class IShellDispatch2 extends IShellDispatch{
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-shellexecute
      */
-    ShellExecute(File, vArgs, vDir, vOperation, vShow) {
-        File := File is String ? BSTR.Alloc(File).Value : File
+    ShellExecute(_File, vArgs, vDir, vOperation, vShow) {
+        _File := _File is String ? BSTR.Alloc(_File).Value : _File
 
-        result := ComCall(31, this, "ptr", File, "ptr", vArgs, "ptr", vDir, "ptr", vOperation, "ptr", vShow, "HRESULT")
+        result := ComCall(31, this, "ptr", _File, "ptr", vArgs, "ptr", vDir, "ptr", vOperation, "ptr", vShow, "HRESULT")
         return result
     }
 
@@ -120,17 +120,17 @@ class IShellDispatch2 extends IShellDispatch{
      * 
      * This method is not currently available in Microsoft Visual Basic.
      * @param {BSTR} name 
-     * @param {BSTR} location 
+     * @param {BSTR} _location 
      * @param {BSTR} model 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch2-findprinter
      */
-    FindPrinter(name, location, model) {
+    FindPrinter(name, _location, model) {
         name := name is String ? BSTR.Alloc(name).Value : name
-        location := location is String ? BSTR.Alloc(location).Value : location
+        _location := _location is String ? BSTR.Alloc(_location).Value : _location
         model := model is String ? BSTR.Alloc(model).Value : model
 
-        result := ComCall(32, this, "ptr", name, "ptr", location, "ptr", model, "HRESULT")
+        result := ComCall(32, this, "ptr", name, "ptr", _location, "ptr", model, "HRESULT")
         return result
     }
 

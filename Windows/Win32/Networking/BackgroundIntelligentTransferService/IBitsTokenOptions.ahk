@@ -137,11 +137,11 @@ class IBitsTokenOptions extends IUnknown{
      * Older implementations effectively required that BITS users have  administrator privileges in order to get the helper token SID with this method. Starting with Windows 10, version 1607, non-administrator BITS users can use this method to get the helper token SID on BITS jobs they own. This change enables non-administrator BITS users (such as background downloader services running under the <a href="https://docs.microsoft.com/windows/desktop/Services/networkservice-account">NetworkService account</a>) to use helper tokens effectively. 
      * 
      * Specifically, the implementation has been changed to allow users without administrator privileges to get the helper token SID, as long as the SID of the  caller's thread's token is the same as the SID of the job owner's user account during the <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob::QueryInterface</a> call.
-     * @returns {PWSTR} Returns the SID that is retrieved from the <i>TokenInformation</i> parameter of the <a href="https://docs.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-gettokeninformation">GetTokenInformation</a> function.  If no SID is retrieved, this parameter is set to <b>NULL</b>.
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokensid
      */
     GetHelperTokenSid() {
-        result := ComCall(7, this, "ptr*", &pSid := 0, "HRESULT")
-        return pSid
+        result := ComCall(7, this, "ptr*", &_pSid := 0, "HRESULT")
+        return _pSid
     }
 }

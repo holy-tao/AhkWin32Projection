@@ -108,8 +108,8 @@ class _Application extends IDispatch{
      * @returns {Document} 
      */
     get_Document() {
-        result := ComCall(9, this, "ptr*", &Document := 0, "HRESULT")
-        return Document(Document)
+        result := ComCall(9, this, "ptr*", &_Document := 0, "HRESULT")
+        return Document(_Document)
     }
 
     /**
@@ -195,8 +195,8 @@ class _Application extends IDispatch{
      * @returns {Frame} 
      */
     get_Frame() {
-        result := ComCall(11, this, "ptr*", &Frame := 0, "HRESULT")
-        return Frame(Frame)
+        result := ComCall(11, this, "ptr*", &_Frame := 0, "HRESULT")
+        return Frame(_Frame)
     }
 
     /**

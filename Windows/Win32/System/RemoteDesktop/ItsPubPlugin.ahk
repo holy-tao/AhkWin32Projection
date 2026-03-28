@@ -146,7 +146,7 @@ class ItsPubPlugin extends IUnknown{
         userID := userID is String ? StrPtr(userID) : userID
         alias := alias is String ? StrPtr(alias) : alias
 
-        result := ComCall(8, this, "uint*", &resourceType := 0, "ptr", resourceLocation, "ptr", endPointName, "ptr", userID, "ptr", alias, "HRESULT")
-        return resourceType
+        result := ComCall(8, this, "uint*", &_resourceType := 0, "ptr", resourceLocation, "ptr", endPointName, "ptr", userID, "ptr", alias, "HRESULT")
+        return _resourceType
     }
 }

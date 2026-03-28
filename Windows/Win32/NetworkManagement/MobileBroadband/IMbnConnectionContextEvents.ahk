@@ -65,12 +65,12 @@ class IMbnConnectionContextEvents extends IUnknown{
      * If there are multiple applications registered to receive notifications then all of them will receive this notification even though only one of them could have initiated this operation.
      * @param {IMbnConnectionContext} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a> interface that represents the device for which the context has been set.
      * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the operation that set the context.
-     * @param {HRESULT} status A status code that indicates the outcome of the operation.
+     * @param {HRESULT} _status 
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontextevents-onsetprovisionedcontextcomplete
      */
-    OnSetProvisionedContextComplete(newInterface, requestID, status) {
-        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", status, "HRESULT")
+    OnSetProvisionedContextComplete(newInterface, requestID, _status) {
+        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 }

@@ -62,9 +62,7 @@ class IContextMenu extends IUnknown{
      * If the Shell subsequently calls another shortcut menu handler, it will use the code value of the returned <b>HRESULT</b> to set <i>idCmdFirst</i> when it calls that handler's <b>QueryContextMenu</b> method.
      * 
      * When a context menu handler adds a pop-up menu item, it must use <b>IContextMenu::QueryContextMenu</b> to add at least one item to that menu for the WM_INITMENUPOPUP message to be forwarded.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
-     * 
-     * A handle to the shortcut menu. The handler should specify this handle when adding menu items.
+     * @param {HMENU} _hmenu 
      * @param {Integer} indexMenu Type: <b>UINT</b>
      * 
      * The zero-based position at which to insert the first new menu item.
@@ -80,10 +78,10 @@ class IContextMenu extends IUnknown{
      * If successful, returns an <b>HRESULT</b> value that has its severity value set to SEVERITY_SUCCESS and its code value set to the offset of the largest command identifier that was assigned, plus one. For example, if <i>idCmdFirst</i> is set to 5 and you add three items to the menu with command identifiers of 5, 7, and 8, the return value should be MAKE_HRESULT(SEVERITY_SUCCESS, 0, 8 - 5 + 1). Otherwise, it returns a COM error value.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu-querycontextmenu
      */
-    QueryContextMenu(hmenu, indexMenu, idCmdFirst, idCmdLast, uFlags) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    QueryContextMenu(_hmenu, indexMenu, idCmdFirst, idCmdLast, uFlags) {
+        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
 
-        result := ComCall(3, this, "ptr", hmenu, "uint", indexMenu, "uint", idCmdFirst, "uint", idCmdLast, "uint", uFlags, "int")
+        result := ComCall(3, this, "ptr", _hmenu, "uint", indexMenu, "uint", idCmdFirst, "uint", idCmdLast, "uint", uFlags, "int")
         return result
     }
 

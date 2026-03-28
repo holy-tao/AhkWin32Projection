@@ -3837,20 +3837,20 @@ class Display {
 ;@region Methods
     /**
      * Retrieves the number of physical monitors associated with an HMONITOR monitor handle.
-     * @param {HMONITOR} hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
+     * @param {HMONITOR} _hMonitor 
      * @param {Pointer<Integer>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the monitor handle.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromhmonitor
      * @since windows6.0.6000
      */
-    static GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor, pdwNumberOfPhysicalMonitors) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetNumberOfPhysicalMonitorsFromHMONITOR(_hMonitor, pdwNumberOfPhysicalMonitors) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwNumberOfPhysicalMonitorsMarshal := pdwNumberOfPhysicalMonitors is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, pdwNumberOfPhysicalMonitorsMarshal, pdwNumberOfPhysicalMonitors, "int")
+        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", _hMonitor, pdwNumberOfPhysicalMonitorsMarshal, pdwNumberOfPhysicalMonitors, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3877,19 +3877,19 @@ class Display {
      *       
      * 
      * When you are done using the monitor handles, close them by passing the <i>pPhysicalMonitorArray</i> array to the <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-destroyphysicalmonitors">DestroyPhysicalMonitors</a> function.
-     * @param {HMONITOR} hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
+     * @param {HMONITOR} _hMonitor 
      * @param {Integer} dwPhysicalMonitorArraySize Number of elements in <i>pPhysicalMonitorArray</i>. To get the required size of the array, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromhmonitor">GetNumberOfPhysicalMonitorsFromHMONITOR</a>.
      * @param {Pointer<PHYSICAL_MONITOR>} pPhysicalMonitorArray Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor">PHYSICAL_MONITOR</a> structures. The caller must allocate the array.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor
      * @since windows6.0.6000
      */
-    static GetPhysicalMonitorsFromHMONITOR(hMonitor, dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetPhysicalMonitorsFromHMONITOR(_hMonitor, dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
+        result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", "ptr", _hMonitor, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3918,17 +3918,17 @@ class Display {
 
     /**
      * Closes a handle to a physical monitor.
-     * @param {HANDLE} hMonitor Handle to a physical monitor.
+     * @param {HANDLE} _hMonitor 
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-destroyphysicalmonitor
      * @since windows6.0.6000
      */
-    static DestroyPhysicalMonitor(hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static DestroyPhysicalMonitor(_hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\DestroyPhysicalMonitor", "ptr", hMonitor, "int")
+        result := DllCall("dxva2.dll\DestroyPhysicalMonitor", "ptr", _hMonitor, "int")
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3962,7 +3962,7 @@ class Display {
      *       
      * 
      * This function takes about 40 milliseconds to return.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} bVCPCode VCP code to query. The VCP codes are Include the VESA Monitor Control Command Set (MCCS) standard, versions 1.0 and 2.0. This parameter must specify a continuous or non-continuous VCP, or a vendor-specific code. It should not be a table control code.
      * @param {Pointer<Integer>} pvct Receives the VCP code type, as a member of the <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type">MC_VCP_CODE_TYPE</a> enumeration. This parameter can be <b>NULL</b>.
      * @param {Pointer<Integer>} pdwCurrentValue Receives the current value of the VCP code. This parameter can be <b>NULL</b>.
@@ -3971,8 +3971,8 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getvcpfeatureandvcpfeaturereply
      * @since windows6.0.6000
      */
-    static GetVCPFeatureAndVCPFeatureReply(hMonitor, bVCPCode, pvct, pdwCurrentValue, pdwMaximumValue) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetVCPFeatureAndVCPFeatureReply(_hMonitor, bVCPCode, pvct, pdwCurrentValue, pdwMaximumValue) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pvctMarshal := pvct is VarRef ? "int*" : "ptr"
         pdwCurrentValueMarshal := pdwCurrentValue is VarRef ? "uint*" : "ptr"
@@ -3980,7 +3980,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", "ptr", hMonitor, "char", bVCPCode, pvctMarshal, pvct, pdwCurrentValueMarshal, pdwCurrentValue, pdwMaximumValueMarshal, pdwMaximumValue, "int")
+        result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", "ptr", _hMonitor, "char", bVCPCode, pvctMarshal, pvct, pdwCurrentValueMarshal, pdwCurrentValue, pdwMaximumValueMarshal, pdwMaximumValue, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -3995,17 +3995,17 @@ class Display {
      *       
      * 
      * This function takes about 50 milliseconds to return.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} bVCPCode VCP code to set. The VCP codes are defined in the VESA Monitor Control Command Set (MCCS) standard, version 1.0 and 2.0. This parameter must specify a continuous or non-continuous VCP, or a vendor-specific code. It should not be a table control code.
      * @param {Integer} dwNewValue Value of the VCP code.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-setvcpfeature
      * @since windows6.0.6000
      */
-    static SetVCPFeature(hMonitor, bVCPCode, dwNewValue) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetVCPFeature(_hMonitor, bVCPCode, dwNewValue) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := DllCall("dxva2.dll\SetVCPFeature", "ptr", hMonitor, "char", bVCPCode, "uint", dwNewValue, "int")
+        result := DllCall("dxva2.dll\SetVCPFeature", "ptr", _hMonitor, "char", bVCPCode, "uint", dwNewValue, "int")
         return result
     }
 
@@ -4019,17 +4019,17 @@ class Display {
      *       
      * 
      * This low-level function is identical to the high-level function <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-savecurrentmonitorsettings">SaveCurrentMonitorSettings</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-savecurrentsettings
      * @since windows6.0.6000
      */
-    static SaveCurrentSettings(hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SaveCurrentSettings(_hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\SaveCurrentSettings", "ptr", hMonitor, "int")
+        result := DllCall("dxva2.dll\SaveCurrentSettings", "ptr", _hMonitor, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4041,20 +4041,20 @@ class Display {
      * Retrieves the length of a monitor's capabilities string.
      * @remarks
      * This function usually returns quickly, but sometimes it can take several seconds to complete.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Pointer<Integer>} pdwCapabilitiesStringLengthInCharacters Receives the length of the capabilities string, in characters, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      * @since windows6.0.6000
      */
-    static GetCapabilitiesStringLength(hMonitor, pdwCapabilitiesStringLengthInCharacters) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetCapabilitiesStringLength(_hMonitor, pdwCapabilitiesStringLengthInCharacters) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwCapabilitiesStringLengthInCharactersMarshal := pdwCapabilitiesStringLengthInCharacters is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetCapabilitiesStringLength", "ptr", hMonitor, pdwCapabilitiesStringLengthInCharactersMarshal, pdwCapabilitiesStringLengthInCharacters, "int")
+        result := DllCall("dxva2.dll\GetCapabilitiesStringLength", "ptr", _hMonitor, pdwCapabilitiesStringLengthInCharactersMarshal, pdwCapabilitiesStringLengthInCharacters, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4081,20 +4081,20 @@ class Display {
      * 
      * <div class="alert"><b>Warning</b>  Do not modify a monitor's INF file unless you are familiar with the layout of INF files and also understand the DDC/CI standard.</div>
      * <div> </div>
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {PSTR} pszASCIICapabilitiesString Pointer to a buffer that receives the monitor's capabilities string. The caller must allocate this buffer. To get the size of the string, call <a href="https://docs.microsoft.com/windows/desktop/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength">GetCapabilitiesStringLength</a>. The capabilities string is always an ASCII string. The buffer must include space for the terminating null character.
      * @param {Integer} dwCapabilitiesStringLengthInCharacters Size of <i>pszASCIICapabilitiesString</i> in characters, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-capabilitiesrequestandcapabilitiesreply
      * @since windows6.0.6000
      */
-    static CapabilitiesRequestAndCapabilitiesReply(hMonitor, pszASCIICapabilitiesString, dwCapabilitiesStringLengthInCharacters) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static CapabilitiesRequestAndCapabilitiesReply(_hMonitor, pszASCIICapabilitiesString, dwCapabilitiesStringLengthInCharacters) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
         pszASCIICapabilitiesString := pszASCIICapabilitiesString is String ? StrPtr(pszASCIICapabilitiesString) : pszASCIICapabilitiesString
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\CapabilitiesRequestAndCapabilitiesReply", "ptr", hMonitor, "ptr", pszASCIICapabilitiesString, "uint", dwCapabilitiesStringLengthInCharacters, "int")
+        result := DllCall("dxva2.dll\CapabilitiesRequestAndCapabilitiesReply", "ptr", _hMonitor, "ptr", pszASCIICapabilitiesString, "uint", dwCapabilitiesStringLengthInCharacters, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4109,18 +4109,18 @@ class Display {
      *       
      * 
      * This function takes about 50 milliseconds to return.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Pointer<MC_TIMING_REPORT>} pmtrMonitorTimingReport Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ns-lowlevelmonitorconfigurationapi-mc_timing_report">MC_TIMING_REPORT</a> structure that receives the timing information.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-gettimingreport
      * @since windows6.0.6000
      */
-    static GetTimingReport(hMonitor, pmtrMonitorTimingReport) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetTimingReport(_hMonitor, pmtrMonitorTimingReport) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetTimingReport", "ptr", hMonitor, "ptr", pmtrMonitorTimingReport, "int")
+        result := DllCall("dxva2.dll\GetTimingReport", "ptr", _hMonitor, "ptr", pmtrMonitorTimingReport, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4240,7 +4240,7 @@ class Display {
      * <td>The monitor supports 11,500 K color temperature.</td>
      * </tr>
      * </table>
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Pointer<Integer>} pdwMonitorCapabilities Receives a bitwise <b>OR</b> of capabilities flags. See Remarks.
      * @param {Pointer<Integer>} pdwSupportedColorTemperatures Receives a bitwise <b>OR</b> of color temperature flags. See Remarks.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <b>GetLastError</b>.
@@ -4249,13 +4249,13 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities
      * @since windows6.0.6000
      */
-    static GetMonitorCapabilities(hMonitor, pdwMonitorCapabilities, pdwSupportedColorTemperatures) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorCapabilities(_hMonitor, pdwMonitorCapabilities, pdwSupportedColorTemperatures) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwMonitorCapabilitiesMarshal := pdwMonitorCapabilities is VarRef ? "uint*" : "ptr"
         pdwSupportedColorTemperaturesMarshal := pdwSupportedColorTemperatures is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dxva2.dll\GetMonitorCapabilities", "ptr", hMonitor, pdwMonitorCapabilitiesMarshal, pdwMonitorCapabilities, pdwSupportedColorTemperaturesMarshal, pdwSupportedColorTemperatures, "int")
+        result := DllCall("dxva2.dll\GetMonitorCapabilities", "ptr", _hMonitor, pdwMonitorCapabilitiesMarshal, pdwMonitorCapabilities, pdwSupportedColorTemperaturesMarshal, pdwSupportedColorTemperatures, "int")
         return result
     }
 
@@ -4266,17 +4266,17 @@ class Display {
      *       
      * 
      * This high-level function is identical to the low-level function <a href="https://docs.microsoft.com/windows/desktop/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-savecurrentsettings">SaveCurrentSettings</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-savecurrentmonitorsettings
      * @since windows6.0.6000
      */
-    static SaveCurrentMonitorSettings(hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SaveCurrentMonitorSettings(_hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\SaveCurrentMonitorSettings", "ptr", hMonitor, "int")
+        result := DllCall("dxva2.dll\SaveCurrentMonitorSettings", "ptr", _hMonitor, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4291,20 +4291,20 @@ class Display {
      *       
      * 
      * Some monitor technologies do not support certain monitor configuration functions. For example, the <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-degaussmonitor">DegaussMonitor</a> function is supported only for cathode ray tube (CRT) monitors. To find out whether a specific function is supported, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Pointer<Integer>} pdtyDisplayTechnologyType Receives the technology type, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type">MC_DISPLAY_TECHNOLOGY_TYPE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitortechnologytype
      * @since windows6.0.6000
      */
-    static GetMonitorTechnologyType(hMonitor, pdtyDisplayTechnologyType) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorTechnologyType(_hMonitor, pdtyDisplayTechnologyType) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdtyDisplayTechnologyTypeMarshal := pdtyDisplayTechnologyType is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorTechnologyType", "ptr", hMonitor, pdtyDisplayTechnologyTypeMarshal, pdtyDisplayTechnologyType, "int")
+        result := DllCall("dxva2.dll\GetMonitorTechnologyType", "ptr", _hMonitor, pdtyDisplayTechnologyTypeMarshal, pdtyDisplayTechnologyType, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4322,7 +4322,7 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Pointer<Integer>} pdwMinimumBrightness Receives the monitor's minimum brightness.
      * @param {Pointer<Integer>} pdwCurrentBrightness Receives the monitor's current brightness.
      * @param {Pointer<Integer>} pdwMaximumBrightness Receives the monitor's maximum brightness.
@@ -4330,8 +4330,8 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness
      * @since windows6.0.6000
      */
-    static GetMonitorBrightness(hMonitor, pdwMinimumBrightness, pdwCurrentBrightness, pdwMaximumBrightness) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorBrightness(_hMonitor, pdwMinimumBrightness, pdwCurrentBrightness, pdwMaximumBrightness) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwMinimumBrightnessMarshal := pdwMinimumBrightness is VarRef ? "uint*" : "ptr"
         pdwCurrentBrightnessMarshal := pdwCurrentBrightness is VarRef ? "uint*" : "ptr"
@@ -4339,7 +4339,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorBrightness", "ptr", hMonitor, pdwMinimumBrightnessMarshal, pdwMinimumBrightness, pdwCurrentBrightnessMarshal, pdwCurrentBrightness, pdwMaximumBrightnessMarshal, pdwMaximumBrightness, "int")
+        result := DllCall("dxva2.dll\GetMonitorBrightness", "ptr", _hMonitor, pdwMinimumBrightnessMarshal, pdwMinimumBrightness, pdwCurrentBrightnessMarshal, pdwCurrentBrightness, pdwMaximumBrightnessMarshal, pdwMaximumBrightness, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4357,7 +4357,7 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Pointer<Integer>} pdwMinimumContrast Receives the monitor's minimum contrast.
      * @param {Pointer<Integer>} pdwCurrentContrast Receives the monitor's current contrast.
      * @param {Pointer<Integer>} pdwMaximumContrast Receives the monitor's maximum contrast.
@@ -4365,8 +4365,8 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcontrast
      * @since windows6.0.6000
      */
-    static GetMonitorContrast(hMonitor, pdwMinimumContrast, pdwCurrentContrast, pdwMaximumContrast) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorContrast(_hMonitor, pdwMinimumContrast, pdwCurrentContrast, pdwMaximumContrast) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwMinimumContrastMarshal := pdwMinimumContrast is VarRef ? "uint*" : "ptr"
         pdwCurrentContrastMarshal := pdwCurrentContrast is VarRef ? "uint*" : "ptr"
@@ -4374,7 +4374,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorContrast", "ptr", hMonitor, pdwMinimumContrastMarshal, pdwMinimumContrast, pdwCurrentContrastMarshal, pdwCurrentContrast, pdwMaximumContrastMarshal, pdwMaximumContrast, "int")
+        result := DllCall("dxva2.dll\GetMonitorContrast", "ptr", _hMonitor, pdwMinimumContrastMarshal, pdwMinimumContrast, pdwCurrentContrastMarshal, pdwCurrentContrast, pdwMaximumContrastMarshal, pdwMaximumContrast, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4389,20 +4389,20 @@ class Display {
      *       
      * 
      * This function takes between 0 and 80 milliseconds to return.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Pointer<Integer>} pctCurrentColorTemperature Receives the monitor's current color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcolortemperature
      * @since windows6.0.6000
      */
-    static GetMonitorColorTemperature(hMonitor, pctCurrentColorTemperature) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorColorTemperature(_hMonitor, pctCurrentColorTemperature) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pctCurrentColorTemperatureMarshal := pctCurrentColorTemperature is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorColorTemperature", "ptr", hMonitor, pctCurrentColorTemperatureMarshal, pctCurrentColorTemperature, "int")
+        result := DllCall("dxva2.dll\GetMonitorColorTemperature", "ptr", _hMonitor, pctCurrentColorTemperatureMarshal, pctCurrentColorTemperature, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4420,7 +4420,7 @@ class Display {
      *       
      * 
      * The drive settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue drive value.
      * @param {Pointer<Integer>} pdwMinimumDrive Receives the minimum red, green, or blue drive value.
      * @param {Pointer<Integer>} pdwCurrentDrive Receives the current red, green, or blue drive value.
@@ -4429,8 +4429,8 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluedrive
      * @since windows6.0.6000
      */
-    static GetMonitorRedGreenOrBlueDrive(hMonitor, dtDriveType, pdwMinimumDrive, pdwCurrentDrive, pdwMaximumDrive) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorRedGreenOrBlueDrive(_hMonitor, dtDriveType, pdwMinimumDrive, pdwCurrentDrive, pdwMaximumDrive) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwMinimumDriveMarshal := pdwMinimumDrive is VarRef ? "uint*" : "ptr"
         pdwCurrentDriveMarshal := pdwCurrentDrive is VarRef ? "uint*" : "ptr"
@@ -4438,7 +4438,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueDrive", "ptr", hMonitor, "int", dtDriveType, pdwMinimumDriveMarshal, pdwMinimumDrive, pdwCurrentDriveMarshal, pdwCurrentDrive, pdwMaximumDriveMarshal, pdwMaximumDrive, "int")
+        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueDrive", "ptr", _hMonitor, "int", dtDriveType, pdwMinimumDriveMarshal, pdwMinimumDrive, pdwCurrentDriveMarshal, pdwCurrentDrive, pdwMaximumDriveMarshal, pdwMaximumDrive, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4459,7 +4459,7 @@ class Display {
      *       
      * 
      * The gain settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue gain value.
      * @param {Pointer<Integer>} pdwMinimumGain Receives the minimum red, green, or blue gain value.
      * @param {Pointer<Integer>} pdwCurrentGain Receives the current red, green, or blue gain value.
@@ -4468,8 +4468,8 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluegain
      * @since windows6.0.6000
      */
-    static GetMonitorRedGreenOrBlueGain(hMonitor, gtGainType, pdwMinimumGain, pdwCurrentGain, pdwMaximumGain) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorRedGreenOrBlueGain(_hMonitor, gtGainType, pdwMinimumGain, pdwCurrentGain, pdwMaximumGain) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwMinimumGainMarshal := pdwMinimumGain is VarRef ? "uint*" : "ptr"
         pdwCurrentGainMarshal := pdwCurrentGain is VarRef ? "uint*" : "ptr"
@@ -4477,7 +4477,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueGain", "ptr", hMonitor, "int", gtGainType, pdwMinimumGainMarshal, pdwMinimumGain, pdwCurrentGainMarshal, pdwCurrentGain, pdwMaximumGainMarshal, pdwMaximumGain, "int")
+        result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueGain", "ptr", _hMonitor, "int", gtGainType, pdwMinimumGainMarshal, pdwMinimumGain, pdwCurrentGainMarshal, pdwCurrentGain, pdwMaximumGainMarshal, pdwMaximumGain, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4495,18 +4495,18 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} dwNewBrightness Brightness value. To get the monitor's minimum and maximum brightness values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness">GetMonitorBrightness</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorbrightness
      * @since windows6.0.6000
      */
-    static SetMonitorBrightness(hMonitor, dwNewBrightness) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetMonitorBrightness(_hMonitor, dwNewBrightness) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\SetMonitorBrightness", "ptr", hMonitor, "uint", dwNewBrightness, "int")
+        result := DllCall("dxva2.dll\SetMonitorBrightness", "ptr", _hMonitor, "uint", dwNewBrightness, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4524,18 +4524,18 @@ class Display {
      *       
      * 
      * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} dwNewContrast Contrast value. To get the monitor's minimum and maximum contrast values, call, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcontrast">GetMonitorContrast</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorcontrast
      * @since windows6.0.6000
      */
-    static SetMonitorContrast(hMonitor, dwNewContrast) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetMonitorContrast(_hMonitor, dwNewContrast) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\SetMonitorContrast", "ptr", hMonitor, "uint", dwNewContrast, "int")
+        result := DllCall("dxva2.dll\SetMonitorContrast", "ptr", _hMonitor, "uint", dwNewContrast, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4553,18 +4553,18 @@ class Display {
      *       
      * 
      * This function takes from 50 to 90 milliseconds to return.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} ctCurrentColorTemperature Color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorcolortemperature
      * @since windows6.0.6000
      */
-    static SetMonitorColorTemperature(hMonitor, ctCurrentColorTemperature) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetMonitorColorTemperature(_hMonitor, ctCurrentColorTemperature) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\SetMonitorColorTemperature", "ptr", hMonitor, "int", ctCurrentColorTemperature, "int")
+        result := DllCall("dxva2.dll\SetMonitorColorTemperature", "ptr", _hMonitor, "int", ctCurrentColorTemperature, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4588,17 +4588,17 @@ class Display {
      *       
      * 
      * The drive settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to set the red, green, or blue drive value.
      * @param {Integer} dwNewDrive Red, green, or blue drive value. To get the monitor's minimum and maximum drive values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluedrive">GetMonitorRedGreenOrBlueDrive</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorredgreenorbluedrive
      * @since windows6.0.6000
      */
-    static SetMonitorRedGreenOrBlueDrive(hMonitor, dtDriveType, dwNewDrive) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetMonitorRedGreenOrBlueDrive(_hMonitor, dtDriveType, dwNewDrive) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueDrive", "ptr", hMonitor, "int", dtDriveType, "uint", dwNewDrive, "int")
+        result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueDrive", "ptr", _hMonitor, "int", dtDriveType, "uint", dwNewDrive, "int")
         return result
     }
 
@@ -4618,17 +4618,17 @@ class Display {
      *       
      * 
      * The gain settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to set the red, green, or blue gain.
      * @param {Integer} dwNewGain Red, green, or blue gain value. To get the monitor's minimum and maximum gain values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluegain">GetMonitorRedGreenOrBlueGain</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorredgreenorbluegain
      * @since windows6.0.6000
      */
-    static SetMonitorRedGreenOrBlueGain(hMonitor, gtGainType, dwNewGain) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetMonitorRedGreenOrBlueGain(_hMonitor, gtGainType, dwNewGain) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
-        result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueGain", "ptr", hMonitor, "int", gtGainType, "uint", dwNewGain, "int")
+        result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueGain", "ptr", _hMonitor, "int", gtGainType, "uint", dwNewGain, "int")
         return result
     }
 
@@ -4642,17 +4642,17 @@ class Display {
      *       
      * 
      * This function should not be called frequently, because calling it frequently will not noticeably improve the monitor's image quality or color fidelity.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-degaussmonitor
      * @since windows6.0.6000
      */
-    static DegaussMonitor(hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static DegaussMonitor(_hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\DegaussMonitor", "ptr", hMonitor, "int")
+        result := DllCall("dxva2.dll\DegaussMonitor", "ptr", _hMonitor, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4670,7 +4670,7 @@ class Display {
      *       
      * 
      * The width and height settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to retrieve the width or the height.
      * @param {Pointer<Integer>} pdwMinimumWidthOrHeight Receives the minimum width or height.
      * @param {Pointer<Integer>} pdwCurrentWidthOrHeight Receives the current width or height.
@@ -4679,8 +4679,8 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareasize
      * @since windows6.0.6000
      */
-    static GetMonitorDisplayAreaSize(hMonitor, stSizeType, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeight) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorDisplayAreaSize(_hMonitor, stSizeType, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeight) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwMinimumWidthOrHeightMarshal := pdwMinimumWidthOrHeight is VarRef ? "uint*" : "ptr"
         pdwCurrentWidthOrHeightMarshal := pdwCurrentWidthOrHeight is VarRef ? "uint*" : "ptr"
@@ -4688,7 +4688,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, pdwMinimumWidthOrHeightMarshal, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeightMarshal, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeightMarshal, pdwMaximumWidthOrHeight, "int")
+        result := DllCall("dxva2.dll\GetMonitorDisplayAreaSize", "ptr", _hMonitor, "int", stSizeType, pdwMinimumWidthOrHeightMarshal, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeightMarshal, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeightMarshal, pdwMaximumWidthOrHeight, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4706,7 +4706,7 @@ class Display {
      *       
      * 
      * The horizontal and vertical position are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to retrieve the horizontal position or the vertical position.
      * @param {Pointer<Integer>} pdwMinimumPosition Receives the minimum horizontal or vertical position.
      * @param {Pointer<Integer>} pdwCurrentPosition Receives the current horizontal or vertical position.
@@ -4715,8 +4715,8 @@ class Display {
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareaposition
      * @since windows6.0.6000
      */
-    static GetMonitorDisplayAreaPosition(hMonitor, ptPositionType, pdwMinimumPosition, pdwCurrentPosition, pdwMaximumPosition) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorDisplayAreaPosition(_hMonitor, ptPositionType, pdwMinimumPosition, pdwCurrentPosition, pdwMaximumPosition) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         pdwMinimumPositionMarshal := pdwMinimumPosition is VarRef ? "uint*" : "ptr"
         pdwCurrentPositionMarshal := pdwCurrentPosition is VarRef ? "uint*" : "ptr"
@@ -4724,7 +4724,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, pdwMinimumPositionMarshal, pdwMinimumPosition, pdwCurrentPositionMarshal, pdwCurrentPosition, pdwMaximumPositionMarshal, pdwMaximumPosition, "int")
+        result := DllCall("dxva2.dll\GetMonitorDisplayAreaPosition", "ptr", _hMonitor, "int", ptPositionType, pdwMinimumPositionMarshal, pdwMinimumPosition, pdwCurrentPositionMarshal, pdwCurrentPosition, pdwMaximumPositionMarshal, pdwMaximumPosition, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4742,19 +4742,19 @@ class Display {
      *       
      * 
      * The width and height settings are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to set the width or the height.
      * @param {Integer} dwNewDisplayAreaWidthOrHeight Display area width or height. To get the minimum and maximum width and height, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareasize">GetMonitorDisplayAreaSize</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitordisplayareasize
      * @since windows6.0.6000
      */
-    static SetMonitorDisplayAreaSize(hMonitor, stSizeType, dwNewDisplayAreaWidthOrHeight) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetMonitorDisplayAreaSize(_hMonitor, stSizeType, dwNewDisplayAreaWidthOrHeight) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\SetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, "uint", dwNewDisplayAreaWidthOrHeight, "int")
+        result := DllCall("dxva2.dll\SetMonitorDisplayAreaSize", "ptr", _hMonitor, "int", stSizeType, "uint", dwNewDisplayAreaWidthOrHeight, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4772,19 +4772,19 @@ class Display {
      *       
      * 
      * The horizontal and vertical position are continuous monitor settings. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @param {Integer} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to set the horizontal position or the vertical position.
      * @param {Integer} dwNewPosition Horizontal or vertical position. To get the minimum and maximum position, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareaposition">GetMonitorDisplayAreaPosition</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitordisplayareaposition
      * @since windows6.0.6000
      */
-    static SetMonitorDisplayAreaPosition(hMonitor, ptPositionType, dwNewPosition) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static SetMonitorDisplayAreaPosition(_hMonitor, ptPositionType, dwNewPosition) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\SetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, "uint", dwNewPosition, "int")
+        result := DllCall("dxva2.dll\SetMonitorDisplayAreaPosition", "ptr", _hMonitor, "int", ptPositionType, "uint", dwNewPosition, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4811,17 +4811,17 @@ class Display {
      * <li>Display area position</li>
      * <li>Capabilities flags</li>
      * </ul>
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-restoremonitorfactorycolordefaults
      * @since windows6.0.6000
      */
-    static RestoreMonitorFactoryColorDefaults(hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static RestoreMonitorFactoryColorDefaults(_hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\RestoreMonitorFactoryColorDefaults", "ptr", hMonitor, "int")
+        result := DllCall("dxva2.dll\RestoreMonitorFactoryColorDefaults", "ptr", _hMonitor, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -4842,17 +4842,17 @@ class Display {
      *       
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a> returns the MC_RESTORE_FACTORY_DEFAULTS_ENABLES_MONITOR_SETTINGS flag, this function also enables all of the monitor settings that are supported by the high-level functions. It is sometimes possible for an application to disable certain settings by calling the low-level functions. It is also possible for the user to disable certain settings by adjusting settings on the monitor's physical control panel. If that happens, the setting can only be re-enabled through the control panel or by calling <b>RestoreMonitorFactoryDefaults</b>. It is not possible to disable any settings by using the high-level functions.
-     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} _hMonitor 
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-restoremonitorfactorydefaults
      * @since windows6.0.6000
      */
-    static RestoreMonitorFactoryDefaults(hMonitor) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static RestoreMonitorFactoryDefaults(_hMonitor) {
+        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\RestoreMonitorFactoryDefaults", "ptr", hMonitor, "int")
+        result := DllCall("dxva2.dll\RestoreMonitorFactoryDefaults", "ptr", _hMonitor, "int")
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -5632,17 +5632,17 @@ class Display {
      * The EngCreateDeviceSurface function creates and returns a handle for a device surface that the driver will manage.
      * @remarks
      * The storage space for the surface can optionally be provided by the driver. The surface should be associated by using <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engassociatesurface">EngAssociateSurface</a>. The surface should be deleted when it is no longer needed by using <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engdeletesurface">EngDeleteSurface</a>.
-     * @param {DHSURF} dhsurf Device handle to the surface to be managed by the device. This handle is passed to the driver when a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure is passed for input or output.
+     * @param {DHSURF} _dhsurf 
      * @param {SIZE} sizl Specifies a SIZEL structure that contains the width and height of the surface to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the surface's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @param {Integer} iFormatCompat Specifies the compatible engine format of the device surface being created. This is used by GDI if a temporary buffer is needed to simulate a complicated drawing call.
      * @returns {HSURF} The return value is a handle that identifies the surface if the function is successful. Otherwise, it is zero, and an error code is logged.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engcreatedevicesurface
      * @since windows5.0
      */
-    static EngCreateDeviceSurface(dhsurf, sizl, iFormatCompat) {
-        dhsurf := dhsurf is Win32Handle ? NumGet(dhsurf, "ptr") : dhsurf
+    static EngCreateDeviceSurface(_dhsurf, sizl, iFormatCompat) {
+        _dhsurf := _dhsurf is Win32Handle ? NumGet(_dhsurf, "ptr") : _dhsurf
 
-        result := DllCall("GDI32.dll\EngCreateDeviceSurface", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
+        result := DllCall("GDI32.dll\EngCreateDeviceSurface", "ptr", _dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
         resultHandle := HSURF({Value: result}, True)
         return resultHandle
     }
@@ -5651,32 +5651,32 @@ class Display {
      * The EngCreateDeviceBitmap function requests GDI to create a handle for a device bitmap.
      * @remarks
      * The surface should be associated by using <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engassociatesurface">EngAssociateSurface</a>. The bitmap should be deleted by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engdeletesurface">EngDeleteSurface</a> when it is no longer needed.
-     * @param {DHSURF} dhsurf Device handle to the device bitmap to be created.
+     * @param {DHSURF} _dhsurf 
      * @param {SIZE} sizl Specifies a SIZEL structure that contains the width and height of the bitmap to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the bitmap's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @param {Integer} iFormatCompat Specifies the compatible engine format of the device surface being created. This is used by GDI if a temporary buffer is needed to simulate a complicated drawing call. The allowable values for <i>iFormatCompat</i> are BMF_1BPP, BMF_4BPP, BMF_8BPP, BMF_16BPP, BMF_24BPP, and BMF_32BPP.
      * @returns {HBITMAP} The return value is a handle that identifies the bitmap if the function is successful. Otherwise, it is zero, and an error code is logged.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engcreatedevicebitmap
      * @since windows5.0
      */
-    static EngCreateDeviceBitmap(dhsurf, sizl, iFormatCompat) {
-        dhsurf := dhsurf is Win32Handle ? NumGet(dhsurf, "ptr") : dhsurf
+    static EngCreateDeviceBitmap(_dhsurf, sizl, iFormatCompat) {
+        _dhsurf := _dhsurf is Win32Handle ? NumGet(_dhsurf, "ptr") : _dhsurf
 
-        result := DllCall("GDI32.dll\EngCreateDeviceBitmap", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
+        result := DllCall("GDI32.dll\EngCreateDeviceBitmap", "ptr", _dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
     }
 
     /**
      * The EngDeleteSurface function deletes the specified surface.
-     * @param {HSURF} hsurf Handle to the surface to delete. This handle can be an HSURF or HBM.
+     * @param {HSURF} _hsurf 
      * @returns {BOOL} <b>EngDeleteSurface</b> returns <b>TRUE</b> if it is successful in deleting the surface. Otherwise, it returns <b>FALSE</b> and an error code is logged.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engdeletesurface
      * @since windows5.0
      */
-    static EngDeleteSurface(hsurf) {
-        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
+    static EngDeleteSurface(_hsurf) {
+        _hsurf := _hsurf is Win32Handle ? NumGet(_hsurf, "ptr") : _hsurf
 
-        result := DllCall("GDI32.dll\EngDeleteSurface", "ptr", hsurf, "int")
+        result := DllCall("GDI32.dll\EngDeleteSurface", "ptr", _hsurf, "int")
         return result
     }
 
@@ -5688,15 +5688,15 @@ class Display {
      * The driver is responsible for unlocking the surface when it no longer needs it. Surfaces should be locked only for very short periods of time.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engunlocksurface">EngUnlockSurface</a> function to unlock the surface.
-     * @param {HSURF} hsurf Handle to the surface to be locked.
+     * @param {HSURF} _hsurf 
      * @returns {Pointer<SURFOBJ>} <b>EngLockSurface</b> returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure if the function is successful. Otherwise, this function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-englocksurface
      * @since windows5.0
      */
-    static EngLockSurface(hsurf) {
-        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
+    static EngLockSurface(_hsurf) {
+        _hsurf := _hsurf is Win32Handle ? NumGet(_hsurf, "ptr") : _hsurf
 
-        result := DllCall("GDI32.dll\EngLockSurface", "ptr", hsurf, "ptr")
+        result := DllCall("GDI32.dll\EngLockSurface", "ptr", _hsurf, "ptr")
         return result
     }
 
@@ -5739,18 +5739,18 @@ class Display {
      * By default, when a driver supports device bitmaps by implementing <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcreatedevicebitmap">DrvCreateDeviceBitmap</a>/<a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvdeletedevicebitmap">DrvDeleteDeviceBitmap</a>, GDI does not automatically synchronize drawing calls to the device bitmap and to the primary surface. For example, GDI can call the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvbitblt">DrvBitBlt</a> function to draw to a device bitmap, while another thread is drawing to the primary surface by executing the driver's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvtextout">DrvTextOut</a>. The driver can even be called to draw to multiple device bitmaps at the same time.
      * 
      * After <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenablesurface">DrvEnableSurface</a> returns a handle to a primary surface, do not call <b>EngAssociateSurface</b> on that handle. Doing so can cause a bug check in certain circumstances. For more information, see <a href="https://support.microsoft.com/?kbid&amp;ID=330248">Microsoft Knowledge Base article 330248</a>.
-     * @param {HSURF} hsurf Handle to the surface or bitmap to be associated with <i>hdev</i>. This handle was returned by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatebitmap">EngCreateBitmap</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatedevicebitmap">EngCreateDeviceBitmap</a>.
-     * @param {HDEV} hdev Handle to the device with which the surface is to be associated. This is the GDI-created handle that was passed to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a> function.
+     * @param {HSURF} _hsurf 
+     * @param {HDEV} _hdev 
      * @param {Integer} flHooks 
      * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, the driver should send the information to the GDI function it is implementing, and return GDI's return value.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engassociatesurface
      * @since windows5.0
      */
-    static EngAssociateSurface(hsurf, hdev, flHooks) {
-        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
-        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+    static EngAssociateSurface(_hsurf, _hdev, flHooks) {
+        _hsurf := _hsurf is Win32Handle ? NumGet(_hsurf, "ptr") : _hsurf
+        _hdev := _hdev is Win32Handle ? NumGet(_hdev, "ptr") : _hdev
 
-        result := DllCall("GDI32.dll\EngAssociateSurface", "ptr", hsurf, "ptr", hdev, "uint", flHooks, "int")
+        result := DllCall("GDI32.dll\EngAssociateSurface", "ptr", _hsurf, "ptr", _hdev, "uint", flHooks, "int")
         return result
     }
 
@@ -5762,15 +5762,15 @@ class Display {
      * The handle supplied for <i>hsurf</i> must be a bitmap handle returned by <b>EngCreateBitmap</b>.
      * 
      * If a printer graphics DLL calls <b>EngMarkBandingSurface</b>, it must define <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvstartbanding">DrvStartBanding</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvnextband">DrvNextBand</a> functions.
-     * @param {HSURF} hsurf Caller-supplied handle to the surface to mark as a banding surface.
+     * @param {HSURF} _hsurf 
      * @returns {BOOL} <b>EngMarkBandingSurface</b> returns <b>TRUE</b> upon success; otherwise it returns <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engmarkbandingsurface
      * @since windows5.0
      */
-    static EngMarkBandingSurface(hsurf) {
-        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
+    static EngMarkBandingSurface(_hsurf) {
+        _hsurf := _hsurf is Win32Handle ? NumGet(_hsurf, "ptr") : _hsurf
 
-        result := DllCall("GDI32.dll\EngMarkBandingSurface", "ptr", hsurf, "int")
+        result := DllCall("GDI32.dll\EngMarkBandingSurface", "ptr", _hsurf, "int")
         return result
     }
 
@@ -6495,29 +6495,29 @@ class Display {
 
     /**
      * The EngGetPrinterDataFileName function retrieves the string name of the printer's data file.
-     * @param {HDEV} hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
+     * @param {HDEV} _hdev 
      * @returns {PWSTR} <b>EngGetPrinterDataFileName</b> returns a pointer to the null-terminated string buffer in which the name of the printer's data file is specified. The system obtains and stores the printer's data file name from the DRIVER_INFO_2 structure (described in the Microsoft Windows SDK documentation) when the driver is first installed through the Microsoft Win32 <b>AddPrinterDriver</b> routine.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-enggetprinterdatafilename
      * @since windows5.0
      */
-    static EngGetPrinterDataFileName(hdev) {
-        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+    static EngGetPrinterDataFileName(_hdev) {
+        _hdev := _hdev is Win32Handle ? NumGet(_hdev, "ptr") : _hdev
 
-        result := DllCall("GDI32.dll\EngGetPrinterDataFileName", "ptr", hdev, "ptr")
+        result := DllCall("GDI32.dll\EngGetPrinterDataFileName", "ptr", _hdev, "ptr")
         return result
     }
 
     /**
      * The EngGetDriverName function returns the name of the driver's DLL.
-     * @param {HDEV} hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
+     * @param {HDEV} _hdev 
      * @returns {PWSTR} <b>EngGetDriverName</b> returns a pointer to the null-terminated string buffer in which the name of the driver's DLL is specified. The system obtains and stores the driver's name from the DRIVER_INFO_2 structure when the driver is first installed through the Win32 <b>AddPrinterDriver</b> routine.
      * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-enggetdrivername
      * @since windows5.0
      */
-    static EngGetDriverName(hdev) {
-        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+    static EngGetDriverName(_hdev) {
+        _hdev := _hdev is Win32Handle ? NumGet(_hdev, "ptr") : _hdev
 
-        result := DllCall("GDI32.dll\EngGetDriverName", "ptr", hdev, "ptr")
+        result := DllCall("GDI32.dll\EngGetDriverName", "ptr", _hdev, "ptr")
         return result
     }
 
@@ -6766,14 +6766,14 @@ class Display {
 
     /**
      * 
-     * @param {HDEV} hdev 
+     * @param {HDEV} _hdev 
      * @param {Pointer<EMFINFO>} pEMFInfo 
      * @returns {BOOL} 
      */
-    static EngQueryEMFInfo(hdev, pEMFInfo) {
-        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+    static EngQueryEMFInfo(_hdev, pEMFInfo) {
+        _hdev := _hdev is Win32Handle ? NumGet(_hdev, "ptr") : _hdev
 
-        result := DllCall("GDI32.dll\EngQueryEMFInfo", "ptr", hdev, "ptr", pEMFInfo, "int")
+        result := DllCall("GDI32.dll\EngQueryEMFInfo", "ptr", _hdev, "ptr", pEMFInfo, "int")
         return result
     }
 

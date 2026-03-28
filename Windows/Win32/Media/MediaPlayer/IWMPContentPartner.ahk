@@ -290,7 +290,7 @@ class IWMPContentPartner extends IUnknown{
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetCommands method retrieves context menu commands.
      * @remarks
      * This method must call <b>CoTaskMemAlloc</b> to allocate the array that it returns in <i>pprgItems</i>.
-     * @param {BSTR} location A <a href="https://docs.microsoft.com/windows/desktop/WMP/library-location-constants">library location constant</a> that specifies the type of library view where the user right-clicked. For example, the constant g_szCPGenreID indicates that the user right-clicked in the view of a particular genre
+     * @param {BSTR} _location 
      * @param {Pointer<VARIANT>} pLocationContext The ID of the specific view where the user right-clicked. For example, if <i>location</i> is g_szCPGenreID, this parameter is the ID of the particular genre the user was viewing when he or she right-clicked.
      * @param {BSTR} itemLocation A library location constant that indicates the type of the media item or items that were selected when the user right-clicked. For example, the constant g_szCPAlbumID specifies that the user right-clicked when one or more albums were selected.
      * @param {Integer} cItemIDs The number of items that were selected when the user right-clicked. This is the number of elements in the <i>prgItemIDs</i> array.
@@ -318,22 +318,22 @@ class IWMPContentPartner extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcommands
      */
-    GetCommands(location, pLocationContext, itemLocation, cItemIDs, prgItemIDs, pcItemIDs, pprgItems) {
-        location := location is String ? BSTR.Alloc(location).Value : location
+    GetCommands(_location, pLocationContext, itemLocation, cItemIDs, prgItemIDs, pcItemIDs, pprgItems) {
+        _location := _location is String ? BSTR.Alloc(_location).Value : _location
         itemLocation := itemLocation is String ? BSTR.Alloc(itemLocation).Value : itemLocation
 
         prgItemIDsMarshal := prgItemIDs is VarRef ? "uint*" : "ptr"
         pcItemIDsMarshal := pcItemIDs is VarRef ? "uint*" : "ptr"
         pprgItemsMarshal := pprgItems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, pprgItemsMarshal, pprgItems, "HRESULT")
+        result := ComCall(7, this, "ptr", _location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, pprgItemsMarshal, pprgItems, "HRESULT")
         return result
     }
 
     /**
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The InvokeCommand method invokes a context menu command.
      * @param {Integer} dwCommandID ID of the command to invoke. Windows Media Player previously obtained this command ID from the content partner plug-in by calling <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcommands">IWMPContentPartner::GetCommands</a>.
-     * @param {BSTR} location A library location constant that specifies the type of library view where the user right-clicked. For example, the constant g_szCPGenreID specifies that the user right-clicked in the view of a particular genre.
+     * @param {BSTR} _location 
      * @param {Pointer<VARIANT>} pLocationContext TheID of the specific view where the user right-clicked. For example, if <i>location</i> is g_szCPGenreID, then this parameter is the ID of the particular genre the user was viewing when he or she right-clicked.
      * @param {BSTR} itemLocation A library location constant that specifies the type of the media item or items that were selected when the user right-clicked. For example, the constant g_szCPAlbumID specifies that the user right-clicked when one or more albums were selected.
      * @param {Integer} cItemIDs The number of items that were selected when the user right-clicked. This is the number of elements in the <i>rgItemIDs</i> array.
@@ -359,13 +359,13 @@ class IWMPContentPartner extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-invokecommand
      */
-    InvokeCommand(dwCommandID, location, pLocationContext, itemLocation, cItemIDs, rgItemIDs) {
-        location := location is String ? BSTR.Alloc(location).Value : location
+    InvokeCommand(dwCommandID, _location, pLocationContext, itemLocation, cItemIDs, rgItemIDs) {
+        _location := _location is String ? BSTR.Alloc(_location).Value : _location
         itemLocation := itemLocation is String ? BSTR.Alloc(itemLocation).Value : itemLocation
 
         rgItemIDsMarshal := rgItemIDs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwCommandID, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, rgItemIDsMarshal, rgItemIDs, "HRESULT")
+        result := ComCall(8, this, "uint", dwCommandID, "ptr", _location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, rgItemIDsMarshal, rgItemIDs, "HRESULT")
         return result
     }
 
@@ -611,7 +611,7 @@ class IWMPContentPartner extends IUnknown{
      * 
      * Windows Media Player calls <b>GetTemplate</b> to retrieve the URL of the discovery page that it should display in the new view. The Player also receives a <b>WMPTemplateSize</b> value that indicates what portion of the new view should be occupied by the discovery page.
      * @param {Integer} task A member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmptasktype">WMPTaskType</a> enumeration that specifies the active task pane.
-     * @param {BSTR} location A <a href="https://docs.microsoft.com/windows/desktop/WMP/library-location-constants">library location constant</a> that specifies the type of library view the user is currently seeing. For example, the constant g_szCPListID specifies that the user is viewing a pane that shows a particular playlist.
+     * @param {BSTR} _location 
      * @param {Pointer<VARIANT>} pContext The ID of the specific item the user is currently seeing. For example, if <i>location</i> is g_szCPListID, then this parameter specifies the ID of the particular playlist that the user is seeing.
      * @param {BSTR} clickLocation A library location constant that specifies the type of item the user has selected. For example, the constant g_szCPTrackID specifies that the user has selected a particular music track.
      * @param {Pointer<VARIANT>} pClickContext The ID of the particular item the user has selected. For example, if <i>clickLocation</i> is g_szCPTrackID, then this parameter specifies the ID of the particular track that the user has selected.
@@ -640,15 +640,15 @@ class IWMPContentPartner extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-gettemplate
      */
-    GetTemplate(task, location, pContext, clickLocation, pClickContext, bstrFilter, bstrViewParams, pbstrTemplateURL, pTemplateSize) {
-        location := location is String ? BSTR.Alloc(location).Value : location
+    GetTemplate(task, _location, pContext, clickLocation, pClickContext, bstrFilter, bstrViewParams, pbstrTemplateURL, pTemplateSize) {
+        _location := _location is String ? BSTR.Alloc(_location).Value : _location
         clickLocation := clickLocation is String ? BSTR.Alloc(clickLocation).Value : clickLocation
         bstrFilter := bstrFilter is String ? BSTR.Alloc(bstrFilter).Value : bstrFilter
         bstrViewParams := bstrViewParams is String ? BSTR.Alloc(bstrViewParams).Value : bstrViewParams
 
         pTemplateSizeMarshal := pTemplateSize is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, "int", task, "ptr", location, "ptr", pContext, "ptr", clickLocation, "ptr", pClickContext, "ptr", bstrFilter, "ptr", bstrViewParams, "ptr", pbstrTemplateURL, pTemplateSizeMarshal, pTemplateSize, "HRESULT")
+        result := ComCall(16, this, "int", task, "ptr", _location, "ptr", pContext, "ptr", clickLocation, "ptr", pClickContext, "ptr", bstrFilter, "ptr", bstrViewParams, "ptr", pbstrTemplateURL, pTemplateSizeMarshal, pTemplateSize, "HRESULT")
         return result
     }
 
@@ -689,7 +689,7 @@ class IWMPContentPartner extends IUnknown{
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetListContents method initiates the retrieval of a dynamic list.
      * @remarks
      * Retrieving list contents is an asynchronous operation. This method should initiate the retrieval and return immediately. Then the plug-in must make one or more calls to <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-addlistcontents">IWMPContentPartnerCallback::AddListContents</a> to supply Windows Media Player with the requested list contents. When the plug-in has supplied all the data, it must call <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-listcontentscomplete">IWMPContentPartnerCallback::ListContentsComplete</a> to signal the end of the operation. In each case, the plug-in passes the cookie provided in <i>dwListCookie</i> to identify the correct list retrieval session.
-     * @param {BSTR} location A library location constant that specifies the type of library view that will have its list retrieved. For example, the constant g_szCPListID specifies that a particular list will be retrieved.
+     * @param {BSTR} _location 
      * @param {Pointer<VARIANT>} pContext The ID of the specific item that will have its list retrieved. For example, if <i>location</i> is g_szCPListID, then this parameter is the ID of the list that will be retrieved.
      * @param {BSTR} bstrListType A library location constant that specifies the type of an individual list item. For example, the constant g_szCPAlbumID specifies that the items in the list are albums.
      * @param {BSTR} bstrParams Parameters, meaningful only to the online store, associated with the retrieved list. See Remarks.
@@ -715,12 +715,12 @@ class IWMPContentPartner extends IUnknown{
      * </table>
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getlistcontents
      */
-    GetListContents(location, pContext, bstrListType, bstrParams, dwListCookie) {
-        location := location is String ? BSTR.Alloc(location).Value : location
+    GetListContents(_location, pContext, bstrListType, bstrParams, dwListCookie) {
+        _location := _location is String ? BSTR.Alloc(_location).Value : _location
         bstrListType := bstrListType is String ? BSTR.Alloc(bstrListType).Value : bstrListType
         bstrParams := bstrParams is String ? BSTR.Alloc(bstrParams).Value : bstrParams
 
-        result := ComCall(18, this, "ptr", location, "ptr", pContext, "ptr", bstrListType, "ptr", bstrParams, "uint", dwListCookie, "HRESULT")
+        result := ComCall(18, this, "ptr", _location, "ptr", pContext, "ptr", bstrListType, "ptr", bstrParams, "uint", dwListCookie, "HRESULT")
         return result
     }
 

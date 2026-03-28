@@ -66,18 +66,17 @@ class IRdcGeneratorParameters extends IUnknown{
 
     /**
      * Returns the size, in bytes, of the serialized parameter data.
-     * @returns {Integer} Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
-     *       bytes, of the serialized parameter data.
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
      */
     GetSerializeSize() {
-        result := ComCall(5, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(5, this, "uint*", &_size := 0, "HRESULT")
+        return _size
     }
 
     /**
      * Serializes the parameter data into a block of memory.
-     * @param {Integer} size The size of the buffer pointed to by the <i>parametersBlob</i> parameter.
+     * @param {Integer} _size 
      * @param {Pointer<Integer>} parametersBlob The address of a buffer to receive the serialized parameter data.
      * @param {Pointer<Integer>} bytesWritten Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
      *       bytes, of the serialized parameter data written to the buffer pointed to by the 
@@ -85,11 +84,11 @@ class IRdcGeneratorParameters extends IUnknown{
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize
      */
-    Serialize(size, parametersBlob, bytesWritten) {
+    Serialize(_size, parametersBlob, bytesWritten) {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
         bytesWrittenMarshal := bytesWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", size, parametersBlobMarshal, parametersBlob, bytesWrittenMarshal, bytesWritten, "HRESULT")
+        result := ComCall(6, this, "uint", _size, parametersBlobMarshal, parametersBlob, bytesWrittenMarshal, bytesWritten, "HRESULT")
         return result
     }
 }

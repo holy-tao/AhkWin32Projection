@@ -122,8 +122,8 @@ class ISpeechVoice extends IDispatch{
      * @returns {ISpeechVoiceStatus} 
      */
     get_Status() {
-        result := ComCall(7, this, "ptr*", &Status := 0, "HRESULT")
-        return ISpeechVoiceStatus(Status)
+        result := ComCall(7, this, "ptr*", &_Status := 0, "HRESULT")
+        return ISpeechVoiceStatus(_Status)
     }
 
     /**
@@ -261,11 +261,11 @@ class ISpeechVoice extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Priority 
+     * @param {Integer} _Priority 
      * @returns {HRESULT} 
      */
-    put_Priority(Priority) {
-        result := ComCall(22, this, "int", Priority, "HRESULT")
+    put_Priority(_Priority) {
+        result := ComCall(22, this, "int", _Priority, "HRESULT")
         return result
     }
 
@@ -274,8 +274,8 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     get_Priority() {
-        result := ComCall(23, this, "int*", &Priority := 0, "HRESULT")
-        return Priority
+        result := ComCall(23, this, "int*", &_Priority := 0, "HRESULT")
+        return _Priority
     }
 
     /**
@@ -435,8 +435,8 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     SpeakCompleteEvent() {
-        result := ComCall(36, this, "int*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(36, this, "int*", &_Handle := 0, "HRESULT")
+        return _Handle
     }
 
     /**
