@@ -55,7 +55,7 @@ class Win32Handle extends Win32Struct {
     __New(ptrOrObj := 0, ownedOrParent := true){
         if(IsObject(ownedOrParent)){
             super.__New(ptrOrObj, ownedOrParent)
-            this.owned := this._parent._owned
+            this.owned := ownedOrParent._owned
         }
         else{
             super.__New(ptrOrObj)

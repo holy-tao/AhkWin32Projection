@@ -39,6 +39,7 @@ class Win32FixedArray extends CStyleArrayList {
         ; which we don't want. Instead, wrap external memory with a plain buffer-like object.
         this.elementType := elementType
         this.dllCallType := dllCallType
+        this._owned := false
         this.__buf := {ptr: ptr, size: length * this._GetElementWidth()}
         this.__length := length
     }

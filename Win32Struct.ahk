@@ -33,11 +33,7 @@ class Win32Struct extends Object{
      *          created by the OS are not.
      * @type {Boolean}
      */
-    _owned => IsObject(this._parent) ? this._parent._owned : this.__buf is Buffer
-
-    ; Private - used for embedded structs
-    _parent := ""
-    _offset := ""
+    _owned := unset
 
     /**
      * @readonly The size of the struct for packing purposes. This value may be larger than the
@@ -79,22 +75,22 @@ class Win32Struct extends Object{
                 throw TypeError("ptrOrObj must be an Integer if parent is set, but it is a(n) " . type(ptrOrObj), , ptrOrObj)
             }
 
-            this._parent := parent
-            this._offset := Integer(ptrOrObj)
-
-            this.__buf := {ptr: this._parent.ptr + this._offset, size: size}
+            this._owned := parent._owned
+            this.__buf := {ptr: parent.ptr + ptrOrObj, size: size}
 
             return
         }
 
         ; "top-level" struct declared at an existing memory location
         if(IsInteger(ptrOrObj) && ptrOrObj != 0){
+            this._owned := false
             this.__buf := {ptr: ptrOrObj, size: size}
             return
         }
         
         ; new struct, potentially with initialization information
         this.__buf := Buffer(size, 0)
+        this._owned := true
         if(IsObject(ptrOrObj)){
             this._InitFromObject(ptrOrObj)
         }
